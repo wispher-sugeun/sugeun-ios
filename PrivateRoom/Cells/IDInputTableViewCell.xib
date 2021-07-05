@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="KGk-i7-Jjw" customClass="IDInputTableViewCell" customModule="PrivateRoom" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="373" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="373" height="60"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="no nickName" borderStyle="line" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vlF-RS-OJ8">
+                        <rect key="frame" x="88" y="10" width="217" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="Loi-Za-087"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아이디 : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEN-ue-POc">
+                        <rect key="frame" x="20" y="19.5" width="58" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rr4-FH-GSe">
+                        <rect key="frame" x="315" y="15" width="48" height="30"/>
+                        <color key="backgroundColor" red="0.34372755890000001" green="0.37692308429999999" blue="0.51766455170000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="48" id="jfJ-85-tJs"/>
+                        </constraints>
+                        <state key="normal" title="변경">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="IDChangeButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="g0R-Jd-ctG"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="vlF-RS-OJ8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="44W-de-91x"/>
+                    <constraint firstItem="zEN-ue-POc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="D4y-rb-pod"/>
+                    <constraint firstItem="Rr4-FH-GSe" firstAttribute="leading" secondItem="vlF-RS-OJ8" secondAttribute="trailing" constant="10" id="Fxo-Fo-yib"/>
+                    <constraint firstItem="Rr4-FH-GSe" firstAttribute="firstBaseline" secondItem="zEN-ue-POc" secondAttribute="firstBaseline" id="O98-sY-HoO"/>
+                    <constraint firstItem="zEN-ue-POc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="eD0-RP-hhJ"/>
+                    <constraint firstItem="vlF-RS-OJ8" firstAttribute="leading" secondItem="zEN-ue-POc" secondAttribute="trailing" constant="10" id="u6O-PV-qLx"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Rr4-FH-GSe" secondAttribute="trailing" constant="-10" id="wvV-8j-ZHo"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="IDTextField" destination="vlF-RS-OJ8" id="I9h-Ha-lJD"/>
+            </connections>
+            <point key="canvasLocation" x="83.333333333333343" y="45.535714285714285"/>
+        </tableViewCell>
+    </objects>
+</document>

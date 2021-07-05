@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="FolderCollectionViewCell" reuseIdentifier="FolderCollectionViewCell" id="gTV-IL-0wX" customClass="FolderCollectionViewCell" customModule="PrivateRoom" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="265" height="243"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="265" height="243"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lay-ba-g4M">
+                        <rect key="frame" x="0.0" y="0.0" width="265" height="243"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7JX-05-zNn">
+                                <rect key="frame" x="0.0" y="0.0" width="265" height="170"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dtb-u3-ubR">
+                                <rect key="frame" x="20" y="180" width="225" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ssf-ko-sW0">
+                                <rect key="frame" x="226" y="211" width="19" height="22"/>
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="ellipsis" catalog="system"/>
+                                <connections>
+                                    <action selector="folderEditButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Obc-Ym-VB8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1y-YR-HST">
+                                <rect key="frame" x="216" y="10" width="39" height="33"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="heart" catalog="system" symbolScale="default"/>
+                                </state>
+                                <connections>
+                                    <action selector="heartButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="JRM-aV-Vf1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="7JX-05-zNn" secondAttribute="trailing" id="MMs-ns-uBY"/>
+                            <constraint firstItem="c1y-YR-HST" firstAttribute="top" secondItem="lay-ba-g4M" secondAttribute="top" constant="10" id="NJA-RT-Qv3"/>
+                            <constraint firstItem="Dtb-u3-ubR" firstAttribute="leading" secondItem="lay-ba-g4M" secondAttribute="leading" constant="20" id="ZDT-zE-VZ2"/>
+                            <constraint firstAttribute="trailing" secondItem="Dtb-u3-ubR" secondAttribute="trailing" constant="20" id="aeS-ep-yf9"/>
+                            <constraint firstItem="Ssf-ko-sW0" firstAttribute="top" secondItem="Dtb-u3-ubR" secondAttribute="bottom" constant="10" id="b6I-B6-4Np"/>
+                            <constraint firstAttribute="trailing" secondItem="Ssf-ko-sW0" secondAttribute="trailing" constant="20" id="dD3-vo-P2A"/>
+                            <constraint firstItem="Dtb-u3-ubR" firstAttribute="top" secondItem="7JX-05-zNn" secondAttribute="bottom" constant="10" id="gIx-KP-3PP"/>
+                            <constraint firstItem="7JX-05-zNn" firstAttribute="leading" secondItem="lay-ba-g4M" secondAttribute="leading" id="h8u-UN-COx"/>
+                            <constraint firstAttribute="trailing" secondItem="c1y-YR-HST" secondAttribute="trailing" constant="10" id="hcw-lt-lGQ"/>
+                            <constraint firstAttribute="bottom" secondItem="Ssf-ko-sW0" secondAttribute="bottom" constant="10" id="ptx-No-mZL"/>
+                            <constraint firstItem="7JX-05-zNn" firstAttribute="top" secondItem="lay-ba-g4M" secondAttribute="top" id="zEw-ZX-EoJ"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="lay-ba-g4M" secondAttribute="bottom" id="OGO-9z-nM3"/>
+                <constraint firstItem="lay-ba-g4M" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="fue-0b-jpe"/>
+                <constraint firstAttribute="trailing" secondItem="lay-ba-g4M" secondAttribute="trailing" id="g9J-Ut-qxv"/>
+                <constraint firstItem="lay-ba-g4M" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="zUj-U9-BhK"/>
+            </constraints>
+            <size key="customSize" width="265" height="243"/>
+            <connections>
+                <outlet property="folderImage" destination="7JX-05-zNn" id="VRC-eP-p9j"/>
+                <outlet property="folderName" destination="Dtb-u3-ubR" id="K3r-FG-CPT"/>
+            </connections>
+            <point key="canvasLocation" x="183.33333333333334" y="137.61160714285714"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
