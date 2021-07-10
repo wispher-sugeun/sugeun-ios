@@ -255,7 +255,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
     
     
     func changID(cell: IDInputTableViewCell) {
-        alertEditName(textfield: cell.IDTextField)
+        alertEditName(textfield: cell.textfield)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -7,4 +7,5 @@ target 'PrivateRoom' do
 
   # Pods for PrivateRoom
 pod 'Tabman', '~> 2.11'
+pod 'JGProgressHUD'
 end

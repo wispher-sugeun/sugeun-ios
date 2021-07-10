@@ -1,3 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-PrivateRoom/Pods-PrivateRoom-frameworks.sh
+${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework
 ${BUILT_PRODUCTS_DIR}/Pageboy/Pageboy.framework
 ${BUILT_PRODUCTS_DIR}/Tabman/Tabman.framework

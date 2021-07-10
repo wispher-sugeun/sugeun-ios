@@ -1,6 +1,6 @@
 //
 //  IDInputTableViewCell.swift
-//  PrivateRoom
+//  GDONG
 //
 //  Created by JoSoJeong on 2021/07/04.
 //
@@ -12,8 +12,9 @@ protocol IDInputTableViewCellDelegate {
 class IDInputTableViewCell: UITableViewCell {
     
 
+    @IBOutlet weak var label: UILabel!
 
-    @IBOutlet weak var IDTextField: UITextField!
+    @IBOutlet weak var textfield: UITextField!
     
     static var identifier = "IDInputTableViewCell"
     override func awakeFromNib() {
