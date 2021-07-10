@@ -137,14 +137,6 @@ class SignInViewController: UIViewController {
         
     }
     
-    func alertViewController(title: String, message: String, completion: @escaping  (String) -> Void){
-        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let OKAction = UIAlertAction(title: "확인", style: .default, handler:  { _ in
-            completion("OK")
-        })
-        alertVC.addAction(OKAction)
-        self.present(alertVC, animated: true, completion: nil)
-    }
     
 //    func validpassword(mypassword : String) -> Bool {//숫자+문자 포함해서 8~20글자 사이의 text 체크하는 정규표현식
 //        let passwordreg = ("(?=.*[A-Za-z])(?=.*[0-9]).{8,20}")

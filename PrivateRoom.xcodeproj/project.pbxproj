@@ -22,6 +22,7 @@
 		8E782ADF2647D3AC00D93D89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E782ADD2647D3AC00D93D89 /* LaunchScreen.storyboard */; };
 		8ED15EA7269996F1002943C9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA6269996F0002943C9 /* SignInViewController.swift */; };
 		8ED15EA92699D687002943C9 /* FindIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA82699D687002943C9 /* FindIDViewController.swift */; };
+		8ED15EAB2699DB7E002943C9 /* FindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */; };
 		8EE69D6426484B4F00ED19B9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE69D6326484B4F00ED19B9 /* MainViewController.swift */; };
 		8EE69D6626484B7D00ED19B9 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE69D6526484B7D00ED19B9 /* TextViewController.swift */; };
 		8EE69D6A26484B9900ED19B9 /* LinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE69D6926484B9900ED19B9 /* LinkViewController.swift */; };
@@ -60,6 +61,7 @@
 		8E782AE02647D3AC00D93D89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8ED15EA6269996F0002943C9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		8ED15EA82699D687002943C9 /* FindIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDViewController.swift; sourceTree = "<group>"; };
+		8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWViewController.swift; sourceTree = "<group>"; };
 		8EE69D6326484B4F00ED19B9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8EE69D6526484B7D00ED19B9 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		8EE69D6926484B9900ED19B9 /* LinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				8EF3BFAC268F677E00415150 /* LoginViewController.swift */,
 				8ED15EA6269996F0002943C9 /* SignInViewController.swift */,
 				8ED15EA82699D687002943C9 /* FindIDViewController.swift */,
+				8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				8EF00F11265390C900AA1EEA /* FolderViewController.swift in Sources */,
 				8EF3BFAD268F677E00415150 /* LoginViewController.swift in Sources */,
 				8EE69D6626484B7D00ED19B9 /* TextViewController.swift in Sources */,
+				8ED15EAB2699DB7E002943C9 /* FindPWViewController.swift in Sources */,
 				8EE69D6C26484BAA00ED19B9 /* NotiViewController.swift in Sources */,
 				8E003BD7264FB92700CB5802 /* FolderCollectionViewCell.swift in Sources */,
 			);

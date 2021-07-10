@@ -43,3 +43,58 @@ extension UITextField {
         return true
     }
 }
+
+extension UIViewController{
+    func alertViewController(title: String, message: String, completion: @escaping  (String) -> Void){
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "확인", style: .default, handler:  { _ in
+            completion("OK")
+        })
+        alertVC.addAction(OKAction)
+        self.present(alertVC, animated: true, completion: nil)
+    }
+}
+
+
+extension String {
+    func isNumeric() -> Bool {
+        let set = CharacterSet.decimalDigits
+        var string = self
+        string.remove(at: string.index(string.startIndex, offsetBy: 3))
+        string.remove(at: string.index(string.startIndex, offsetBy: 7))
+       print(string)
+        for us in string.unicodeScalars where (!set.contains(us)) {
+                return false
+                
+        }
+        
+        
+        return true
+    }
+    
+    func phoneMake() -> String {
+    
+        var string = self
+        string.remove(at: string.index(string.startIndex, offsetBy: 3))
+        string.remove(at: string.index(string.startIndex, offsetBy: 7))
+        return string
+    }
+    
+    func isValid() -> Bool {
+        var string = self
+        string = string.phoneMake()
+        let start = string.index(string.startIndex, offsetBy: 0)
+        let end = string.index(string.startIndex, offsetBy: 3)
+        let range = start ..< end
+        print(string)
+        if(string.count != 11){
+            print("not 11 count")
+            return false
+        }
+        if(string[range] != "010"){
+            print("not 010")
+            return false
+        }
+        return true
+    }
+}
