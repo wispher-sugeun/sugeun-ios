@@ -8,4 +8,8 @@ target 'PrivateRoom' do
   # Pods for PrivateRoom
 pod 'Tabman', '~> 2.11'
 pod 'JGProgressHUD'
+pod 'RxSwift', '6.2.0'
+pod 'RxCocoa', '6.2.0'
+pod 'AnyFormatKit', '~> 2.5.1'
+
 end

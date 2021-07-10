@@ -1,24 +1,42 @@
 PODS:
+  - AnyFormatKit (2.5.1)
   - JGProgressHUD (2.2)
   - Pageboy (3.6.2)
+  - RxCocoa (6.2.0):
+    - RxRelay (= 6.2.0)
+    - RxSwift (= 6.2.0)
+  - RxRelay (6.2.0):
+    - RxSwift (= 6.2.0)
+  - RxSwift (6.2.0)
   - Tabman (2.11.1):
     - Pageboy (~> 3.6.0)
 
 DEPENDENCIES:
+  - AnyFormatKit (~> 2.5.1)
   - JGProgressHUD
+  - RxCocoa (= 6.2.0)
+  - RxSwift (= 6.2.0)
   - Tabman (~> 2.11)
 
 SPEC REPOS:
   trunk:
+    - AnyFormatKit
     - JGProgressHUD
     - Pageboy
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - Tabman
 
 SPEC CHECKSUMS:
+  AnyFormatKit: 4ef60ad3f48c69962d482bb2de0a6d3214e8527b
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
+  RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
+  RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
+  RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
 
-PODFILE CHECKSUM: 8c376e64e9a3f2ef60b2fa7d9c3290ca78390247
+PODFILE CHECKSUM: 563cabddf5068fc896526ed7ca3689be3c613347
 
 COCOAPODS: 1.10.1
