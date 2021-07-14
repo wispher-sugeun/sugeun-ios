@@ -324,9 +324,74 @@
                     <view key="view" contentMode="scaleToFill" id="T5b-o6-WmV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  검색" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wdv-58-Wue">
+                                <rect key="frame" x="20" y="144" width="374" height="50"/>
+                                <color key="backgroundColor" red="0.92931753399999995" green="0.92156678439999995" blue="0.9215686917" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ZF2-Xd-LkQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1zU-Vq-CPs" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="266" width="414" height="263"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pbw-oe-j2e">
+                                <rect key="frame" x="0.0" y="204" width="414" height="62"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yzA-Fr-yEW">
+                                        <rect key="frame" x="364" y="18" width="30" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Cxz-QW-WTF"/>
+                                            <constraint firstAttribute="width" constant="30" id="dNb-u7-Giw"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.1647058824" green="0.20000000000000001" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" backgroundImage="plus" catalog="system"/>
+                                        <connections>
+                                            <action selector="addScheButton:" destination="ggU-0o-nhp" eventType="touchUpInside" id="Vbm-Ef-vMg"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="yzA-Fr-yEW" firstAttribute="top" secondItem="pbw-oe-j2e" secondAttribute="top" constant="16" id="5dr-gi-pup"/>
+                                    <constraint firstAttribute="bottom" secondItem="yzA-Fr-yEW" secondAttribute="bottom" constant="16" id="NGE-Mz-vph"/>
+                                    <constraint firstAttribute="trailing" secondItem="yzA-Fr-yEW" secondAttribute="trailing" constant="20" id="mhI-lV-2f4"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7wA-lg-HsB">
+                                <rect key="frame" x="0.0" y="529" width="414" height="333"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="333" id="XJe-GY-SWp"/>
+                                </constraints>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="hG2-68-f8G"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="pbw-oe-j2e" firstAttribute="leading" secondItem="hG2-68-f8G" secondAttribute="leading" id="17L-HX-oQk"/>
+                            <constraint firstItem="Wdv-58-Wue" firstAttribute="leading" secondItem="hG2-68-f8G" secondAttribute="leading" constant="20" id="3u2-Q8-KPA"/>
+                            <constraint firstItem="1zU-Vq-CPs" firstAttribute="top" secondItem="T5b-o6-WmV" secondAttribute="top" constant="266" id="8E9-eQ-pAf"/>
+                            <constraint firstItem="pbw-oe-j2e" firstAttribute="top" secondItem="Wdv-58-Wue" secondAttribute="bottom" constant="10" id="BXo-Xe-TLi"/>
+                            <constraint firstItem="7wA-lg-HsB" firstAttribute="leading" secondItem="hG2-68-f8G" secondAttribute="leading" id="FD7-41-3mR"/>
+                            <constraint firstItem="Wdv-58-Wue" firstAttribute="centerX" secondItem="T5b-o6-WmV" secondAttribute="centerX" id="PzF-SM-0j5"/>
+                            <constraint firstItem="1zU-Vq-CPs" firstAttribute="trailing" secondItem="hG2-68-f8G" secondAttribute="trailing" id="RuK-KU-3r4"/>
+                            <constraint firstItem="1zU-Vq-CPs" firstAttribute="leading" secondItem="hG2-68-f8G" secondAttribute="leading" id="Utl-Fr-AJ4"/>
+                            <constraint firstItem="Wdv-58-Wue" firstAttribute="top" secondItem="hG2-68-f8G" secondAttribute="top" constant="100" id="eUQ-bc-CAD"/>
+                            <constraint firstItem="7wA-lg-HsB" firstAttribute="trailing" secondItem="hG2-68-f8G" secondAttribute="trailing" id="mfd-fs-Ugf"/>
+                            <constraint firstItem="hG2-68-f8G" firstAttribute="trailing" secondItem="Wdv-58-Wue" secondAttribute="trailing" constant="20" id="n1U-AP-mAv"/>
+                            <constraint firstItem="pbw-oe-j2e" firstAttribute="trailing" secondItem="hG2-68-f8G" secondAttribute="trailing" id="sb9-Z7-BvM"/>
+                            <constraint firstItem="7wA-lg-HsB" firstAttribute="top" secondItem="1zU-Vq-CPs" secondAttribute="bottom" id="v7A-Vh-QE6"/>
+                            <constraint firstItem="1zU-Vq-CPs" firstAttribute="top" secondItem="pbw-oe-j2e" secondAttribute="bottom" id="vYM-WX-pPk"/>
+                            <constraint firstItem="hG2-68-f8G" firstAttribute="bottom" secondItem="7wA-lg-HsB" secondAttribute="bottom" id="vcl-sf-yBY"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="calendar" destination="1zU-Vq-CPs" id="JG3-RJ-DdV"/>
+                        <outlet property="tableView" destination="7wA-lg-HsB" id="BKa-nO-V3m"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fvf-1Y-XYM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -336,6 +401,7 @@
     <resources>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

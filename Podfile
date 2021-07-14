@@ -13,5 +13,7 @@ pod 'RxCocoa', '6.2.0'
 pod 'AnyFormatKit', '~> 2.5.1'
 
 pod 'DropDown'
+pod 'FSCalendar'
+pod 'SDWebImage', '~> 5.0'
 
 end

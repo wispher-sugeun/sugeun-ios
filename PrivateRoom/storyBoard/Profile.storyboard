@@ -12,7 +12,6 @@
         <!--회원 정보-->
         <scene sceneID="vOL-iG-Kjc">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aar-pq-cdg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="Xe0-0I-h3y" customClass="ProfileViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KAe-JV-r1b">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -125,15 +124,17 @@
                         <outlet property="profileName" destination="1zI-jx-qoe" id="kAn-Cg-wgX"/>
                         <outlet property="tableView" destination="tQz-1z-mKK" id="ui5-IC-Y42"/>
                         <segue destination="6Fm-61-iV1" kind="show" identifier="edit" id="vMS-l5-oFo"/>
+                        <segue destination="SgC-bm-qH3" kind="show" identifier="alarmSetting" id="1fM-ak-x7d"/>
+                        <segue destination="ijh-Tw-ACn" kind="show" identifier="bookmark" id="VKV-yz-kHH"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aar-pq-cdg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1531.8840579710145" y="-87.053571428571431"/>
+            <point key="canvasLocation" x="1657" y="-701"/>
         </scene>
         <!--회원 정보 수정-->
         <scene sceneID="Qcr-b6-q9u">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bcl-3t-I3M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="6Fm-61-iV1" customClass="ProfileEditViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0dK-Lo-Iqw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -257,8 +258,110 @@
                         <outlet property="tableView" destination="fAq-y3-E8q" id="Ew6-4N-DNc"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bcl-3t-I3M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2239.130434782609" y="-87.053571428571431"/>
+            <point key="canvasLocation" x="1657" y="169"/>
+        </scene>
+        <!--Alarm View Controller-->
+        <scene sceneID="iQM-Hj-oZB">
+            <objects>
+                <viewController id="SgC-bm-qH3" customClass="AlarmViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="F3O-Vj-fL6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BVV-oe-2Cb">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="303-Wj-IPC"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BVV-oe-2Cb" firstAttribute="top" secondItem="303-Wj-IPC" secondAttribute="top" id="G6s-dI-pAl"/>
+                            <constraint firstItem="303-Wj-IPC" firstAttribute="bottom" secondItem="BVV-oe-2Cb" secondAttribute="bottom" id="R24-fb-27m"/>
+                            <constraint firstItem="BVV-oe-2Cb" firstAttribute="leading" secondItem="303-Wj-IPC" secondAttribute="leading" id="hsW-Qu-zHn"/>
+                            <constraint firstItem="303-Wj-IPC" firstAttribute="trailing" secondItem="BVV-oe-2Cb" secondAttribute="trailing" id="jdY-Sq-6Ws"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="WkK-a0-5y5"/>
+                    <connections>
+                        <outlet property="tableView" destination="BVV-oe-2Cb" id="6zL-nn-FhH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cte-tS-Dzi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2383" y="169"/>
+        </scene>
+        <!--Book Mark View Controller-->
+        <scene sceneID="wHf-US-3Wh">
+            <objects>
+                <viewController id="ijh-Tw-ACn" customClass="BookMarkViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kf3-Hz-qKv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="tIV-7T-618"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="wam-3V-1vI"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LMn-Oj-rT0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2384" y="-701"/>
+        </scene>
+        <!--Link Book View Controller-->
+        <scene sceneID="wPu-of-yTd">
+            <objects>
+                <viewController storyboardIdentifier="linkBookMark" id="ftr-rJ-Woa" customClass="LinkBookViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="I9W-0A-DBG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="amw-gb-Yae">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="cYU-zB-Ph0"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="cYU-zB-Ph0" firstAttribute="bottom" secondItem="amw-gb-Yae" secondAttribute="bottom" id="3Cl-SO-hyM"/>
+                            <constraint firstItem="amw-gb-Yae" firstAttribute="top" secondItem="cYU-zB-Ph0" secondAttribute="top" id="hKC-ZX-mSH"/>
+                            <constraint firstItem="amw-gb-Yae" firstAttribute="leading" secondItem="cYU-zB-Ph0" secondAttribute="leading" id="jeK-HG-9Mx"/>
+                            <constraint firstItem="cYU-zB-Ph0" firstAttribute="trailing" secondItem="amw-gb-Yae" secondAttribute="trailing" id="s32-0R-TUG"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SmA-xC-iYu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3762" y="-701"/>
+        </scene>
+        <!--Text Book View Controller-->
+        <scene sceneID="0TT-SP-7nL">
+            <objects>
+                <viewController storyboardIdentifier="textBookMark" id="pai-xl-uSI" customClass="TextBookViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0NR-9M-kjv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YkM-Kc-U9X">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="WIQ-cq-l8t"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="WIQ-cq-l8t" firstAttribute="trailing" secondItem="YkM-Kc-U9X" secondAttribute="trailing" id="2iI-Ll-xz8"/>
+                            <constraint firstItem="YkM-Kc-U9X" firstAttribute="leading" secondItem="WIQ-cq-l8t" secondAttribute="leading" id="aQx-NI-K8A"/>
+                            <constraint firstItem="YkM-Kc-U9X" firstAttribute="top" secondItem="WIQ-cq-l8t" secondAttribute="top" id="m65-1O-peU"/>
+                            <constraint firstItem="WIQ-cq-l8t" firstAttribute="bottom" secondItem="YkM-Kc-U9X" secondAttribute="bottom" id="vho-J5-Q5B"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="858-iu-Dhs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3070" y="-701"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fak-pC-wkA">

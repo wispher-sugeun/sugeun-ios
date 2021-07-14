@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		8E003BD7264FB92700CB5802 /* FolderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E003BD5264FB92700CB5802 /* FolderCollectionViewCell.swift */; };
 		8E003BD8264FB92700CB5802 /* FolderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E003BD6264FB92700CB5802 /* FolderCollectionViewCell.xib */; };
+		8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */; };
+		8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */; };
+		8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D208269EDC5800F48C26 /* TextBookViewController.swift */; };
+		8E66D20B269EDC6A00F48C26 /* LinkBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D20A269EDC6A00F48C26 /* LinkBookViewController.swift */; };
+		8E66D20E269EE55500F48C26 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D20C269EE55500F48C26 /* CalendarTableViewCell.swift */; };
+		8E66D20F269EE55500F48C26 /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E66D20D269EE55500F48C26 /* CalendarTableViewCell.xib */; };
 		8E70C1C2269196FC006F1D2C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E70C1C1269196FC006F1D2C /* Extension.swift */; };
 		8E70C1C4269199A6006F1D2C /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E70C1C3269199A6006F1D2C /* ProfileEditViewController.swift */; };
 		8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E70C1C62691A581006F1D2C /* IDInputTableViewCell.swift */; };
@@ -48,6 +54,12 @@
 		2324BA311EEC4F06F0E2B20C /* Pods-PrivateRoom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivateRoom.debug.xcconfig"; path = "Target Support Files/Pods-PrivateRoom/Pods-PrivateRoom.debug.xcconfig"; sourceTree = "<group>"; };
 		8E003BD5264FB92700CB5802 /* FolderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E003BD6264FB92700CB5802 /* FolderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FolderCollectionViewCell.xib; sourceTree = "<group>"; };
+		8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
+		8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
+		8E66D208269EDC5800F48C26 /* TextBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBookViewController.swift; sourceTree = "<group>"; };
+		8E66D20A269EDC6A00F48C26 /* LinkBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkBookViewController.swift; sourceTree = "<group>"; };
+		8E66D20C269EE55500F48C26 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
+		8E66D20D269EE55500F48C26 /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
 		8E70C1C1269196FC006F1D2C /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		8E70C1C3269199A6006F1D2C /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		8E70C1C62691A581006F1D2C /* IDInputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDInputTableViewCell.swift; sourceTree = "<group>"; };
@@ -124,6 +136,10 @@
 			children = (
 				8E70C1C3269199A6006F1D2C /* ProfileEditViewController.swift */,
 				8EE69D6D26486B6E00ED19B9 /* ProfileViewController.swift */,
+				8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */,
+				8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */,
+				8E66D208269EDC5800F48C26 /* TextBookViewController.swift */,
+				8E66D20A269EDC6A00F48C26 /* LinkBookViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -210,6 +226,8 @@
 				8E003BD5264FB92700CB5802 /* FolderCollectionViewCell.swift */,
 				8E70C1C72691A581006F1D2C /* IDInputTableViewCell.xib */,
 				8E70C1C62691A581006F1D2C /* IDInputTableViewCell.swift */,
+				8E66D20C269EE55500F48C26 /* CalendarTableViewCell.swift */,
+				8E66D20D269EE55500F48C26 /* CalendarTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -301,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EF00F0F2652BA9800AA1EEA /* Profile.storyboard in Resources */,
+				8E66D20F269EE55500F48C26 /* CalendarTableViewCell.xib in Resources */,
 				8ED94267269D844900B860BF /* MakeFolder.xib in Resources */,
 				8E003BD8264FB92700CB5802 /* FolderCollectionViewCell.xib in Resources */,
 				8EF3BFAF268F678D00415150 /* Login.storyboard in Resources */,
@@ -374,7 +393,11 @@
 				8EF00F1626539CB300AA1EEA /* Model.swift in Sources */,
 				8E782AD22647D3A400D93D89 /* SceneDelegate.swift in Sources */,
 				8ED94269269D85C700B860BF /* MakeFolder.swift in Sources */,
+				8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */,
+				8E66D20E269EE55500F48C26 /* CalendarTableViewCell.swift in Sources */,
 				8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */,
+				8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */,
+				8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */,
 				8ED15EA92699D687002943C9 /* FindIDViewController.swift in Sources */,
 				8ED15EA7269996F1002943C9 /* SignInViewController.swift in Sources */,
 				8EE69D6426484B4F00ED19B9 /* MainViewController.swift in Sources */,
@@ -384,6 +407,7 @@
 				8ED15EAB2699DB7E002943C9 /* FindPWViewController.swift in Sources */,
 				8EE69D6C26484BAA00ED19B9 /* NotiViewController.swift in Sources */,
 				8E003BD7264FB92700CB5802 /* FolderCollectionViewCell.swift in Sources */,
+				8E66D20B269EDC6A00F48C26 /* LinkBookViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
