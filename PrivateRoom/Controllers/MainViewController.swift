@@ -6,12 +6,54 @@
 //
 
 import UIKit
+import DropDown
+import PhotosUI
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
+    
+    
     private var mainVM: MainViewModel!
+    var configuration = PHPickerConfiguration()
+    
+    func didTapMoreButton(cell: FolderCollectionViewCell) {
+        print("more button")
+        more_dropDown.anchorView = cell.moreButton
+        more_dropDown.show()
+        selectedCellIndexPath = cell.indexPath
+        print(selectedCellIndexPath)
+        more_dropDown.backgroundColor = UIColor.white
+        more_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("선택한 아이템 : \(item)")
+            print("인덱스 : \(index)")
+            
+            if(index == 0){ // 이름 변경
+                editFolderName(completionHandler: {(response) in
+                    //TO DO -> update folder Name
+                    cell.folderName.text = response
+                })
+            }else if(index == 1){ // 이미지 변경
+                presentPicker()
+            }else{ //폴더 삭제
+                folderDelete()
+            }
+        }
+        
+    }
+    
+    
+    func presentPicker(){
+        configuration.filter = .any(of: [.images])
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        self.present(picker, animated: true, completion: nil)
+    }
+    
+ 
     
     @IBOutlet weak var searchTextfield: UITextField!
     @IBOutlet weak var folderCollectionView: UICollectionView!
+    
+    @IBOutlet weak var floatingButton: UIButton!
     
     @IBAction func profile(_ sender: Any) {
         performSegue(withIdentifier: "profile", sender: self)
@@ -20,21 +62,35 @@ class MainViewController: UIViewController {
         performSegue(withIdentifier: "back", sender: self)
     }
     //floating button
-    let floatingButton = UIButton(frame: CGRect(x: 250, y: 700, width: 150, height: 150))
+//    let floatingButton = UIButton(frame: CGRect(x: 250, y: 700, width: 300, height: 300))
     
     private var alertController = UIAlertController()
     private var tblView = UITableView()
 
     var folders = [Folder]()
     var filteredFolder = [Folder]()
-    var sorting = ["이름 순", "생성 순", "최신 순"]
+    var sorting = ["가나다 순", "생성 순", "최신 순"]
+    var selectedCellIndexPath = IndexPath()
+    
+    let more_dropDown: DropDown = {
+        let dropDown = DropDown()
+        dropDown.width = 100
+        dropDown.dataSource = ["이름 변경", "이미지 변경", "폴더 삭제"] //TODO : how dataSource 2 make red?
+        return dropDown
+    }()
+    
+    private var folderNameTextField: UITextField = {
+        var textfield = UITextField()
+        return textfield
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        folders.append(Folder(folderName: "CodingTest", isLike: true, Content: [FolderIn(FolderType: "T", content: "hi this is fairy story"), FolderIn(FolderType: "I", content: UIImage(named: "temp") ?? 0), FolderIn(FolderType: "L", content: "www.naver.com")]))
+        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true, Content: [FolderIn(FolderType: "T", content: "hi this is fairy story"), FolderIn(FolderType: "I", content: UIImage(named: "temp") ?? 0), FolderIn(FolderType: "L", content: "www.naver.com")]))
         
-        folders.append(Folder(folderName: "Swift", isLike: false, Content: [FolderIn(FolderType: "L", content: "hi this is fairy story"), FolderIn(FolderType: "N", content: UIImage(named: "temp") ?? 0), FolderIn(FolderType: "L", content: "www.naver.com")]))
+        
+        //folders.append(Folder(folderName: "Swift", isLike: false, Content: [FolderIn(FolderType: "L", content: "hi this is fairy story"), FolderIn(FolderType: "N", content: UIImage(named: "temp") ?? 0), FolderIn(FolderType: "L", content: "www.naver.com")]))
         
         filteredFolder = folders
         
@@ -42,12 +98,93 @@ class MainViewController: UIViewController {
         
         floatingButtonSetting(button: floatingButton)
         textFieldSetting(textfield: searchTextfield)
-        view.addSubview(floatingButton)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
         
     }
     
+
+    
+    @objc func folderImageChanged(_ notification: NSNotification){
+        //text ~~
+        print(notification.userInfo ?? "")
+        print("folderImageChanged")
+        if let dict = notification.userInfo as NSDictionary? {
+            if let folderImage = dict["image"] as? UIImage{
+                filteredFolder[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
+                    
+                DispatchQueue.main.async {
+                    self.folderCollectionView.reloadData()
+                }
+                
+                // do something with your image
+            }
+        }
+        
+    }
+    
+    func folderDelete(){
+        filteredFolder.remove(at: selectedCellIndexPath[1])
+        DispatchQueue.main.async {
+            self.folderCollectionView.reloadData()
+        }
+    }
+    
+    func image( _ image:UIImage, withSize newSize:CGSize) -> UIImage {
+
+        UIGraphicsBeginImageContext(newSize)
+        image.draw(in: CGRect(x: 0,y: 0,width: newSize.width,height: newSize.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!.withRenderingMode(.automatic)
+    }
+    
+    
+    func editFolderName(completionHandler: @escaping ((String) -> Void)){
+        let alertVC = UIAlertController(title: "폴더 이름 수정", message: nil, preferredStyle: .alert)
+       
+        alertVC.addTextField(configurationHandler: { (textField) -> Void in
+            self.folderNameTextField = textField
+            self.folderNameTextField.placeholder = "새로 수정할 아이디를 입력해주세요"
+        })
+        let label = UILabel(frame:CGRect(x: 0, y: 40, width: 270, height:18))
+        
+        let editAction = UIAlertAction(title: "EDIT", style: .default, handler: { [self] (action) -> Void in
+            guard let userInput = self.folderNameTextField.text else {
+                return
+            }
+            label.isHidden = true
+            
+            label.textColor = .red
+            label.font = label.font.withSize(12)
+            label.textAlignment = .center
+            label.text = ""
+            alertVC.view.addSubview(label)
+            
+            if userInput == ""{
+                label.text = "이름을 입력해주세요"
+                label.isHidden = false
+                self.present(alertVC, animated: true, completion: nil)
+
+            }else {
+                completionHandler(userInput)
+            }
+            
+            
+           
+        })
+        
+        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        alertVC.addAction(editAction)
+        alertVC.addAction(cancelAction)
+        self.present(alertVC, animated: true, completion: nil)
+        
+        
+    }
+
+    
     func floatingButtonSetting(button: UIButton){
-        floatingButton.setImage(UIImage(named: "plus"), for: .normal)
+        // TO DO make circle
         floatingButton.addTarget(self, action: #selector(makeFolder), for: .touchUpInside)
         
     }
@@ -75,11 +212,34 @@ class MainViewController: UIViewController {
 
 }
 
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FolderCollectionViewCellDelegate {
-    
-    func didTapMoreButton(cell: FolderCollectionViewCell) {
-        print("more button")
+extension Notification.Name {
+    static let folderImageChanged = Notification.Name("folderImageChanged")
+}
+
+extension MainViewController: PHPickerViewControllerDelegate{
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+        let itemProvider = results.first?.itemProvider
+        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { [self] (image, error) in
+                if let image = image as? UIImage {
+                    NotificationCenter.default.post(name: .folderImageChanged, object: nil, userInfo: ["image" : image])
+
+
+                }
+        }
+            
+        } else { // TODO: Handle empty results or item providernot being able load UIImage
+            print("can't load image")
+            
+        }
+
     }
+    
+    
+}
+
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -95,7 +255,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.layer.shadowOpacity = 1.0
         cell.layer.masksToBounds = false
         cell.cellDelegate = self
-        cell.configure()
+        cell.configure(folder: filteredFolder[indexPath.row])
+        cell.indexPath = indexPath
         return cell
     }
     
@@ -305,20 +466,90 @@ extension MainViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
     }
 }
 
-class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate {
+class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFolderdelegate {
     
-    @IBAction func makeFolderButton(_ sender: Any) {
-        guard let folderIn = self.storyboard?.instantiateViewController(identifier: "folderIn") else { return }
-        folderIn.modalPresentationStyle = .fullScreen
-        self.present(folderIn, animated: true, completion: nil)
-
+    func dissMiss() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func done() {
+        print("click done button")
+    }
+    
+    let type_dropDown: DropDown = {
+        let dropDown = DropDown()
+        dropDown.dataSource = ["텍스트", "링크"]
+        dropDown.textColor = .white
+        return dropDown
+    }()
+    
+    
+    func folderType() {
+        type_dropDown.anchorView = folderView.folderTypeButton
+        type_dropDown.show()
     }
     
     
-    @IBAction func dismissButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-   }
+    func tapImageView(){
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .any(of: [.images])
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        self.present(picker, animated: true, completion: nil)
+
+        
+    }
+    
+    
+    @IBOutlet var folderView: MakeFolder!
+    
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        folderView.delegate = self
+        type_dropDown.backgroundColor = #colorLiteral(red: 0.2659958005, green: 0.3394620717, blue: 0.6190373302, alpha: 1)
+        type_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("선택한 아이템 : \(item)")
+            print("인덱스 : \(index)")
+            folderView.folderTypeButton.setTitle("\(item)", for: .normal)
+            folderView.folderTypeButton.setTitleColor(UIColor.black, for: .normal)
+            folderView.folderTypeButton.layer.borderWidth = 1
+            folderView.folderTypeButton.layer.borderColor = UIColor.black.cgColor
+            folderView.folderTypeButton.backgroundColor = UIColor.clear
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
     
     
 }
+
+extension makeFolderAlertView: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+        let itemProvider = results.first?.itemProvider
+        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { [self] (image, error) in
+                if let image = image as? UIImage {
+                    DispatchQueue.main.async {
+                        self.folderView.folderImage.image = image
+                    }
+                }
+        }
+            
+        } else { // TODO: Handle empty results or item providernot being able load UIImage
+            print("can't load image")
+            
+        }
+
+    }
+}
+
+
+
+
 

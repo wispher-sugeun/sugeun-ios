@@ -10,6 +10,7 @@ import UIKit
 protocol FolderCollectionViewCellDelegate: AnyObject {
     
     func didTapMoreButton(cell: FolderCollectionViewCell)
+//    func editFolderName(cell: FolderCollectionViewCell)
 }
 
 class FolderCollectionViewCell: UICollectionViewCell {
@@ -19,18 +20,23 @@ class FolderCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var folderName: UILabel!
     
+    @IBOutlet weak var moreButton: UIButton!
+    
     @IBAction func folderEditButton(_ sender: Any) {
         cellDelegate?.didTapMoreButton(cell: self)
     }
     
+    var indexPath: IndexPath = []
+    
 
   
     @IBAction func heartButton(_ sender: UIButton) {
-        print("here")
-        sender.scalesLargeContentImage = true
+        //sender.scalesLargeContentImage = true
         sender.isSelected = sender.isSelected ? false : true
-       
-        sender.isSelected ?  sender.setImage(UIImage(systemName: "heart.fill"), for: .normal) :   sender.setImage(UIImage(systemName: "heart"), for: .normal)
+        print(sender.frame.width)
+        print(sender.frame.height)
+        
+        sender.isSelected ?  sender.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal) :   sender.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
     }
     
     var cellDelegate: FolderCollectionViewCellDelegate?
@@ -55,10 +61,9 @@ class FolderCollectionViewCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
     
-    func configure(){
-        folderImage.image = image(UIImage(named: "temp")!, withSize: CGSize(width: contentView.frame.width/2, height: 80))
-        
-        folderName.text = "temp 폴더 이름"
+    func configure(folder: Folder){
+        folderImage.image = image(folder.folderImage!, withSize: CGSize(width: contentView.frame.width/2, height: 80))
+        folderName.text = folder.folderName
         
         
     }

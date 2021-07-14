@@ -103,11 +103,23 @@
                                     <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                 </collectionReusableView>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTK-Fq-sjP">
+                                <rect key="frame" x="314" y="732.5" width="60" height="59"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="WE3-9c-SQF"/>
+                                    <constraint firstAttribute="width" constant="60" id="llC-5L-Jpr"/>
+                                </constraints>
+                                <color key="tintColor" red="0.34372755890000001" green="0.37692308429999999" blue="0.51766455170000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" backgroundImage="plus.circle.fill" catalog="system"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Cmk-od-S6e"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="MMA-Hw-n1n" firstAttribute="top" secondItem="pAT-dy-6i6" secondAttribute="bottom" constant="10" id="0Dj-cx-0jU"/>
+                            <constraint firstItem="Cmk-od-S6e" firstAttribute="trailing" secondItem="DTK-Fq-sjP" secondAttribute="trailing" constant="40" id="2jO-k8-4AR"/>
+                            <constraint firstItem="Cmk-od-S6e" firstAttribute="bottom" secondItem="DTK-Fq-sjP" secondAttribute="bottom" constant="70" id="3XQ-fv-Ew1"/>
                             <constraint firstItem="pAT-dy-6i6" firstAttribute="leading" secondItem="Cmk-od-S6e" secondAttribute="leading" constant="20" id="6t1-eq-XOZ"/>
                             <constraint firstItem="MMA-Hw-n1n" firstAttribute="leading" secondItem="Cmk-od-S6e" secondAttribute="leading" constant="10" id="S8B-KW-f8W"/>
                             <constraint firstItem="Cmk-od-S6e" firstAttribute="trailing" secondItem="MMA-Hw-n1n" secondAttribute="trailing" constant="10" id="fu3-Dt-goV"/>
@@ -117,6 +129,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="floatingButton" destination="DTK-Fq-sjP" id="A5F-SX-WA4"/>
                         <outlet property="folderCollectionView" destination="MMA-Hw-n1n" id="JXP-L7-uRK"/>
                         <outlet property="searchTextfield" destination="pAT-dy-6i6" id="Ofq-IE-fu6"/>
                     </connections>
@@ -133,73 +146,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWm-mh-3nH">
-                                <rect key="frame" x="80" y="373" width="254" height="150"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMJ-Pg-6zC">
-                                        <rect key="frame" x="0.0" y="0.0" width="254" height="85.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="폴더 추가" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsT-Rh-hta">
-                                                <rect key="frame" x="84" y="30" width="86" height="25.5"/>
-                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="21"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKN-1v-3jH">
-                                                <rect key="frame" x="216" y="8" width="30" height="30"/>
-                                                <connections>
-                                                    <action selector="dismissButton:" destination="wle-Zd-abx" eventType="touchUpInside" id="Pw8-k9-lUc"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.46802958039367532" green="0.5758355367073863" blue="0.96848052740097046" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="NKN-1v-3jH" secondAttribute="trailing" constant="8" id="8ah-QJ-Zxp"/>
-                                            <constraint firstItem="dsT-Rh-hta" firstAttribute="leading" secondItem="iMJ-Pg-6zC" secondAttribute="leading" constant="84" id="919-70-JhJ"/>
-                                            <constraint firstItem="dsT-Rh-hta" firstAttribute="top" secondItem="iMJ-Pg-6zC" secondAttribute="top" constant="30" id="OFp-5W-Yp4"/>
-                                            <constraint firstAttribute="trailing" secondItem="dsT-Rh-hta" secondAttribute="trailing" constant="84" id="SMh-z9-caJ"/>
-                                            <constraint firstItem="NKN-1v-3jH" firstAttribute="top" secondItem="iMJ-Pg-6zC" secondAttribute="top" constant="8" id="aa1-wC-VXa"/>
-                                            <constraint firstAttribute="bottom" secondItem="dsT-Rh-hta" secondAttribute="bottom" constant="30" id="c5a-Vd-t71"/>
-                                        </constraints>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaC-4x-78y">
-                                        <rect key="frame" x="80" y="95.5" width="94" height="44.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="폴더 생성하기">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="makeFolderButton:" destination="wle-Zd-abx" eventType="touchUpInside" id="Dbv-rD-ASx"/>
-                                            <action selector="makeFolderButton:" destination="cfr-b4-f2e" eventType="touchUpInside" id="EhB-6i-hRU"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQu-yq-Gaz" customClass="MakeFolder" customModule="PrivateRoom" customModuleProvider="target">
+                                <rect key="frame" x="60" y="194" width="294" height="518"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="iMJ-Pg-6zC" secondAttribute="trailing" id="VMU-LK-BYd"/>
-                                    <constraint firstItem="iMJ-Pg-6zC" firstAttribute="top" secondItem="oWm-mh-3nH" secondAttribute="top" id="dBa-fQ-LUP"/>
-                                    <constraint firstItem="gaC-4x-78y" firstAttribute="leading" secondItem="oWm-mh-3nH" secondAttribute="leading" constant="80" id="f4j-Dh-iL5"/>
-                                    <constraint firstItem="gaC-4x-78y" firstAttribute="top" secondItem="iMJ-Pg-6zC" secondAttribute="bottom" constant="10" id="gzL-Ot-e1Y"/>
-                                    <constraint firstAttribute="trailing" secondItem="gaC-4x-78y" secondAttribute="trailing" constant="80" id="hpf-Kn-qf1"/>
-                                    <constraint firstAttribute="bottom" secondItem="gaC-4x-78y" secondAttribute="bottom" constant="10" id="ola-HW-FNK"/>
-                                    <constraint firstItem="iMJ-Pg-6zC" firstAttribute="leading" secondItem="oWm-mh-3nH" secondAttribute="leading" id="rzt-9v-Ip9"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="O0B-eP-GTN"/>
                         <color key="backgroundColor" red="0.92792880896366003" green="0.92792880896366003" blue="0.92792880896366003" alpha="0.81169087997335476" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="oWm-mh-3nH" firstAttribute="top" secondItem="O0B-eP-GTN" secondAttribute="top" constant="329" id="Gir-aa-qjm"/>
-                            <constraint firstItem="oWm-mh-3nH" firstAttribute="centerX" secondItem="1kY-To-ump" secondAttribute="centerX" id="Ktt-03-kFM"/>
-                            <constraint firstItem="oWm-mh-3nH" firstAttribute="leading" secondItem="O0B-eP-GTN" secondAttribute="leading" constant="80" id="NyT-LS-qyp"/>
-                            <constraint firstItem="oWm-mh-3nH" firstAttribute="centerY" secondItem="1kY-To-ump" secondAttribute="centerY" id="rCE-VP-mxI"/>
+                            <constraint firstItem="cQu-yq-Gaz" firstAttribute="leading" secondItem="O0B-eP-GTN" secondAttribute="leading" constant="60" id="4wJ-8d-uwL"/>
+                            <constraint firstItem="cQu-yq-Gaz" firstAttribute="top" secondItem="O0B-eP-GTN" secondAttribute="top" constant="150" id="YnR-fp-Ian"/>
+                            <constraint firstItem="cQu-yq-Gaz" firstAttribute="centerX" secondItem="1kY-To-ump" secondAttribute="centerX" id="jTV-Jk-oYo"/>
+                            <constraint firstItem="O0B-eP-GTN" firstAttribute="bottom" secondItem="cQu-yq-Gaz" secondAttribute="bottom" constant="150" id="rDU-0N-aiK"/>
+                            <constraint firstItem="O0B-eP-GTN" firstAttribute="trailing" secondItem="cQu-yq-Gaz" secondAttribute="trailing" constant="60" id="rqI-Ze-69g"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="folderView" destination="cQu-yq-Gaz" id="uzs-eC-xzc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="65b-JL-quK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="cfr-b4-f2e" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="544.92753623188412" y="841.74107142857144"/>
+            <point key="canvasLocation" x="682.60869565217399" y="717.85714285714278"/>
         </scene>
         <!--Folder In View Controller-->
         <scene sceneID="hUj-ih-6TD">
@@ -368,6 +336,7 @@
     <resources>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

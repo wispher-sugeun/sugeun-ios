@@ -15,6 +15,7 @@ class ProfileEditViewController: UIViewController {
     @IBOutlet weak var profileImage: UIImageView!
     
     @IBOutlet weak var editButton: UIButton!
+    
     @IBAction func editButton(_ sender: Any) {
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self

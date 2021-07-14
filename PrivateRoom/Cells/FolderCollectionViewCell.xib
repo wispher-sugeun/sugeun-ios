@@ -3,7 +3,6 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -38,11 +37,15 @@
                                     <action selector="folderEditButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Obc-Ym-VB8"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1y-YR-HST">
-                                <rect key="frame" x="216" y="10" width="39" height="33"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal">
-                                    <imageReference key="image" image="heart" catalog="system" symbolScale="default"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1y-YR-HST">
+                                <rect key="frame" x="225" y="0.0" width="30" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="cC1-lH-H7a"/>
+                                    <constraint firstAttribute="height" constant="40" id="nu3-Mn-wzy"/>
+                                </constraints>
+                                <color key="tintColor" red="0.1647058824" green="0.20000000000000001" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" backgroundImage="bookmark" catalog="system">
+                                    <color key="titleColor" red="0.1647058824" green="0.20000000000000001" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <action selector="heartButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="JRM-aV-Vf1"/>
@@ -52,7 +55,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="7JX-05-zNn" secondAttribute="trailing" id="MMs-ns-uBY"/>
-                            <constraint firstItem="c1y-YR-HST" firstAttribute="top" secondItem="lay-ba-g4M" secondAttribute="top" constant="10" id="NJA-RT-Qv3"/>
                             <constraint firstItem="Dtb-u3-ubR" firstAttribute="leading" secondItem="lay-ba-g4M" secondAttribute="leading" constant="20" id="ZDT-zE-VZ2"/>
                             <constraint firstAttribute="trailing" secondItem="Dtb-u3-ubR" secondAttribute="trailing" constant="20" id="aeS-ep-yf9"/>
                             <constraint firstItem="Ssf-ko-sW0" firstAttribute="top" secondItem="Dtb-u3-ubR" secondAttribute="bottom" constant="10" id="b6I-B6-4Np"/>
@@ -61,6 +63,7 @@
                             <constraint firstItem="7JX-05-zNn" firstAttribute="leading" secondItem="lay-ba-g4M" secondAttribute="leading" id="h8u-UN-COx"/>
                             <constraint firstAttribute="trailing" secondItem="c1y-YR-HST" secondAttribute="trailing" constant="10" id="hcw-lt-lGQ"/>
                             <constraint firstAttribute="bottom" secondItem="Ssf-ko-sW0" secondAttribute="bottom" constant="10" id="ptx-No-mZL"/>
+                            <constraint firstItem="c1y-YR-HST" firstAttribute="top" secondItem="lay-ba-g4M" secondAttribute="top" id="rKQ-e8-smM"/>
                             <constraint firstItem="7JX-05-zNn" firstAttribute="top" secondItem="lay-ba-g4M" secondAttribute="top" id="zEw-ZX-EoJ"/>
                         </constraints>
                     </view>
@@ -71,19 +74,21 @@
                 <constraint firstAttribute="bottom" secondItem="lay-ba-g4M" secondAttribute="bottom" id="OGO-9z-nM3"/>
                 <constraint firstItem="lay-ba-g4M" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="fue-0b-jpe"/>
                 <constraint firstAttribute="trailing" secondItem="lay-ba-g4M" secondAttribute="trailing" id="g9J-Ut-qxv"/>
+                <constraint firstItem="lay-ba-g4M" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="z5R-wn-YAh"/>
                 <constraint firstItem="lay-ba-g4M" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="zUj-U9-BhK"/>
             </constraints>
             <size key="customSize" width="265" height="243"/>
             <connections>
                 <outlet property="folderImage" destination="7JX-05-zNn" id="VRC-eP-p9j"/>
                 <outlet property="folderName" destination="Dtb-u3-ubR" id="K3r-FG-CPT"/>
+                <outlet property="moreButton" destination="Ssf-ko-sW0" id="8S4-42-k4S"/>
             </connections>
             <point key="canvasLocation" x="183.33333333333334" y="137.61160714285714"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="bookmark" catalog="system" width="112" height="128"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
-        <image name="heart" catalog="system" width="128" height="109"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

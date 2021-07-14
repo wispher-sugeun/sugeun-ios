@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 struct Folder {
     var folderName: String
+    var folderImage: UIImage?
     var isLike: Bool
     var Content: [FolderIn]
 }

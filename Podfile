@@ -12,4 +12,6 @@ pod 'RxSwift', '6.2.0'
 pod 'RxCocoa', '6.2.0'
 pod 'AnyFormatKit', '~> 2.5.1'
 
+pod 'DropDown'
+
 end

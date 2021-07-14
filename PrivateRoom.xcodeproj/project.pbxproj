@@ -23,6 +23,8 @@
 		8ED15EA7269996F1002943C9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA6269996F0002943C9 /* SignInViewController.swift */; };
 		8ED15EA92699D687002943C9 /* FindIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA82699D687002943C9 /* FindIDViewController.swift */; };
 		8ED15EAB2699DB7E002943C9 /* FindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */; };
+		8ED94267269D844900B860BF /* MakeFolder.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ED94266269D844900B860BF /* MakeFolder.xib */; };
+		8ED94269269D85C700B860BF /* MakeFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED94268269D85C700B860BF /* MakeFolder.swift */; };
 		8EE69D6426484B4F00ED19B9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE69D6326484B4F00ED19B9 /* MainViewController.swift */; };
 		8EE69D6626484B7D00ED19B9 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE69D6526484B7D00ED19B9 /* TextViewController.swift */; };
 		8EE69D6A26484B9900ED19B9 /* LinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE69D6926484B9900ED19B9 /* LinkViewController.swift */; };
@@ -62,6 +64,8 @@
 		8ED15EA6269996F0002943C9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		8ED15EA82699D687002943C9 /* FindIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDViewController.swift; sourceTree = "<group>"; };
 		8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWViewController.swift; sourceTree = "<group>"; };
+		8ED94266269D844900B860BF /* MakeFolder.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MakeFolder.xib; sourceTree = "<group>"; };
+		8ED94268269D85C700B860BF /* MakeFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeFolder.swift; sourceTree = "<group>"; };
 		8EE69D6326484B4F00ED19B9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8EE69D6526484B7D00ED19B9 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		8EE69D6926484B9900ED19B9 /* LinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +161,8 @@
 				8E782ADB2647D3AC00D93D89 /* Assets.xcassets */,
 				8E782AE02647D3AC00D93D89 /* Info.plist */,
 				8E782AD82647D3A400D93D89 /* PrivateRoom.xcdatamodeld */,
+				8ED94266269D844900B860BF /* MakeFolder.xib */,
+				8ED94268269D85C700B860BF /* MakeFolder.swift */,
 			);
 			path = PrivateRoom;
 			sourceTree = "<group>";
@@ -295,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EF00F0F2652BA9800AA1EEA /* Profile.storyboard in Resources */,
+				8ED94267269D844900B860BF /* MakeFolder.xib in Resources */,
 				8E003BD8264FB92700CB5802 /* FolderCollectionViewCell.xib in Resources */,
 				8EF3BFAF268F678D00415150 /* Login.storyboard in Resources */,
 				8E782ADF2647D3AC00D93D89 /* LaunchScreen.storyboard in Resources */,
@@ -366,6 +373,7 @@
 				8E70C1C2269196FC006F1D2C /* Extension.swift in Sources */,
 				8EF00F1626539CB300AA1EEA /* Model.swift in Sources */,
 				8E782AD22647D3A400D93D89 /* SceneDelegate.swift in Sources */,
+				8ED94269269D85C700B860BF /* MakeFolder.swift in Sources */,
 				8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */,
 				8ED15EA92699D687002943C9 /* FindIDViewController.swift in Sources */,
 				8ED15EA7269996F1002943C9 /* SignInViewController.swift in Sources */,
@@ -530,6 +538,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = Develop.PrivateRoom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -550,6 +559,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = Develop.PrivateRoom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

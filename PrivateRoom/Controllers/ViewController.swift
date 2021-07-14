@@ -37,10 +37,7 @@ class ViewController: TabmanViewController {
     func barLayout(){
         self.dataSource = self
         let bar = TMBar.ButtonBar()
-        bar.layout.transitionStyle = .snap //customize
-        bar.layout.contentMode = .fit
-        bar.backgroundView.style = .blur(style: .extraLight)
-        bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 20.0, bottom: 0.0, right: 20.0)
+        settingTabBar(ctBar: bar)
         addBar(bar, dataSource: self, at: .custom(view: barContainer, layout: { (bar) in
             bar.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
@@ -50,6 +47,24 @@ class ViewController: TabmanViewController {
                 bar.bottomAnchor.constraint(equalTo: self.barContainer.bottomAnchor)
                 ])
             }))
+    }
+    
+    func settingTabBar(ctBar: TMBar.ButtonBar){
+        ctBar.layout.transitionStyle = .snap //customize
+        ctBar.layout.contentMode = .fit
+        ctBar.backgroundView.style = .blur(style: .extraLight)
+        ctBar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 20.0, bottom: 0.0, right: 20.0)
+        ctBar.layout.interButtonSpacing = 20
+        ctBar.buttons.customize({ (button) in
+            button.tintColor = .black
+            button.selectedTintColor = #colorLiteral(red: 0.2786179185, green: 0.341037035, blue: 0.5691607594, alpha: 1)
+            button.font = UIFont.systemFont(ofSize: 16)
+            button.selectedFont = UIFont.systemFont(ofSize: 16, weight: .medium)
+        })
+        
+        //인디케이터
+        ctBar.indicator.weight = .custom(value: 2)
+        ctBar.indicator.tintColor = #colorLiteral(red: 0.2786179185, green: 0.341037035, blue: 0.5691607594, alpha: 1)
     }
 
 
