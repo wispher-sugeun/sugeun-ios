@@ -325,7 +325,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  검색" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wdv-58-Wue">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  일정 이름으로 검색" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Wdv-58-Wue">
                                 <rect key="frame" x="20" y="144" width="374" height="50"/>
                                 <color key="backgroundColor" red="0.92931753399999995" green="0.92156678439999995" blue="0.9215686917" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -337,6 +337,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1zU-Vq-CPs" customClass="FSCalendar">
                                 <rect key="frame" x="0.0" y="266" width="414" height="263"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="263" id="f7A-KD-hPs"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pbw-oe-j2e">
                                 <rect key="frame" x="0.0" y="204" width="414" height="62"/>
@@ -363,9 +366,28 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7wA-lg-HsB">
                                 <rect key="frame" x="0.0" y="529" width="414" height="333"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="333" id="XJe-GY-SWp"/>
-                                </constraints>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="hHI-fx-muL" userLabel="headerView">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="thN-Ef-Fd5">
+                                            <rect key="frame" x="364" y="5" width="30" height="34"/>
+                                            <state key="normal" title="편집">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="editButton:" destination="ggU-0o-nhp" eventType="touchUpInside" id="9xq-Fd-1pV"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstItem="thN-Ef-Fd5" firstAttribute="top" secondItem="hHI-fx-muL" secondAttribute="top" constant="5" id="KXf-MJ-Zfh"/>
+                                        <constraint firstAttribute="trailing" secondItem="thN-Ef-Fd5" secondAttribute="trailing" constant="20" id="M6F-o5-rxn"/>
+                                        <constraint firstItem="thN-Ef-Fd5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hHI-fx-muL" secondAttribute="leading" constant="20" symbolic="YES" id="Y0p-bH-RwC"/>
+                                        <constraint firstAttribute="bottom" secondItem="thN-Ef-Fd5" secondAttribute="bottom" constant="5" id="hcN-k6-AHs"/>
+                                    </constraints>
+                                </view>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hG2-68-f8G"/>
@@ -373,7 +395,6 @@
                         <constraints>
                             <constraint firstItem="pbw-oe-j2e" firstAttribute="leading" secondItem="hG2-68-f8G" secondAttribute="leading" id="17L-HX-oQk"/>
                             <constraint firstItem="Wdv-58-Wue" firstAttribute="leading" secondItem="hG2-68-f8G" secondAttribute="leading" constant="20" id="3u2-Q8-KPA"/>
-                            <constraint firstItem="1zU-Vq-CPs" firstAttribute="top" secondItem="T5b-o6-WmV" secondAttribute="top" constant="266" id="8E9-eQ-pAf"/>
                             <constraint firstItem="pbw-oe-j2e" firstAttribute="top" secondItem="Wdv-58-Wue" secondAttribute="bottom" constant="10" id="BXo-Xe-TLi"/>
                             <constraint firstItem="7wA-lg-HsB" firstAttribute="leading" secondItem="hG2-68-f8G" secondAttribute="leading" id="FD7-41-3mR"/>
                             <constraint firstItem="Wdv-58-Wue" firstAttribute="centerX" secondItem="T5b-o6-WmV" secondAttribute="centerX" id="PzF-SM-0j5"/>
@@ -381,7 +402,6 @@
                             <constraint firstItem="1zU-Vq-CPs" firstAttribute="leading" secondItem="hG2-68-f8G" secondAttribute="leading" id="Utl-Fr-AJ4"/>
                             <constraint firstItem="Wdv-58-Wue" firstAttribute="top" secondItem="hG2-68-f8G" secondAttribute="top" constant="100" id="eUQ-bc-CAD"/>
                             <constraint firstItem="7wA-lg-HsB" firstAttribute="trailing" secondItem="hG2-68-f8G" secondAttribute="trailing" id="mfd-fs-Ugf"/>
-                            <constraint firstItem="hG2-68-f8G" firstAttribute="trailing" secondItem="Wdv-58-Wue" secondAttribute="trailing" constant="20" id="n1U-AP-mAv"/>
                             <constraint firstItem="pbw-oe-j2e" firstAttribute="trailing" secondItem="hG2-68-f8G" secondAttribute="trailing" id="sb9-Z7-BvM"/>
                             <constraint firstItem="7wA-lg-HsB" firstAttribute="top" secondItem="1zU-Vq-CPs" secondAttribute="bottom" id="v7A-Vh-QE6"/>
                             <constraint firstItem="1zU-Vq-CPs" firstAttribute="top" secondItem="pbw-oe-j2e" secondAttribute="bottom" id="vYM-WX-pPk"/>
@@ -392,11 +412,43 @@
                         <outlet property="calendar" destination="1zU-Vq-CPs" id="JG3-RJ-DdV"/>
                         <outlet property="searchTextField" destination="Wdv-58-Wue" id="1nO-6P-AlK"/>
                         <outlet property="tableView" destination="7wA-lg-HsB" id="BKa-nO-V3m"/>
+                        <segue destination="HMY-UE-m5O" kind="show" identifier="addCalender" id="eQJ-R6-CjU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fvf-1Y-XYM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4610.144927536232" y="56.919642857142854"/>
+            <point key="canvasLocation" x="4684" y="84"/>
+        </scene>
+        <!--Add Calendar View Controller-->
+        <scene sceneID="HiL-mb-S2X">
+            <objects>
+                <viewController id="HMY-UE-m5O" customClass="AddCalendarViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wWY-lb-KAt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IiM-SW-gTF">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="fhH-gv-i6t"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="IiM-SW-gTF" firstAttribute="leading" secondItem="fhH-gv-i6t" secondAttribute="leading" id="IEA-Tj-AWq"/>
+                            <constraint firstItem="IiM-SW-gTF" firstAttribute="top" secondItem="fhH-gv-i6t" secondAttribute="top" id="PTE-OA-Rp4"/>
+                            <constraint firstItem="fhH-gv-i6t" firstAttribute="trailing" secondItem="IiM-SW-gTF" secondAttribute="trailing" id="a6u-wH-zEW"/>
+                            <constraint firstItem="fhH-gv-i6t" firstAttribute="bottom" secondItem="IiM-SW-gTF" secondAttribute="bottom" id="seG-FP-DMy"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="2B4-nY-Cr1"/>
+                    <connections>
+                        <outlet property="tableView" destination="IiM-SW-gTF" id="ofu-Nz-Wpp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BWS-49-kbE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5477" y="71"/>
         </scene>
     </scenes>
     <resources>

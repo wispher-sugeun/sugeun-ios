@@ -16,6 +16,13 @@
 		8E66D20E269EE55500F48C26 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D20C269EE55500F48C26 /* CalendarTableViewCell.swift */; };
 		8E66D20F269EE55500F48C26 /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E66D20D269EE55500F48C26 /* CalendarTableViewCell.xib */; };
 		8E66D211269EE94B00F48C26 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D210269EE94B00F48C26 /* DateUtil.swift */; };
+		8E66D214269F3EA300F48C26 /* AddCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D213269F3EA300F48C26 /* AddCalendarViewController.swift */; };
+		8E66D218269F45D300F48C26 /* TitleAddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D216269F45D300F48C26 /* TitleAddTableViewCell.swift */; };
+		8E66D219269F45D300F48C26 /* TitleAddTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E66D217269F45D300F48C26 /* TitleAddTableViewCell.xib */; };
+		8E66D21C269F45EE00F48C26 /* DateAddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D21A269F45EE00F48C26 /* DateAddTableViewCell.swift */; };
+		8E66D21D269F45EE00F48C26 /* DateAddTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E66D21B269F45EE00F48C26 /* DateAddTableViewCell.xib */; };
+		8E66D220269F460000F48C26 /* DateTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D21E269F460000F48C26 /* DateTimeTableViewCell.swift */; };
+		8E66D221269F460000F48C26 /* DateTimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E66D21F269F460000F48C26 /* DateTimeTableViewCell.xib */; };
 		8E70C1C2269196FC006F1D2C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E70C1C1269196FC006F1D2C /* Extension.swift */; };
 		8E70C1C4269199A6006F1D2C /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E70C1C3269199A6006F1D2C /* ProfileEditViewController.swift */; };
 		8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E70C1C62691A581006F1D2C /* IDInputTableViewCell.swift */; };
@@ -62,6 +69,13 @@
 		8E66D20C269EE55500F48C26 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		8E66D20D269EE55500F48C26 /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
 		8E66D210269EE94B00F48C26 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		8E66D213269F3EA300F48C26 /* AddCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCalendarViewController.swift; sourceTree = "<group>"; };
+		8E66D216269F45D300F48C26 /* TitleAddTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleAddTableViewCell.swift; sourceTree = "<group>"; };
+		8E66D217269F45D300F48C26 /* TitleAddTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleAddTableViewCell.xib; sourceTree = "<group>"; };
+		8E66D21A269F45EE00F48C26 /* DateAddTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAddTableViewCell.swift; sourceTree = "<group>"; };
+		8E66D21B269F45EE00F48C26 /* DateAddTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateAddTableViewCell.xib; sourceTree = "<group>"; };
+		8E66D21E269F460000F48C26 /* DateTimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeTableViewCell.swift; sourceTree = "<group>"; };
+		8E66D21F269F460000F48C26 /* DateTimeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateTimeTableViewCell.xib; sourceTree = "<group>"; };
 		8E70C1C1269196FC006F1D2C /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		8E70C1C3269199A6006F1D2C /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		8E70C1C62691A581006F1D2C /* IDInputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDInputTableViewCell.swift; sourceTree = "<group>"; };
@@ -123,6 +137,29 @@
 				217F3F6BC664B145CC62B67D /* Pods_PrivateRoom.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8E66D212269F3E8700F48C26 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				8E66D215269F45B900F48C26 /* AddCell */,
+				8EF3BFA9268F641300415150 /* CalendarViewController.swift */,
+				8E66D213269F3EA300F48C26 /* AddCalendarViewController.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		8E66D215269F45B900F48C26 /* AddCell */ = {
+			isa = PBXGroup;
+			children = (
+				8E66D216269F45D300F48C26 /* TitleAddTableViewCell.swift */,
+				8E66D217269F45D300F48C26 /* TitleAddTableViewCell.xib */,
+				8E66D21A269F45EE00F48C26 /* DateAddTableViewCell.swift */,
+				8E66D21B269F45EE00F48C26 /* DateAddTableViewCell.xib */,
+				8E66D21E269F460000F48C26 /* DateTimeTableViewCell.swift */,
+				8E66D21F269F460000F48C26 /* DateTimeTableViewCell.xib */,
+			);
+			path = AddCell;
 			sourceTree = "<group>";
 		};
 		8E70C1C0269196EA006F1D2C /* Utils */ = {
@@ -208,6 +245,7 @@
 		8EF3BFA1268F5DD200415150 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8E66D212269F3E8700F48C26 /* Calendar */,
 				8E70C1C526919A32006F1D2C /* Profile */,
 				8EF3BFAB268F675C00415150 /* Login */,
 				8E782AD32647D3A400D93D89 /* ViewController.swift */,
@@ -217,7 +255,6 @@
 				8EE69D6B26484BAA00ED19B9 /* NotiViewController.swift */,
 				8EF00F1226539C0100AA1EEA /* FolderInViewController.swift */,
 				8EF00F10265390C800AA1EEA /* FolderViewController.swift */,
-				8EF3BFA9268F641300415150 /* CalendarViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -322,6 +359,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EF00F0F2652BA9800AA1EEA /* Profile.storyboard in Resources */,
+				8E66D21D269F45EE00F48C26 /* DateAddTableViewCell.xib in Resources */,
+				8E66D221269F460000F48C26 /* DateTimeTableViewCell.xib in Resources */,
 				8E66D20F269EE55500F48C26 /* CalendarTableViewCell.xib in Resources */,
 				8ED94267269D844900B860BF /* MakeFolder.xib in Resources */,
 				8E003BD8264FB92700CB5802 /* FolderCollectionViewCell.xib in Resources */,
@@ -329,6 +368,7 @@
 				8E782ADF2647D3AC00D93D89 /* LaunchScreen.storyboard in Resources */,
 				8E782ADC2647D3AC00D93D89 /* Assets.xcassets in Resources */,
 				8E70C1C92691A581006F1D2C /* IDInputTableViewCell.xib in Resources */,
+				8E66D219269F45D300F48C26 /* TitleAddTableViewCell.xib in Resources */,
 				8E782AD72647D3A400D93D89 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,6 +426,7 @@
 				8E70C1C4269199A6006F1D2C /* ProfileEditViewController.swift in Sources */,
 				8EE69D6A26484B9900ED19B9 /* LinkViewController.swift in Sources */,
 				8E782ADA2647D3A400D93D89 /* PrivateRoom.xcdatamodeld in Sources */,
+				8E66D218269F45D300F48C26 /* TitleAddTableViewCell.swift in Sources */,
 				8EF3BFA5268F61FE00415150 /* UserServices.swift in Sources */,
 				8EE69D6E26486B6E00ED19B9 /* ProfileViewController.swift in Sources */,
 				8EF00F1326539C0100AA1EEA /* FolderInViewController.swift in Sources */,
@@ -398,7 +439,10 @@
 				8ED94269269D85C700B860BF /* MakeFolder.swift in Sources */,
 				8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */,
 				8E66D20E269EE55500F48C26 /* CalendarTableViewCell.swift in Sources */,
+				8E66D214269F3EA300F48C26 /* AddCalendarViewController.swift in Sources */,
+				8E66D220269F460000F48C26 /* DateTimeTableViewCell.swift in Sources */,
 				8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */,
+				8E66D21C269F45EE00F48C26 /* DateAddTableViewCell.swift in Sources */,
 				8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */,
 				8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */,
 				8ED15EA92699D687002943C9 /* FindIDViewController.swift in Sources */,

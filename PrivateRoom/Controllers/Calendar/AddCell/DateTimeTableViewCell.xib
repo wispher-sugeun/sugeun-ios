@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="DateTimeTableViewCell" customModule="PrivateRoom" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="일정 시간 :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0M-03-dzb">
+                        <rect key="frame" x="20" y="10" width="73" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8X-kz-H8A">
+                        <rect key="frame" x="163" y="10" width="30" height="24"/>
+                        <state key="normal" title="오전">
+                            <color key="titleColor" red="0.29803921568627451" green="0.34688293930000003" blue="0.56473058460000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </state>
+                        <connections>
+                            <action selector="amButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5qC-EH-rC4"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6T0-Jm-BQm">
+                        <rect key="frame" x="198" y="10" width="30" height="24"/>
+                        <state key="normal" title="오후">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="pmButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jsp-YV-IYv"/>
+                        </connections>
+                    </button>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cl5-Yy-29K">
+                        <rect key="frame" x="248" y="5" width="32" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="br4-BF-OQL">
+                        <rect key="frame" x="285" y="11.5" width="15" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="6T0-Jm-BQm" firstAttribute="leading" secondItem="E8X-kz-H8A" secondAttribute="trailing" constant="5" id="BAz-U9-V7M"/>
+                    <constraint firstItem="C0M-03-dzb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="EnD-rV-KQ4"/>
+                    <constraint firstItem="E8X-kz-H8A" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LJn-Gu-1c3"/>
+                    <constraint firstAttribute="bottom" secondItem="C0M-03-dzb" secondAttribute="bottom" constant="10" id="MIB-YT-ZcZ"/>
+                    <constraint firstItem="br4-BF-OQL" firstAttribute="leading" secondItem="cl5-Yy-29K" secondAttribute="trailing" constant="5" id="MXM-hs-aiZ"/>
+                    <constraint firstItem="br4-BF-OQL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="MtU-Qp-ccK"/>
+                    <constraint firstItem="6T0-Jm-BQm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="MvL-iQ-OUI"/>
+                    <constraint firstItem="C0M-03-dzb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="SUM-z0-R9w"/>
+                    <constraint firstAttribute="bottom" secondItem="cl5-Yy-29K" secondAttribute="bottom" constant="5" id="XaQ-Nv-7Ta"/>
+                    <constraint firstAttribute="bottom" secondItem="6T0-Jm-BQm" secondAttribute="bottom" constant="10" id="Ytl-yq-ePV"/>
+                    <constraint firstAttribute="bottom" secondItem="E8X-kz-H8A" secondAttribute="bottom" constant="10" id="cUD-YP-qEW"/>
+                    <constraint firstItem="cl5-Yy-29K" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="f72-A5-2d9"/>
+                    <constraint firstItem="cl5-Yy-29K" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="flG-sO-Ypt"/>
+                    <constraint firstItem="6T0-Jm-BQm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hnX-tq-DJ1"/>
+                    <constraint firstAttribute="trailing" secondItem="br4-BF-OQL" secondAttribute="trailing" constant="20" symbolic="YES" id="i33-er-0N7"/>
+                    <constraint firstItem="cl5-Yy-29K" firstAttribute="leading" secondItem="6T0-Jm-BQm" secondAttribute="trailing" constant="20" id="iGp-21-RSq"/>
+                    <constraint firstItem="C0M-03-dzb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="oMm-1t-npY"/>
+                    <constraint firstItem="E8X-kz-H8A" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="yLS-c3-vJ3"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="amButton" destination="E8X-kz-H8A" id="EEa-7H-Aho"/>
+                <outlet property="pmButton" destination="6T0-Jm-BQm" id="UMj-3H-qYu"/>
+                <outlet property="timeTextField" destination="cl5-Yy-29K" id="x21-SI-I9e"/>
+            </connections>
+            <point key="canvasLocation" x="63.768115942028992" y="55.580357142857139"/>
+        </tableViewCell>
+    </objects>
+</document>
