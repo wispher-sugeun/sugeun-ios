@@ -19,3 +19,11 @@ struct FolderIn {
     var FolderType: String //text. link, image
     var content: Any
 }
+
+struct Schedule {
+    var scheduleId: Double
+    var userId: Double
+    var title: String
+    var scheduleDate: String
+    var selectedList: [Int] //선택된 알림 날
+}

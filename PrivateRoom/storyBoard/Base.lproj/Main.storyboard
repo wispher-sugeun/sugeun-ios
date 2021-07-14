@@ -390,6 +390,7 @@
                     </view>
                     <connections>
                         <outlet property="calendar" destination="1zU-Vq-CPs" id="JG3-RJ-DdV"/>
+                        <outlet property="searchTextField" destination="Wdv-58-Wue" id="1nO-6P-AlK"/>
                         <outlet property="tableView" destination="7wA-lg-HsB" id="BKa-nO-V3m"/>
                     </connections>
                 </viewController>
