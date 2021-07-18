@@ -78,7 +78,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="pAT-dy-6i6">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="     보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="pAT-dy-6i6">
                                 <rect key="frame" x="20" y="144" width="374" height="60"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
@@ -280,7 +280,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="0AM-j7-gcS">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="     보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="0AM-j7-gcS">
                                 <rect key="frame" x="20" y="144" width="374" height="60"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
@@ -311,7 +311,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Fg8-Ye-AOa">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="     보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Fg8-Ye-AOa">
                                 <rect key="frame" x="20" y="144" width="374" height="60"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
@@ -342,7 +342,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="1QO-F7-t1p">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="     보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="1QO-F7-t1p">
                                 <rect key="frame" x="20" y="144" width="374" height="60"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
@@ -351,12 +351,37 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0I-x0-Y8b">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hGL-rm-LCY">
+                                <rect key="frame" x="0.0" y="214" width="414" height="648"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="M1m-Wi-ZKC">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="g0S-jB-HB8">
+                                        <rect key="frame" x="0.0" y="50" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="lD9-Yb-qSo">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="headerView" id="cpJ-gI-gvJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
+                                </collectionReusableView>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bGB-EU-BV3">
                                 <rect key="frame" x="314" y="742.5" width="60" height="59"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="U8O-Gk-tpk"/>
-                                    <constraint firstAttribute="width" constant="60" id="whg-h3-z3t"/>
+                                    <constraint firstAttribute="width" constant="60" id="Xok-ZU-NP2"/>
+                                    <constraint firstAttribute="height" constant="60" id="oiN-xP-QG4"/>
                                 </constraints>
                                 <color key="tintColor" red="0.34372755890000001" green="0.37692308429999999" blue="0.51766455170000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" backgroundImage="plus.circle.fill" catalog="system"/>
@@ -366,14 +391,20 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="1QO-F7-t1p" firstAttribute="top" secondItem="0Ql-Sq-HPm" secondAttribute="top" constant="100" id="B8f-09-HLX"/>
-                            <constraint firstItem="0Ql-Sq-HPm" firstAttribute="bottom" secondItem="M0I-x0-Y8b" secondAttribute="bottom" constant="60" id="LcX-YH-PBB"/>
-                            <constraint firstItem="0Ql-Sq-HPm" firstAttribute="trailing" secondItem="M0I-x0-Y8b" secondAttribute="trailing" constant="40" id="hxD-tf-3jQ"/>
+                            <constraint firstItem="0Ql-Sq-HPm" firstAttribute="bottom" secondItem="hGL-rm-LCY" secondAttribute="bottom" id="ESY-FR-unR"/>
+                            <constraint firstItem="0Ql-Sq-HPm" firstAttribute="trailing" secondItem="bGB-EU-BV3" secondAttribute="trailing" constant="40" id="Hzy-iV-jJb"/>
+                            <constraint firstItem="hGL-rm-LCY" firstAttribute="top" secondItem="1QO-F7-t1p" secondAttribute="bottom" constant="10" id="KdG-n4-Y8m"/>
+                            <constraint firstItem="hGL-rm-LCY" firstAttribute="leading" secondItem="0Ql-Sq-HPm" secondAttribute="leading" id="R2k-k5-KvY"/>
                             <constraint firstItem="0Ql-Sq-HPm" firstAttribute="trailing" secondItem="1QO-F7-t1p" secondAttribute="trailing" constant="20" id="of2-cR-dwR"/>
                             <constraint firstItem="1QO-F7-t1p" firstAttribute="leading" secondItem="0Ql-Sq-HPm" secondAttribute="leading" constant="20" id="vNb-ai-Jh1"/>
+                            <constraint firstItem="0Ql-Sq-HPm" firstAttribute="bottom" secondItem="bGB-EU-BV3" secondAttribute="bottom" constant="60" id="vbo-BM-5TF"/>
+                            <constraint firstItem="0Ql-Sq-HPm" firstAttribute="trailing" secondItem="hGL-rm-LCY" secondAttribute="trailing" id="vr6-mJ-nM2"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="floatingButton" destination="M0I-x0-Y8b" id="nN0-7E-48H"/>
+                        <outlet property="collectionView" destination="hGL-rm-LCY" id="ve3-VO-iVd"/>
+                        <outlet property="floatingButton" destination="bGB-EU-BV3" id="j3Z-wH-02L"/>
+                        <outlet property="searchTextField" destination="1QO-F7-t1p" id="HpA-0u-G8f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ctW-Ql-XWV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

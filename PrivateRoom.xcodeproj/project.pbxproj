@@ -11,6 +11,8 @@
 		8E003BD8264FB92700CB5802 /* FolderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E003BD6264FB92700CB5802 /* FolderCollectionViewCell.xib */; };
 		8E2B834326A41F9F00AC2570 /* MakeNotiFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B834226A41F9F00AC2570 /* MakeNotiFolderView.swift */; };
 		8E2B834526A41FFA00AC2570 /* MakeNotiFolderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B834426A41FFA00AC2570 /* MakeNotiFolderView.xib */; };
+		8E2B834826A42DB200AC2570 /* TimeOutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B834626A42DB100AC2570 /* TimeOutCollectionViewCell.swift */; };
+		8E2B834926A42DB200AC2570 /* TimeOutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B834726A42DB100AC2570 /* TimeOutCollectionViewCell.xib */; };
 		8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */; };
 		8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */; };
 		8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D208269EDC5800F48C26 /* TextBookViewController.swift */; };
@@ -69,6 +71,8 @@
 		8E003BD6264FB92700CB5802 /* FolderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FolderCollectionViewCell.xib; sourceTree = "<group>"; };
 		8E2B834226A41F9F00AC2570 /* MakeNotiFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNotiFolderView.swift; sourceTree = "<group>"; };
 		8E2B834426A41FFA00AC2570 /* MakeNotiFolderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MakeNotiFolderView.xib; sourceTree = "<group>"; };
+		8E2B834626A42DB100AC2570 /* TimeOutCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeOutCollectionViewCell.swift; sourceTree = "<group>"; };
+		8E2B834726A42DB100AC2570 /* TimeOutCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeOutCollectionViewCell.xib; sourceTree = "<group>"; };
 		8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
 		8E66D208269EDC5800F48C26 /* TextBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBookViewController.swift; sourceTree = "<group>"; };
@@ -155,8 +159,20 @@
 				8EE69D6B26484BAA00ED19B9 /* NotiViewController.swift */,
 				8E2B834226A41F9F00AC2570 /* MakeNotiFolderView.swift */,
 				8E2B834426A41FFA00AC2570 /* MakeNotiFolderView.xib */,
+				8E2B834626A42DB100AC2570 /* TimeOutCollectionViewCell.swift */,
+				8E2B834726A42DB100AC2570 /* TimeOutCollectionViewCell.xib */,
 			);
 			path = Alarm;
+			sourceTree = "<group>";
+		};
+		8E2B834A26A462E500AC2570 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				8ED94266269D844900B860BF /* MakeFolder.xib */,
+				8ED94268269D85C700B860BF /* MakeFolder.swift */,
+				8EE69D6326484B4F00ED19B9 /* MainViewController.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		8E66D212269F3E8700F48C26 /* Calendar */ = {
@@ -240,8 +256,6 @@
 				8E782ADB2647D3AC00D93D89 /* Assets.xcassets */,
 				8E782AE02647D3AC00D93D89 /* Info.plist */,
 				8E782AD82647D3A400D93D89 /* PrivateRoom.xcdatamodeld */,
-				8ED94266269D844900B860BF /* MakeFolder.xib */,
-				8ED94268269D85C700B860BF /* MakeFolder.swift */,
 			);
 			path = PrivateRoom;
 			sourceTree = "<group>";
@@ -268,12 +282,12 @@
 		8EF3BFA1268F5DD200415150 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8E782AD32647D3A400D93D89 /* ViewController.swift */,
+				8E2B834A26A462E500AC2570 /* Main */,
 				8E2B833B26A41D5400AC2570 /* Alarm */,
 				8E66D212269F3E8700F48C26 /* Calendar */,
 				8E70C1C526919A32006F1D2C /* Profile */,
 				8EF3BFAB268F675C00415150 /* Login */,
-				8E782AD32647D3A400D93D89 /* ViewController.swift */,
-				8EE69D6326484B4F00ED19B9 /* MainViewController.swift */,
 				8EE69D6526484B7D00ED19B9 /* TextViewController.swift */,
 				8EE69D6926484B9900ED19B9 /* LinkViewController.swift */,
 				8EF00F1226539C0100AA1EEA /* FolderInViewController.swift */,
@@ -387,6 +401,7 @@
 				8E66D221269F460000F48C26 /* DateTimeTableViewCell.xib in Resources */,
 				8E66D20F269EE55500F48C26 /* CalendarTableViewCell.xib in Resources */,
 				8ED94267269D844900B860BF /* MakeFolder.xib in Resources */,
+				8E2B834926A42DB200AC2570 /* TimeOutCollectionViewCell.xib in Resources */,
 				8E2B834526A41FFA00AC2570 /* MakeNotiFolderView.xib in Resources */,
 				8E003BD8264FB92700CB5802 /* FolderCollectionViewCell.xib in Resources */,
 				8EF3BFAF268F678D00415150 /* Login.storyboard in Resources */,
@@ -471,6 +486,7 @@
 				8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */,
 				8E2B834326A41F9F00AC2570 /* MakeNotiFolderView.swift in Sources */,
 				8E66D21C269F45EE00F48C26 /* DateAddTableViewCell.swift in Sources */,
+				8E2B834826A42DB200AC2570 /* TimeOutCollectionViewCell.swift in Sources */,
 				8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */,
 				8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */,
 				8ED15EA92699D687002943C9 /* FindIDViewController.swift in Sources */,

@@ -50,12 +50,23 @@ struct Link {
 
 
 
+//struct Timeout {
+//    var userId: Double
+//    var timeoutId: Double
+//    var title: String
+//    var timeoutImage: Data
+//    var deadLine: String
+//    var selectedList: [Int]
+//    var isValid: Bool
+//}
+
 struct Timeout {
     var userId: Double
     var timeoutId: Double
     var title: String
-    var timeoutImage: Data
+    var timeoutImage: UIImage
     var deadLine: String
     var selectedList: [Int]
     var isValid: Bool
 }
+

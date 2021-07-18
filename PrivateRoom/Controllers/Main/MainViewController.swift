@@ -99,6 +99,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         floatingButtonSetting(button: floatingButton)
         textFieldSetting(textfield: searchTextfield)
         
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
         
     }
@@ -197,6 +198,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     func textFieldSetting(textfield: UITextField){
         textfield.delegate = self
+        textfield.circle()
     }
     
     

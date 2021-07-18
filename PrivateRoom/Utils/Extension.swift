@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
+
 extension UIImageView {
     func circle(){
         self.layer.cornerRadius = self.frame.height/2
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.clear.cgColor
-                    // 뷰의 경계에 맞춰준다
         self.clipsToBounds = true
     }
 }
@@ -28,6 +28,13 @@ extension UIButton {
 }
 
 extension UITextField {
+    
+    func circle(){
+        self.layer.cornerRadius = 15
+        self.clipsToBounds = true
+    }
+    
+    
     func updatePhoneNumber(_ replacementString: String?, _ textString: String?) -> Bool {
         guard let textCount = textString?.count else {return true}
         guard let currentString = self.text else {return true}
@@ -51,6 +58,17 @@ extension UIViewController{
             completion("OK")
         })
         alertVC.addAction(OKAction)
+        self.present(alertVC, animated: true, completion: nil)
+    }
+    
+    func alertWithNoViewController(title: String, message: String, completion: @escaping  (String) -> Void){
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "확인", style: .default, handler:  { _ in
+            completion("OK")
+        })
+        let CANCELAction = UIAlertAction(title: "취소", style: .default, handler:  nil)
+        alertVC.addAction(OKAction)
+        alertVC.addAction(CANCELAction)
         self.present(alertVC, animated: true, completion: nil)
     }
 }
