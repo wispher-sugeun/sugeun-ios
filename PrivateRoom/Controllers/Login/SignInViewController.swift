@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import RxCocoa
-import RxSwift
 
 class SignInViewController: UIViewController {
 
@@ -82,7 +80,7 @@ class SignInViewController: UIViewController {
         //else 빈칸이 있으면 입력해주쇼
     }
     
-    let disposeBag = DisposeBag()
+   // let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()

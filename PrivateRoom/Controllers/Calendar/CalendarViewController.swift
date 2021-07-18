@@ -8,7 +8,6 @@
 import UIKit
 import FSCalendar
 
-
 //TO DO - edit
 
 protocol calendarViewDelegate: NSObject {
@@ -27,19 +26,23 @@ class CalendarViewController: UIViewController {
     }
     
     @IBAction func addScheButton(_ sender: Any) {
-        performSegue(withIdentifier: "addCalender", sender: nil)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let addCalender = segue.destination as? AddCalendarViewController
+        
+     
+        
+        guard let addCalendarVC = self.storyboard?.instantiateViewController(identifier: "addCalendar") else { return }
+        addCalendarVC.modalPresentationStyle = .fullScreen
+        
+        let addCalendar = AddCalendarViewController()
         if(calendar.selectedDate == nil){
-            addCalender!.selectedDate = Date().addingTimeInterval(86400)
+            addCalendar.selectedDate = Date().addingTimeInterval(86400)
         }else {
-            addCalender!.selectedDate = calendar.selectedDate?.addingTimeInterval(86400) // adding one day
+            addCalendar.selectedDate = calendar.selectedDate?.addingTimeInterval(86400) // adding one day
         }
-        
-        
+        self.present(addCalendarVC, animated: true, completion: nil)
+        //self.navigationController?.pushViewController(addCalendarVC, animated: true)
+       
     }
+
     var delegate: calendarViewDelegate?
     var schedule = [Schedule]()
     var filtered = [Schedule]()

@@ -9,27 +9,30 @@ import UIKit
 
 class DateTimeTableViewCell: UITableViewCell {
 
+    static let identifier = "DateTimeTableViewCell"
     
     @IBOutlet weak var amButton: UIButton!
     
     @IBOutlet weak var pmButton: UIButton!
     
     @IBAction func amButton(_ sender: UIButton) {
-        if(sender.isSelected == true) {
-            amButton.setTitleColor(UIColor.init(cgColor: CGColor(red: 76, green: 88, blue: 144, alpha: 1)), for: .normal)
-            pmButton.setTitleColor(UIColor.black, for: .normal)
-        }
+        sender.isSelected = true
+        pmButton.isSelected = false
+        APButtonSetting(sender: pmButton)
+        APButtonSelectedSetting(sender: amButton)
         
         
     }
     
     @IBAction func pmButton(_ sender: UIButton) {
-        if(sender.isSelected == true) {
-            pmButton.setTitleColor(UIColor.init(cgColor: CGColor(red: 76, green: 88, blue: 144, alpha: 1)), for: .normal)
-            amButton.setTitleColor(UIColor.black, for: .normal)
-        }
+        sender.isSelected = true
+        amButton.isSelected = false
+        APButtonSetting(sender: amButton)
+        APButtonSelectedSetting(sender: pmButton)
+        
     
     }
+    
     @IBOutlet weak var timeTextField: UITextField!
     
     override func awakeFromNib() {
@@ -39,8 +42,25 @@ class DateTimeTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+         self.contentView.endEditing(true)
+
+   }
+    
+    static func nib() -> UINib {
+           return UINib(nibName: "DateTimeTableViewCell", bundle: nil)
+    }
+    
+    func APButtonSetting(sender: UIButton){
+        sender.setTitleColor(UIColor.black, for: .normal)
+    }
+    
+    func APButtonSelectedSetting(sender: UIButton){
+        sender.setTitleColor(UIColor.init(cgColor: CGColor(red: 76, green: 88, blue: 144, alpha: 0)), for: .normal)
+        
+    }
+   
     
 }

@@ -24,8 +24,10 @@
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8X-kz-H8A">
                         <rect key="frame" x="163" y="10" width="30" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" title="오전">
-                            <color key="titleColor" red="0.29803921568627451" green="0.34688293930000003" blue="0.56473058460000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                         <connections>
                             <action selector="amButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5qC-EH-rC4"/>
@@ -33,6 +35,8 @@
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6T0-Jm-BQm">
                         <rect key="frame" x="198" y="10" width="30" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" title="오후">
                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
@@ -41,7 +45,7 @@
                         </connections>
                     </button>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cl5-Yy-29K">
-                        <rect key="frame" x="248" y="5" width="32" height="34"/>
+                        <rect key="frame" x="248" y="10" width="32" height="24"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
@@ -61,10 +65,10 @@
                     <constraint firstItem="br4-BF-OQL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="MtU-Qp-ccK"/>
                     <constraint firstItem="6T0-Jm-BQm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="MvL-iQ-OUI"/>
                     <constraint firstItem="C0M-03-dzb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="SUM-z0-R9w"/>
-                    <constraint firstAttribute="bottom" secondItem="cl5-Yy-29K" secondAttribute="bottom" constant="5" id="XaQ-Nv-7Ta"/>
+                    <constraint firstAttribute="bottom" secondItem="cl5-Yy-29K" secondAttribute="bottom" constant="10" id="XaQ-Nv-7Ta"/>
                     <constraint firstAttribute="bottom" secondItem="6T0-Jm-BQm" secondAttribute="bottom" constant="10" id="Ytl-yq-ePV"/>
                     <constraint firstAttribute="bottom" secondItem="E8X-kz-H8A" secondAttribute="bottom" constant="10" id="cUD-YP-qEW"/>
-                    <constraint firstItem="cl5-Yy-29K" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="f72-A5-2d9"/>
+                    <constraint firstItem="cl5-Yy-29K" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="f72-A5-2d9"/>
                     <constraint firstItem="cl5-Yy-29K" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="flG-sO-Ypt"/>
                     <constraint firstItem="6T0-Jm-BQm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hnX-tq-DJ1"/>
                     <constraint firstAttribute="trailing" secondItem="br4-BF-OQL" secondAttribute="trailing" constant="20" symbolic="YES" id="i33-er-0N7"/>

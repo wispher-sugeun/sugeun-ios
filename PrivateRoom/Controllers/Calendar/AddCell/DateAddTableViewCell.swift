@@ -8,7 +8,9 @@
 import UIKit
 
 class DateAddTableViewCell: UITableViewCell {
-
+    
+    static let identifier = "DateAddTableViewCell"
+    
     @IBOutlet weak var datePicker: UIDatePicker!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,4 +23,11 @@ class DateAddTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-}
+    static func nib() -> UINib {
+           return UINib(nibName: "DateAddTableViewCell", bundle: nil)
+    }
+    
+    
+    }
+    
+

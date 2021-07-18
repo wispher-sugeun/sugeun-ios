@@ -23,7 +23,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VQj-XQ-DtE">
-                        <rect key="frame" x="102" y="5" width="198" height="34"/>
+                        <rect key="frame" x="102" y="10" width="198" height="24"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
@@ -35,8 +35,8 @@
                     <constraint firstItem="VQj-XQ-DtE" firstAttribute="leading" secondItem="m0n-x8-aKZ" secondAttribute="trailing" constant="5" id="Lcp-1X-Qn9"/>
                     <constraint firstItem="m0n-x8-aKZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="SmP-dF-JGL"/>
                     <constraint firstItem="m0n-x8-aKZ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ZNR-PX-st2"/>
-                    <constraint firstItem="VQj-XQ-DtE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="aSc-Zg-5f4"/>
-                    <constraint firstAttribute="bottom" secondItem="VQj-XQ-DtE" secondAttribute="bottom" constant="5" id="cdU-8x-A2v"/>
+                    <constraint firstItem="VQj-XQ-DtE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="aSc-Zg-5f4"/>
+                    <constraint firstAttribute="bottom" secondItem="VQj-XQ-DtE" secondAttribute="bottom" constant="10" id="cdU-8x-A2v"/>
                     <constraint firstAttribute="bottom" secondItem="m0n-x8-aKZ" secondAttribute="bottom" constant="10" id="dh4-mv-mmU"/>
                 </constraints>
             </tableViewCellContentView>

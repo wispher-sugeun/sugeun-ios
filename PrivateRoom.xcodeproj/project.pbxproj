@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8E003BD7264FB92700CB5802 /* FolderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E003BD5264FB92700CB5802 /* FolderCollectionViewCell.swift */; };
 		8E003BD8264FB92700CB5802 /* FolderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E003BD6264FB92700CB5802 /* FolderCollectionViewCell.xib */; };
+		8E2B834326A41F9F00AC2570 /* MakeNotiFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B834226A41F9F00AC2570 /* MakeNotiFolderView.swift */; };
+		8E2B834526A41FFA00AC2570 /* MakeNotiFolderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B834426A41FFA00AC2570 /* MakeNotiFolderView.xib */; };
 		8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */; };
 		8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */; };
 		8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D208269EDC5800F48C26 /* TextBookViewController.swift */; };
@@ -23,6 +25,9 @@
 		8E66D21D269F45EE00F48C26 /* DateAddTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E66D21B269F45EE00F48C26 /* DateAddTableViewCell.xib */; };
 		8E66D220269F460000F48C26 /* DateTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D21E269F460000F48C26 /* DateTimeTableViewCell.swift */; };
 		8E66D221269F460000F48C26 /* DateTimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E66D21F269F460000F48C26 /* DateTimeTableViewCell.xib */; };
+		8E66D22526A00BD800F48C26 /* AlarmTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D22326A00BD700F48C26 /* AlarmTableViewCell.swift */; };
+		8E66D22626A00BD800F48C26 /* AlarmTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E66D22426A00BD700F48C26 /* AlarmTableViewCell.xib */; };
+		8E66D22826A017C300F48C26 /* MakeAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D22726A017C300F48C26 /* MakeAlarmViewController.swift */; };
 		8E70C1C2269196FC006F1D2C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E70C1C1269196FC006F1D2C /* Extension.swift */; };
 		8E70C1C4269199A6006F1D2C /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E70C1C3269199A6006F1D2C /* ProfileEditViewController.swift */; };
 		8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E70C1C62691A581006F1D2C /* IDInputTableViewCell.swift */; };
@@ -53,15 +58,17 @@
 		8EF3BFAA268F641300415150 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3BFA9268F641300415150 /* CalendarViewController.swift */; };
 		8EF3BFAD268F677E00415150 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3BFAC268F677E00415150 /* LoginViewController.swift */; };
 		8EF3BFAF268F678D00415150 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EF3BFAE268F678D00415150 /* Login.storyboard */; };
-		E31B59083050A57B6D0DD38A /* Pods_PrivateRoom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 217F3F6BC664B145CC62B67D /* Pods_PrivateRoom.framework */; };
+		AAC47C21F15A770385ECE65C /* Pods_PrivateRoom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575ACDD701EBBB7F03E428A0 /* Pods_PrivateRoom.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		026C6E91072CA3A29EE025C6 /* Pods-PrivateRoom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivateRoom.release.xcconfig"; path = "Target Support Files/Pods-PrivateRoom/Pods-PrivateRoom.release.xcconfig"; sourceTree = "<group>"; };
-		217F3F6BC664B145CC62B67D /* Pods_PrivateRoom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrivateRoom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2324BA311EEC4F06F0E2B20C /* Pods-PrivateRoom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivateRoom.debug.xcconfig"; path = "Target Support Files/Pods-PrivateRoom/Pods-PrivateRoom.debug.xcconfig"; sourceTree = "<group>"; };
+		1FC203A57B3F8323CDD97235 /* Pods-PrivateRoom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivateRoom.debug.xcconfig"; path = "Target Support Files/Pods-PrivateRoom/Pods-PrivateRoom.debug.xcconfig"; sourceTree = "<group>"; };
+		575ACDD701EBBB7F03E428A0 /* Pods_PrivateRoom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrivateRoom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FCDA5CC2DDC839482B705BB /* Pods-PrivateRoom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivateRoom.release.xcconfig"; path = "Target Support Files/Pods-PrivateRoom/Pods-PrivateRoom.release.xcconfig"; sourceTree = "<group>"; };
 		8E003BD5264FB92700CB5802 /* FolderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E003BD6264FB92700CB5802 /* FolderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FolderCollectionViewCell.xib; sourceTree = "<group>"; };
+		8E2B834226A41F9F00AC2570 /* MakeNotiFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNotiFolderView.swift; sourceTree = "<group>"; };
+		8E2B834426A41FFA00AC2570 /* MakeNotiFolderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MakeNotiFolderView.xib; sourceTree = "<group>"; };
 		8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
 		8E66D208269EDC5800F48C26 /* TextBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBookViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +83,9 @@
 		8E66D21B269F45EE00F48C26 /* DateAddTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateAddTableViewCell.xib; sourceTree = "<group>"; };
 		8E66D21E269F460000F48C26 /* DateTimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeTableViewCell.swift; sourceTree = "<group>"; };
 		8E66D21F269F460000F48C26 /* DateTimeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateTimeTableViewCell.xib; sourceTree = "<group>"; };
+		8E66D22326A00BD700F48C26 /* AlarmTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTableViewCell.swift; sourceTree = "<group>"; };
+		8E66D22426A00BD700F48C26 /* AlarmTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlarmTableViewCell.xib; sourceTree = "<group>"; };
+		8E66D22726A017C300F48C26 /* MakeAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeAlarmViewController.swift; sourceTree = "<group>"; };
 		8E70C1C1269196FC006F1D2C /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		8E70C1C3269199A6006F1D2C /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		8E70C1C62691A581006F1D2C /* IDInputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDInputTableViewCell.swift; sourceTree = "<group>"; };
@@ -115,7 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E31B59083050A57B6D0DD38A /* Pods_PrivateRoom.framework in Frameworks */,
+				AAC47C21F15A770385ECE65C /* Pods_PrivateRoom.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,18 +135,28 @@
 		4DC061FE5DC5F6F65D3BB4E0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2324BA311EEC4F06F0E2B20C /* Pods-PrivateRoom.debug.xcconfig */,
-				026C6E91072CA3A29EE025C6 /* Pods-PrivateRoom.release.xcconfig */,
+				1FC203A57B3F8323CDD97235 /* Pods-PrivateRoom.debug.xcconfig */,
+				6FCDA5CC2DDC839482B705BB /* Pods-PrivateRoom.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		656A57DE1F2564D2C46CE3A9 /* Frameworks */ = {
+		8826930ABBF759B20E82CA9E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				217F3F6BC664B145CC62B67D /* Pods_PrivateRoom.framework */,
+				575ACDD701EBBB7F03E428A0 /* Pods_PrivateRoom.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8E2B833B26A41D5400AC2570 /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				8EE69D6B26484BAA00ED19B9 /* NotiViewController.swift */,
+				8E2B834226A41F9F00AC2570 /* MakeNotiFolderView.swift */,
+				8E2B834426A41FFA00AC2570 /* MakeNotiFolderView.xib */,
+			);
+			path = Alarm;
 			sourceTree = "<group>";
 		};
 		8E66D212269F3E8700F48C26 /* Calendar */ = {
@@ -145,6 +165,7 @@
 				8E66D215269F45B900F48C26 /* AddCell */,
 				8EF3BFA9268F641300415150 /* CalendarViewController.swift */,
 				8E66D213269F3EA300F48C26 /* AddCalendarViewController.swift */,
+				8E66D22726A017C300F48C26 /* MakeAlarmViewController.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -158,6 +179,8 @@
 				8E66D21B269F45EE00F48C26 /* DateAddTableViewCell.xib */,
 				8E66D21E269F460000F48C26 /* DateTimeTableViewCell.swift */,
 				8E66D21F269F460000F48C26 /* DateTimeTableViewCell.xib */,
+				8E66D22326A00BD700F48C26 /* AlarmTableViewCell.swift */,
+				8E66D22426A00BD700F48C26 /* AlarmTableViewCell.xib */,
 			);
 			path = AddCell;
 			sourceTree = "<group>";
@@ -190,7 +213,7 @@
 				8E782ACE2647D3A400D93D89 /* PrivateRoom */,
 				8E782ACD2647D3A400D93D89 /* Products */,
 				4DC061FE5DC5F6F65D3BB4E0 /* Pods */,
-				656A57DE1F2564D2C46CE3A9 /* Frameworks */,
+				8826930ABBF759B20E82CA9E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -245,6 +268,7 @@
 		8EF3BFA1268F5DD200415150 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8E2B833B26A41D5400AC2570 /* Alarm */,
 				8E66D212269F3E8700F48C26 /* Calendar */,
 				8E70C1C526919A32006F1D2C /* Profile */,
 				8EF3BFAB268F675C00415150 /* Login */,
@@ -252,7 +276,6 @@
 				8EE69D6326484B4F00ED19B9 /* MainViewController.swift */,
 				8EE69D6526484B7D00ED19B9 /* TextViewController.swift */,
 				8EE69D6926484B9900ED19B9 /* LinkViewController.swift */,
-				8EE69D6B26484BAA00ED19B9 /* NotiViewController.swift */,
 				8EF00F1226539C0100AA1EEA /* FolderInViewController.swift */,
 				8EF00F10265390C800AA1EEA /* FolderViewController.swift */,
 			);
@@ -306,11 +329,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E782AE32647D3AC00D93D89 /* Build configuration list for PBXNativeTarget "PrivateRoom" */;
 			buildPhases = (
-				46EC4E4C224252860F4F4793 /* [CP] Check Pods Manifest.lock */,
+				53E614C8769EDD5039A0AA8F /* [CP] Check Pods Manifest.lock */,
 				8E782AC82647D3A400D93D89 /* Sources */,
 				8E782AC92647D3A400D93D89 /* Frameworks */,
 				8E782ACA2647D3A400D93D89 /* Resources */,
-				BF28902FF73977AC135A1B2B /* [CP] Embed Pods Frameworks */,
+				F95E48F12E71D7A02411D13C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -358,11 +381,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E66D22626A00BD800F48C26 /* AlarmTableViewCell.xib in Resources */,
 				8EF00F0F2652BA9800AA1EEA /* Profile.storyboard in Resources */,
 				8E66D21D269F45EE00F48C26 /* DateAddTableViewCell.xib in Resources */,
 				8E66D221269F460000F48C26 /* DateTimeTableViewCell.xib in Resources */,
 				8E66D20F269EE55500F48C26 /* CalendarTableViewCell.xib in Resources */,
 				8ED94267269D844900B860BF /* MakeFolder.xib in Resources */,
+				8E2B834526A41FFA00AC2570 /* MakeNotiFolderView.xib in Resources */,
 				8E003BD8264FB92700CB5802 /* FolderCollectionViewCell.xib in Resources */,
 				8EF3BFAF268F678D00415150 /* Login.storyboard in Resources */,
 				8E782ADF2647D3AC00D93D89 /* LaunchScreen.storyboard in Resources */,
@@ -376,7 +401,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		46EC4E4C224252860F4F4793 /* [CP] Check Pods Manifest.lock */ = {
+		53E614C8769EDD5039A0AA8F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -398,7 +423,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BF28902FF73977AC135A1B2B /* [CP] Embed Pods Frameworks */ = {
+		F95E48F12E71D7A02411D13C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -427,6 +452,8 @@
 				8EE69D6A26484B9900ED19B9 /* LinkViewController.swift in Sources */,
 				8E782ADA2647D3A400D93D89 /* PrivateRoom.xcdatamodeld in Sources */,
 				8E66D218269F45D300F48C26 /* TitleAddTableViewCell.swift in Sources */,
+				8E66D22526A00BD800F48C26 /* AlarmTableViewCell.swift in Sources */,
+				8E66D22826A017C300F48C26 /* MakeAlarmViewController.swift in Sources */,
 				8EF3BFA5268F61FE00415150 /* UserServices.swift in Sources */,
 				8EE69D6E26486B6E00ED19B9 /* ProfileViewController.swift in Sources */,
 				8EF00F1326539C0100AA1EEA /* FolderInViewController.swift in Sources */,
@@ -442,6 +469,7 @@
 				8E66D214269F3EA300F48C26 /* AddCalendarViewController.swift in Sources */,
 				8E66D220269F460000F48C26 /* DateTimeTableViewCell.swift in Sources */,
 				8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */,
+				8E2B834326A41F9F00AC2570 /* MakeNotiFolderView.swift in Sources */,
 				8E66D21C269F45EE00F48C26 /* DateAddTableViewCell.swift in Sources */,
 				8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */,
 				8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */,
@@ -518,6 +546,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -532,7 +561,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -579,6 +608,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -587,7 +617,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -599,18 +629,24 @@
 		};
 		8E782AE42647D3AC00D93D89 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2324BA311EEC4F06F0E2B20C /* Pods-PrivateRoom.debug.xcconfig */;
+			baseConfigurationReference = 1FC203A57B3F8323CDD97235 /* Pods-PrivateRoom.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FJ57DUH592;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FSCalendar\"",
+				);
 				INFOPLIST_FILE = PrivateRoom/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = Develop.PrivateRoom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -620,18 +656,24 @@
 		};
 		8E782AE52647D3AC00D93D89 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 026C6E91072CA3A29EE025C6 /* Pods-PrivateRoom.release.xcconfig */;
+			baseConfigurationReference = 6FCDA5CC2DDC839482B705BB /* Pods-PrivateRoom.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FJ57DUH592;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FSCalendar\"",
+				);
 				INFOPLIST_FILE = PrivateRoom/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = Develop.PrivateRoom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

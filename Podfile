@@ -6,14 +6,16 @@ target 'PrivateRoom' do
   use_frameworks!
 
   # Pods for PrivateRoom
-pod 'Tabman', '~> 2.11'
-pod 'JGProgressHUD'
+
+
 pod 'RxSwift', '6.2.0'
 pod 'RxCocoa', '6.2.0'
 pod 'AnyFormatKit', '~> 2.5.1'
-
+pod 'JGProgressHUD'
 pod 'DropDown'
+pod 'Tabman', '~> 2.11'
 pod 'FSCalendar'
 pod 'SDWebImage', '~> 5.0'
+
 
 end
