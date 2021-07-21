@@ -14,6 +14,8 @@
 		8E2B834826A42DB200AC2570 /* TimeOutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B834626A42DB100AC2570 /* TimeOutCollectionViewCell.swift */; };
 		8E2B834926A42DB200AC2570 /* TimeOutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B834726A42DB100AC2570 /* TimeOutCollectionViewCell.xib */; };
 		8E2B834E26A7E14600AC2570 /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B834D26A7E14600AC2570 /* WriteViewController.swift */; };
+		8E2B835126A7E9D800AC2570 /* LinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B834F26A7E9D800AC2570 /* LinkCollectionViewCell.swift */; };
+		8E2B835226A7E9D800AC2570 /* LinkCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B835026A7E9D800AC2570 /* LinkCollectionViewCell.xib */; };
 		8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */; };
 		8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */; };
 		8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D208269EDC5800F48C26 /* TextBookViewController.swift */; };
@@ -75,6 +77,8 @@
 		8E2B834626A42DB100AC2570 /* TimeOutCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeOutCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E2B834726A42DB100AC2570 /* TimeOutCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeOutCollectionViewCell.xib; sourceTree = "<group>"; };
 		8E2B834D26A7E14600AC2570 /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
+		8E2B834F26A7E9D800AC2570 /* LinkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCollectionViewCell.swift; sourceTree = "<group>"; };
+		8E2B835026A7E9D800AC2570 /* LinkCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LinkCollectionViewCell.xib; sourceTree = "<group>"; };
 		8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
 		8E66D208269EDC5800F48C26 /* TextBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBookViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +194,8 @@
 			isa = PBXGroup;
 			children = (
 				8EE69D6926484B9900ED19B9 /* LinkViewController.swift */,
+				8E2B834F26A7E9D800AC2570 /* LinkCollectionViewCell.swift */,
+				8E2B835026A7E9D800AC2570 /* LinkCollectionViewCell.xib */,
 			);
 			path = Link;
 			sourceTree = "<group>";
@@ -414,6 +420,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E2B835226A7E9D800AC2570 /* LinkCollectionViewCell.xib in Resources */,
 				8E66D22626A00BD800F48C26 /* AlarmTableViewCell.xib in Resources */,
 				8EF00F0F2652BA9800AA1EEA /* Profile.storyboard in Resources */,
 				8E66D21D269F45EE00F48C26 /* DateAddTableViewCell.xib in Resources */,
@@ -485,6 +492,7 @@
 				8E70C1C4269199A6006F1D2C /* ProfileEditViewController.swift in Sources */,
 				8EE69D6A26484B9900ED19B9 /* LinkViewController.swift in Sources */,
 				8E782ADA2647D3A400D93D89 /* PrivateRoom.xcdatamodeld in Sources */,
+				8E2B835126A7E9D800AC2570 /* LinkCollectionViewCell.swift in Sources */,
 				8E66D218269F45D300F48C26 /* TitleAddTableViewCell.swift in Sources */,
 				8E66D22526A00BD800F48C26 /* AlarmTableViewCell.swift in Sources */,
 				8E66D22826A017C300F48C26 /* MakeAlarmViewController.swift in Sources */,

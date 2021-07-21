@@ -61,8 +61,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     @IBAction func BackButton(_ sender: Any) {
         performSegue(withIdentifier: "back", sender: self)
     }
-    //floating button
-//    let floatingButton = UIButton(frame: CGRect(x: 250, y: 700, width: 300, height: 300))
+
     
     private var alertController = UIAlertController()
     private var tblView = UITableView()
@@ -90,7 +89,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true, Content: [FolderIn(FolderType: "T", content: "hi this is fairy story"), FolderIn(FolderType: "I", content: UIImage(named: "temp") ?? 0), FolderIn(FolderType: "L", content: "www.naver.com")]))
         
         
-        //folders.append(Folder(folderName: "Swift", isLike: false, Content: [FolderIn(FolderType: "L", content: "hi this is fairy story"), FolderIn(FolderType: "N", content: UIImage(named: "temp") ?? 0), FolderIn(FolderType: "L", content: "www.naver.com")]))
+//        folders.append(Folder(folderName: "Swift", isLike: false, Content: [FolderIn(FolderType: "L", content: "hi this is fairy story"), FolderIn(FolderType: "N", content: UIImage(named: "temp") ?? 0), FolderIn(FolderType: "L", content: "www.naver.com")]))
         
         filteredFolder = folders
         

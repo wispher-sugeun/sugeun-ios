@@ -37,20 +37,6 @@
                                     <action selector="folderEditButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Obc-Ym-VB8"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1y-YR-HST">
-                                <rect key="frame" x="225" y="0.0" width="30" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="cC1-lH-H7a"/>
-                                    <constraint firstAttribute="height" constant="40" id="nu3-Mn-wzy"/>
-                                </constraints>
-                                <color key="tintColor" red="0.1647058824" green="0.20000000000000001" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" backgroundImage="bookmark" catalog="system">
-                                    <color key="titleColor" red="0.1647058824" green="0.20000000000000001" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                                <connections>
-                                    <action selector="heartButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="JRM-aV-Vf1"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -61,9 +47,7 @@
                             <constraint firstAttribute="trailing" secondItem="Ssf-ko-sW0" secondAttribute="trailing" constant="20" id="dD3-vo-P2A"/>
                             <constraint firstItem="Dtb-u3-ubR" firstAttribute="top" secondItem="7JX-05-zNn" secondAttribute="bottom" constant="10" id="gIx-KP-3PP"/>
                             <constraint firstItem="7JX-05-zNn" firstAttribute="leading" secondItem="lay-ba-g4M" secondAttribute="leading" id="h8u-UN-COx"/>
-                            <constraint firstAttribute="trailing" secondItem="c1y-YR-HST" secondAttribute="trailing" constant="10" id="hcw-lt-lGQ"/>
                             <constraint firstAttribute="bottom" secondItem="Ssf-ko-sW0" secondAttribute="bottom" constant="10" id="ptx-No-mZL"/>
-                            <constraint firstItem="c1y-YR-HST" firstAttribute="top" secondItem="lay-ba-g4M" secondAttribute="top" id="rKQ-e8-smM"/>
                             <constraint firstItem="7JX-05-zNn" firstAttribute="top" secondItem="lay-ba-g4M" secondAttribute="top" id="zEw-ZX-EoJ"/>
                         </constraints>
                     </view>
@@ -87,7 +71,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="bookmark" catalog="system" width="112" height="128"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
