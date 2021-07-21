@@ -13,6 +13,7 @@
 		8E2B834526A41FFA00AC2570 /* MakeNotiFolderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B834426A41FFA00AC2570 /* MakeNotiFolderView.xib */; };
 		8E2B834826A42DB200AC2570 /* TimeOutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B834626A42DB100AC2570 /* TimeOutCollectionViewCell.swift */; };
 		8E2B834926A42DB200AC2570 /* TimeOutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B834726A42DB100AC2570 /* TimeOutCollectionViewCell.xib */; };
+		8E2B834E26A7E14600AC2570 /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B834D26A7E14600AC2570 /* WriteViewController.swift */; };
 		8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */; };
 		8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */; };
 		8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D208269EDC5800F48C26 /* TextBookViewController.swift */; };
@@ -73,6 +74,7 @@
 		8E2B834426A41FFA00AC2570 /* MakeNotiFolderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MakeNotiFolderView.xib; sourceTree = "<group>"; };
 		8E2B834626A42DB100AC2570 /* TimeOutCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeOutCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E2B834726A42DB100AC2570 /* TimeOutCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeOutCollectionViewCell.xib; sourceTree = "<group>"; };
+		8E2B834D26A7E14600AC2570 /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
 		8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
 		8E66D208269EDC5800F48C26 /* TextBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBookViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +175,23 @@
 				8EE69D6326484B4F00ED19B9 /* MainViewController.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		8E2B834B26A7D97300AC2570 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				8EE69D6526484B7D00ED19B9 /* TextViewController.swift */,
+				8E2B834D26A7E14600AC2570 /* WriteViewController.swift */,
+			);
+			path = Text;
+			sourceTree = "<group>";
+		};
+		8E2B834C26A7DF1800AC2570 /* Link */ = {
+			isa = PBXGroup;
+			children = (
+				8EE69D6926484B9900ED19B9 /* LinkViewController.swift */,
+			);
+			path = Link;
 			sourceTree = "<group>";
 		};
 		8E66D212269F3E8700F48C26 /* Calendar */ = {
@@ -282,14 +301,14 @@
 		8EF3BFA1268F5DD200415150 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8E2B834C26A7DF1800AC2570 /* Link */,
+				8E2B834B26A7D97300AC2570 /* Text */,
 				8E782AD32647D3A400D93D89 /* ViewController.swift */,
 				8E2B834A26A462E500AC2570 /* Main */,
 				8E2B833B26A41D5400AC2570 /* Alarm */,
 				8E66D212269F3E8700F48C26 /* Calendar */,
 				8E70C1C526919A32006F1D2C /* Profile */,
 				8EF3BFAB268F675C00415150 /* Login */,
-				8EE69D6526484B7D00ED19B9 /* TextViewController.swift */,
-				8EE69D6926484B9900ED19B9 /* LinkViewController.swift */,
 				8EF00F1226539C0100AA1EEA /* FolderInViewController.swift */,
 				8EF00F10265390C800AA1EEA /* FolderViewController.swift */,
 			);
@@ -480,6 +499,7 @@
 				8E782AD22647D3A400D93D89 /* SceneDelegate.swift in Sources */,
 				8ED94269269D85C700B860BF /* MakeFolder.swift in Sources */,
 				8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */,
+				8E2B834E26A7E14600AC2570 /* WriteViewController.swift in Sources */,
 				8E66D20E269EE55500F48C26 /* CalendarTableViewCell.swift in Sources */,
 				8E66D214269F3EA300F48C26 /* AddCalendarViewController.swift in Sources */,
 				8E66D220269F460000F48C26 /* DateTimeTableViewCell.swift in Sources */,

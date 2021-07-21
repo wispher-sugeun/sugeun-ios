@@ -282,8 +282,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         guard let VC = self.storyboard?.instantiateViewController(identifier: "folderIn") else { return }
         VC.modalPresentationStyle = .fullScreen
         self.present(VC, animated: true, completion: nil)
-        
-        
     }
     
     
