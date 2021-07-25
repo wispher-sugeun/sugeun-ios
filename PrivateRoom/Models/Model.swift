@@ -12,7 +12,6 @@ struct Folder {
     var folderName: String
     var folderImage: UIImage?
     var isLike: Bool
-    var Content: [FolderIn]
 }
 
 struct FolderIn {
@@ -34,8 +33,7 @@ struct Phrase {
     var phraseId: Double
     var text: String
     var bookmark: Bool
-    var regDate: String // 생성일
-    var modDate: String // 수정일
+    var date: String
 }
 
 struct Link {
@@ -44,8 +42,7 @@ struct Link {
     var linkId: Double
     var link: String
     var bookmark: Bool
-    var regDate: String // 생성일
-    var modDate: String // 수정일
+    var date: String
 }
 
 

@@ -86,10 +86,10 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true, Content: [FolderIn(FolderType: "T", content: "hi this is fairy story"), FolderIn(FolderType: "I", content: UIImage(named: "temp") ?? 0), FolderIn(FolderType: "L", content: "www.naver.com")]))
+        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
         
-        
-//        folders.append(Folder(folderName: "Swift", isLike: false, Content: [FolderIn(FolderType: "L", content: "hi this is fairy story"), FolderIn(FolderType: "N", content: UIImage(named: "temp") ?? 0), FolderIn(FolderType: "L", content: "www.naver.com")]))
+
         
         filteredFolder = folders
         
@@ -191,6 +191,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     @objc func makeFolder(){
         let makeFolderView = self.storyboard?.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
+        makeFolderView.type_dropDown.dataSource = ["텍스트", "알림"]
         makeFolderView.modalPresentationStyle = .overCurrentContext
         self.present(makeFolderView, animated: true, completion: nil)
     }
@@ -305,6 +306,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             sortingButton.setTitleColor(UIColor.gray, for: .normal)
             headerView.addSubview(sortingButton)
             sortingButton.frame = CGRect(x: headerView.frame.maxX - 100, y: 10, width: 100, height: 30)
+            
+            print("sorting Button x Frame")
+            print(headerView.frame.maxX - 100)
             
             sortingButton.addTarget(self, action: #selector(didTapSortingButton), for: .touchUpInside)
             
@@ -475,12 +479,8 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
         print("click done button")
     }
     
-    let type_dropDown: DropDown = {
-        let dropDown = DropDown()
-        dropDown.dataSource = ["텍스트", "링크"]
-        dropDown.textColor = .white
-        return dropDown
-    }()
+    let type_dropDown = DropDown()
+
     
     
     func folderType() {
@@ -502,12 +502,16 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
     
     @IBOutlet var folderView: MakeFolder!
     
-
+    func type_dropDownSetting(){
+        type_dropDown.dataSource = []
+        type_dropDown.textColor = .white
+        type_dropDown.backgroundColor = #colorLiteral(red: 0.2659958005, green: 0.3394620717, blue: 0.6190373302, alpha: 1)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         folderView.delegate = self
-        type_dropDown.backgroundColor = #colorLiteral(red: 0.2659958005, green: 0.3394620717, blue: 0.6190373302, alpha: 1)
+        type_dropDownSetting()
         type_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("선택한 아이템 : \(item)")
             print("인덱스 : \(index)")

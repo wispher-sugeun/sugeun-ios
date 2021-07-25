@@ -20,9 +20,9 @@ class LinkViewController: UIViewController {
         super.viewDidLoad()
         textFieldSetting(textField: searchTextField)
         collectionViewSetting()
-        link.append(Link(userId: 1, folderId: 1, linkId: 1, link: "www.naver.com", bookmark: true, regDate: "2021-02-05", modDate: "2021-07-21"))
-        link.append(Link(userId: 2, folderId: 2, linkId: 2, link: "www.google.com", bookmark: true, regDate: "2021-03-05", modDate: "2021-07-20"))
-        link.append(Link(userId: 3, folderId: 3, linkId: 3, link: "www.daum.net", bookmark: false, regDate: "2021-07-05", modDate: "2021-07-19"))
+        link.append(Link(userId: 1, folderId: 1, linkId: 1, link: "www.naver.com", bookmark: true, date: "2021-02-05"))
+        link.append(Link(userId: 2, folderId: 2, linkId: 2, link: "www.google.com", bookmark: true, date: "2021-03-05"))
+        link.append(Link(userId: 3, folderId: 3, linkId: 3, link: "www.daum.net", bookmark: false, date: "2021-03-05"))
         filderedLink = link
     }
     
@@ -51,5 +51,9 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     
+    
+}
+
+extension LinkViewController: UITextFieldDelegate {
     
 }

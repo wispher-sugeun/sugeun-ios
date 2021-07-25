@@ -33,7 +33,7 @@ class FolderInViewController: UIViewController {
         FoderCollectionView.delegate = self
         FoderCollectionView.dataSource = self
         
-        folder.append(Folder(folderName: "CodingTest", isLike: true, Content: [FolderIn(FolderType: "T", content: "hi this is fairy story"), FolderIn(FolderType: "I", content: UIImage(named: "temp") ?? 0), FolderIn(FolderType: "L", content: "www.naver.com")]))
+        folder.append(Folder(folderName: "CodingTest", isLike: true))
     }
     
     
@@ -43,7 +43,7 @@ class FolderInViewController: UIViewController {
 
 extension FolderInViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        folder[0].Content.count // 3
+        return 0 // 3
     }
     
     
@@ -55,23 +55,23 @@ extension FolderInViewController: UICollectionViewDataSource, UICollectionViewDe
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! UICollectionViewCell
         
-        let type = folder[0].Content[indexPath.row].FolderType
-        switch type {
-        case "T":
-            let textcell = collectionView.dequeueReusableCell(withReuseIdentifier: "textCell", for: indexPath) as! TextCell
-            textcell.backgroundColor = .blue
-            return textcell
-        case "I":
-            let imagecell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! ImageCell
-            imagecell.backgroundColor = .brown
-            return imagecell
-        case "L":
-            let linkcell = collectionView.dequeueReusableCell(withReuseIdentifier: "linkCell", for: indexPath) as! LinkCell
-            linkcell.backgroundColor = .cyan
-            return linkcell
-        default:
-            print("here")
-        }
+//        let type = folder[0].Content[indexPath.row].FolderType
+//        switch type {
+//        case "T":
+//            let textcell = collectionView.dequeueReusableCell(withReuseIdentifier: "textCell", for: indexPath) as! TextCell
+//            textcell.backgroundColor = .blue
+//            return textcell
+//        case "I":
+//            let imagecell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! ImageCell
+//            imagecell.backgroundColor = .brown
+//            return imagecell
+//        case "L":
+//            let linkcell = collectionView.dequeueReusableCell(withReuseIdentifier: "linkCell", for: indexPath) as! LinkCell
+//            linkcell.backgroundColor = .cyan
+//            return linkcell
+//        default:
+//            print("here")
+//        }
        
         return cell
     }
