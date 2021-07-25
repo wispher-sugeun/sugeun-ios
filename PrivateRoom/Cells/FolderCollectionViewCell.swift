@@ -28,17 +28,6 @@ class FolderCollectionViewCell: UICollectionViewCell {
     
     var indexPath: IndexPath = []
     
-
-  
-//    @IBAction func heartButton(_ sender: UIButton) {
-//        //sender.scalesLargeContentImage = true
-//        sender.isSelected = sender.isSelected ? false : true
-//        print(sender.frame.width)
-//        print(sender.frame.height)
-//
-//        sender.isSelected ?  sender.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal) :   sender.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
-//    }
-    
     var cellDelegate: FolderCollectionViewCellDelegate?
     
     override func awakeFromNib() {

@@ -13,6 +13,33 @@ import PhotosUI
 class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     
+    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    
+    let cellSpacingHeight: CGFloat = 10
+
+    override func viewWillAppear(_ animated: Bool) {
+        print("view will apear")
+    }
+    
+    override func viewDidLayoutSubviews() {
+        print("view did layout subview")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("view did apear")
+        //collectionviewHeight.constant = self.collectionView.contentSize.height
+//        print(self.collectionView.contentSize.height)
+//        collectionView.reloadData()
+        
+        tableViewHeight.constant = self.frameTableView.contentSize.height + 100
+     
+        frameTableView.reloadData()
+        
+        frameTableView.tableFooterView?.frame.size.height = collectionView.contentSize.height + 50
+        print("footer view")
+        print(frameTableView.tableFooterView?.frame.size.height )
+        
+    }
     func didTapMoreButton(cell: FolderCollectionViewCell) {
         more_dropDown.anchorView = cell.moreButton
         more_dropDown.show()
@@ -54,13 +81,14 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     @IBOutlet weak var searchTextField: UITextField!
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var frameTableView: UITableView!
     
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var header: UIView!
     
+    @IBOutlet weak var footer: UIView!
     private var tblView = UITableView()
     
     private var alertController = UIAlertController()
@@ -72,8 +100,6 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     @IBAction func editButton(_ sender: Any) {
         print("edit button")
     }
-    
-    @IBOutlet weak var sortingButton: UIButton!
     
     var sorting = ["가나다 순", "생성 순", "최신 순"]
     
@@ -96,7 +122,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     }()
     
     var configuration = PHPickerConfiguration()
-    
+    var cellHeight: CGFloat = 0.0
     override func viewDidLoad() {
         super.viewDidLoad()
         dummy()
@@ -108,20 +134,27 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         sortingButtonSetting()
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
-
-        print(tableView.fs_height)
-        
-        print(collectionView.fs_height)
+        print("view did load")
+//        print(tableView.fs_height)
+//
+//        print(collectionView.fs_height)
 
  
     }
     
     
     func dummy(){
-        textCell.append(Phrase(userId: 0, folderId: 0, phraseId: 0, text: "test1", bookmark: true, date: "2021-07-05"))
-        textCell.append(Phrase(userId: 1, folderId: 1, phraseId: 1, text: "text2", bookmark: false, date: "2021-07022"))
+        textCell.append(Phrase(userId: 0, folderId: 0, phraseId: 0, text: "test1\ntest1\ntest1", bookmark: true, date: "2021-07-05"))
+        textCell.append(Phrase(userId: 1, folderId: 1, phraseId: 1, text: "text2\ntest1\ntest1\ntest1\ntext2\ntest1\ntest1\ntest1", bookmark: false, date: "2021-07-22"))
+        textCell.append(Phrase(userId: 1, folderId: 1, phraseId: 1, text: "text2", bookmark: false, date: "2021-07-22"))
         filteredTextCell = textCell
         
+        textFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        textFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        textFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        
+        textFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        textFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         textFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         
         filteredTextFolder = textFolder
@@ -141,14 +174,21 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     }
     
     func tableviewSetting(){
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(TextCellTableViewCell.nib(), forCellReuseIdentifier: TextCellTableViewCell.identifier)
+        frameTableView.delegate = self
+        frameTableView.dataSource = self
+        frameTableView.register(TextCellTableViewCell.nib(), forCellReuseIdentifier: TextCellTableViewCell.identifier)
+        self.frameTableView.translatesAutoresizingMaskIntoConstraints = false
+        frameTableView.backgroundColor = .clear
+        self.frameTableView.estimatedRowHeight = 80
+        self.frameTableView.rowHeight = UITableView.automaticDimension
+
+
     }
     
     func collectionViewSetting(){
         collectionView.delegate = self
         collectionView.dataSource = self
+        self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
     }
     
@@ -377,9 +417,13 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
 
 }
 
-extension TextInViewController: UITableViewDelegate, UITableViewDataSource {
+extension TextInViewController: UITableViewDelegate, UITableViewDataSource, TextCellTableViewCellDelegate {
+    
+    func moreButton(cell: TextCellTableViewCell) {
+        print("text cell more button")
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return filteredTextCell.count
         
     }
     
@@ -388,14 +432,16 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource {
         if(tableView == tblView){
             return sorting.count
         }
-        
-        return filteredTextCell.count
+        return 1
+        //return filteredTextCell.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        print(indexPath.row)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        let defaultCell = tableView.dequeueReusableCell(withIdentifier: "cell")
         if(tableView == tblView){
-            let cell = tableView.dequeueReusableCell(withIdentifier: "sortingCell")!
+            let cell = tblView.dequeueReusableCell(withIdentifier: "sortingCell")!
             
             let nsHeaderTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.light),
                                           NSAttributedString.Key.foregroundColor: UIColor.black]
@@ -406,23 +452,37 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: TextCellTableViewCell.identifier, for: indexPath)
-        if tableView == tableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: TextCellTableViewCell.identifier, for: indexPath)
-            cell.textLabel?.text = textCell[indexPath.row].text
+       
+        if tableView == frameTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TextCellTableViewCell.identifier, for: indexPath) as! TextCellTableViewCell
+           
+            cell.delegate = self
+            cell.configure(model: filteredTextCell[indexPath.section])
+        
             
             return cell
         }
-        return cell
+        
+        return defaultCell!
         
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return cellSpacingHeight
+    }
+
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if(tableView == tblView){
             return CGFloat(50)
         }
-        return tableView.estimatedRowHeight
+        else if (tableView == tableView){
+            return UITableView.automaticDimension
+            
+        }
+        return 50
+      
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -458,6 +518,7 @@ extension TextInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.cellDelegate = self
         cell.configure(folder: filteredTextFolder[indexPath.row])
         cell.indexPath = indexPath
+        
         return cell
     }
     
@@ -507,7 +568,7 @@ extension TextInViewController: UITextFieldDelegate {
             filteredTextCell = textCell
         }
         
-        tableView.reloadData()
+        frameTableView.reloadData()
         collectionView.reloadData()
         return true
         
@@ -525,7 +586,7 @@ extension TextInViewController: UITextFieldDelegate {
             filteredTextFolder.append(str)
         }
         
-        tableView.reloadData()
+        frameTableView.reloadData()
         collectionView.reloadData()
         return false
         
@@ -555,7 +616,7 @@ extension TextInViewController: UITextFieldDelegate {
             }
         }
         
-        tableView.reloadData()
+        frameTableView.reloadData()
         collectionView.reloadData()
         return true
     }

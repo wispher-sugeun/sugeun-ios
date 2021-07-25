@@ -19,6 +19,7 @@
 		8E2B835526A95D0700AC2570 /* TextInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B835426A95D0700AC2570 /* TextInViewController.swift */; };
 		8E2B835826AD2C8F00AC2570 /* TextCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B835626AD2C8F00AC2570 /* TextCellTableViewCell.swift */; };
 		8E2B835926AD2C9000AC2570 /* TextCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B835726AD2C8F00AC2570 /* TextCellTableViewCell.xib */; };
+		8E2B835D26AD724600AC2570 /* LayoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B835B26AD724400AC2570 /* LayoutTableViewCell.xib */; };
 		8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */; };
 		8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */; };
 		8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D208269EDC5800F48C26 /* TextBookViewController.swift */; };
@@ -85,6 +86,7 @@
 		8E2B835426A95D0700AC2570 /* TextInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInViewController.swift; sourceTree = "<group>"; };
 		8E2B835626AD2C8F00AC2570 /* TextCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCellTableViewCell.swift; sourceTree = "<group>"; };
 		8E2B835726AD2C8F00AC2570 /* TextCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextCellTableViewCell.xib; sourceTree = "<group>"; };
+		8E2B835B26AD724400AC2570 /* LayoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutTableViewCell.xib; sourceTree = "<group>"; };
 		8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
 		8E66D208269EDC5800F48C26 /* TextBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBookViewController.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				8E2B835426A95D0700AC2570 /* TextInViewController.swift */,
 				8E2B835626AD2C8F00AC2570 /* TextCellTableViewCell.swift */,
 				8E2B835726AD2C8F00AC2570 /* TextCellTableViewCell.xib */,
+				8E2B835B26AD724400AC2570 /* LayoutTableViewCell.xib */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				8EF3BFAF268F678D00415150 /* Login.storyboard in Resources */,
 				8E2B835926AD2C9000AC2570 /* TextCellTableViewCell.xib in Resources */,
 				8E782ADF2647D3AC00D93D89 /* LaunchScreen.storyboard in Resources */,
+				8E2B835D26AD724600AC2570 /* LayoutTableViewCell.xib in Resources */,
 				8E782ADC2647D3AC00D93D89 /* Assets.xcassets in Resources */,
 				8E70C1C92691A581006F1D2C /* IDInputTableViewCell.xib in Resources */,
 				8E66D219269F45D300F48C26 /* TitleAddTableViewCell.xib in Resources */,
