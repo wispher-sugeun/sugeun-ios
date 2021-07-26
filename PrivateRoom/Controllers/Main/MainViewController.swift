@@ -186,7 +186,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     func floatingButtonSetting(button: UIButton){
         // TO DO make circle
         floatingButton.addTarget(self, action: #selector(makeFolder), for: .touchUpInside)
-        
+        floatingButton.circle()
     }
     
     @objc func makeFolder(){

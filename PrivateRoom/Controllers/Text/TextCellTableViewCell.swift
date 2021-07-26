@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 protocol TextCellTableViewCellDelegate {
     func moreButton(cell: TextCellTableViewCell)
 }
@@ -40,7 +41,6 @@ class TextCellTableViewCell: UITableViewCell {
         contentView.layer.cornerRadius = 10
         contentView.layer.borderColor = UIColor.blue.cgColor
         contentView.clipsToBounds = true
-//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30))
 
     }
 

@@ -16,6 +16,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="545" height="108"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqq-9o-9hf">
+                        <rect key="frame" x="10" y="10" width="41.5" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="09G-jk-af9">
                         <rect key="frame" x="10" y="35.5" width="525" height="62.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -30,20 +36,27 @@
                             <action selector="moreButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DLs-tE-MgJ"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqq-9o-9hf">
-                        <rect key="frame" x="10" y="10" width="41.5" height="20.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A0c-Xz-Zue">
+                        <rect key="frame" x="476" y="-8" width="36" height="46"/>
+                        <color key="tintColor" red="0.29803921570000003" green="0.34509803919999998" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <state key="normal" backgroundImage="bookmark" catalog="system">
+                            <color key="titleColor" red="0.29803921570000003" green="0.34509803919999998" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </state>
+                        <connections>
+                            <action selector="bookMark:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MfR-f5-vBw"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="vnn-RY-Oss" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aqq-9o-9hf" secondAttribute="trailing" constant="5" id="D8q-5l-Zx7"/>
+                    <constraint firstItem="vnn-RY-Oss" firstAttribute="leading" secondItem="A0c-Xz-Zue" secondAttribute="trailing" constant="4" id="CcY-XC-sIs"/>
                     <constraint firstAttribute="trailing" secondItem="09G-jk-af9" secondAttribute="trailing" constant="10" id="DB4-vn-yDn"/>
                     <constraint firstAttribute="trailing" secondItem="vnn-RY-Oss" secondAttribute="trailing" constant="10" id="DWF-eg-L4B"/>
                     <constraint firstItem="vnn-RY-Oss" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="HZQ-qL-vtv"/>
+                    <constraint firstItem="A0c-Xz-Zue" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aqq-9o-9hf" secondAttribute="trailing" constant="20" id="VET-gq-RwX"/>
                     <constraint firstItem="aqq-9o-9hf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="ZBt-In-4wU"/>
+                    <constraint firstAttribute="bottom" secondItem="A0c-Xz-Zue" secondAttribute="bottom" constant="70" id="bUf-da-p0n"/>
                     <constraint firstItem="09G-jk-af9" firstAttribute="top" secondItem="aqq-9o-9hf" secondAttribute="bottom" constant="5" id="eud-e7-pgL"/>
+                    <constraint firstItem="A0c-Xz-Zue" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-8" id="gm0-Oj-eSX"/>
                     <constraint firstItem="aqq-9o-9hf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="t9W-F7-P89"/>
                     <constraint firstItem="09G-jk-af9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="xdj-AA-4qB"/>
                     <constraint firstAttribute="bottom" secondItem="09G-jk-af9" secondAttribute="bottom" constant="10" id="z6O-jL-6Pm"/>
@@ -51,6 +64,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="bookmark" destination="A0c-Xz-Zue" id="A4h-Hb-0eF"/>
                 <outlet property="dateLabel" destination="09G-jk-af9" id="b5L-9Y-fbc"/>
                 <outlet property="labelText" destination="aqq-9o-9hf" id="FEC-lK-TIc"/>
             </connections>
@@ -58,6 +72,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="bookmark" catalog="system" width="112" height="128"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
     </resources>
 </document>

@@ -20,6 +20,7 @@
 		8E2B835826AD2C8F00AC2570 /* TextCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B835626AD2C8F00AC2570 /* TextCellTableViewCell.swift */; };
 		8E2B835926AD2C9000AC2570 /* TextCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B835726AD2C8F00AC2570 /* TextCellTableViewCell.xib */; };
 		8E2B835D26AD724600AC2570 /* LayoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B835B26AD724400AC2570 /* LayoutTableViewCell.xib */; };
+		8E2B835F26ADD1DA00AC2570 /* LinkInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B835E26ADD1D800AC2570 /* LinkInViewController.swift */; };
 		8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */; };
 		8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */; };
 		8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D208269EDC5800F48C26 /* TextBookViewController.swift */; };
@@ -87,6 +88,7 @@
 		8E2B835626AD2C8F00AC2570 /* TextCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCellTableViewCell.swift; sourceTree = "<group>"; };
 		8E2B835726AD2C8F00AC2570 /* TextCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextCellTableViewCell.xib; sourceTree = "<group>"; };
 		8E2B835B26AD724400AC2570 /* LayoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutTableViewCell.xib; sourceTree = "<group>"; };
+		8E2B835E26ADD1D800AC2570 /* LinkInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInViewController.swift; sourceTree = "<group>"; };
 		8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
 		8E66D208269EDC5800F48C26 /* TextBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBookViewController.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				8EE69D6926484B9900ED19B9 /* LinkViewController.swift */,
 				8E2B834F26A7E9D800AC2570 /* LinkCollectionViewCell.swift */,
 				8E2B835026A7E9D800AC2570 /* LinkCollectionViewCell.xib */,
+				8E2B835E26ADD1D800AC2570 /* LinkInViewController.swift */,
 			);
 			path = Link;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */,
 				8E2B835526A95D0700AC2570 /* TextInViewController.swift in Sources */,
 				8E2B834326A41F9F00AC2570 /* MakeNotiFolderView.swift in Sources */,
+				8E2B835F26ADD1DA00AC2570 /* LinkInViewController.swift in Sources */,
 				8E66D21C269F45EE00F48C26 /* DateAddTableViewCell.swift in Sources */,
 				8E2B834826A42DB200AC2570 /* TimeOutCollectionViewCell.swift in Sources */,
 				8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */,
