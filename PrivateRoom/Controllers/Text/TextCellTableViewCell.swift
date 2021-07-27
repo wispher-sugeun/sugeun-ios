@@ -18,10 +18,9 @@ class TextCellTableViewCell: UITableViewCell {
     @IBOutlet weak var bookmark: UIButton!
     
     @IBAction func bookMark(_ sender: UIButton) {
-    sender.scalesLargeContentImage = true
-    sender.isSelected = sender.isSelected ? false : true
-        
-    sender.isSelected ?  sender.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal) :   sender.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
+        sender.scalesLargeContentImage = true
+        sender.isSelected = sender.isSelected ? false : true
+        bookMarkToggle(sender)
     }
         
     @IBAction func moreButton(_ sender: UIButton) {
@@ -34,12 +33,18 @@ class TextCellTableViewCell: UITableViewCell {
     var delegate: TextCellTableViewCellDelegate?
     static let identifier = "TextCellTableViewCell"
     
+    
+    func bookMarkToggle(_ sender: UIButton){
+            
+        sender.isSelected ?  sender.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal) :   sender.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         contentView.backgroundColor = .clear
         contentView.layer.borderWidth = 2
         contentView.layer.cornerRadius = 10
-        contentView.layer.borderColor = UIColor.blue.cgColor
+
         contentView.clipsToBounds = true
 
     }
@@ -55,6 +60,11 @@ class TextCellTableViewCell: UITableViewCell {
     }
     
     func configure(model: Phrase){
+        if(model.bookmark) {
+            bookmark.isSelected = true
+            bookMarkToggle(bookmark)
+        }
+        
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "yyyy-MM-dd"
         guard let date = dateFormat.date(from: model.date) else {

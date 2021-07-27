@@ -35,9 +35,7 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        inValidView.isHidden = true
-        contentView.backgroundColor = .red
-        
+        inValidView.isHidden = true        
         //width 고정
         mainView.translatesAutoresizingMaskIntoConstraints = false
         mainView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2 - 5).isActive = true

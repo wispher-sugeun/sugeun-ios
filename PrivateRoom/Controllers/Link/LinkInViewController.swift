@@ -435,7 +435,13 @@ extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LinkCollectionViewCellDelegate {
+    func clipAction(cell: LinkCollectionViewCell) {
+        print("click clip")
+    }
+    func moreButton(cell: LinkCollectionViewCell) {
+        print("more button")
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(collectionView == FrameCollectionView) {
             return filteredLinkCell.count
@@ -448,6 +454,10 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if(collectionView == FrameCollectionView){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LinkCollectionViewCell.identifier, for: indexPath) as! LinkCollectionViewCell
             cell.configure(model: filteredLinkCell[indexPath.row])
+            cell.delegate = self
+            cell.backgroundColor = .systemPink
+            cell.configureHeight(with: 200)
+            cell.indexPath = indexPath
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCollectionViewCell.identifier, for: indexPath) as! FolderCollectionViewCell
@@ -461,11 +471,13 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.configure(folder: filteredLinkFolder[indexPath.row])
         cell.indexPath = indexPath
         
+       
+        
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if(collectionView == collectionView) {
+        if(collectionView == folderCollectionView) {
             let width  = (view.frame.width-20)/3
                         return CGSize(width: width, height: width)
         }else if(collectionView == FrameCollectionView){
@@ -473,7 +485,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             let height = FrameCollectionView.bounds.height
             print("width : \(FrameCollectionView.bounds.width / 2)")
             print("height : \(FrameCollectionView.bounds.height / 2)")
-        return CGSize(width: (width / 2) - 100, height: height)
+            return CGSize(width: (width / 2) - 100, height: height)
         }
         
         return CGSize(width: 0, height: 0)
@@ -523,9 +535,13 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
         case UICollectionView.elementKindSectionFooter:
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerView", for: indexPath)
-            footerView.backgroundColor = .red
+//            footerView.backgroundColor = .red
             let layout = UICollectionViewFlowLayout()
+            
+            //footerView 내에 collectionview 생성
             folderCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: footerView.frame.width, height: footerView.frame.height), collectionViewLayout: layout)
+            print("footerview height")
+            print(footerView.frame.height)
             folderCollectionView.delegate = self
             folderCollectionView.dataSource = self
             self.folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -587,6 +603,7 @@ extension LinkInViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         if textField.text?.count != 0 {
             self.filteredLinkFolder.removeAll()
             self.filteredLinkCell.removeAll()
@@ -621,7 +638,7 @@ extension LinkInViewController: PHPickerViewControllerDelegate {
         picker.dismiss(animated: true, completion: nil)
         let itemProvider = results.first?.itemProvider
         if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { [self] (image, error) in
+            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                 if let image = image as? UIImage {
                     NotificationCenter.default.post(name: .folderImageChanged, object: nil, userInfo: ["image" : image])
 

@@ -11,12 +11,37 @@ import LinkPresentation
 
 protocol LinkCollectionViewCellDelegate {
     func moreButton(cell: LinkCollectionViewCell)
+    func clipAction(cell: LinkCollectionViewCell)
 }
 
 
 class LinkCollectionViewCell: UICollectionViewCell {
     
+    var indexPath : IndexPath?
+    
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var richView: UIView!
+    
+
+    @IBOutlet weak var linkLabel: UILabel!
+    
+    @IBOutlet weak var clipBoard: UIButton!
+    
+    @IBAction func clipAction(_ sender: Any) {
+        delegate?.clipAction(cell: self)
+    }
+    
+    @IBAction func moreButton(_ sender: Any) {
+        delegate?.moreButton(cell: self)
+    }
+    
+    @IBOutlet weak var bookMark: UIButton!
+    
+    @IBAction func bookMark(_ sender: UIButton) {
+        sender.scalesLargeContentImage = true
+        sender.isSelected = sender.isSelected ? false : true
+        bookMarkToggle(sender)
+    }
     
     private lazy var linkView = LPLinkView()
     private var metaData: LPLinkMetadata = LPLinkMetadata() {
@@ -27,8 +52,19 @@ class LinkCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    
     static let identifier = "LinkCollectionViewCell"
+    
     var delegate: LinkCollectionViewCellDelegate?
+    
+    func bookMarkToggle(_ sender: UIButton){
+        sender.isSelected ?  sender.setBackgroundImage(UIImage(systemName: "bookmark.fill"), for: .normal) :   sender.setBackgroundImage(UIImage(systemName: "bookmark"), for: .normal)
+    }
+    
+    func configureHeight(with height: Int){
+        richView.heightAnchor.constraint(equalToConstant: CGFloat(height)).isActive = true
+    }
+    
     func addRichLinkToView(view: UIView, metadata: LPLinkMetadata) {
           linkView = LPLinkView(metadata: metadata)
           view.addSubview(linkView)
@@ -62,11 +98,18 @@ class LinkCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        //width 고정
+        mainView.translatesAutoresizingMaskIntoConstraints = false
+        print("link collection cell width size")
+        print(UIScreen.main.bounds.size.width)
+        mainView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2 - 5).isActive = true
+        
         // Initialization code
     }
     
     static func nib() -> UINib {
-           return UINib(nibName: "LinkCollectionViewCell", bundle: nil)
+        return UINib(nibName: "LinkCollectionViewCell", bundle: nil)
     }
     
     
@@ -80,9 +123,17 @@ class LinkCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(model: Link){
-        let url = URL(string: "https://www.apple.com/airpods-pro/")!
         
+        if(model.bookmark) {
+            bookMark.isSelected = true
+            bookMarkToggle(bookMark)
+        }
+        
+        let urlString = model.link
+        let url = URL(string: urlString)!
+        linkLabel.text = urlString
         fetchURLPreview(url: url)
+        
         
     }
 

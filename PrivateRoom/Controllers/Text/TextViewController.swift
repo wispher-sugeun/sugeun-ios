@@ -15,7 +15,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         picker.dismiss(animated: true, completion: nil)
         let itemProvider = results.first?.itemProvider
         if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { [self] (image, error) in
+            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                 if let image = image as? UIImage {
                     NotificationCenter.default.post(name: .folderImageChanged, object: nil, userInfo: ["image" : image])
 
