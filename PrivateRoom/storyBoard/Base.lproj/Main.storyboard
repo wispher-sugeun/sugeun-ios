@@ -445,12 +445,6 @@
                                                 <action selector="backButton:" destination="mfy-zK-mhV" id="6Ln-JA-6dV"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="편집" id="2xn-9W-zyy">
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <connections>
-                                                <action selector="editButton:" destination="mfy-zK-mhV" id="t6W-xW-JKn"/>
-                                            </connections>
-                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -561,12 +555,6 @@
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="backButton:" destination="4p9-YU-ErZ" id="IvU-ET-ZYw"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="편집" id="9TT-A7-IpS">
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <connections>
-                                                <action selector="editButton:" destination="4p9-YU-ErZ" id="ApP-BT-oiV"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -890,7 +878,7 @@
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  일정 이름으로 검색" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Wdv-58-Wue">
                                 <rect key="frame" x="20" y="144" width="374" height="50"/>
-                                <color key="backgroundColor" red="0.92931753399999995" green="0.92156678439999995" blue="0.9215686917" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.89824813599999997" green="0.8976293206" blue="0.91765016320000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ZF2-Xd-LkQ"/>
                                 </constraints>

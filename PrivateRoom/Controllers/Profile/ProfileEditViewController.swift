@@ -68,15 +68,20 @@ class ProfileEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        profileImage.circle()
-        profileImage.contentMode = .scaleAspectFit
-        editButton.circle()
+        UISetting()
+      
         configuration.filter = .any(of: [.images])
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.isScrollEnabled = false
  
+    }
+    
+    func UISetting(){
+        profileImage.circle()
+        profileImage.contentMode = .scaleToFill
+        editButton.circle()
     }
     
     func alertDone(title: String, message: String, completionHandler: @escaping ((String) -> Void)) {

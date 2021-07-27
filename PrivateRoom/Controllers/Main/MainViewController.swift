@@ -34,7 +34,14 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
             }else if(index == 1){ // 이미지 변경
                 presentPicker()
             }else{ //폴더 삭제
-                folderDelete()
+                self.alertWithNoViewController(title: "폴더 삭제", message: "폴더를 삭제하시겠습니까?", completion: {
+                    (response) in
+                    if(response == "OK"){
+                        folderDelete()
+                    }
+                }
+                )
+                
             }
         }
         
@@ -123,11 +130,17 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         
     }
     
+    
     func folderDelete(){
         filteredFolder.remove(at: selectedCellIndexPath[1])
-        DispatchQueue.main.async {
-            self.folderCollectionView.reloadData()
-        }
+        self.alertViewController(title: "삭제 완료", message: "폴더를 삭제하였습니다", completion: { (response) in
+            if(response == "OK"){
+                DispatchQueue.main.async {
+                    self.folderCollectionView.reloadData()
+                }
+            }
+        })
+       
     }
     
     func image( _ image:UIImage, withSize newSize:CGSize) -> UIImage {
@@ -472,7 +485,10 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
     }
     
     func done() {
+        //to do server mk folder post
+        
         print("click done button")
+        //self.dismiss(animated: true, completion: nil)
     }
     
     let type_dropDown = DropDown()

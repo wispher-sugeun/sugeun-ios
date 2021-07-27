@@ -59,6 +59,7 @@ class CalendarViewController: UIViewController {
 
    
         searchTextField.delegate = self
+        searchTextField.circle()
         filtered = schedule
 
     }
