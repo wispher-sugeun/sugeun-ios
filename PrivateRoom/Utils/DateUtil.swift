@@ -16,7 +16,7 @@ class DateUtil {
         formatter.calendar = Calendar(identifier: .iso8601)
         formatter.locale = Locale(identifier: "ko_KR")
 
-        return formatter.date(from: dateString) ?? Date()
+        return formatter.date(from: dateString)!
     }
 
     static func formatDate(_ date: Date) -> String {

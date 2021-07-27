@@ -69,6 +69,7 @@ class ProfileEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         profileImage.circle()
+        profileImage.contentMode = .scaleAspectFit
         editButton.circle()
         configuration.filter = .any(of: [.images])
         
@@ -297,10 +298,12 @@ extension ProfileEditViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true, completion: nil)
         let itemProvider = results.first?.itemProvider
-        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) { // 3
-            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in // 4
-            DispatchQueue.main.async { self.profileImage.image = image as? UIImage // 5
-            }
+        if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                DispatchQueue.main.async {
+                    self.profileImage.image = image as? UIImage
+                    
+                }
             }
             
         } else { // TODO: Handle empty results or item providernot being able load UIImage

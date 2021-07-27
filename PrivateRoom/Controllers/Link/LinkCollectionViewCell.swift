@@ -31,6 +31,7 @@ class LinkCollectionViewCell: UICollectionViewCell {
         delegate?.clipAction(cell: self)
     }
     
+    @IBOutlet weak var moreButton: UIButton!
     @IBAction func moreButton(_ sender: Any) {
         delegate?.moreButton(cell: self)
     }

@@ -161,3 +161,10 @@ extension Date {
         }
 }
 
+extension UITextView {
+    func circle(){
+        self.layer.cornerRadius = 15
+        self.clipsToBounds = true
+    }
+}
+

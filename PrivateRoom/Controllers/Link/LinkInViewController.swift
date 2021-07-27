@@ -9,7 +9,7 @@ import UIKit
 import DropDown
 import PhotosUI
 
-class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate {
+class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, UIGestureRecognizerDelegate {
     func didTapMoreButton(cell: FolderCollectionViewCell) {
         more_dropDown.anchorView = cell.moreButton
         more_dropDown.show()
@@ -75,6 +75,14 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     var isShowFloating: Bool = false
     
+    
+    let linkCell_dropDown: DropDown = {
+        let dropDown = DropDown()
+        dropDown.width = 100
+        dropDown.dataSource = ["링크 수정","링크 삭제"]
+        return dropDown
+    }()
+    
     let more_dropDown: DropDown = {
         let dropDown = DropDown()
         dropDown.width = 100
@@ -111,6 +119,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate {
         tapGestureSetting()
         
         collectionViewSetting()
+        setupLongGestureRecognizerOnCollection()
        
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
@@ -240,7 +249,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate {
     }
     
     @objc func didTapWriteButton(){
-        let wirteVc = self.storyboard?.instantiateViewController(identifier: "writeText") as! WriteViewController
+        let wirteVc = self.storyboard?.instantiateViewController(identifier: "makeLinkCell") as! MakeLinkViewController
         wirteVc.modalPresentationStyle = .fullScreen
         self.present(wirteVc, animated: true, completion: nil)
 
@@ -366,6 +375,26 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate {
             }
         }
     }
+    
+    private func setupLongGestureRecognizerOnCollection() {
+        let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
+        longPressedGesture.minimumPressDuration = 0.5
+        longPressedGesture.delegate = self
+        longPressedGesture.delaysTouchesBegan = true
+        FrameCollectionView.addGestureRecognizer(longPressedGesture)
+    }
+    
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer){
+        if (gestureRecognizer.state != .began) {
+                return
+            }
+
+            let p = gestureRecognizer.location(in: FrameCollectionView)
+
+            if let indexPath = FrameCollectionView.indexPathForItem(at: p) {
+                print("Long press at item: \(indexPath.row)")
+            }
+    }
 
 }
 
@@ -436,7 +465,52 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         self.showToast(message: "클립 보드에 복사되었습니다.")
     }
     func moreButton(cell: LinkCollectionViewCell) {
+        
         print("more button")
+        linkCell_dropDown.anchorView = cell.moreButton
+        linkCell_dropDown.show()
+        selectedCellIndexPath = cell.indexPath!
+
+        linkCell_dropDown.backgroundColor = UIColor.white
+        linkCell_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("선택한 아이템 : \(item)")
+            print("인덱스 : \(index)")
+            
+            if(index == 0){ // 수정 view로 이동
+                    //TO DO -> 링크 수정
+                let wirteVc = self.storyboard?.instantiateViewController(identifier: "makeLinkCell") as! MakeLinkViewController
+               
+                
+                guard let currentLink = cell.linkLabel.text else {
+                    print("no currentLink exits")
+                    return
+                }
+                
+                wirteVc.string = currentLink
+                wirteVc.modalPresentationStyle = .fullScreen
+                self.present(wirteVc, animated: true, completion: nil)
+                
+            }else if(index == 1) { // 알림 삭제
+                self.alertWithNoViewController(title: "링크 삭제", message: "링크를 삭제 하시겠습니까?", completion: { (response) in
+                    if (response == "OK") {
+                        //링크 삭제
+                        DispatchQueue.main.async {
+                            linkCell.remove(at: (cell.indexPath?[1])!)
+                            filteredLinkCell = linkCell
+                            print("링크 셀 수 : \(linkCell.count)")
+                            FrameCollectionView.reloadData()
+                            
+                        }
+                        self.alertViewController(title: "삭제 완료", message: "알림이 삭제 되었습니다.", completion: {(response) in
+                           
+                           
+                        })
+                }
+                    
+                })
+                    
+            }
+        }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(collectionView == FrameCollectionView) {
@@ -530,11 +604,11 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     
     //todo - make with navigation
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let VC = self.storyboard?.instantiateViewController(identifier: "folderIn") else { return }
-        VC.modalPresentationStyle = .fullScreen
-        self.present(VC, animated: true, completion: nil)
-    }
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        guard let VC = self.storyboard?.instantiateViewController(identifier: "folderIn") else { return }
+//        VC.modalPresentationStyle = .fullScreen
+//        self.present(VC, animated: true, completion: nil)
+//    }
     
     //for cell info and sort
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

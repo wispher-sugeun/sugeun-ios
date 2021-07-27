@@ -111,6 +111,13 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     var isShowFloating: Bool = false
     
+    let textCell_dropDown: DropDown = {
+        let dropDown = DropDown()
+        dropDown.width = 100
+        dropDown.dataSource = ["글 수정", "글 삭제"]
+        return dropDown
+    }()
+    
     let more_dropDown: DropDown = {
         let dropDown = DropDown()
         dropDown.width = 100
@@ -421,6 +428,7 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
     
     func moreButton(cell: TextCellTableViewCell) {
         print("text cell more button")
+        //textCell_dropDown.anchorView = cell.more
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return filteredTextCell.count

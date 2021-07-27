@@ -10,7 +10,9 @@ import UIKit
 class WriteViewController: UIViewController {
 
     @IBOutlet weak var FrameView: UIView!
+    
     @IBOutlet weak var textView: UITextView!
+    
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -52,6 +54,7 @@ class WriteViewController: UIViewController {
     func textViewSetting(){
         textView.delegate = self
     }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

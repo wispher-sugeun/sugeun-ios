@@ -86,9 +86,11 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(indexPath.section == 0 && indexPath.row == 0){
             performSegue(withIdentifier: "bookmark", sender: nil)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         else if(indexPath.section == 1 && indexPath.row == 0){
             performSegue(withIdentifier: "alarmSetting", sender: nil)
+            tableView.deselectRow(at: indexPath, animated: true)
         }else {
             tableView.deselectRow(at: indexPath, animated: true)
         }

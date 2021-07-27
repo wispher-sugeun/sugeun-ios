@@ -109,6 +109,7 @@
                 <outlet property="clipBoard" destination="nPf-Qw-A0Q" id="ie2-TZ-cUj"/>
                 <outlet property="linkLabel" destination="9AL-0V-i2E" id="bWl-fV-8wg"/>
                 <outlet property="mainView" destination="fXg-Is-upp" id="1PF-Mj-hc2"/>
+                <outlet property="moreButton" destination="dDC-n6-6Fm" id="FFn-b3-OZl"/>
                 <outlet property="richView" destination="2QX-jy-DlS" id="NBL-fk-TQn"/>
             </connections>
             <point key="canvasLocation" x="230.43478260869566" y="250.11160714285714"/>

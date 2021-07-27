@@ -583,7 +583,7 @@
                                             <constraint firstAttribute="width" constant="60" id="NqI-x2-SZA"/>
                                         </constraints>
                                         <color key="tintColor" red="0.34372755890000001" green="0.37692308429999999" blue="0.51766455170000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <state key="normal" backgroundImage="paperclip.circle" catalog="system"/>
+                                        <state key="normal" backgroundImage="paperclip.circle.fill" catalog="system"/>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Esr-FA-kE1" userLabel="FolderButton">
                                         <rect key="frame" x="0.0" y="0.5" width="60" height="59"/>
@@ -644,6 +644,88 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lim-Vi-eUs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4053.6231884057975" y="837.72321428571422"/>
+        </scene>
+        <!--Make Link View Controller-->
+        <scene sceneID="iNn-Ii-Whk">
+            <objects>
+                <viewController storyboardIdentifier="makeLinkCell" id="rfL-aw-iV7" customClass="MakeLinkViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Txn-Bi-STC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B2Z-4u-QNd">
+                                <rect key="frame" x="50" y="314" width="314" height="268"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Flp-RA-WMe">
+                                        <rect key="frame" x="254" y="20.5" width="30" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="CQl-rp-9dk"/>
+                                            <constraint firstAttribute="width" constant="30" id="xQf-Ec-Jer"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" backgroundImage="xmark.circle.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="dismissButton:" destination="rfL-aw-iV7" eventType="touchUpInside" id="lyE-7i-ns7"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="링크" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNP-Sb-qxY">
+                                        <rect key="frame" x="20" y="20" width="35" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="링크 입력" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NXu-72-B04">
+                                        <rect key="frame" x="30" y="60" width="254" height="143"/>
+                                        <color key="backgroundColor" red="0.90631502870000002" green="0.91306352619999998" blue="0.94510310890000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7IP-Kr-cHH">
+                                        <rect key="frame" x="80" y="213" width="154" height="30"/>
+                                        <color key="backgroundColor" red="0.16399294140000001" green="0.19996729490000001" blue="0.34119242430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title="완료">
+                                            <color key="titleColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="doneButton:" destination="rfL-aw-iV7" eventType="touchUpInside" id="XS2-6H-T0x"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.43921417000000001" green="0.48890531059999998" blue="0.69414257999999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="7IP-Kr-cHH" secondAttribute="bottom" constant="25" id="6gR-K0-7h2"/>
+                                    <constraint firstItem="Flp-RA-WMe" firstAttribute="top" secondItem="B2Z-4u-QNd" secondAttribute="top" constant="20" id="7TD-xo-RNB"/>
+                                    <constraint firstItem="pNP-Sb-qxY" firstAttribute="top" secondItem="B2Z-4u-QNd" secondAttribute="top" constant="20" id="Ews-np-sJM"/>
+                                    <constraint firstAttribute="trailing" secondItem="Flp-RA-WMe" secondAttribute="trailing" constant="30" id="SI0-5T-6SQ"/>
+                                    <constraint firstItem="NXu-72-B04" firstAttribute="centerX" secondItem="B2Z-4u-QNd" secondAttribute="centerX" id="bMS-ae-JHK"/>
+                                    <constraint firstItem="7IP-Kr-cHH" firstAttribute="top" secondItem="NXu-72-B04" secondAttribute="bottom" constant="10" id="itA-3i-aNq"/>
+                                    <constraint firstItem="7IP-Kr-cHH" firstAttribute="centerX" secondItem="B2Z-4u-QNd" secondAttribute="centerX" id="mTU-DR-y3e"/>
+                                    <constraint firstItem="NXu-72-B04" firstAttribute="leading" secondItem="B2Z-4u-QNd" secondAttribute="leading" constant="30" id="sKx-6y-VQy"/>
+                                    <constraint firstItem="7IP-Kr-cHH" firstAttribute="leading" secondItem="B2Z-4u-QNd" secondAttribute="leading" constant="80" id="tMr-ir-DCJ"/>
+                                    <constraint firstItem="NXu-72-B04" firstAttribute="top" secondItem="Flp-RA-WMe" secondAttribute="bottom" constant="10" id="taM-9U-RcP"/>
+                                    <constraint firstItem="pNP-Sb-qxY" firstAttribute="leading" secondItem="B2Z-4u-QNd" secondAttribute="leading" constant="20" id="zmH-aO-DQI"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="n0W-6g-bfm"/>
+                        <color key="backgroundColor" white="1" alpha="0.81000000000000005" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="B2Z-4u-QNd" firstAttribute="centerX" secondItem="Txn-Bi-STC" secondAttribute="centerX" id="BxI-8k-Sl1"/>
+                            <constraint firstItem="B2Z-4u-QNd" firstAttribute="top" secondItem="n0W-6g-bfm" secondAttribute="top" constant="270" id="FaP-TQ-tXB"/>
+                            <constraint firstItem="n0W-6g-bfm" firstAttribute="trailing" secondItem="B2Z-4u-QNd" secondAttribute="trailing" constant="50" id="T6x-Si-rOk"/>
+                            <constraint firstItem="B2Z-4u-QNd" firstAttribute="centerY" secondItem="Txn-Bi-STC" secondAttribute="centerY" id="jTI-7D-yuk"/>
+                            <constraint firstItem="B2Z-4u-QNd" firstAttribute="leading" secondItem="n0W-6g-bfm" secondAttribute="leading" constant="50" id="zf9-Mh-ZM9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="linkMainView" destination="B2Z-4u-QNd" id="Je0-p7-Zqi"/>
+                        <outlet property="linkTextView" destination="NXu-72-B04" id="ps3-Fk-fxe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EjC-T5-z30" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4726" y="877"/>
         </scene>
         <!--Link View Controller-->
         <scene sceneID="58t-4b-Aud">
@@ -1243,7 +1325,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="I6c-Ba-Lih"/>
-                        <color key="backgroundColor" red="0.92792880899999997" green="0.92792880899999997" blue="0.92792880899999997" alpha="0.81169088" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.92941176470588238" green="0.92941176470588238" blue="0.92941176470588238" alpha="0.81000000000000005" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="WHu-ee-Obn" firstAttribute="top" secondItem="I6c-Ba-Lih" secondAttribute="top" constant="100" id="0YR-dP-CoU"/>
                             <constraint firstItem="WHu-ee-Obn" firstAttribute="leading" secondItem="I6c-Ba-Lih" secondAttribute="leading" constant="60" id="2AH-FZ-wp5"/>
@@ -1263,11 +1345,12 @@
     <resources>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="folder.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="paperclip.circle" catalog="system" width="128" height="121"/>
+        <image name="paperclip.circle.fill" catalog="system" width="128" height="121"/>
         <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -1276,6 +1359,9 @@
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiarySystemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
