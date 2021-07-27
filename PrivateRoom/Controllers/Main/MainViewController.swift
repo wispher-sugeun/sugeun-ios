@@ -306,10 +306,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             sortingButton.setTitleColor(UIColor.gray, for: .normal)
             headerView.addSubview(sortingButton)
             sortingButton.frame = CGRect(x: headerView.frame.maxX - 100, y: 10, width: 100, height: 30)
-            
-            print("sorting Button x Frame")
-            print(headerView.frame.maxX - 100)
-            
             sortingButton.addTarget(self, action: #selector(didTapSortingButton), for: .touchUpInside)
             
             return headerView

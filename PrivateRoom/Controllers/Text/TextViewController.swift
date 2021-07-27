@@ -195,7 +195,6 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     }
     
     @objc func didTapSortingButton(){
-        print("did Tap sorting button")
         setupCitySelectionAlert()
     }
     

@@ -19,6 +19,8 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         print("view will apear")
+        isShowFloating = false
+        hideButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -123,6 +125,8 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     var configuration = PHPickerConfiguration()
     //var cellHeight: CGFloat = 0.0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         dummy()
@@ -203,7 +207,6 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     }
     
     @objc func didTapSortingButton(){
-        print("did Tap sorting button")
         setupCitySelectionAlert()
     }
     

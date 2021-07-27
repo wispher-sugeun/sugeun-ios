@@ -102,17 +102,6 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate {
     var linkFolder = [Folder]()
     var filteredLinkFolder = [Folder]()
     
-    override func viewDidAppear(_ animated: Bool) {
-        collectionViewHeight.constant = self.FrameCollectionView.contentSize.height + 100
-     
-        FrameCollectionView.reloadData()
-        
-//        FrameCollectionView.tableFooterView?.frame.size.height = collectionView.contentSize.height + 50
-//        print("footer view")
-//        print(frameTableView.tableFooterView?.frame.size.height )
-        
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,12 +114,12 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate {
        
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
-        print("view did load")
+
     }
     
     func dummy(){
-        linkCell.append(Link(userId: 0, folderId: 0, linkId: 0, link: "www.naver.com", bookmark: true, date: "2021-05-21"))
-        linkCell.append(Link(userId: 1, folderId: 1, linkId: 1, link: "www.google.com", bookmark: true, date: "2021-05-22"))
+        linkCell.append(Link(userId: 0, folderId: 0, linkId: 0, link: "https://naver.com", bookmark: true, date: "2021-05-21"))
+        linkCell.append(Link(userId: 1, folderId: 1, linkId: 1, link: "https://google.com", bookmark: true, date: "2021-05-22"))
         linkCell.append(Link(userId: 2, folderId: 2, linkId: 2, link: "https://jouureee.tistory.com/", bookmark: true, date: "2021-05-23"))
         
         filteredLinkCell = linkCell
@@ -171,7 +160,6 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate {
  
     
     @objc func didTapSortingButton(){
-        print("did Tap sorting button")
         setupCitySelectionAlert()
     }
     
@@ -227,6 +215,10 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        isShowFloating = false
+        hideButton()
+    }
     
     
     func buttonSetting(){
@@ -438,6 +430,10 @@ extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
 extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LinkCollectionViewCellDelegate {
     func clipAction(cell: LinkCollectionViewCell) {
         print("click clip")
+        let copyString = cell.linkLabel.text
+        
+        UIPasteboard.general.string = copyString
+        self.showToast(message: "클립 보드에 복사되었습니다.")
     }
     func moreButton(cell: LinkCollectionViewCell) {
         print("more button")
@@ -451,11 +447,36 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         if(collectionView == FrameCollectionView){
+            print("cell for item")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LinkCollectionViewCell.identifier, for: indexPath) as! LinkCollectionViewCell
-            cell.configure(model: filteredLinkCell[indexPath.row])
+            let urlString: String = filteredLinkCell[indexPath.row].link
+            let url = URL(string: urlString)
+            cell.fetchURLPreview(url: url!)
+            cell.linkLabel.text = urlString
+            if(filteredLinkCell[indexPath.row].bookmark) {
+                cell.bookMark.isSelected = true
+                cell.bookMarkToggle( cell.bookMark)
+            }
+            
+//            func configure(model: Link){
+//                print("func configure called" )
+//                if(model.bookmark) {
+//                    bookMark.isSelected = true
+//                    bookMarkToggle(bookMark)
+//                }
+//
+//                let urlString = model.link
+//                let url = URL(string: urlString)!
+//                fetchURLPreview(url: url)
+//                linkLabel.text = urlString
+//
+//
+//            }
+//
+//            cell.configure(model: filteredLinkCell[indexPath.row])
             cell.delegate = self
-            cell.backgroundColor = .systemPink
             cell.configureHeight(with: 200)
             cell.indexPath = indexPath
             return cell
@@ -483,8 +504,8 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }else if(collectionView == FrameCollectionView){
             let width = FrameCollectionView.bounds.width
             let height = FrameCollectionView.bounds.height
-            print("width : \(FrameCollectionView.bounds.width / 2)")
-            print("height : \(FrameCollectionView.bounds.height / 2)")
+//            print("width : \(FrameCollectionView.bounds.width / 2)")
+//            print("height : \(FrameCollectionView.bounds.height / 2)")
             return CGSize(width: (width / 2) - 100, height: height)
         }
         
@@ -535,7 +556,6 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
         case UICollectionView.elementKindSectionFooter:
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerView", for: indexPath)
-//            footerView.backgroundColor = .red
             let layout = UICollectionViewFlowLayout()
             
             //footerView 내에 collectionview 생성
@@ -544,7 +564,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             print(footerView.frame.height)
             folderCollectionView.delegate = self
             folderCollectionView.dataSource = self
-            self.folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
+            //self.folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
             folderCollectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
             footerView.addSubview(folderCollectionView)
             

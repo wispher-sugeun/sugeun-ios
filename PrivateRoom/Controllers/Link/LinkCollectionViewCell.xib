@@ -24,25 +24,29 @@
                                 <rect key="frame" x="0.0" y="0.0" width="452" height="659"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2QX-jy-DlS">
-                                        <rect key="frame" x="20" y="30" width="412" height="588"/>
+                                        <rect key="frame" x="20" y="30" width="412" height="589"/>
                                         <color key="backgroundColor" systemColor="systemGrayColor"/>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9AL-0V-i2E">
-                                        <rect key="frame" x="20" y="628" width="44" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9AL-0V-i2E">
+                                        <rect key="frame" x="20" y="629" width="37.5" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPf-Qw-A0Q">
-                                        <rect key="frame" x="422" y="627.5" width="20" height="22"/>
+                                        <rect key="frame" x="422" y="628.5" width="20" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="UhN-Hf-SEC"/>
+                                            <constraint firstAttribute="height" constant="20" id="hZp-17-OE0"/>
+                                        </constraints>
                                         <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" backgroundImage="paperclip" catalog="system"/>
                                         <connections>
                                             <action selector="clipAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Nqj-ne-2gx"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dDC-n6-6Fm">
-                                        <rect key="frame" x="397" y="7" width="35" height="12"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dDC-n6-6Fm">
+                                        <rect key="frame" x="413" y="7" width="19" height="18"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" backgroundImage="ellipsis" catalog="system"/>
                                         <connections>

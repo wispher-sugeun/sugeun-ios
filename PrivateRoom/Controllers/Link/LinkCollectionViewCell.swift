@@ -44,6 +44,7 @@ class LinkCollectionViewCell: UICollectionViewCell {
     }
     
     private lazy var linkView = LPLinkView()
+    
     private var metaData: LPLinkMetadata = LPLinkMetadata() {
         didSet {
             DispatchQueue.main.async {
@@ -66,6 +67,7 @@ class LinkCollectionViewCell: UICollectionViewCell {
     }
     
     func addRichLinkToView(view: UIView, metadata: LPLinkMetadata) {
+        print("func addRichLinkToView called")
           linkView = LPLinkView(metadata: metadata)
           view.addSubview(linkView)
           linkView.frame =  view.bounds
@@ -84,12 +86,14 @@ class LinkCollectionViewCell: UICollectionViewCell {
            
        @available(iOS 13.0, *)
        func fetchURLPreview(url: URL) {
+            print("fetchURLPreview \(url)")
            let metadataProvider = LPMetadataProvider()
            metadataProvider.startFetchingMetadata(for: url) { (metadata, error) in
                guard let data = metadata, error == nil else {
                    return
                }
-               self.metaData = data
+            self.metaData = data
+
            }
        }
 
@@ -122,19 +126,5 @@ class LinkCollectionViewCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
     
-    func configure(model: Link){
-        
-        if(model.bookmark) {
-            bookMark.isSelected = true
-            bookMarkToggle(bookMark)
-        }
-        
-        let urlString = model.link
-        let url = URL(string: urlString)!
-        linkLabel.text = urlString
-        fetchURLPreview(url: url)
-        
-        
-    }
 
 }
