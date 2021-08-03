@@ -113,46 +113,107 @@
 
 import UIKit
 
-class ViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+class ViewController: UIViewController {
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = ViewControllers.firstIndex(of: viewController) else {
-            return nil
-        }
-        let previousIndex = index - 1
-    }
+    @IBOutlet weak var allVC: UIButton!
+    @IBOutlet weak var textVC: UIButton!
+    @IBOutlet weak var linkVC: UIButton!
+    @IBOutlet weak var giftVC: UIButton!
+    @IBOutlet weak var calendarVC: UIButton!
+    @IBOutlet weak var profileVC: UIButton!
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        <#code#>
-    }
-    
-    
-    private var ViewControllers: Array<UIViewController> = []
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupSubView()
-        self.dataSource = self
-        self.delegate = self
+   
+    var btnLists : [UIButton] = []
         
-        if let firstvc = ViewControllers.first {
-            self.setViewControllers([firstvc], direction: .forward, animated: true, completion: nil)
+        var currentIndex : Int = 0 {
+            didSet{
+                changeBtnColor()
+                print(currentIndex)
+            }
         }
-    }
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            setBtnList()
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        }
+        
+        func setBtnList(){
+            allVC.tintColor = .orange
+            btnLists.append(allVC)
+            btnLists.append(textVC)
+            btnLists.append(linkVC)
+            btnLists.append(giftVC)
+            btnLists.append(calendarVC)
+            btnLists.append(profileVC)
+            
+        }
+        
+        func changeBtnColor(){
+            
+            for (index, element) in btnLists.enumerated(){
+                
+                if index == currentIndex{
+                    element.setTitleColor(#colorLiteral(red: 0.2574591339, green: 0.3293752372, blue: 0.5517603755, alpha: 1), for: .normal)
+                }
+                else{
+                    element.setTitleColor(#colorLiteral(red: 0.09519775957, green: 0.1197544411, blue: 0.2188102901, alpha: 1), for: .normal)
+                }
+                
+            }
+            
+        }
+        
+        
+        var pageViewController : PageViewController!
+        
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+           
+            if segue.identifier == "pageViewController" {
+                print("Connected")
+                
+                guard let vc = segue.destination as? PageViewController else {
+                    print("return")
+                    return}
+                pageViewController = vc
+                
+                pageViewController.completeHandler = { (result) in
+                    self.currentIndex = result
+                }
+                
+            }
+            
+        }
+        
     
-    func setupSubView(){
-            let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "main") as MainViewController
-            let textVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "text") as TextViewController
-            let linkVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "link") as LinkViewController
-            let notiVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "noti") as NotiViewController
-            let calendarVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "calendar") as CalendarViewController
+        @IBAction func allVC(_ sender: Any) {
+            pageViewController.setViewcontrollersFromIndex(index: 0)
+        }
     
-        ViewControllers.append(mainVC)
-        ViewControllers.append(textVC)
-        ViewControllers.append(linkVC)
-        ViewControllers.append(notiVC)
-        ViewControllers.append(calendarVC)
-    }
+        @IBAction func textVC(_ sender: Any) {
+            pageViewController.setViewcontrollersFromIndex(index: 1)
+        }
     
+        @IBAction func linkVC(_ sender: Any) {
+            pageViewController.setViewcontrollersFromIndex(index: 2)
+        }
+    
+        @IBAction func giftVC(_ sender: Any) {
+            pageViewController.setViewcontrollersFromIndex(index: 3)
+        }
+
+        @IBAction func calendarVC(_ sender: Any) {
+            pageViewController.setViewcontrollersFromIndex(index: 4)
+        }
+
+        @IBAction func profileVC(_ sender: Any) {
+            let profileVC = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(identifier: "profile") as? ProfileViewController
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            self.navigationController?.pushViewController(profileVC!, animated: true)
+           
+        }
+    
+
+   
     
 }

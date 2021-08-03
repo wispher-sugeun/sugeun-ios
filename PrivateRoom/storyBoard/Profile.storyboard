@@ -12,7 +12,7 @@
         <!--회원 정보-->
         <scene sceneID="vOL-iG-Kjc">
             <objects>
-                <viewController id="Xe0-0I-h3y" customClass="ProfileViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profile" id="Xe0-0I-h3y" customClass="ProfileViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KAe-JV-r1b">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -386,7 +386,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oe3-vM-Irs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="820" y="-87"/>
+            <point key="canvasLocation" x="851" y="-701"/>
         </scene>
     </scenes>
     <resources>

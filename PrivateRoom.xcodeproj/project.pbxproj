@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8E003BD7264FB92700CB5802 /* FolderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E003BD5264FB92700CB5802 /* FolderCollectionViewCell.swift */; };
 		8E003BD8264FB92700CB5802 /* FolderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E003BD6264FB92700CB5802 /* FolderCollectionViewCell.xib */; };
+		8E1D604F26B9063600DF53FE /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1D604E26B9063600DF53FE /* PageViewController.swift */; };
 		8E2B834326A41F9F00AC2570 /* MakeNotiFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B834226A41F9F00AC2570 /* MakeNotiFolderView.swift */; };
 		8E2B834526A41FFA00AC2570 /* MakeNotiFolderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B834426A41FFA00AC2570 /* MakeNotiFolderView.xib */; };
 		8E2B834826A42DB200AC2570 /* TimeOutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B834626A42DB100AC2570 /* TimeOutCollectionViewCell.swift */; };
@@ -79,6 +80,7 @@
 		6FCDA5CC2DDC839482B705BB /* Pods-PrivateRoom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivateRoom.release.xcconfig"; path = "Target Support Files/Pods-PrivateRoom/Pods-PrivateRoom.release.xcconfig"; sourceTree = "<group>"; };
 		8E003BD5264FB92700CB5802 /* FolderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E003BD6264FB92700CB5802 /* FolderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FolderCollectionViewCell.xib; sourceTree = "<group>"; };
+		8E1D604E26B9063600DF53FE /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		8E2B834226A41F9F00AC2570 /* MakeNotiFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNotiFolderView.swift; sourceTree = "<group>"; };
 		8E2B834426A41FFA00AC2570 /* MakeNotiFolderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MakeNotiFolderView.xib; sourceTree = "<group>"; };
 		8E2B834626A42DB100AC2570 /* TimeOutCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeOutCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				8EF3BFAB268F675C00415150 /* Login */,
 				8EF00F1226539C0100AA1EEA /* FolderInViewController.swift */,
 				8EF00F10265390C800AA1EEA /* FolderViewController.swift */,
+				8E1D604E26B9063600DF53FE /* PageViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */,
 				8E2B835526A95D0700AC2570 /* TextInViewController.swift in Sources */,
 				8E2B834326A41F9F00AC2570 /* MakeNotiFolderView.swift in Sources */,
+				8E1D604F26B9063600DF53FE /* PageViewController.swift in Sources */,
 				8E2B835F26ADD1DA00AC2570 /* LinkInViewController.swift in Sources */,
 				8E66D21C269F45EE00F48C26 /* DateAddTableViewCell.swift in Sources */,
 				8E2B834826A42DB200AC2570 /* TimeOutCollectionViewCell.swift in Sources */,

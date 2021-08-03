@@ -41,8 +41,8 @@ class CalendarViewController: UIViewController {
         }else {
             addCalendar.selectedDate = calendar.selectedDate?.addingTimeInterval(86400) // adding one day
         }
-        self.present(addCalendarVC, animated: true, completion: nil)
-        //self.navigationController?.pushViewController(addCalendarVC, animated: true)
+//        self.present(addCalendarVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(addCalendarVC, animated: true)
        
     }
 

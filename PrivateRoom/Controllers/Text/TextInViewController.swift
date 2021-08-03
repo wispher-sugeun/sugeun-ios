@@ -70,6 +70,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
                 
             }
         }
+        more_dropDown.clearSelection()
     }
 
   

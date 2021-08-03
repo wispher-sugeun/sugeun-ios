@@ -25,9 +25,12 @@ class AddCalendarViewController: UIViewController {
     
     var alarmRange = ["일주일 전", "6일 전", "5일 전", "4일 전", "3일 전", "2일 전", "하루 전"]
     
-    var selectedIndex = [Int]()
+    var isSelectedIndex = false
+    var selectedString: String?
+    
     @IBAction func backButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+        //self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func doneButton(_ sender: Any) {
@@ -58,7 +61,11 @@ class AddCalendarViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print("called viewwill apear")
+        if(isSelectedIndex){
+            print("alarm view selected String \(selectedString!)")
+            tableView.reloadData()
+        }
+        
     }
 
     
@@ -67,7 +74,7 @@ class AddCalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("selectedDate \(selectedDate)")
-        print("alarm view selected index \(selectedIndex)")
+        
    
         tableViewSetting()
         
@@ -116,10 +123,10 @@ extension AddCalendarViewController: UITableViewDelegate, UITableViewDataSource,
     
     func selected(cell: AlarmTableViewCell) {
         let MakeAlarmView = self.storyboard?.instantiateViewController(identifier: "makeAlarmView") as! MakeAlarmViewController
-        MakeAlarmView.modalPresentationStyle = .overCurrentContext
+        self.navigationController?.pushViewController(MakeAlarmView, animated: true)
 //        UserDefaults.standard.setValue(self.titleTextField.text, forKey: "titleTextField")
 //        UserDefaults.standard.setValue(self.datePicker.text, forKey: "titleTextField")
-        self.present(MakeAlarmView, animated: true, completion: nil)
+        //self.present(MakeAlarmView, animated: true, completion: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -133,7 +140,6 @@ extension AddCalendarViewController: UITableViewDelegate, UITableViewDataSource,
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("cellForRowAt called")
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
         if(indexPath.row == 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: TitleAddTableViewCell.identifier) as! TitleAddTableViewCell
@@ -154,7 +160,14 @@ extension AddCalendarViewController: UITableViewDelegate, UITableViewDataSource,
             let indexesToRedraw = [indexPath]
             print(indexesToRedraw)
             self.selectedAlarm = cell.setLabelText
-            cell.setLabelText.isHidden = true
+            
+            if(isSelectedIndex == false){ // 선택된 알림이 없다면
+                cell.setLabelText.isHidden = true
+            }else {
+                cell.setLabelText.text = selectedString
+                cell.setLabelText.isHidden = false
+            }
+            
             cell.delegate = self
             return cell
         }

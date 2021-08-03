@@ -38,6 +38,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
                 
             }
         }
+        more_dropDown.clearSelection()
     }
 
   

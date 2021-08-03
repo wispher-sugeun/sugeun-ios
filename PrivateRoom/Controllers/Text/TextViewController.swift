@@ -211,7 +211,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         let makeFolderView = self.storyboard?.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
         makeFolderView.modalPresentationStyle = .overCurrentContext
         
-        makeFolderView.type_dropDown.dataSource = ["텍스트"]
+        makeFolderAlertView.type_dropDown.dataSource = ["텍스트"]
         self.present(makeFolderView, animated: true, completion: nil)
     }
     
@@ -415,6 +415,7 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
                 
             }
         }
+        more_dropDown.clearSelection()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

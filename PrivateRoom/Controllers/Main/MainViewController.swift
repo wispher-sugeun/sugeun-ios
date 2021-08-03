@@ -55,6 +55,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
                 
             }
         }
+        more_dropDown.clearSelection()
         
     }
     
@@ -236,7 +237,8 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     @objc func makeFolder(){
         let makeFolderView = self.storyboard?.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
-        makeFolderView.type_dropDown.dataSource = ["텍스트", "알림"]
+        makeFolderAlertView.type_dropDown.dataSource = ["텍스트", "알림"]
+        //self.navigationController?.pushViewController(makeFolderView, animated: true)
         makeFolderView.modalPresentationStyle = .overCurrentContext
         self.present(makeFolderView, animated: true, completion: nil)
     }
@@ -557,13 +559,16 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
         //self.dismiss(animated: true, completion: nil)
     }
     
-    let type_dropDown = DropDown()
+    static let type_dropDown = DropDown()
 
     
     
     func folderType() {
-        type_dropDown.anchorView = folderView.folderTypeButton
-        type_dropDown.show()
+        print("folder type show")
+        print(makeFolderAlertView.type_dropDown.dataSource)
+
+        makeFolderAlertView.type_dropDown.anchorView = folderView.folderTypeButton
+        makeFolderAlertView.type_dropDown.show()
     }
     
     
@@ -581,16 +586,16 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
     @IBOutlet var folderView: MakeFolder!
     
     func type_dropDownSetting(){
-        type_dropDown.dataSource = []
-        type_dropDown.textColor = .white
-        type_dropDown.backgroundColor = #colorLiteral(red: 0.2659958005, green: 0.3394620717, blue: 0.6190373302, alpha: 1)
+        //makeFolderAlertView.type_dropDown.dataSource = []
+        makeFolderAlertView.type_dropDown.textColor = .white
+        makeFolderAlertView.type_dropDown.backgroundColor = #colorLiteral(red: 0.2659958005, green: 0.3394620717, blue: 0.6190373302, alpha: 1)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         folderView.delegate = self
         type_dropDownSetting()
-        type_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+        makeFolderAlertView.type_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("선택한 아이템 : \(item)")
             print("인덱스 : \(index)")
             folderView.folderTypeButton.setTitle("\(item)", for: .normal)
@@ -598,6 +603,7 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
             folderView.folderTypeButton.layer.borderWidth = 1
             folderView.folderTypeButton.layer.borderColor = UIColor.black.cgColor
             folderView.folderTypeButton.backgroundColor = UIColor.clear
+            makeFolderAlertView.type_dropDown.clearSelection()
         }
     }
     

@@ -50,6 +50,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
                 
             }
         }
+        more_dropDown.clearSelection()
         
     }
     
@@ -232,7 +233,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     @objc func makeFolder(){
         let makeFolderView = self.storyboard?.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
-        makeFolderView.type_dropDown.dataSource = ["텍스트", "알림"]
+        makeFolderAlertView.type_dropDown.dataSource = ["링크"]
         makeFolderView.modalPresentationStyle = .overCurrentContext
         self.present(makeFolderView, animated: true, completion: nil)
     }

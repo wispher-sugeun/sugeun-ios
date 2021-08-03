@@ -159,6 +159,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     
             }
         }
+        more_dropDown.clearSelection()
         
     }
     

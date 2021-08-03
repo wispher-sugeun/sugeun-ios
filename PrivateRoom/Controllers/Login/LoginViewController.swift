@@ -19,7 +19,9 @@ class LoginViewController: UIViewController {
         
         //로그인 성공시
         let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "VC")
-        UIApplication.shared.windows.first?.rootViewController = mainVC
+        let rootNC = UINavigationController(rootViewController: mainVC)
+        
+        UIApplication.shared.windows.first?.rootViewController = rootNC
         UIApplication.shared.windows.first?.makeKeyAndVisible()
         
     }

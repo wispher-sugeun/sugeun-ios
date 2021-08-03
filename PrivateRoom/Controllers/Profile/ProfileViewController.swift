@@ -17,7 +17,8 @@ class ProfileViewController: UIViewController {
 
     
     @IBAction func backButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     var sec = ["내 글", "정보"]
