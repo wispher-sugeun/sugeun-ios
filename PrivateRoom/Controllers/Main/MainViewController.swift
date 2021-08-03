@@ -11,7 +11,7 @@ import PhotosUI
 
 class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
-    
+    var sortingText = "가나다순"
     private var mainVM: MainViewModel!
     
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout! {
@@ -108,18 +108,15 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
-        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderId: 0, folderName: "abc", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderId: 1, folderName: "def", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderId: 2, folderName: "efg", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderId: 3, folderName: "가나다", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderId: 4, folderName: "나라마", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderId: 5, folderName: "아자차", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderId: 6, folderName: "카타하", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderId: 7, folderName: "123하이", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderId: 8, folderName: "하이123", folderImage: UIImage(systemName: "person.fill"), isLike: true)) // 가장
     
         filteredFolder = folders
         
@@ -373,15 +370,24 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath)
             
+            //뷰에 있는 ui label들 지우고 다시 그리기
+            let allLabels = headerView.get(all: UILabel.self)
+              for sub in allLabels {
+                print(sub)
+                sub.removeFromSuperview()
+             }
+            
             let folderCount = UILabel()
             folderCount.text = "\(folders.count)개의 폴더"
             folderCount.textColor = UIColor.darkGray
             headerView.addSubview(folderCount)
             folderCount.frame = CGRect(x: 10, y: 10, width: 100, height: 30)
             
+          
+            
             let sortingButton = UIButton()
             let sortingButtonTextAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.green, NSAttributedString.Key.kern: 10]
-            let sortingButtonText = NSMutableAttributedString(string: "생성 순", attributes: sortingButtonTextAttributes)
+            let sortingButtonText = NSMutableAttributedString(string: "\(sortingText)", attributes: sortingButtonTextAttributes)
             sortingButton.setTitle(sortingButtonText.string, for: .normal)
             sortingButton.setTitleColor(UIColor.gray, for: .normal)
             headerView.addSubview(sortingButton)
@@ -416,8 +422,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 70))
         let headerLabel = UILabel(frame: CGRect(x: 20, y: 10, width: 300, height: 50))
-
-  
         
         let nsHeaderTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold),
                                       NSAttributedString.Key.foregroundColor: UIColor.black]
@@ -479,17 +483,46 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     //sorting 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(indexPath.row == 0){
-            
-        }else if(indexPath.row == 1){
-            
-        }else if(indexPath.row == 2){
-            
+        if(indexPath.row == 0){ // 가나다순 -> 폴더 이름별
+            sortingAlpanumeric()
+        }else if(indexPath.row == 1){ // 생성순 -> 폴더 생성순 (만든지 오래된 순)
+            sortingOldest()
+        }else if(indexPath.row == 2){ // 최신순 -> 생성순 반대로
+            sortingLatest()
         }
+        sortingText = sorting[indexPath.row]
+        self.dismissAlertController()
+        folderCollectionView.reloadData() // for 글자 업데이트
+        folderCollectionView.collectionViewLayout.invalidateLayout()
+        
+    }
+    
+    
+    
+ 
+    
+    //sorting
+    func sortingAlpanumeric(){
+        folders = folders.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
+        filteredFolder = folders
+        folderCollectionView.reloadData()
+    }
+    
+    func sortingOldest(){
+        folders = folders.sorted { $0.folderId < $1.folderId }
+        filteredFolder = folders
+        folderCollectionView.reloadData()
+    }
+    
+    func sortingLatest(){
+        folders = folders.sorted { $0.folderId > $1.folderId }
+        filteredFolder = folders
+        folderCollectionView.reloadData()
     }
     
     
 }
+
 
 extension MainViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {

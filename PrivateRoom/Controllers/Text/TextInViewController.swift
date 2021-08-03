@@ -165,13 +165,13 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         textCell.append(Phrase(userId: 1, folderId: 1, phraseId: 1, text: "text2", bookmark: false, date: "2021-07-22"))
         filteredTextCell = textCell
         
-        textFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        textFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        textFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        textFolder.append(Folder(folderId: 0, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        textFolder.append(Folder(folderId: 1, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        textFolder.append(Folder(folderId: 2, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         
-        textFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        textFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        textFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        textFolder.append(Folder(folderId: 3, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        textFolder.append(Folder(folderId: 4, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        textFolder.append(Folder(folderId: 5, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         
         filteredTextFolder = textFolder
         

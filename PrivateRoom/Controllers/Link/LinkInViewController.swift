@@ -141,13 +141,13 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         
         filteredLinkCell = linkCell
         
-        linkFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        linkFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        linkFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        linkFolder.append(Folder(folderId: 0, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        linkFolder.append(Folder(folderId: 1, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        linkFolder.append(Folder(folderId: 2, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
 
-        linkFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        linkFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        linkFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        linkFolder.append(Folder(folderId: 3, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        linkFolder.append(Folder(folderId: 4, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        linkFolder.append(Folder(folderId: 5, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         
         filteredLinkFolder = linkFolder
         

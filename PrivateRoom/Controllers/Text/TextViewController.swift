@@ -193,9 +193,9 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     }
     
     func dummyFolder(){
-        textFolder.append(Folder(folderName: "텍스트 폴더1", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        textFolder.append(Folder(folderName: "텍스트 폴더2", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        textFolder.append(Folder(folderName: "텍스트 폴더3", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        textFolder.append(Folder(folderId: 0, folderName: "텍스트 폴더1", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        textFolder.append(Folder(folderId: 1, folderName: "텍스트 폴더2", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        textFolder.append(Folder(folderId: 2, folderName: "텍스트 폴더3", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         
         filteredTextFolder = textFolder
         

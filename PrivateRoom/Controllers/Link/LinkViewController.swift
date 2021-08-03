@@ -106,8 +106,8 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         collectionViewSetting()
         floatingButtonSetting(button: floatingButton)
         
-        link.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        link.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        link.append(Folder(folderId: 1, folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        link.append(Folder(folderId: 2, folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
 //        link.append(Link(userId: 1, folderId: 1, linkId: 1, link: "www.naver.com", bookmark: true, date: "2021-02-05"))
 //        link.append(Link(userId: 2, folderId: 2, linkId: 2, link: "www.google.com", bookmark: true, date: "2021-03-05"))
 //        link.append(Link(userId: 3, folderId: 3, linkId: 3, link: "www.daum.net", bookmark: false, date: "2021-03-05"))

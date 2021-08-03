@@ -33,7 +33,7 @@ class FolderInViewController: UIViewController {
         FoderCollectionView.delegate = self
         FoderCollectionView.dataSource = self
         
-        folder.append(Folder(folderName: "CodingTest", isLike: true))
+        folder.append(Folder(folderId: 0, folderName: "CodingTest", isLike: true))
     }
     
     
