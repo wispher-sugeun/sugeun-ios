@@ -13,6 +13,17 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     
     private var mainVM: MainViewModel!
+    
+    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout! {
+        didSet {
+            collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        }
+    }
+    
+    var screenSize: CGRect!
+    var screenWidth: CGFloat!
+    var screenHeight: CGFloat!
+    
     var configuration = PHPickerConfiguration()
     
     func didTapMoreButton(cell: FolderCollectionViewCell) {
@@ -93,11 +104,22 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        screenSize = UIScreen.main.bounds
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
         folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
         folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        
-
-        
+        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+        folders.append(Folder(folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+    
         filteredFolder = folders
         
         collectionViewSetting(collectionView: folderCollectionView)
@@ -108,8 +130,18 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
         
+        flowSetting()
     }
     
+    func flowSetting(){
+        folderCollectionView.collectionViewLayout = collectionViewLayout
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 10)
+ 
+        collectionViewLayout.itemSize = CGSize(width: screenWidth / 2, height: screenWidth / 2)
+        collectionViewLayout.minimumInteritemSpacing = 0
+        collectionViewLayout.minimumLineSpacing = 0
+        
+    }
 
     
     @objc func folderImageChanged(_ notification: NSNotification){
@@ -162,7 +194,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         })
         let label = UILabel(frame:CGRect(x: 0, y: 40, width: 270, height:18))
         
-        let editAction = UIAlertAction(title: "EDIT", style: .default, handler: { [self] (action) -> Void in
+        let editAction = UIAlertAction(title: "수정", style: .default, handler: { [self] (action) -> Void in
             guard let userInput = self.folderNameTextField.text else {
                 return
             }
@@ -187,7 +219,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
            
         })
         
-        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alertVC.addAction(editAction)
         alertVC.addAction(cancelAction)
         self.present(alertVC, animated: true, completion: nil)
@@ -263,32 +295,65 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCollectionViewCell.identifier, for: indexPath) as! FolderCollectionViewCell
+
+    
         //custom cell connected
         cell.contentView.layer.cornerRadius = 10
         cell.contentView.layer.masksToBounds = true
         cell.layer.shadowRadius = 2.0
         cell.layer.shadowOpacity = 1.0
         cell.layer.masksToBounds = false
+        //cell 크기 고정
+        cell.viewLayout(width: view.fs_width/2 - 50, height: 140)
         cell.cellDelegate = self
         cell.configure(folder: filteredFolder[indexPath.row])
         cell.indexPath = indexPath
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width  = (view.frame.width-20)/3
-                    return CGSize(width: width, height: width)
+//    private func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+//        if indexPath.row == 0
+//        {
+//            return CGSize(width: screenWidth, height: screenWidth/3)
+//        }
+//        return CGSize(width: screenWidth/3, height: screenWidth/3);
+//
+//    }
+
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        print("sizeForItemAt called \(indexPath)")
+//        let cellRatio: CGFloat = 5/3
+//            if (UIDevice.current.orientation.isLandscape) {
+//                return collectionView.getCellSize(numberOFItemsRowAt: 5, cellRatio: cellRatio)
+//            } else {
+//                return collectionView.getCellSize(numberOFItemsRowAt: 2, cellRatio: cellRatio)
+//            }
+//    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if let flowLayout = self.folderCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.invalidateLayout()
+        }
     }
     
     //위 아래 라인 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 50
+        return 20
     }
-    
-    //옆 라인 간격
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.2
-    }
+//
+//    //옆 라인 간격
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 1
+//
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//
+//        return UIEdgeInsets(top: 27, left: 0, bottom: 27, right: 0)
+//
+
+//    }
     
     //todo - make with navigation
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -325,6 +390,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         default: assert(false, "nothing")
             
         }
+        return UICollectionReusableView()
         
     }
     
@@ -561,6 +627,21 @@ extension makeFolderAlertView: PHPickerViewControllerDelegate {
             
         }
 
+    }
+}
+
+extension UICollectionView {
+    func getCellSize(numberOFItemsRowAt: Int, cellRatio: CGFloat) -> CGSize {
+        var screenWidth = UIScreen.main.bounds.width
+        if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.keyWindow
+            let leftPadding = window?.safeAreaInsets.left ?? 0
+            let rightPadding = window?.safeAreaInsets.right ?? 0
+            screenWidth -= (leftPadding + rightPadding)
+        }
+        let cellWidth =  screenWidth / CGFloat(numberOFItemsRowAt)
+        let cellHeight = cellWidth * cellRatio
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 }
 

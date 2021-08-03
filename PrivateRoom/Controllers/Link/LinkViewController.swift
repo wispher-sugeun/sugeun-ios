@@ -11,6 +11,14 @@ import PhotosUI
 
 class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
 
+    
+    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout! {
+        didSet {
+            collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        }
+    }
+    
+    
     var configuration = PHPickerConfiguration()
     
     func didTapMoreButton(cell: FolderCollectionViewCell) {
@@ -84,8 +92,15 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         return textfield
     }()
     
+    var screenSize: CGRect!
+    var screenWidth: CGFloat!
+    var screenHeight: CGFloat!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        screenSize = UIScreen.main.bounds
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
         textFieldSetting(textField: searchTextField)
         collectionViewSetting()
         floatingButtonSetting(button: floatingButton)
@@ -96,7 +111,20 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
 //        link.append(Link(userId: 2, folderId: 2, linkId: 2, link: "www.google.com", bookmark: true, date: "2021-03-05"))
 //        link.append(Link(userId: 3, folderId: 3, linkId: 3, link: "www.daum.net", bookmark: false, date: "2021-03-05"))
         filteredLink = link
+        
+        flowSetting()
     }
+    
+    func flowSetting(){
+        collectionView.collectionViewLayout = collectionViewLayout
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 10)
+ 
+        collectionViewLayout.itemSize = CGSize(width: screenWidth / 2, height: screenWidth / 2)
+        collectionViewLayout.minimumInteritemSpacing = 0
+        collectionViewLayout.minimumLineSpacing = 0
+        
+    }
+
     
     func textFieldSetting(textField: UITextField){
         textField.delegate = self
@@ -168,7 +196,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         })
         let label = UILabel(frame:CGRect(x: 0, y: 40, width: 270, height:18))
         
-        let editAction = UIAlertAction(title: "EDIT", style: .default, handler: { [self] (action) -> Void in
+        let editAction = UIAlertAction(title: "수정", style: .default, handler: { [self] (action) -> Void in
             guard let userInput = self.folderNameTextField.text else {
                 return
             }
@@ -193,7 +221,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
            
         })
         
-        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alertVC.addAction(editAction)
         alertVC.addAction(cancelAction)
         self.present(alertVC, animated: true, completion: nil)
@@ -227,14 +255,18 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.layer.shadowOpacity = 1.0
         cell.layer.masksToBounds = false
         cell.cellDelegate = self
+    
+        cell.viewLayout(width: view.fs_width/2 - 50, height: 140)
         cell.configure(folder: filteredLink[indexPath.row])
         cell.indexPath = indexPath
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+       
         let width  = (view.frame.width-20)/3
-                    return CGSize(width: width, height: width)
+        print("linkVC width \(width)")
+        return CGSize(width: width, height: width)
     }
     
     //위 아래 라인 간격
@@ -283,6 +315,7 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
         default: assert(false, "nothing")
             
         }
+        return UICollectionReusableView()
         
     }
     

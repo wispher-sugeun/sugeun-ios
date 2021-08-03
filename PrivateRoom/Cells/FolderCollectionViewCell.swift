@@ -14,7 +14,9 @@ protocol FolderCollectionViewCellDelegate: AnyObject {
 }
 
 class FolderCollectionViewCell: UICollectionViewCell {
-
+    
+    @IBOutlet weak var view: UIView!
+    
     static var identifier = "FolderCollectionViewCell"
     @IBOutlet weak var folderImage: UIImageView!
     
@@ -34,10 +36,21 @@ class FolderCollectionViewCell: UICollectionViewCell {
         
         super.awakeFromNib()
         // Initialization code
+       
     }
     
     static func nib() -> UINib {
            return UINib(nibName: "FolderCollectionViewCell", bundle: nil)
+    }
+    
+    func viewLayout(width: CGFloat, height: CGFloat){
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
+        view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
+        view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
+        view.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
+        view.heightAnchor.constraint(equalToConstant: height).isActive = true
+        view.widthAnchor.constraint(equalToConstant: width).isActive = true
     }
     
     

@@ -11,6 +11,17 @@ import PhotosUI
 
 
 class TextViewController: UIViewController, PHPickerViewControllerDelegate {
+    
+    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout! {
+        didSet {
+            collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        }
+    }
+    
+    var screenSize: CGRect!
+    var screenWidth: CGFloat!
+    var screenHeight: CGFloat!
+    
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true, completion: nil)
         let itemProvider = results.first?.itemProvider
@@ -71,8 +82,23 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         collectionViewSetting()
         dummyFolder()
        
+        screenSize = UIScreen.main.bounds
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
+        
+        flowSetting()
         
       
+    }
+    
+    func flowSetting(){
+        collectionView.collectionViewLayout = collectionViewLayout
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 10)
+ 
+        collectionViewLayout.itemSize = CGSize(width: screenWidth / 2, height: screenWidth / 2)
+        collectionViewLayout.minimumInteritemSpacing = 0
+        collectionViewLayout.minimumLineSpacing = 0
+        
     }
     
     func presentPicker(){
@@ -133,7 +159,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         })
         let label = UILabel(frame:CGRect(x: 0, y: 40, width: 270, height:18))
         
-        let editAction = UIAlertAction(title: "EDIT", style: .default, handler: { [self] (action) -> Void in
+        let editAction = UIAlertAction(title: "수정", style: .default, handler: { [self] (action) -> Void in
             guard let userInput = self.folderNameTextField.text else {
                 return
             }
@@ -158,7 +184,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
            
         })
         
-        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alertVC.addAction(editAction)
         alertVC.addAction(cancelAction)
         self.present(alertVC, animated: true, completion: nil)
@@ -177,6 +203,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     }
     
     func buttonSetting(button: UIButton){
+        button.circle()
         button.addTarget(self, action: #selector(didTapFloatingButton), for: .touchUpInside)
     }
     
@@ -392,7 +419,13 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCollectionViewCell.identifier, for: indexPath) as! FolderCollectionViewCell
+        cell.contentView.layer.cornerRadius = 10
+        cell.contentView.layer.masksToBounds = true
+        cell.layer.shadowRadius = 2.0
+        cell.layer.shadowOpacity = 1.0
+        cell.layer.masksToBounds = false
         cell.cellDelegate = self
+        cell.viewLayout(width: view.fs_width/2 - 50, height: 140)
         cell.configure(folder: filteredTextFolder[indexPath.row])
         cell.indexPath = indexPath
         return cell
@@ -406,13 +439,13 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     //위 아래 라인 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 50
+        return 20
     }
     
     //옆 라인 간격
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.2
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 0.2
+//    }
     
     
     //for cell info and sort
@@ -442,6 +475,7 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
         default: assert(false, "nothing")
             
         }
+        return UICollectionReusableView()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

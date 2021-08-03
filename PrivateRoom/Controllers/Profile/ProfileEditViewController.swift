@@ -86,7 +86,7 @@ class ProfileEditViewController: UIViewController {
     
     func alertDone(title: String, message: String, completionHandler: @escaping ((String) -> Void)) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let OKAction = UIAlertAction(title: "OK", style: .default, handler: { action in  completionHandler("OK")})
+        let OKAction = UIAlertAction(title: "확인", style: .default, handler: { action in  completionHandler("OK")})
         alertVC.addAction(OKAction)
         self.present(alertVC, animated: true, completion: nil)
     }
@@ -94,7 +94,7 @@ class ProfileEditViewController: UIViewController {
     func alertDoneCancel(title: String, message: String, completionHandler: @escaping ((String) -> Void)) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let OKAction = UIAlertAction(title: "OK", style: .default, handler: { action in  completionHandler("OK")})
-        let CANCELAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        let CANCELAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alertVC.addAction(OKAction)
         alertVC.addAction(CANCELAction)
         self.present(alertVC, animated: true, completion: nil)
@@ -129,7 +129,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
             self.nameTextField.placeholder = "새로 수정할 아이디를 입력해주세요"
         })
         let label = UILabel(frame:CGRect(x: 0, y: 40, width: 270, height:18))
-        let editAction = UIAlertAction(title: "EDIT", style: .default, handler: { [self] (action) -> Void in
+        let editAction = UIAlertAction(title: "수정", style: .default, handler: { [self] (action) -> Void in
             if let userInput = self.nameTextField.text  {
                
                 label.isHidden = true
@@ -159,7 +159,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
            
         })
         
-        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alertVC.addAction(editAction)
         alertVC.addAction(cancelAction)
         self.present(alertVC, animated: true, completion: nil)
@@ -174,7 +174,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
         })
         let label = UILabel(frame:CGRect(x: 0, y: 40, width: 270, height:18))
         
-        let OKAction = UIAlertAction(title: "OK", style: .default, handler: { [self] (action) -> Void in
+        let OKAction = UIAlertAction(title: "확인", style: .default, handler: { [self] (action) -> Void in
             if let userInput = self.passwordTextField.text  {
 
                 
@@ -204,7 +204,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
            
         })
         
-        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alertVC.addAction(OKAction)
         alertVC.addAction(cancelAction)
         self.present(alertVC, animated: true, completion: nil)
@@ -220,7 +220,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
         })
         let label = UILabel(frame:CGRect(x: 0, y: 40, width: 270, height:18))
         
-        let OKAction = UIAlertAction(title: "OK", style: .default, handler: { [self] (action) -> Void in
+        let OKAction = UIAlertAction(title: "확인", style: .default, handler: { [self] (action) -> Void in
             if let userInput = self.passwordTextField.text  {
 
                 
@@ -253,7 +253,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
            
         })
         
-        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alertVC.addAction(OKAction)
         alertVC.addAction(cancelAction)
         self.present(alertVC, animated: true, completion: nil)
@@ -272,7 +272,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.register(IDInputTableViewCell.nib(), forCellReuseIdentifier: IDInputTableViewCell.identifier)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
         if(indexPath.row == 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: IDInputTableViewCell.identifier) as! IDInputTableViewCell
             cell.delegate = self

@@ -15,6 +15,14 @@ class NotiViewController: UIViewController{
     var timeOut = [Timeout]()
     var filteredtimeOut = [Timeout]()
     
+    var screenSize: CGRect!
+    var screenWidth: CGFloat!
+    var screenHeight: CGFloat!
+    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout! {
+        didSet {
+            collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        }
+    }
     
     @IBOutlet weak var floatingButton: UIButton!
     
@@ -52,6 +60,20 @@ class NotiViewController: UIViewController{
         floatingButtonSetting(floatingButton)
         collectionViewSetting(collectionView: collectionView)
         textFieldSetting(textfield: searchTextField)
+        screenSize = UIScreen.main.bounds
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
+        flowSetting()
+    }
+    
+    func flowSetting(){
+        collectionView.collectionViewLayout = collectionViewLayout
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+ 
+        collectionViewLayout.itemSize = CGSize(width: screenWidth / 2, height: screenWidth / 2)
+        collectionViewLayout.minimumInteritemSpacing = 0
+        collectionViewLayout.minimumLineSpacing = 0
+        
     }
     
     func floatingButtonSetting(_: UIButton){
@@ -202,6 +224,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         default: assert(false, "nothing")
             
         }
+        return UICollectionReusableView()
         
     }
     

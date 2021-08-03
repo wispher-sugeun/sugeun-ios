@@ -18,17 +18,19 @@ class CalendarTableViewCell: UITableViewCell {
     @IBAction func deleteButton(_ sender: Any) {
         
     }
+    
     static let identifider = "CalendarTableViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
         deleteButton.isHidden = true
         // Initialization code
+        
     }
+    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     

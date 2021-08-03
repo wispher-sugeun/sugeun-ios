@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-PrivateRoom/Pods-PrivateRoom-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/AnyFormatKit/AnyFormatKit.framework
 ${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework
 ${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework

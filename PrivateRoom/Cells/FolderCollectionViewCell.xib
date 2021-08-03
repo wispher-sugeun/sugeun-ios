@@ -66,6 +66,7 @@
                 <outlet property="folderImage" destination="7JX-05-zNn" id="VRC-eP-p9j"/>
                 <outlet property="folderName" destination="Dtb-u3-ubR" id="K3r-FG-CPT"/>
                 <outlet property="moreButton" destination="Ssf-ko-sW0" id="8S4-42-k4S"/>
+                <outlet property="view" destination="lay-ba-g4M" id="8sC-Gr-IE8"/>
             </connections>
             <point key="canvasLocation" x="183.33333333333334" y="137.61160714285714"/>
         </collectionViewCell>

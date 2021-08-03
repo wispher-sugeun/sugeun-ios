@@ -350,7 +350,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         })
         let label = UILabel(frame:CGRect(x: 0, y: 40, width: 270, height:18))
         
-        let editAction = UIAlertAction(title: "EDIT", style: .default, handler: { [self] (action) -> Void in
+        let editAction = UIAlertAction(title: "수정", style: .default, handler: { [self] (action) -> Void in
             guard let userInput = self.folderNameTextField.text else {
                 return
             }
@@ -375,7 +375,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
            
         })
         
-        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alertVC.addAction(editAction)
         alertVC.addAction(cancelAction)
         self.present(alertVC, animated: true, completion: nil)

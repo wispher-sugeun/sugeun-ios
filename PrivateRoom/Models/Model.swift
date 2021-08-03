@@ -41,6 +41,7 @@ struct Link {
     var folderId: Double
     var linkId: Double
     var link: String
+    var title: String
     var bookmark: Bool
     var date: String
 }

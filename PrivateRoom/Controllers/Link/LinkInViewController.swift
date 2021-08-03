@@ -134,16 +134,16 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     }
     
     func dummy(){
-        linkCell.append(Link(userId: 0, folderId: 0, linkId: 0, link: "https://naver.com", bookmark: true, date: "2021-05-21"))
-        linkCell.append(Link(userId: 1, folderId: 1, linkId: 1, link: "https://google.com", bookmark: true, date: "2021-05-22"))
-        linkCell.append(Link(userId: 2, folderId: 2, linkId: 2, link: "https://jouureee.tistory.com/", bookmark: true, date: "2021-05-23"))
+        linkCell.append(Link(userId: 0, folderId: 0, linkId: 0, link: "https://naver.com", title: "자주 가는 곳", bookmark: true, date: "2021-05-21"))
+        linkCell.append(Link(userId: 1, folderId: 1, linkId: 1, link: "https://google.com",title: "자주 가는 곳", bookmark: true, date: "2021-05-22"))
+        linkCell.append(Link(userId: 2, folderId: 2, linkId: 2, link: "https://jouureee.tistory.com",title: "자주 가는 곳", bookmark: true, date: "2021-05-23"))
         
         filteredLinkCell = linkCell
         
         linkFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         linkFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         linkFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        
+
         linkFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         linkFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         linkFolder.append(Folder(folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
@@ -309,7 +309,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         })
         let label = UILabel(frame:CGRect(x: 0, y: 40, width: 270, height:18))
         
-        let editAction = UIAlertAction(title: "EDIT", style: .default, handler: { [self] (action) -> Void in
+        let editAction = UIAlertAction(title: "수정", style: .default, handler: { [self] (action) -> Void in
             guard let userInput = self.folderNameTextField.text else {
                 return
             }
@@ -334,7 +334,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
            
         })
         
-        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alertVC.addAction(editAction)
         alertVC.addAction(cancelAction)
         self.present(alertVC, animated: true, completion: nil)
@@ -414,11 +414,6 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
 }
 
 extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return filteredLinkFolder.count
-        
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sorting.count
@@ -440,10 +435,7 @@ extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.attributedText = nsSortingText
             return cell
         }
-        
-       
-       
-        
+
         return defaultCell!
         
     }
@@ -451,7 +443,7 @@ extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return CGFloat(50)
+        return CGFloat(50)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -588,13 +580,19 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if(collectionView == folderCollectionView) {
-            let width  = (view.frame.width-20)/3
-                        return CGSize(width: width, height: width)
+            let frameSize = collectionView.frame.size
+            let size = (frameSize.width - 64.0) / 2.0
+            // 27 px on both side, and within, there is 10 px gap.
+            return CGSize(width: size, height: size)
+//            let width  = (view.frame.width-20)/3
+//            print("folderCollectionView width \(width)")
+//            return CGSize(width: width, height: width)
+            
         }else if(collectionView == FrameCollectionView){
             let width = FrameCollectionView.bounds.width
             let height = FrameCollectionView.bounds.height
-//            print("width : \(FrameCollectionView.bounds.width / 2)")
-//            print("height : \(FrameCollectionView.bounds.height / 2)")
+            print("width : \(FrameCollectionView.bounds.width / 2)")
+            print("height : \(FrameCollectionView.bounds.height / 2)")
             return CGSize(width: (width / 2) - 100, height: height)
         }
         
@@ -605,18 +603,22 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
     //위 아래 라인 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 50
+        return 10
     }
     
     //옆 라인 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        if(collectionView == FrameCollectionView){
-            return 10
-        }
-        return 0.2
+        return 10
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if(collectionView == folderCollectionView){
+            return UIEdgeInsets(top: 27, left: 0, bottom: 27, right: 0)
+        }
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+
+    }
     
     //todo - make with navigation
 //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -630,7 +632,6 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath)
-            
             let sortingButton = UIButton()
             let sortingButtonTextAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.green, NSAttributedString.Key.kern: 10]
             let sortingButtonText = NSMutableAttributedString(string: "생성 순", attributes: sortingButtonTextAttributes)
@@ -645,23 +646,47 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
         case UICollectionView.elementKindSectionFooter:
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerView", for: indexPath)
+            footerView.backgroundColor = .white
             let layout = UICollectionViewFlowLayout()
-            
+//            footerView.translatesAutoresizingMaskIntoConstraints = false
+//
+//            footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+//            footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+//            footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
             //footerView 내에 collectionview 생성
             folderCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: footerView.frame.width, height: footerView.frame.height), collectionViewLayout: layout)
             print("footerview height")
             print(footerView.frame.height)
             folderCollectionView.delegate = self
             folderCollectionView.dataSource = self
-            //self.folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
+            self.folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
+
             folderCollectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
+            print("UICollectionView.elementKindSectionFooter 1")
+            let width: CGFloat = folderCollectionView.bounds.width
+            let height: CGFloat = folderCollectionView.bounds.height
+            print("width is \(width)")
+            print("height is \(height)")
             footerView.addSubview(folderCollectionView)
             
             return footerView
         default: assert(false, "nothing")
             
         }
+        return UICollectionReusableView()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        print("UICollectionView.elementKindSectionFooter 2")
+        let width: CGFloat = view.bounds.width
+        let height: CGFloat = view.bounds.height
+     
+        return CGSize(width: width, height: 100)
+
+        
+    }
+
+    
     
   
 }

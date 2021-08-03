@@ -68,7 +68,6 @@ class LinkCollectionViewCell: UICollectionViewCell {
     }
     
     func addRichLinkToView(view: UIView, metadata: LPLinkMetadata) {
-        print("func addRichLinkToView called")
           linkView = LPLinkView(metadata: metadata)
           view.addSubview(linkView)
           linkView.frame =  view.bounds

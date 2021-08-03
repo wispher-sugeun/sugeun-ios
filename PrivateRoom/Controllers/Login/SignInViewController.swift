@@ -54,24 +54,39 @@ class SignInViewController: UIViewController {
     
     @IBOutlet weak var authenInValidText: UILabel!
 
+    var autheCode: Int = 0
     
     @IBAction func sendMessage(_ sender: Any) {
+        //print("send message button click \(phoneNumberTextField.text?.phoneMake())")
+        let number = phoneNumberTextField.text?.phoneMake() // dash delete string
+        UserServices.shared.sendMessage(number: number!, completion: { (response) in
+            self.autheCode = response
+        })
         //문자 보내기 성공시
-        //phoneNumberGuideText.isHidden = false
+        phoneNumberGuideText.isHidden = false
     }
     
     
     @IBAction func authenButton(_ sender: Any) {
-//        // 텍스트 필드 == 인증번호
-//        authenValidText.isHidden = false
-//        //아니면
-//        authenInValidText.isHidden = false
+        print(" authenTextField.text \(authenTextField.text)")
+        print("authen Code \(autheCode)")
+        
+        if authenTextField.text == String(autheCode) {
+            print("same authen")
+            authenValidText.isHidden = false
+            authenInValidText.isHidden = true
+        }else{
+            print("diff authen")
+            authenValidText.isHidden = true
+            authenInValidText.isHidden = false
+        }
     }
     
     
     @IBAction func signInButton(_ sender: Any) {
         
         //post 성공시
+        
         self.alertViewController(title: "회원가입 완료", message: "회원 가입을 완료하였습니다. 로그인으로 이동합니다", completion: { response in
             if(response == "OK"){
                 self.navigationController?.popToRootViewController(animated: true)

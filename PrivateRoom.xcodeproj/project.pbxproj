@@ -22,6 +22,7 @@
 		8E2B835D26AD724600AC2570 /* LayoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B835B26AD724400AC2570 /* LayoutTableViewCell.xib */; };
 		8E2B835F26ADD1DA00AC2570 /* LinkInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B835E26ADD1D800AC2570 /* LinkInViewController.swift */; };
 		8E2B836126AFDF5600AC2570 /* MakeLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B836026AFDF5500AC2570 /* MakeLinkViewController.swift */; };
+		8E3C720526B14738008CFF79 /* SignupRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C720426B14738008CFF79 /* SignupRequest.swift */; };
 		8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */; };
 		8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */; };
 		8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D208269EDC5800F48C26 /* TextBookViewController.swift */; };
@@ -91,6 +92,7 @@
 		8E2B835B26AD724400AC2570 /* LayoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutTableViewCell.xib; sourceTree = "<group>"; };
 		8E2B835E26ADD1D800AC2570 /* LinkInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInViewController.swift; sourceTree = "<group>"; };
 		8E2B836026AFDF5500AC2570 /* MakeLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeLinkViewController.swift; sourceTree = "<group>"; };
+		8E3C720426B14738008CFF79 /* SignupRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupRequest.swift; sourceTree = "<group>"; };
 		8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
 		8E66D208269EDC5800F48C26 /* TextBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBookViewController.swift; sourceTree = "<group>"; };
@@ -216,6 +218,14 @@
 				8E2B836026AFDF5500AC2570 /* MakeLinkViewController.swift */,
 			);
 			path = Link;
+			sourceTree = "<group>";
+		};
+		8E3C720326B14718008CFF79 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8E3C720426B14738008CFF79 /* SignupRequest.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		8E66D212269F3E8700F48C26 /* Calendar */ = {
@@ -355,6 +365,7 @@
 		8EF3BFA3268F61C900415150 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				8E3C720326B14718008CFF79 /* API */,
 				8EF3BFA4268F61FE00415150 /* UserServices.swift */,
 			);
 			path = Services;
@@ -511,6 +522,7 @@
 				8EF3BFAA268F641300415150 /* CalendarViewController.swift in Sources */,
 				8E70C1C4269199A6006F1D2C /* ProfileEditViewController.swift in Sources */,
 				8EE69D6A26484B9900ED19B9 /* LinkViewController.swift in Sources */,
+				8E3C720526B14738008CFF79 /* SignupRequest.swift in Sources */,
 				8E782ADA2647D3A400D93D89 /* PrivateRoom.xcdatamodeld in Sources */,
 				8E2B835126A7E9D800AC2570 /* LinkCollectionViewCell.swift in Sources */,
 				8E66D218269F45D300F48C26 /* TitleAddTableViewCell.swift in Sources */,

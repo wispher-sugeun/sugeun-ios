@@ -16,12 +16,15 @@ protocol calendarViewDelegate: NSObject {
 
 class CalendarViewController: UIViewController {
 
+
     @IBOutlet weak var calendar: FSCalendar!
     
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func editButton(_ sender: Any) {
+        print("edit button click")
+        isEditing = !isEditing
         delegate?.editButton()
     }
     
@@ -43,7 +46,7 @@ class CalendarViewController: UIViewController {
        
     }
 
-    var delegate: calendarViewDelegate?
+    public var delegate: calendarViewDelegate?
     var schedule = [Schedule]()
     var filtered = [Schedule]()
     
@@ -90,6 +93,7 @@ class CalendarViewController: UIViewController {
     func tableviewSetting(){
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.register(CalendarTableViewCell.nib(), forCellReuseIdentifier: CalendarTableViewCell.identifider)
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -148,6 +152,58 @@ extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
         cell.configure(model: filtered[indexPath.row])
         return cell
     }
+    
+    private func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    //for delete
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if(editingStyle == .delete){
+            let askToDelete = UIAlertController(title: "일정 삭제", message: "\(filtered[indexPath.row].title) 의 일정을 삭제하시겠습니까?", preferredStyle: .alert)
+            
+            askToDelete.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in
+//                self.setScheduledView.beginUpdates()
+//                self.setscheduled.remove(at: indexPath.row)
+//                self.filtered = self.setscheduled
+//                self.setScheduledView.deleteRows(at: [indexPath], with: .fade)
+//                self.setScheduledView.endUpdates()
+        }))
+            askToDelete.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+            present(askToDelete, animated: true)
+        }
+    }
+    
+    //swipe 일정 삭제
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .normal, title: "삭제") { (action, view, success) in
+            let scheduleTitle = self.filtered[indexPath.row].title
+            print(scheduleTitle)
+            self.alertWithNoViewController(title: "일정 삭제", message: "\(scheduleTitle) 일정을 삭제하시겠습니까?", completion: { (response) in
+                if(response == "OK"){
+                    self.filtered.remove(at: indexPath.row)
+                    tableView.reloadRows(at: [indexPath], with: .fade)
+                }
+            })
+            
+        
+        }
+        
+        let config = UISwipeActionsConfiguration(actions: [deleteAction])
+
+        return config
+        
+    }
+    
     
     
 }
