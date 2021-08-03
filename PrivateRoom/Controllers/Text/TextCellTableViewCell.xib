@@ -66,10 +66,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
             <connections>
                 <outlet property="bookmark" destination="A0c-Xz-Zue" id="A4h-Hb-0eF"/>
                 <outlet property="dateLabel" destination="09G-jk-af9" id="b5L-9Y-fbc"/>
                 <outlet property="labelText" destination="aqq-9o-9hf" id="FEC-lK-TIc"/>
+                <outlet property="moreButton" destination="vnn-RY-Oss" id="jS1-Qd-buU"/>
             </connections>
             <point key="canvasLocation" x="225.36231884057972" y="116.51785714285714"/>
         </tableViewCell>

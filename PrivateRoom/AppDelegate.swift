@@ -7,15 +7,54 @@
 
 import UIKit
 import CoreData
+import AppTrackingTransparency
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        //push notification
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+              print("Permission granted: \(granted)")
+
+          }
+        // APNS 등록
+        application.registerForRemoteNotifications()
+
+        
         return true
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+           print("failed to register for notifications")
+       }
+
+   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+       let tokenParts = deviceToken.map {
+           data in String(format: "%02.2hhx", data) }
+       let deviceToken = tokenParts.joined()
+        UserDefaults.standard.setValue(deviceToken, forKey: UserDefaultKey.deviceToken)
+       print("Device Token: \(deviceToken)")
+
+   }
+
+   //foreground에서 알림이 온 상태
+   func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+       // 푸시가 오면 alert, badge, sound표시를 하라는 의미
+       //completionHandler([.alert, .sound])
+   }
+
+   //TODO
+   //push 온 경우 (보내는 쪽)
+   func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+
+       //post
+       NotificationCenter.default.post(name: .alarm, object: nil)
     }
 
     // MARK: UISceneSession Lifecycle
@@ -79,3 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+extension NSNotification.Name {
+    static let alarm = NSNotification.Name("alarm")
+}

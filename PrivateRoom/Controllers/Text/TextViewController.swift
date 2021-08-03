@@ -480,10 +480,12 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let VC = self.storyboard?.instantiateViewController(identifier: "textIn") else { return }
-        VC.modalTransitionStyle = .coverVertical
-        VC.modalPresentationStyle = .fullScreen
-        self.present(VC, animated: true, completion: nil)
+        
+        guard let textInVC = self.storyboard?.instantiateViewController(identifier: "textIn") else { return }
+        self.navigationController?.pushViewController(textInVC, animated: true)
+//        VC.modalTransitionStyle = .coverVertical
+//        VC.modalPresentationStyle = .fullScreen
+//        self.present(VC, animated: true, completion: nil)
     }
 
 }

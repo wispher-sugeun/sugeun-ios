@@ -15,7 +15,9 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
-    let cellSpacingHeight: CGFloat = 10
+    var selectedCellIndexPath = IndexPath()
+    
+    let cellSpacingHeight: CGFloat = 20
 
     override func viewWillAppear(_ animated: Bool) {
         print("view will apear")
@@ -104,18 +106,16 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     private var alertController = UIAlertController()
     
     @IBAction func backButton(_ sender: Any) {
-        self.dismiss(animated: false, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+        //self.dismiss(animated: false, completion: nil)
     }
     
-    @IBAction func editButton(_ sender: Any) {
-        print("edit button")
-    }
+
     
     var sorting = ["가나다 순", "생성 순", "최신 순"]
     
     lazy var buttons: [UIButton] = [self.folderButton, self.writeButton]
     
-    var selectedCellIndexPath = IndexPath()
     
     var isShowFloating: Bool = false
     
@@ -192,6 +192,9 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     func tableviewSetting(){
         frameTableView.delegate = self
         frameTableView.dataSource = self
+        frameTableView.allowsSelection = false
+        frameTableView.separatorStyle = .none
+        frameTableView.backgroundColor = .white
         frameTableView.register(TextCellTableViewCell.nib(), forCellReuseIdentifier: TextCellTableViewCell.identifier)
         self.frameTableView.translatesAutoresizingMaskIntoConstraints = false
         frameTableView.backgroundColor = .clear
@@ -442,8 +445,48 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
     
     func moreButton(cell: TextCellTableViewCell) {
         print("text cell more button")
-        //textCell_dropDown.anchorView = cell.more
+        textCell_dropDown.anchorView = cell.moreButton
+        textCell_dropDown.show()
+
+        textCell_dropDown.backgroundColor = UIColor.white
+        textCell_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("선택한 아이템 : \(item)")
+            print("인덱스 : \(index)")
+            
+            if(index == 0){ // 글 수정
+                textCellEdit(cell: cell)
+            }else if(index == 1){ // 글 삭제
+                self.alertWithNoViewController(title: "글 삭제", message: "이 글을 삭제하시겠습니까?", completion: {
+                    (response) in
+                    if(response == "OK"){
+                        textCellDelete(indexPath: cell.indexPath)
+                    }
+                })
+            }
+        }
+        textCell_dropDown.clearSelection()
+        
     }
+    
+    func textCellEdit(cell: TextCellTableViewCell){
+        let editText = cell.labelText.text
+        let wirteVc = self.storyboard?.instantiateViewController(identifier: "writeText") as! WriteViewController
+        wirteVc.editText = editText!
+        wirteVc.editMode = true
+        
+        self.navigationController?.pushViewController(wirteVc, animated: true)
+//        wirteVc.modalPresentationStyle = .fullScreen
+//        self.present(wirteVc, animated: true, completion: nil)
+    }
+    
+    func textCellDelete(indexPath: IndexPath){
+        print(indexPath.row)
+        textCell.remove(at: indexPath.row)
+        filteredTextCell = textCell
+        frameTableView.reloadData()
+        self.alertViewController(title: "삭제 완료", message: "삭제 완료하였습니다.", completion: { (response) in })
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return filteredTextCell.count
         
@@ -480,7 +523,7 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
            
             cell.delegate = self
             cell.configure(model: filteredTextCell[indexPath.section])
-        
+            cell.indexPath = indexPath
             
             return cell
         }
@@ -518,6 +561,8 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
             }else if(indexPath.row == 2){
                 
             }
+        }else{
+            tableView.deselectRow(at: indexPath, animated: false)
         }
        
     }

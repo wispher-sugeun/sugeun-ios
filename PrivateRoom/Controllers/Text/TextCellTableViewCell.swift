@@ -23,12 +23,15 @@ class TextCellTableViewCell: UITableViewCell {
         bookMarkToggle(sender)
     }
         
+    @IBOutlet weak var moreButton: UIButton!
+    
     @IBAction func moreButton(_ sender: UIButton) {
         delegate?.moreButton(cell: self)
     }
     
     @IBOutlet weak var dateLabel: UILabel!
     
+    var indexPath: IndexPath = []
     
     var delegate: TextCellTableViewCellDelegate?
     static let identifier = "TextCellTableViewCell"

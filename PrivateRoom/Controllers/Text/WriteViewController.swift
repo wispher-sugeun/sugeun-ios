@@ -13,8 +13,12 @@ class WriteViewController: UIViewController {
     
     @IBOutlet weak var textView: UITextView!
     
+    var editText:String = ""
+    var editMode: Bool = false
+    
     @IBAction func backButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+        //self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func doneButton(_ sender: Any) {
@@ -30,13 +34,16 @@ class WriteViewController: UIViewController {
             
             
         }else{
-            self.alertWithNoViewController(title: "글 작성 실패", message: "글을 작성해주세요", completion: {(response) in
-                                            })
+            self.alertViewController(title: "글 작성 실패", message: "글을 작성해주세요", completion: {(response) in })
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(editMode){
+            title = "글 수정"
+            textView.text = editText
+        }
         UISetting()
         textViewSetting()
 
@@ -94,8 +101,14 @@ extension WriteViewController: UITextViewDelegate {
             textView.text = ""
             textView.textColor = .black
         }else if(textView.text == ""){
-            textView.text = "글쓰기"
-            textView.textColor = .gray
+            if(editMode == true){ //edit mode 에서 왔을 때
+                textView.text = ""
+                textView.textColor = .black
+            }else {
+                textView.text = "글쓰기"
+                textView.textColor = .gray
+            }
+            
         }
     }
 }

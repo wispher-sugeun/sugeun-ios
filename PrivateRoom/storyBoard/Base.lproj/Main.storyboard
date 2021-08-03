@@ -66,6 +66,7 @@
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BxA-yy-nen">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
                                     <navigationItem title="Title" id="Lng-cZ-4R8">
                                         <barButtonItem key="leftBarButtonItem" image="chevron.backward" catalog="system" id="Dg8-VB-NXA">
@@ -123,16 +124,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S16-9L-1hT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3367" y="-597"/>
-        </scene>
-        <!--ProfileViewController-->
-        <scene sceneID="PDh-Fb-bGE">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Profile" storyboardName="Profile" referencedIdentifier="ProfileViewController" id="LzD-k4-pE2" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="9Gj-t7-P8M"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lns-Cs-lI6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-58" y="-246"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="kuL-x8-Z0w">
@@ -384,6 +375,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -438,6 +430,7 @@
                             </stackView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Usj-x8-PB4">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
                                     <navigationItem id="Yp9-uS-LHf">
                                         <barButtonItem key="leftBarButtonItem" image="chevron.backward" catalog="system" id="OKQ-NX-aBL">
@@ -551,6 +544,7 @@
                             </scrollView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ja4-ZS-WCC">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
                                     <navigationItem id="vci-JK-yf1">
                                         <barButtonItem key="leftBarButtonItem" image="chevron.backward" catalog="system" id="oSZ-eN-gLe">
@@ -1306,7 +1300,6 @@
                         <outlet property="linkVC" destination="NPB-ou-FOD" id="PDJ-d9-A9A"/>
                         <outlet property="profileVC" destination="4gj-6i-fnB" id="U3f-In-U40"/>
                         <outlet property="textVC" destination="PMa-dF-IHP" id="hYe-61-J0T"/>
-                        <segue destination="LzD-k4-pE2" kind="show" identifier="profile" id="Zkv-TN-kx6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JhY-KQ-wy4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

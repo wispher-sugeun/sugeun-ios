@@ -10,6 +10,12 @@
 		8E003BD7264FB92700CB5802 /* FolderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E003BD5264FB92700CB5802 /* FolderCollectionViewCell.swift */; };
 		8E003BD8264FB92700CB5802 /* FolderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E003BD6264FB92700CB5802 /* FolderCollectionViewCell.xib */; };
 		8E1D604F26B9063600DF53FE /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1D604E26B9063600DF53FE /* PageViewController.swift */; };
+		8E1D606D26B92BCC00DF53FE /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1D606C26B92BCC00DF53FE /* UserNotifications.framework */; };
+		8E1D606F26B92BCC00DF53FE /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1D606E26B92BCC00DF53FE /* UserNotificationsUI.framework */; };
+		8E1D607226B92BCC00DF53FE /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1D607126B92BCC00DF53FE /* NotificationViewController.swift */; };
+		8E1D607526B92BCC00DF53FE /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1D607326B92BCC00DF53FE /* MainInterface.storyboard */; };
+		8E1D607926B92BCC00DF53FE /* AlarmPushNotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8E1D606B26B92BCC00DF53FE /* AlarmPushNotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8E1D607F26B92D0D00DF53FE /* UserDefaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1D607E26B92D0D00DF53FE /* UserDefaultKey.swift */; };
 		8E2B834326A41F9F00AC2570 /* MakeNotiFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B834226A41F9F00AC2570 /* MakeNotiFolderView.swift */; };
 		8E2B834526A41FFA00AC2570 /* MakeNotiFolderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B834426A41FFA00AC2570 /* MakeNotiFolderView.xib */; };
 		8E2B834826A42DB200AC2570 /* TimeOutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B834626A42DB100AC2570 /* TimeOutCollectionViewCell.swift */; };
@@ -74,6 +80,30 @@
 		AAC47C21F15A770385ECE65C /* Pods_PrivateRoom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575ACDD701EBBB7F03E428A0 /* Pods_PrivateRoom.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8E1D607726B92BCC00DF53FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E782AC42647D3A400D93D89 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E1D606A26B92BCC00DF53FE;
+			remoteInfo = AlarmPushNotificationService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8E1D607D26B92BCC00DF53FE /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8E1D607926B92BCC00DF53FE /* AlarmPushNotificationService.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1FC203A57B3F8323CDD97235 /* Pods-PrivateRoom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivateRoom.debug.xcconfig"; path = "Target Support Files/Pods-PrivateRoom/Pods-PrivateRoom.debug.xcconfig"; sourceTree = "<group>"; };
 		575ACDD701EBBB7F03E428A0 /* Pods_PrivateRoom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrivateRoom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +111,14 @@
 		8E003BD5264FB92700CB5802 /* FolderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E003BD6264FB92700CB5802 /* FolderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FolderCollectionViewCell.xib; sourceTree = "<group>"; };
 		8E1D604E26B9063600DF53FE /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		8E1D606B26B92BCC00DF53FE /* AlarmPushNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AlarmPushNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E1D606C26B92BCC00DF53FE /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		8E1D606E26B92BCC00DF53FE /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		8E1D607126B92BCC00DF53FE /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		8E1D607426B92BCC00DF53FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		8E1D607626B92BCC00DF53FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E1D607E26B92D0D00DF53FE /* UserDefaultKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKey.swift; sourceTree = "<group>"; };
+		8E1D608026B9312000DF53FE /* PrivateRoom.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PrivateRoom.entitlements; sourceTree = "<group>"; };
 		8E2B834226A41F9F00AC2570 /* MakeNotiFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNotiFolderView.swift; sourceTree = "<group>"; };
 		8E2B834426A41FFA00AC2570 /* MakeNotiFolderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MakeNotiFolderView.xib; sourceTree = "<group>"; };
 		8E2B834626A42DB100AC2570 /* TimeOutCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeOutCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -147,6 +185,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8E1D606826B92BCC00DF53FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E1D606F26B92BCC00DF53FE /* UserNotificationsUI.framework in Frameworks */,
+				8E1D606D26B92BCC00DF53FE /* UserNotifications.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8E782AC92647D3A400D93D89 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -171,8 +218,20 @@
 			isa = PBXGroup;
 			children = (
 				575ACDD701EBBB7F03E428A0 /* Pods_PrivateRoom.framework */,
+				8E1D606C26B92BCC00DF53FE /* UserNotifications.framework */,
+				8E1D606E26B92BCC00DF53FE /* UserNotificationsUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8E1D607026B92BCC00DF53FE /* AlarmPushNotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				8E1D607126B92BCC00DF53FE /* NotificationViewController.swift */,
+				8E1D607326B92BCC00DF53FE /* MainInterface.storyboard */,
+				8E1D607626B92BCC00DF53FE /* Info.plist */,
+			);
+			path = AlarmPushNotificationService;
 			sourceTree = "<group>";
 		};
 		8E2B833B26A41D5400AC2570 /* Alarm */ = {
@@ -261,6 +320,7 @@
 			children = (
 				8E70C1C1269196FC006F1D2C /* Extension.swift */,
 				8E66D210269EE94B00F48C26 /* DateUtil.swift */,
+				8E1D607E26B92D0D00DF53FE /* UserDefaultKey.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -282,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				8E782ACE2647D3A400D93D89 /* PrivateRoom */,
+				8E1D607026B92BCC00DF53FE /* AlarmPushNotificationService */,
 				8E782ACD2647D3A400D93D89 /* Products */,
 				4DC061FE5DC5F6F65D3BB4E0 /* Pods */,
 				8826930ABBF759B20E82CA9E /* Frameworks */,
@@ -292,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				8E782ACC2647D3A400D93D89 /* PrivateRoom.app */,
+				8E1D606B26B92BCC00DF53FE /* AlarmPushNotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -299,6 +361,7 @@
 		8E782ACE2647D3A400D93D89 /* PrivateRoom */ = {
 			isa = PBXGroup;
 			children = (
+				8E1D608026B9312000DF53FE /* PrivateRoom.entitlements */,
 				8E70C1C0269196EA006F1D2C /* Utils */,
 				8EF3BFA6268F625B00415150 /* ViewModels */,
 				8EF3BFA3268F61C900415150 /* Services */,
@@ -396,6 +459,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8E1D606A26B92BCC00DF53FE /* AlarmPushNotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E1D607A26B92BCC00DF53FE /* Build configuration list for PBXNativeTarget "AlarmPushNotificationService" */;
+			buildPhases = (
+				8E1D606726B92BCC00DF53FE /* Sources */,
+				8E1D606826B92BCC00DF53FE /* Frameworks */,
+				8E1D606926B92BCC00DF53FE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AlarmPushNotificationService;
+			productName = AlarmPushNotificationService;
+			productReference = 8E1D606B26B92BCC00DF53FE /* AlarmPushNotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		8E782ACB2647D3A400D93D89 /* PrivateRoom */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E782AE32647D3AC00D93D89 /* Build configuration list for PBXNativeTarget "PrivateRoom" */;
@@ -405,10 +485,12 @@
 				8E782AC92647D3A400D93D89 /* Frameworks */,
 				8E782ACA2647D3A400D93D89 /* Resources */,
 				F95E48F12E71D7A02411D13C /* [CP] Embed Pods Frameworks */,
+				8E1D607D26B92BCC00DF53FE /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8E1D607826B92BCC00DF53FE /* PBXTargetDependency */,
 			);
 			name = PrivateRoom;
 			productName = PrivateRoom;
@@ -421,9 +503,12 @@
 		8E782AC42647D3A400D93D89 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					8E1D606A26B92BCC00DF53FE = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
 					8E782ACB2647D3A400D93D89 = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -443,11 +528,20 @@
 			projectRoot = "";
 			targets = (
 				8E782ACB2647D3A400D93D89 /* PrivateRoom */,
+				8E1D606A26B92BCC00DF53FE /* AlarmPushNotificationService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8E1D606926B92BCC00DF53FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E1D607526B92BCC00DF53FE /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8E782ACA2647D3A400D93D89 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -518,6 +612,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8E1D606726B92BCC00DF53FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E1D607226B92BCC00DF53FE /* NotificationViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8E782AC82647D3A400D93D89 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -561,6 +663,7 @@
 				8ED15EA7269996F1002943C9 /* SignInViewController.swift in Sources */,
 				8E66D211269EE94B00F48C26 /* DateUtil.swift in Sources */,
 				8EE69D6426484B4F00ED19B9 /* MainViewController.swift in Sources */,
+				8E1D607F26B92D0D00DF53FE /* UserDefaultKey.swift in Sources */,
 				8EF00F11265390C900AA1EEA /* FolderViewController.swift in Sources */,
 				8EF3BFAD268F677E00415150 /* LoginViewController.swift in Sources */,
 				8EE69D6626484B7D00ED19B9 /* TextViewController.swift in Sources */,
@@ -573,7 +676,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		8E1D607826B92BCC00DF53FE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E1D606A26B92BCC00DF53FE /* AlarmPushNotificationService */;
+			targetProxy = 8E1D607726B92BCC00DF53FE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		8E1D607326B92BCC00DF53FE /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8E1D607426B92BCC00DF53FE /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		8E782AD52647D3A400D93D89 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -593,6 +712,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8E1D607B26B92BCC00DF53FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FJ57DUH592;
+				INFOPLIST_FILE = AlarmPushNotificationService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Develop.PrivateRoom.AlarmPushNotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8E1D607C26B92BCC00DF53FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FJ57DUH592;
+				INFOPLIST_FILE = AlarmPushNotificationService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Develop.PrivateRoom.AlarmPushNotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		8E782AE12647D3AC00D93D89 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -715,8 +874,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1FC203A57B3F8323CDD97235 /* Pods-PrivateRoom.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PrivateRoom/PrivateRoom.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FJ57DUH592;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -742,8 +903,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6FCDA5CC2DDC839482B705BB /* Pods-PrivateRoom.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PrivateRoom/PrivateRoom.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FJ57DUH592;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -768,6 +931,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8E1D607A26B92BCC00DF53FE /* Build configuration list for PBXNativeTarget "AlarmPushNotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E1D607B26B92BCC00DF53FE /* Debug */,
+				8E1D607C26B92BCC00DF53FE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8E782AC72647D3A400D93D89 /* Build configuration list for PBXProject "PrivateRoom" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
