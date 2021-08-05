@@ -15,12 +15,12 @@ struct Folder {
     var isLike: Bool
 }
 
-struct FolderIn {
+struct FolderIn: Codable {
     var FolderType: String //text. link, image
-    var content: Any
+    var content: String
 }
 
-struct Schedule {
+struct Schedule: Codable {
     var scheduleId: Double
     var userId: Double
     var title: String
@@ -28,7 +28,7 @@ struct Schedule {
     var selectedList: [Int] //선택된 알림 날
 }
 
-struct Phrase {
+struct Phrase: Codable {
     var userId: Double
     var folderId: Double
     var phraseId: Double
@@ -37,7 +37,7 @@ struct Phrase {
     var date: String
 }
 
-struct Link {
+struct Link:Codable {
     var userId: Double
     var folderId: Double
     var linkId: Double
@@ -48,17 +48,6 @@ struct Link {
 }
 
 
-
-//struct Timeout {
-//    var userId: Double
-//    var timeoutId: Double
-//    var title: String
-//    var timeoutImage: Data
-//    var deadLine: String
-//    var selectedList: [Int]
-//    var isValid: Bool
-//}
-
 struct Timeout {
     var userId: Double
     var timeoutId: Double
@@ -67,5 +56,15 @@ struct Timeout {
     var deadLine: String
     var selectedList: [Int]
     var isValid: Bool
+}
+
+struct User {
+    var userId: Int
+    var nickname: String
+    var password: String
+    var phone: String
+    var alarm: Bool
+    var folderPath: String
+    var storeFilename: String
 }
 

@@ -29,7 +29,6 @@
 		8E2B835D26AD724600AC2570 /* LayoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B835B26AD724400AC2570 /* LayoutTableViewCell.xib */; };
 		8E2B835F26ADD1DA00AC2570 /* LinkInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B835E26ADD1D800AC2570 /* LinkInViewController.swift */; };
 		8E2B836126AFDF5600AC2570 /* MakeLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B836026AFDF5500AC2570 /* MakeLinkViewController.swift */; };
-		8E3C720526B14738008CFF79 /* SignupRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3C720426B14738008CFF79 /* SignupRequest.swift */; };
 		8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */; };
 		8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */; };
 		8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D208269EDC5800F48C26 /* TextBookViewController.swift */; };
@@ -72,11 +71,15 @@
 		8EF00F11265390C900AA1EEA /* FolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF00F10265390C800AA1EEA /* FolderViewController.swift */; };
 		8EF00F1326539C0100AA1EEA /* FolderInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF00F1226539C0100AA1EEA /* FolderInViewController.swift */; };
 		8EF00F1626539CB300AA1EEA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF00F1526539CB300AA1EEA /* Model.swift */; };
-		8EF3BFA5268F61FE00415150 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3BFA4268F61FE00415150 /* UserServices.swift */; };
+		8EF3BFA5268F61FE00415150 /* UserLoginServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3BFA4268F61FE00415150 /* UserLoginServices.swift */; };
 		8EF3BFA8268F627400415150 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3BFA7268F627400415150 /* MainViewModel.swift */; };
 		8EF3BFAA268F641300415150 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3BFA9268F641300415150 /* CalendarViewController.swift */; };
 		8EF3BFAD268F677E00415150 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3BFAC268F677E00415150 /* LoginViewController.swift */; };
 		8EF3BFAF268F678D00415150 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EF3BFAE268F678D00415150 /* Login.storyboard */; };
+		8EFFBFBE26BC4FBD007C1868 /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFFBFBD26BC4FBD007C1868 /* SignUpRequest.swift */; };
+		8EFFBFC026BC4FD2007C1868 /* SignUpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFFBFBF26BC4FD2007C1868 /* SignUpResponse.swift */; };
+		8EFFBFC226BC5EEE007C1868 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFFBFC126BC5EEE007C1868 /* LoginRequest.swift */; };
+		8EFFBFC526BC5F0E007C1868 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFFBFC426BC5F0E007C1868 /* LoginResponse.swift */; };
 		AAC47C21F15A770385ECE65C /* Pods_PrivateRoom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575ACDD701EBBB7F03E428A0 /* Pods_PrivateRoom.framework */; };
 /* End PBXBuildFile section */
 
@@ -132,7 +135,6 @@
 		8E2B835B26AD724400AC2570 /* LayoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutTableViewCell.xib; sourceTree = "<group>"; };
 		8E2B835E26ADD1D800AC2570 /* LinkInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInViewController.swift; sourceTree = "<group>"; };
 		8E2B836026AFDF5500AC2570 /* MakeLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeLinkViewController.swift; sourceTree = "<group>"; };
-		8E3C720426B14738008CFF79 /* SignupRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupRequest.swift; sourceTree = "<group>"; };
 		8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
 		8E66D208269EDC5800F48C26 /* TextBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBookViewController.swift; sourceTree = "<group>"; };
@@ -177,11 +179,15 @@
 		8EF00F10265390C800AA1EEA /* FolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderViewController.swift; sourceTree = "<group>"; };
 		8EF00F1226539C0100AA1EEA /* FolderInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderInViewController.swift; sourceTree = "<group>"; };
 		8EF00F1526539CB300AA1EEA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		8EF3BFA4268F61FE00415150 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
+		8EF3BFA4268F61FE00415150 /* UserLoginServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginServices.swift; sourceTree = "<group>"; };
 		8EF3BFA7268F627400415150 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		8EF3BFA9268F641300415150 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		8EF3BFAC268F677E00415150 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8EF3BFAE268F678D00415150 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		8EFFBFBD26BC4FBD007C1868 /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
+		8EFFBFBF26BC4FD2007C1868 /* SignUpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResponse.swift; sourceTree = "<group>"; };
+		8EFFBFC126BC5EEE007C1868 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		8EFFBFC426BC5F0E007C1868 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,14 +285,6 @@
 				8E2B836026AFDF5500AC2570 /* MakeLinkViewController.swift */,
 			);
 			path = Link;
-			sourceTree = "<group>";
-		};
-		8E3C720326B14718008CFF79 /* API */ = {
-			isa = PBXGroup;
-			children = (
-				8E3C720426B14738008CFF79 /* SignupRequest.swift */,
-			);
-			path = API;
 			sourceTree = "<group>";
 		};
 		8E66D212269F3E8700F48C26 /* Calendar */ = {
@@ -392,6 +390,7 @@
 		8EF00F1426539C9200AA1EEA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8EFFBFBC26BC4F8A007C1868 /* User */,
 				8EF00F1526539CB300AA1EEA /* Model.swift */,
 			);
 			path = Models;
@@ -431,8 +430,7 @@
 		8EF3BFA3268F61C900415150 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8E3C720326B14718008CFF79 /* API */,
-				8EF3BFA4268F61FE00415150 /* UserServices.swift */,
+				8EF3BFA4268F61FE00415150 /* UserLoginServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -454,6 +452,17 @@
 				8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		8EFFBFBC26BC4F8A007C1868 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				8EFFBFBD26BC4FBD007C1868 /* SignUpRequest.swift */,
+				8EFFBFBF26BC4FD2007C1868 /* SignUpResponse.swift */,
+				8EFFBFC126BC5EEE007C1868 /* LoginRequest.swift */,
+				8EFFBFC426BC5F0E007C1868 /* LoginResponse.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -627,18 +636,18 @@
 				8EF3BFAA268F641300415150 /* CalendarViewController.swift in Sources */,
 				8E70C1C4269199A6006F1D2C /* ProfileEditViewController.swift in Sources */,
 				8EE69D6A26484B9900ED19B9 /* LinkViewController.swift in Sources */,
-				8E3C720526B14738008CFF79 /* SignupRequest.swift in Sources */,
 				8E782ADA2647D3A400D93D89 /* PrivateRoom.xcdatamodeld in Sources */,
 				8E2B835126A7E9D800AC2570 /* LinkCollectionViewCell.swift in Sources */,
 				8E66D218269F45D300F48C26 /* TitleAddTableViewCell.swift in Sources */,
 				8E66D22526A00BD800F48C26 /* AlarmTableViewCell.swift in Sources */,
 				8E66D22826A017C300F48C26 /* MakeAlarmViewController.swift in Sources */,
-				8EF3BFA5268F61FE00415150 /* UserServices.swift in Sources */,
+				8EF3BFA5268F61FE00415150 /* UserLoginServices.swift in Sources */,
 				8EE69D6E26486B6E00ED19B9 /* ProfileViewController.swift in Sources */,
 				8E2B836126AFDF5600AC2570 /* MakeLinkViewController.swift in Sources */,
 				8EF00F1326539C0100AA1EEA /* FolderInViewController.swift in Sources */,
 				8EF3BFA8268F627400415150 /* MainViewModel.swift in Sources */,
 				8E782AD42647D3A400D93D89 /* ViewController.swift in Sources */,
+				8EFFBFC526BC5F0E007C1868 /* LoginResponse.swift in Sources */,
 				8E782AD02647D3A400D93D89 /* AppDelegate.swift in Sources */,
 				8E70C1C2269196FC006F1D2C /* Extension.swift in Sources */,
 				8EF00F1626539CB300AA1EEA /* Model.swift in Sources */,
@@ -653,9 +662,12 @@
 				8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */,
 				8E2B835526A95D0700AC2570 /* TextInViewController.swift in Sources */,
 				8E2B834326A41F9F00AC2570 /* MakeNotiFolderView.swift in Sources */,
+				8EFFBFBE26BC4FBD007C1868 /* SignUpRequest.swift in Sources */,
+				8EFFBFC026BC4FD2007C1868 /* SignUpResponse.swift in Sources */,
 				8E1D604F26B9063600DF53FE /* PageViewController.swift in Sources */,
 				8E2B835F26ADD1DA00AC2570 /* LinkInViewController.swift in Sources */,
 				8E66D21C269F45EE00F48C26 /* DateAddTableViewCell.swift in Sources */,
+				8EFFBFC226BC5EEE007C1868 /* LoginRequest.swift in Sources */,
 				8E2B834826A42DB200AC2570 /* TimeOutCollectionViewCell.swift in Sources */,
 				8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */,
 				8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */,

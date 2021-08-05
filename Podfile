@@ -17,6 +17,7 @@ pod 'Tabman', '~> 2.11'
 pod 'FSCalendar'
 pod 'SDWebImage', '~> 5.0'
 pod 'Alamofire', '~> 5.4'
+pod 'ObjectMapper', '~> 3.5' 
 
 
 end
