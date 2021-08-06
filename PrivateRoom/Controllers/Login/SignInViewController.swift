@@ -13,14 +13,21 @@ class SignInViewController: UIViewController {
     
     @IBAction func SameIDCheck(_ sender: Any) {
         //api 호출
-        //if(true)
-        //IDSameText.isHidden = true
-        //IDValidText.isHidden = false
+        if(IDTextField.text! == ""){
+            self.alertViewController(title: "아이디 입력", message: "아이디를 입력해주세요", completion: { (response) in })
+        }
         
-//        else {
-//            IDValidText.isHidden = true
-//            IDSameText.isHidden = false
-//        }
+        UserLoginServices.shared.checkIDValid(nickName: IDTextField.text!, completion: { (response) in
+            if(response) { //사용 불가능 true시
+                self.IDSameText.isHidden = true
+                self.IDValidText.isHidden = false
+            }
+            else {
+                self.IDValidText.isHidden = true
+                self.IDSameText.isHidden = false
+            }
+        })
+      
     }
     
     @IBOutlet weak var IDSameText: UILabel!
@@ -59,7 +66,7 @@ class SignInViewController: UIViewController {
     @IBAction func sendMessage(_ sender: Any) {
         //print("send message button click \(phoneNumberTextField.text?.phoneMake())")
         let number = phoneNumberTextField.text?.phoneMake() // dash delete string
-        UserServices.shared.sendMessage(number: number!, completion: { (response) in
+        UserLoginServices.shared.sendMessage(number: number!, completion: { (response) in
             self.autheCode = response
         })
         //문자 보내기 성공시
@@ -85,14 +92,31 @@ class SignInViewController: UIViewController {
     
     @IBAction func signInButton(_ sender: Any) {
         
-        //post 성공시
-        
-        self.alertViewController(title: "회원가입 완료", message: "회원 가입을 완료하였습니다. 로그인으로 이동합니다", completion: { response in
-            if(response == "OK"){
-                self.navigationController?.popToRootViewController(animated: true)
-            }
-        })
-        //else 빈칸이 있으면 입력해주쇼
+        //check
+        if(signInValidCheck()){
+            //post 성공시
+            let number = phoneNumberTextField.text?.phoneMake()
+            let signInRequest = SignUpRequest(nickname: IDTextField.text!, password: PasswordTextfield.text!, phone: number!)
+            UserLoginServices.shared.signup(signUpRequest: signInRequest, completion: { (response) in
+                print(response)
+                self.alertViewController(title: "회원가입 완료", message: "회원 가입을 완료하였습니다. 로그인으로 이동합니다", completion: { response in
+                    if(response == "OK"){
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                })
+            })
+        }else {  //else 빈칸이 있으면 입력해주쇼
+            self.alertViewController(title: "회원가입 실패", message: "빈칸을 입력해주세요", completion: { (response) in })
+        }
+       
+    
+    }
+    
+    func signInValidCheck() -> Bool{
+        if(IDValidText.isHidden == false && PasswordInValidText.isHidden == true && validpassword(mypassword: PasswordTextfield.text!) == true && authenValidText.isHidden == false){
+            return true
+        }
+        return false
     }
     
    // let disposeBag = DisposeBag()
@@ -101,7 +125,6 @@ class SignInViewController: UIViewController {
         super.viewDidLoad()
         textfieldDelegate()
         UISetting()
-        //passWordSpecial()
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
 
@@ -151,11 +174,11 @@ class SignInViewController: UIViewController {
     }
     
     
-//    func validpassword(mypassword : String) -> Bool {//숫자+문자 포함해서 8~20글자 사이의 text 체크하는 정규표현식
-//        let passwordreg = ("(?=.*[A-Za-z])(?=.*[0-9]).{8,20}")
-//        let passwordtesting = NSPredicate(format: "SELF MATCHES %@", passwordreg)
-//        return passwordtesting.evaluate(with: mypassword) }
-    
+    func validpassword(mypassword : String) -> Bool {//숫자+문자 포함해서 8~20글자 사이의 text 체크하는 정규표현식
+        let passwordreg = ("(?=.*[A-Za-z])(?=.*[0-9]).{8,20}")
+        let passwordtesting = NSPredicate(format: "SELF MATCHES %@", passwordreg)
+        return passwordtesting.evaluate(with: mypassword) }
+//
 //    func passWordSpecial() {
 //        PasswordTextfield.rx.text.throttle(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance).map { $0! }.subscribe(onNext: { text in
 //            if !text.isEmpty {
@@ -189,7 +212,7 @@ class SignInViewController: UIViewController {
 //    }
     
 
-    func validCheck() -> Bool{
+    func passwordValidCheck() -> Bool{
         if(PasswordTextfield.text == rePasswordTextfield.text){
             return true
         }
@@ -204,9 +227,9 @@ extension SignInViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if(textField == PasswordTextfield){
-            print("done")
+            //print(validpassword(mypassword: PasswordTextfield.text!))
         }else if(textField == rePasswordTextfield){
-            if(validCheck() == false) {
+            if(passwordValidCheck() == false) {
                 PasswordInValidText.isHidden = false
             }else{
                 PasswordInValidText.isHidden = true
@@ -219,14 +242,7 @@ extension SignInViewController: UITextFieldDelegate {
         if(textField == IDTextField){
             PasswordTextfield.becomeFirstResponder()
         }else if(textField == PasswordTextfield){
-//            if(passWordSpecial() == true){
-//                passwordGuideText.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
-//                rePasswordTextfield.becomeFirstResponder()
-//            }else{
-//                passwordGuideText.isHidden = false
-//                passwordGuideText.textColor = #colorLiteral(red: 0.8832129836, green: 0.4130137265, blue: 0.4133844972, alpha: 1)
-//            }
-           
+            rePasswordTextfield.becomeFirstResponder()
         }else if(textField == rePasswordTextfield){
             phoneNumberTextField.becomeFirstResponder()
         }else if(textField == phoneNumberTextField){

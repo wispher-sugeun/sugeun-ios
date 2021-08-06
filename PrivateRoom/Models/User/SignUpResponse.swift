@@ -19,4 +19,5 @@ class SignUpResponse: Mappable {
     }
     
     
+    
 }

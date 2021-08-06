@@ -13,13 +13,37 @@ class FindPWViewController: UIViewController {
     
     @IBAction func IDCheckButton(_ sender: Any) {
         //DB id 있는지 체크
+        //if 존재
+//        phoneNumberTextField.becomeFirstResponder()
+//        else if( IDTextField.text! == ""){
+//            self.alertViewController(title: "아이디 입력", message: "아이디를 입력해주세요", completion: { (response) in})
+//        }
+//        else {
+//            self.alertViewController(title: "존재하지 않는 아이디", message: "존재하지 않는 아이디입니다.", completion: { (response) in})
+//        }
         
     }
 
     @IBOutlet weak var phoneNumberTextField: UITextField!
     
     @IBOutlet weak var sendTextLabel: UILabel!
+    
     @IBAction func sendMessageButton(_ sender: Any) {
+        if(phoneNumberTextField.text! == ""){
+            alertViewController(title: "전화번호 입력", message: "전화번호를 입력해주세요", completion: {response in print(response)})
+        }
+        else if(!phoneNumberTextField.text!.isEmpty && phoneNumberTextField.text!.isNumeric() && phoneNumberTextField.text!.isValid()){ // 숫자인지 확인
+            //send message
+            guard let number = phoneNumberTextField.text?.phoneMake() else { return }
+            sendTextLabel.isHidden = false
+            UserLoginServices.shared.sendMessage(number: number, completion: { (response) in
+                self.authenCode = response
+            })
+            
+        }else{
+            alertViewController(title: "전화번호 입력", message: "전화번호 형식이 맞지 않습니다. 다시 입력해주세요", completion: {response in print(response)})
+        }
+        
     }
     
     @IBOutlet weak var authenTextField: UITextField!
@@ -28,16 +52,18 @@ class FindPWViewController: UIViewController {
     
     @IBOutlet weak var AuthenSuccess: UILabel!
     
+    var authenCode: Int = 0
     @IBAction func authenCodeButton(_ sender: Any) {
-        //인증 코드 == 문자 인증 코드
-//        reAuthenText.isHidden = true
-//        AuthenSuccess.isHidden = false
-        
-//        else {
-//            reAuthenText.isHidden = false
-//            AuthenSuccess.isHidden = true
-//
-//        }
+        if(String(authenCode) == authenTextField.text) {
+            AuthenSuccess.isHidden = false
+            reAuthenText.isHidden = true
+        }else {
+            reAuthenText.isHidden = false
+            AuthenSuccess.isHidden = true
+            //indicator ~~
+            //get by userId -> password
+            self.alertViewController(title: "비밀번호", message: "spqjf12345", completion: { (response) in })
+        }
         
         
     }

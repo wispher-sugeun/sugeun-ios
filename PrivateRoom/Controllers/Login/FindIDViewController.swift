@@ -17,7 +17,7 @@ class FindIDViewController: UIViewController {
     
     @IBOutlet weak var AuthenSuccessText: UILabel!
     @IBOutlet weak var reAuthenText: UILabel!
-    
+    var authenCode: Int = 0
     @IBAction func sendMessageButton(_ sender: Any) {
         
         if(phoneNumberTextField.text! == ""){
@@ -25,7 +25,11 @@ class FindIDViewController: UIViewController {
         }
         else if(!phoneNumberTextField.text!.isEmpty && phoneNumberTextField.text!.isNumeric() && phoneNumberTextField.text!.isValid()){ // 숫자인지 확인
             //send message
-            //print(phoneNumberTextField.text?.phoneMake())
+            guard let number = phoneNumberTextField.text?.phoneMake() else { return }
+            sendMessageText.isHidden = false
+            UserLoginServices.shared.sendMessage(number: number, completion: { (response) in
+                self.authenCode = response
+            })
             
         }else{
             alertViewController(title: "전화번호 입력", message: "전화번호 형식이 맞지 않습니다. 다시 입력해주세요", completion: {response in print(response)})
@@ -34,14 +38,17 @@ class FindIDViewController: UIViewController {
     
     //인증코드 확인시
     @IBAction func checkAuthenCode(_ sender: Any) {
-        //auth code == authenCodeTextField.text
-        //        AuthenSuccessText.isHidden = false
-        //            reAuthenText.isHidden = true
-//        else {
-//            reAuthenText.isHidden = false
-//        AuthenSuccessText.isHidden = true
-//
-//        }
+        if(String(authenCode) == authenCodeTextField.text) {
+            AuthenSuccessText.isHidden = false
+            reAuthenText.isHidden = true
+        }else {
+            reAuthenText.isHidden = false
+            AuthenSuccessText.isHidden = true
+            //indicator ~~
+            //get by userId -> userNickname
+            self.alertViewController(title: "아이디", message: "spqjf12345", completion: { (response) in })
+        }
+
 
     }
     

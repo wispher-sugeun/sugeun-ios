@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         self.window = UIWindow(windowScene: windowScene)
-
+        //UserLoginServices.shared.autoLogin()
         let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
 
         guard let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {

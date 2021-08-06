@@ -195,8 +195,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EON-yS-cpJ">
                                 <rect key="frame" x="0.0" y="88" width="414" height="1078"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R5c-hT-uNP">
-                                        <rect key="frame" x="0.0" y="0.0" width="385" height="1100"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R5c-hT-uNP">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1100"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="회원가입" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MPx-d2-BJl">
                                                 <rect key="frame" x="35" y="50" width="125" height="70"/>
@@ -496,7 +496,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="czT-tv-Anx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="6b7-5B-2G3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1843" y="61"/>
+            <point key="canvasLocation" x="1842.0289855072465" y="60.9375"/>
         </scene>
         <!--FindID View Controller-->
         <scene sceneID="xia-Ld-0yF">
@@ -861,6 +861,7 @@
                     <connections>
                         <outlet property="AuthenSuccess" destination="zww-33-xZu" id="Erw-PJ-uOq"/>
                         <outlet property="IDTextField" destination="pjo-8R-swG" id="mIO-AI-YbN"/>
+                        <outlet property="authenTextField" destination="wii-Ir-oKK" id="ve6-Lg-eg3"/>
                         <outlet property="phoneNumberTextField" destination="yGx-l5-WNp" id="5Xd-Rl-K0C"/>
                         <outlet property="reAuthenText" destination="T4O-oi-nOM" id="rMi-Ew-A9T"/>
                         <outlet property="sendTextLabel" destination="Dav-sI-bEW" id="VTv-h2-dt8"/>
