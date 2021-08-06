@@ -381,7 +381,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
              }
             
             let folderCount = UILabel()
-            folderCount.text = "\(folders.count)개의 폴더"
+            folderCount.text = "\(filteredFolder.count)개의 폴더"
             folderCount.textColor = UIColor.darkGray
             headerView.addSubview(folderCount)
             folderCount.frame = CGRect(x: 10, y: 10, width: 100, height: 30)
@@ -506,19 +506,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     //sorting
     func sortingAlpanumeric(){
-        folders = folders.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
+        mainViewModels = mainViewModels.sorted {$0.name.localizedStandardCompare($1.name) == .orderedAscending}
         filteredFolder = mainViewModels
         folderCollectionView.reloadData()
     }
     
     func sortingOldest(){
-        folders = folders.sorted { $0.folderId < $1.folderId }
+        mainViewModels = mainViewModels.sorted { $0.id < $1.id }
         filteredFolder = mainViewModels
         folderCollectionView.reloadData()
     }
     
     func sortingLatest(){
-        folders = folders.sorted { $0.folderId > $1.folderId }
+        mainViewModels = mainViewModels.sorted { $0.id > $1.id }
         filteredFolder = mainViewModels
         folderCollectionView.reloadData()
     }

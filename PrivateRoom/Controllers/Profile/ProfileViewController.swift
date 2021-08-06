@@ -22,7 +22,7 @@ class ProfileViewController: UIViewController {
     }
     
     var sec = ["내 글", "정보"]
-    var sec1 = ["알림 허용", "앱 정보", "로그 아웃"]
+    var sec1 = ["알림 허용", "버전 정보", "로그 아웃"]
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -31,6 +31,9 @@ class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.isScrollEnabled = false
+        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.tableView.separatorStyle = .singleLine
+        self.tableView.separatorColor = .gray
         profileImage.circle()
         editButton.circle()
         editButton.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
@@ -69,8 +72,14 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
                 cell.textLabel?.text = sec1[indexPath.row]
                 cell.accessoryType = .disclosureIndicator
                 return cell
-            }else if(indexPath.row == 1){ //앱 정보
-                cell.accessoryType = .disclosureIndicator
+            }else if(indexPath.row == 1){ //앱 버전
+                let versionLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 42, height: 20))
+                var version: String? {
+                    guard let dictionary = Bundle.main.infoDictionary, let version = dictionary["CFBundleShortVersionString"] as? String else { return ""}
+                    return version
+                }
+                versionLabel.text = version
+                cell.accessoryView = versionLabel
                 cell.textLabel?.text = sec1[indexPath.row]
                 return cell
             } else if(indexPath.row == 2){ //로그 아웃

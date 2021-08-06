@@ -91,6 +91,17 @@ class MakeNotiFolderView: UIView {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapImageView))
             imageView.addGestureRecognizer(tapGestureRecognizer)
             imageView.contentMode = .scaleToFill
+            
+            
+            nameTextField.borderStyle = .none
+            let border = CALayer()
+            border.frame = CGRect(x: 0, y: nameTextField.frame.size.height - 1, width: nameTextField.frame.width/2, height: 1)
+            
+            border.backgroundColor = UIColor.white.cgColor
+            nameTextField.layer.addSublayer((border))
+            //nameTextField.layer.masksToBounds = true
+            //nameTextField.textAlignment = .center
+            nameTextField.textColor = UIColor.white
     
         }
         

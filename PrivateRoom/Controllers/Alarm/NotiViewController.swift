@@ -77,6 +77,7 @@ class NotiViewController: UIViewController{
     }
     
     func floatingButtonSetting(_: UIButton){
+        floatingButton.circle()
         floatingButton.addTarget(self, action: #selector(makeFolder), for: .touchUpInside)
     }
     
@@ -168,6 +169,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        notUsedSorting()
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeOutCollectionViewCell.identifier, for: indexPath) as? TimeOutCollectionViewCell
         cell?.delegate = self
         cell?.configure(model: filteredtimeOut[indexPath.row])
@@ -227,6 +229,12 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         return UICollectionReusableView()
         
+    }
+
+    
+    func notUsedSorting(){
+        timeOut = timeOut.sorted(by: { $0.isValid == false && $1.isValid == true})
+        filteredtimeOut = timeOut
     }
     
     @objc func didTapSortingButton(){
@@ -380,7 +388,6 @@ extension NotiViewController: UITableViewDelegate, UITableViewDataSource {
 
 class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate {
     func dissMiss() {
-        print("vc dismiss")
         self.dismiss(animated: true, completion: nil)
     }
     
