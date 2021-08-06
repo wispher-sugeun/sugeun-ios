@@ -74,7 +74,7 @@
 		8EF00F1326539C0100AA1EEA /* FolderInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF00F1226539C0100AA1EEA /* FolderInViewController.swift */; };
 		8EF00F1626539CB300AA1EEA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF00F1526539CB300AA1EEA /* Model.swift */; };
 		8EF3BFA5268F61FE00415150 /* UserLoginServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3BFA4268F61FE00415150 /* UserLoginServices.swift */; };
-		8EF3BFA8268F627400415150 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3BFA7268F627400415150 /* MainViewModel.swift */; };
+		8EF3BFA8268F627400415150 /* FolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3BFA7268F627400415150 /* FolderViewModel.swift */; };
 		8EF3BFAA268F641300415150 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3BFA9268F641300415150 /* CalendarViewController.swift */; };
 		8EF3BFAD268F677E00415150 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3BFAC268F677E00415150 /* LoginViewController.swift */; };
 		8EF3BFAF268F678D00415150 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EF3BFAE268F678D00415150 /* Login.storyboard */; };
@@ -184,7 +184,7 @@
 		8EF00F1226539C0100AA1EEA /* FolderInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderInViewController.swift; sourceTree = "<group>"; };
 		8EF00F1526539CB300AA1EEA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8EF3BFA4268F61FE00415150 /* UserLoginServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginServices.swift; sourceTree = "<group>"; };
-		8EF3BFA7268F627400415150 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		8EF3BFA7268F627400415150 /* FolderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderViewModel.swift; sourceTree = "<group>"; };
 		8EF3BFA9268F641300415150 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		8EF3BFAC268F677E00415150 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8EF3BFAE268F678D00415150 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -452,7 +452,7 @@
 		8EF3BFA6268F625B00415150 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				8EF3BFA7268F627400415150 /* MainViewModel.swift */,
+				8EF3BFA7268F627400415150 /* FolderViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -659,7 +659,7 @@
 				8EE69D6E26486B6E00ED19B9 /* ProfileViewController.swift in Sources */,
 				8E2B836126AFDF5600AC2570 /* MakeLinkViewController.swift in Sources */,
 				8EF00F1326539C0100AA1EEA /* FolderInViewController.swift in Sources */,
-				8EF3BFA8268F627400415150 /* MainViewModel.swift in Sources */,
+				8EF3BFA8268F627400415150 /* FolderViewModel.swift in Sources */,
 				8E782AD42647D3A400D93D89 /* ViewController.swift in Sources */,
 				8EFFBFC526BC5F0E007C1868 /* LoginResponse.swift in Sources */,
 				8E5B806026BD20660030D4B9 /* GetProfileResponse.swift in Sources */,

@@ -10,11 +10,16 @@ import UIKit
 protocol FolderCollectionViewCellDelegate: AnyObject {
     
     func didTapMoreButton(cell: FolderCollectionViewCell)
-//    func editFolderName(cell: FolderCollectionViewCell)
 }
 
 class FolderCollectionViewCell: UICollectionViewCell {
     
+    var folderViewModel: FolderViewModel! {
+        didSet {
+            self.folderImage.image = image(folderViewModel.image, withSize: CGSize(width: contentView.frame.width/2, height: 80))
+            self.folderName.text = folderViewModel.name
+        }
+    }
     @IBOutlet weak var view: UIView!
     
     static var identifier = "FolderCollectionViewCell"

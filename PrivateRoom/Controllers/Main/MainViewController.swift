@@ -12,7 +12,10 @@ import PhotosUI
 class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     var sortingText = "가나다순"
-    private var mainVM: MainViewModel!
+    
+    private var mainViewModels = [FolderViewModel]()
+    var folders = [Folder]()
+    var filteredFolder = [FolderViewModel]()
     
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout! {
         didSet {
@@ -85,8 +88,6 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     private var alertController = UIAlertController()
     private var tblView = UITableView()
 
-    var folders = [Folder]()
-    var filteredFolder = [Folder]()
     var sorting = ["가나다 순", "생성 순", "최신 순"]
     var selectedCellIndexPath = IndexPath()
     
@@ -117,8 +118,8 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         folders.append(Folder(folderId: 6, folderName: "카타하", folderImage: UIImage(systemName: "person.fill"), isLike: true))
         folders.append(Folder(folderId: 7, folderName: "123하이", folderImage: UIImage(systemName: "person.fill"), isLike: true))
         folders.append(Folder(folderId: 8, folderName: "하이123", folderImage: UIImage(systemName: "person.fill"), isLike: true)) // 가장
-    
-        filteredFolder = folders
+        self.mainViewModels = folders.map({ return FolderViewModel(allFolder: $0)})
+        filteredFolder = mainViewModels
         
         collectionViewSetting(collectionView: folderCollectionView)
         
@@ -148,7 +149,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         print("folderImageChanged")
         if let dict = notification.userInfo as NSDictionary? {
             if let folderImage = dict["image"] as? UIImage{
-                filteredFolder[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
+                filteredFolder[selectedCellIndexPath[1]].image = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
                     
                 DispatchQueue.main.async {
                     self.folderCollectionView.reloadData()
@@ -305,7 +306,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         //cell 크기 고정
         cell.viewLayout(width: view.fs_width/2 - 50, height: 140)
         cell.cellDelegate = self
-        cell.configure(folder: filteredFolder[indexPath.row])
+        let folderViewModel = filteredFolder[indexPath.row]
+        cell.folderViewModel = folderViewModel
+        //cell.configure(folder: filteredFolder[indexPath.row])
         cell.indexPath = indexPath
         return cell
     }
@@ -504,19 +507,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     //sorting
     func sortingAlpanumeric(){
         folders = folders.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
-        filteredFolder = folders
+        filteredFolder = mainViewModels
         folderCollectionView.reloadData()
     }
     
     func sortingOldest(){
         folders = folders.sorted { $0.folderId < $1.folderId }
-        filteredFolder = folders
+        filteredFolder = mainViewModels
         folderCollectionView.reloadData()
     }
     
     func sortingLatest(){
         folders = folders.sorted { $0.folderId > $1.folderId }
-        filteredFolder = folders
+        filteredFolder = mainViewModels
         folderCollectionView.reloadData()
     }
     
@@ -533,11 +536,11 @@ extension MainViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let searchText = textField.text! + string
         if searchText.count >= 2{
-            filteredFolder = folders.filter({ (result) -> Bool in
-                result.folderName.range(of: searchText, options: .caseInsensitive) != nil
+            filteredFolder = mainViewModels.filter({ (result) -> Bool in
+                result.name.range(of: searchText, options: .caseInsensitive) != nil
             })
         }else {
-            filteredFolder = folders
+            filteredFolder = mainViewModels
         }
        
         folderCollectionView.reloadData()
@@ -549,8 +552,8 @@ extension MainViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
         textField.resignFirstResponder()
         textField.text = ""
         self.filteredFolder.removeAll()
-        for str in folders {
-            filteredFolder.append(str)
+        for i in mainViewModels {
+            filteredFolder.append(i)
         }
         folderCollectionView.reloadData()
         return false
@@ -560,11 +563,11 @@ extension MainViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text?.count != 0 {
             self.filteredFolder.removeAll()
-            for str in folders {
-                let name = str.folderName.lowercased()
+            for i in mainViewModels {
+                let name = i.name.lowercased()
                 let range = name.range(of: textField.text!, options: .caseInsensitive, range: nil, locale: nil)
                 if range != nil {
-                    self.filteredFolder.append(str)
+                    self.filteredFolder.append(i)
                 }
                 
             }

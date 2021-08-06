@@ -427,6 +427,7 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.layer.masksToBounds = false
         cell.cellDelegate = self
         cell.viewLayout(width: view.fs_width/2 - 50, height: 140)
+        //let folderModel = filteredTextFolder[indexPath.row]
         cell.configure(folder: filteredTextFolder[indexPath.row])
         cell.indexPath = indexPath
         return cell
