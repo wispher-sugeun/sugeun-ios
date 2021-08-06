@@ -29,6 +29,8 @@
 		8E2B835D26AD724600AC2570 /* LayoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B835B26AD724400AC2570 /* LayoutTableViewCell.xib */; };
 		8E2B835F26ADD1DA00AC2570 /* LinkInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B835E26ADD1D800AC2570 /* LinkInViewController.swift */; };
 		8E2B836126AFDF5600AC2570 /* MakeLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B836026AFDF5500AC2570 /* MakeLinkViewController.swift */; };
+		8E5B805D26BD1EBD0030D4B9 /* UserProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B805C26BD1EBC0030D4B9 /* UserProfileService.swift */; };
+		8E5B806026BD20660030D4B9 /* GetProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B805F26BD20660030D4B9 /* GetProfileResponse.swift */; };
 		8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */; };
 		8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */; };
 		8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D208269EDC5800F48C26 /* TextBookViewController.swift */; };
@@ -135,6 +137,8 @@
 		8E2B835B26AD724400AC2570 /* LayoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutTableViewCell.xib; sourceTree = "<group>"; };
 		8E2B835E26ADD1D800AC2570 /* LinkInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInViewController.swift; sourceTree = "<group>"; };
 		8E2B836026AFDF5500AC2570 /* MakeLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeLinkViewController.swift; sourceTree = "<group>"; };
+		8E5B805C26BD1EBC0030D4B9 /* UserProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileService.swift; sourceTree = "<group>"; };
+		8E5B805F26BD20660030D4B9 /* GetProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProfileResponse.swift; sourceTree = "<group>"; };
 		8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		8E66D206269EDB6800F48C26 /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
 		8E66D208269EDC5800F48C26 /* TextBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBookViewController.swift; sourceTree = "<group>"; };
@@ -287,6 +291,14 @@
 			path = Link;
 			sourceTree = "<group>";
 		};
+		8E5B805E26BD20480030D4B9 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				8E5B805F26BD20660030D4B9 /* GetProfileResponse.swift */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
 		8E66D212269F3E8700F48C26 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -390,6 +402,7 @@
 		8EF00F1426539C9200AA1EEA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8E5B805E26BD20480030D4B9 /* UserProfile */,
 				8EFFBFBC26BC4F8A007C1868 /* User */,
 				8EF00F1526539CB300AA1EEA /* Model.swift */,
 			);
@@ -431,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				8EF3BFA4268F61FE00415150 /* UserLoginServices.swift */,
+				8E5B805C26BD1EBC0030D4B9 /* UserProfileService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -648,6 +662,7 @@
 				8EF3BFA8268F627400415150 /* MainViewModel.swift in Sources */,
 				8E782AD42647D3A400D93D89 /* ViewController.swift in Sources */,
 				8EFFBFC526BC5F0E007C1868 /* LoginResponse.swift in Sources */,
+				8E5B806026BD20660030D4B9 /* GetProfileResponse.swift in Sources */,
 				8E782AD02647D3A400D93D89 /* AppDelegate.swift in Sources */,
 				8E70C1C2269196FC006F1D2C /* Extension.swift in Sources */,
 				8EF00F1626539CB300AA1EEA /* Model.swift in Sources */,
@@ -659,6 +674,7 @@
 				8E66D20E269EE55500F48C26 /* CalendarTableViewCell.swift in Sources */,
 				8E66D214269F3EA300F48C26 /* AddCalendarViewController.swift in Sources */,
 				8E66D220269F460000F48C26 /* DateTimeTableViewCell.swift in Sources */,
+				8E5B805D26BD1EBD0030D4B9 /* UserProfileService.swift in Sources */,
 				8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */,
 				8E2B835526A95D0700AC2570 /* TextInViewController.swift in Sources */,
 				8E2B834326A41F9F00AC2570 /* MakeNotiFolderView.swift in Sources */,
