@@ -11,7 +11,7 @@ import PhotosUI
 
 class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
-    var sortingText = "가나다순"
+    var sortingText = "이름 순"
     
     private var mainViewModels = [FolderViewModel]()
     var folders = [Folder]()
@@ -88,7 +88,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     private var alertController = UIAlertController()
     private var tblView = UITableView()
 
-    var sorting = ["가나다 순", "생성 순", "최신 순"]
+    var sorting = ["이름 순", "생성 순", "최신 순"]
     var selectedCellIndexPath = IndexPath()
     
     let more_dropDown: DropDown = {
@@ -376,7 +376,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             //뷰에 있는 ui label들 지우고 다시 그리기
             let allLabels = headerView.get(all: UILabel.self)
               for sub in allLabels {
-                print(sub)
                 sub.removeFromSuperview()
              }
             
@@ -414,7 +413,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     private func setupCitySelectionAlert() {
         
         let alertVC = UIViewController.init()
-        let rect = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: 300.0)
+        let rect = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: 250.0)
         alertVC.preferredContentSize = rect.size
         
         

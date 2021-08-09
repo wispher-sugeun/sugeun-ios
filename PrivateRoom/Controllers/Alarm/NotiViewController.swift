@@ -33,8 +33,8 @@ class NotiViewController: UIViewController{
     private var tblView = UITableView()
     
     var selectedCellIndexPath = IndexPath()
-    var sorting = ["가나다 순", "생성 순", "최신 순"]
-    
+    var sorting = ["이름 순", "생성 순", "최신 순", "유효기간 순"]
+    var sortingText = "이름 순"
     private var alertController = UIAlertController()
     
     
@@ -57,6 +57,7 @@ class NotiViewController: UIViewController{
         timeOut.append(Timeout(userId: 2, timeoutId: 2, title: "이디야 아이스티", timeoutImage: imageArray[1], deadLine: "2021-07-30", selectedList: [1,3, 7], isValid: false))
         timeOut.append(Timeout(userId: 3, timeoutId: 3, title: "투썸 아이스박스", timeoutImage: imageArray[2], deadLine: "2021-09-10", selectedList: [1, 7], isValid: true))
         filteredtimeOut = timeOut
+        
         floatingButtonSetting(floatingButton)
         collectionViewSetting(collectionView: collectionView)
         textFieldSetting(textfield: searchTextField)
@@ -64,6 +65,8 @@ class NotiViewController: UIViewController{
         screenWidth = screenSize.width
         screenHeight = screenSize.height
         flowSetting()
+        notUsedSorting()
+        collectionView.reloadData()
     }
     
     func flowSetting(){
@@ -169,7 +172,6 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        notUsedSorting()
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeOutCollectionViewCell.identifier, for: indexPath) as? TimeOutCollectionViewCell
         cell?.delegate = self
         cell?.configure(model: filteredtimeOut[indexPath.row])
@@ -206,7 +208,11 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath)
-            
+            //뷰에 있는 ui label들 지우고 다시 그리기
+            let allLabels = headerView.get(all: UILabel.self)
+              for sub in allLabels {
+                sub.removeFromSuperview()
+             }
             let folderCount = UILabel()
             folderCount.text = "\(filteredtimeOut.count)개의 알림"
             folderCount.textColor = UIColor.darkGray
@@ -215,7 +221,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
             let sortingButton = UIButton()
             let sortingButtonTextAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.green, NSAttributedString.Key.kern: 10]
-            let sortingButtonText = NSMutableAttributedString(string: "생성 순", attributes: sortingButtonTextAttributes)
+            let sortingButtonText = NSMutableAttributedString(string: "\(sortingText)", attributes: sortingButtonTextAttributes)
             sortingButton.setTitle(sortingButtonText.string, for: .normal)
             sortingButton.setTitleColor(UIColor.gray, for: .normal)
             headerView.addSubview(sortingButton)
@@ -375,12 +381,41 @@ extension NotiViewController: UITableViewDelegate, UITableViewDataSource {
     //sorting
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(indexPath.row == 0){
-            
+            sortingAlpanumeric()
         }else if(indexPath.row == 1){
-            
+            sortingOldest()
         }else if(indexPath.row == 2){
-            
+            sortingLatest()
+        }else if(indexPath.row == 3){
+            sortingValidity()
         }
+        sortingText = sorting[indexPath.row]
+        self.dismissAlertController()
+        collectionView.reloadData() // for 글자 업데이트
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    //sorting
+    func sortingAlpanumeric(){
+        timeOut = timeOut.sorted {$0.title.localizedStandardCompare($1.title) == .orderedAscending}
+        filteredtimeOut = timeOut
+    }
+    
+    func sortingOldest(){
+        timeOut = timeOut.sorted { $0.timeoutId < $1.timeoutId }
+        filteredtimeOut = timeOut
+
+    }
+    
+    func sortingLatest(){
+        timeOut = timeOut.sorted { $0.timeoutId > $1.timeoutId }
+        filteredtimeOut = timeOut
+
+    }
+    
+    func sortingValidity(){
+        timeOut = timeOut.sorted { DateUtil.toSecond($0.deadLine) < DateUtil.toSecond($1.deadLine)}
+        filteredtimeOut = timeOut
     }
     
     

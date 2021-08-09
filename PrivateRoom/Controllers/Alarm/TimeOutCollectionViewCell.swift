@@ -35,6 +35,10 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        mainView.layer.borderColor = UIColor.darkGray.cgColor
+        mainView.layer.opacity = 0.8
+        mainView.layer.borderWidth = 1.0
+        
         inValidView.isHidden = true        
         //width 고정
         mainView.translatesAutoresizingMaskIntoConstraints = false
@@ -62,22 +66,21 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(model: Timeout) {
-        print("here")
         print(model.title)
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let startTime = Date()
         
-        print("startTime \(startTime)")
-        
         let endTime = DateUtil.parseDate(model.deadLine)
         let dday = Int(((endTime.timeIntervalSince(startTime)))) / 86400
         
-        //print("dday \(dday)")
-        
         if(model.isValid == true){ // 비활성화
+            //print("model.isValid == true \(model.title)")
             inValidView.isHidden = false
             mainView.isUserInteractionEnabled = false
+        }else{
+            inValidView.isHidden = true
+            mainView.isUserInteractionEnabled = true
         }
         
         self.titleTextLabel.text = model.title

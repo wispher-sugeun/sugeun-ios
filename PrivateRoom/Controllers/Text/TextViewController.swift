@@ -51,10 +51,8 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     
     var textFolder = [Folder]()
     var filteredTextFolder = [Folder]()
-    
-    var textCell = [Phrase]()
-    var filteredTextCell = [Phrase]()
-    var sorting = ["가나다 순", "생성 순", "최신 순"]
+    var sortingText = "이름 순"
+    var sorting = ["이름 순", "생성 순", "최신 순"]
     
     var selectedCellIndexPath = IndexPath()
     
@@ -234,7 +232,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     private func setupCitySelectionAlert() {
         
         let alertVC = UIViewController.init()
-        let rect = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: 300.0)
+        let rect = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: 250.0)
         alertVC.preferredContentSize = rect.size
         
         
@@ -245,7 +243,11 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 70))
         let headerLabel = UILabel(frame: CGRect(x: 20, y: 10, width: 300, height: 50))
-
+        //뷰에 있는 ui label들 지우고 다시 그리기
+        let allLabels = headerView.get(all: UILabel.self)
+          for sub in allLabels {
+            sub.removeFromSuperview()
+         }
   
         
         let nsHeaderTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold),
@@ -312,12 +314,38 @@ extension TextViewController: UITableViewDelegate, UITableViewDataSource {
     //sorting
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(indexPath.row == 0){
-            
+            sortingAlpanumeric()
         }else if(indexPath.row == 1){
-            
+            sortingOldest()
         }else if(indexPath.row == 2){
-            
+            sortingLatest()
         }
+        
+        sortingText = sorting[indexPath.row]
+        self.dismissAlertController()
+        collectionView.reloadData() // for 글자 업데이트
+        collectionView.collectionViewLayout.invalidateLayout()
+        
+    }
+    
+    
+    //sorting
+    func sortingAlpanumeric(){
+        textFolder = textFolder.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
+        filteredTextFolder = textFolder
+        collectionView.reloadData()
+    }
+    
+    func sortingOldest(){
+        textFolder = textFolder.sorted { $0.folderId < $1.folderId }
+        filteredTextFolder = textFolder
+        collectionView.reloadData()
+    }
+    
+    func sortingLatest(){
+        textFolder = textFolder.sorted { $0.folderId > $1.folderId }
+        filteredTextFolder = textFolder
+        collectionView.reloadData()
     }
     
     
@@ -456,16 +484,18 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath)
-            
+            let allLabels = headerView.get(all: UILabel.self)
+              for sub in allLabels {
+                sub.removeFromSuperview()
+             }
             let folderCount = UILabel()
             folderCount.text = "\(textFolder.count)개의 폴더"
             folderCount.textColor = UIColor.darkGray
             headerView.addSubview(folderCount)
             folderCount.frame = CGRect(x: 10, y: 10, width: 100, height: 30)
-            
             let sortingButton = UIButton()
             let sortingButtonTextAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.green, NSAttributedString.Key.kern: 10]
-            let sortingButtonText = NSMutableAttributedString(string: "생성 순", attributes: sortingButtonTextAttributes)
+            let sortingButtonText = NSMutableAttributedString(string: "\(sortingText)", attributes: sortingButtonTextAttributes)
             sortingButton.setTitle(sortingButtonText.string, for: .normal)
             sortingButton.setTitleColor(UIColor.gray, for: .normal)
             headerView.addSubview(sortingButton)

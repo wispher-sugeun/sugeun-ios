@@ -74,7 +74,8 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     private var tblView = UITableView()
     
     
-    var sorting = ["가나다 순", "생성 순", "최신 순"]
+    var sorting = ["이름 순", "생성 순", "최신 순"]
+    var sortingText = "이름 순"
     var selectedCellIndexPath = IndexPath()
     
     var link = [Folder]()
@@ -295,16 +296,21 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath)
-            
+            //뷰에 있는 ui label들 지우고 다시 그리기
+            let allLabels = headerView.get(all: UILabel.self)
+              for sub in allLabels {
+                sub.removeFromSuperview()
+             }
+           
             let folderCount = UILabel()
             folderCount.text = "\(link.count)개의 폴더"
             folderCount.textColor = UIColor.darkGray
             headerView.addSubview(folderCount)
             folderCount.frame = CGRect(x: 10, y: 10, width: 100, height: 30)
-            
+           
             let sortingButton = UIButton()
             let sortingButtonTextAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.green, NSAttributedString.Key.kern: 10]
-            let sortingButtonText = NSMutableAttributedString(string: "생성 순", attributes: sortingButtonTextAttributes)
+            let sortingButtonText = NSMutableAttributedString(string: "\(sortingText)", attributes: sortingButtonTextAttributes)
             sortingButton.setTitle(sortingButtonText.string, for: .normal)
             sortingButton.setTitleColor(UIColor.gray, for: .normal)
             headerView.addSubview(sortingButton)
@@ -329,7 +335,7 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
     private func setupCitySelectionAlert() {
         
         let alertVC = UIViewController.init()
-        let rect = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: 300.0)
+        let rect = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: 250.0)
         alertVC.preferredContentSize = rect.size
         
         
@@ -405,14 +411,44 @@ extension LinkViewController: UITableViewDelegate, UITableViewDataSource {
     //sorting
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(indexPath.row == 0){
-            
+            sortingAlpanumeric()
         }else if(indexPath.row == 1){
-            
+            sortingOldest()
         }else if(indexPath.row == 2){
-            
+            sortingOldest()
         }
+        sortingText = sorting[indexPath.row]
+        self.dismissAlertController()
+
+        collectionView.reloadData() // for 글자 업데이트
+        collectionView.collectionViewLayout.invalidateLayout()
     }
     
+    
+    //sorting
+    func sortingAlpanumeric(){
+        link = link.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
+        filteredLink = link
+        
+        collectionView.reloadData()
+        
+       
+    }
+    
+    func sortingOldest(){
+        link = link.sorted { $0.folderId < $1.folderId }
+        filteredLink = link
+
+        collectionView.reloadData()
+
+    }
+    
+    func sortingLatest(){
+        link = link.sorted { $0.folderId > $1.folderId }
+        filteredLink = link
+
+        collectionView.reloadData()
+    }
     
 }
 

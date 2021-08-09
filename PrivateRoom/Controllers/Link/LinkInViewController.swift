@@ -75,8 +75,8 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     private var tblView = UITableView()
     
     private var alertController = UIAlertController()
-    var sorting = ["가나다 순", "생성 순", "최신 순"]
-    
+    var sorting = ["이름 순", "생성 순", "최신 순"]
+    var sortingText = "이름 순"
     lazy var buttons: [UIButton] = [self.folderButton, self.writeButton]
     
     var selectedCellIndexPath = IndexPath()
@@ -183,7 +183,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     private func setupCitySelectionAlert() {
         
         let alertVC = UIViewController.init()
-        let rect = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: 300.0)
+        let rect = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: 250.0)
         alertVC.preferredContentSize = rect.size
         
         
@@ -194,7 +194,11 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
  
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 70))
         let headerLabel = UILabel(frame: CGRect(x: 20, y: 10, width: 300, height: 50))
-
+        //뷰에 있는 ui label들 지우고 다시 그리기
+        let allLabels = headerView.get(all: UILabel.self)
+          for sub in allLabels {
+            sub.removeFromSuperview()
+         }
   
         
         let nsHeaderTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold),
@@ -452,14 +456,52 @@ extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
         //sorting
         if(tableView == tblView){
             if(indexPath.row == 0){
-                
+                sortingAlpanumeric()
             }else if(indexPath.row == 1){
-                
+                sortingOldest()
             }else if(indexPath.row == 2){
-                
+                sortingOldest()
             }
+            sortingText = sorting[indexPath.row]
+            self.dismissAlertController()
+            FrameCollectionView.reloadData() // for 글자 업데이트
+            FrameCollectionView.collectionViewLayout.invalidateLayout()
         }
        
+    }
+    
+    //sorting
+    func sortingAlpanumeric(){
+        linkCell = linkCell.sorted {$0.link.localizedStandardCompare($1.link) == .orderedAscending}
+        filteredLinkCell = linkCell
+        
+        linkFolder = linkFolder.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
+        filteredLinkFolder = linkFolder
+        FrameCollectionView.reloadData()
+        //folderCollectionView.reloadData()
+       
+    }
+    
+    func sortingOldest(){
+        linkCell = linkCell.sorted { $0.linkId < $1.linkId }
+        filteredLinkCell = linkCell
+        
+        linkFolder = linkFolder.sorted { $0.folderId < $1.folderId }
+        filteredLinkFolder = linkFolder
+        
+        FrameCollectionView.reloadData()
+        //folderCollectionView.reloadData()
+    }
+    
+    func sortingLatest(){
+        linkCell = linkCell.sorted { $0.linkId > $1.linkId }
+        filteredLinkCell = linkCell
+        
+        linkFolder = linkFolder.sorted { $0.folderId > $1.folderId }
+        filteredLinkFolder = linkFolder
+        
+        FrameCollectionView.reloadData()
+        //folderCollectionView.reloadData()
     }
 }
 
@@ -633,9 +675,13 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath)
+            let allLabels = headerView.get(all: UILabel.self)
+              for sub in allLabels {
+                sub.removeFromSuperview()
+             }
             let sortingButton = UIButton()
             let sortingButtonTextAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.green, NSAttributedString.Key.kern: 10]
-            let sortingButtonText = NSMutableAttributedString(string: "생성 순", attributes: sortingButtonTextAttributes)
+            let sortingButtonText = NSMutableAttributedString(string: "\(sortingText)", attributes: sortingButtonTextAttributes)
             sortingButton.setTitle(sortingButtonText.string, for: .normal)
             sortingButton.setTitleColor(UIColor.gray, for: .normal)
             headerView.addSubview(sortingButton)
@@ -647,6 +693,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
         case UICollectionView.elementKindSectionFooter:
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerView", for: indexPath)
+            
             footerView.backgroundColor = .white
             let layout = UICollectionViewFlowLayout()
 //            footerView.translatesAutoresizingMaskIntoConstraints = false
@@ -656,13 +703,14 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
 //            footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
             //footerView 내에 collectionview 생성
             folderCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: footerView.frame.width, height: footerView.frame.height), collectionViewLayout: layout)
+            folderCollectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
             print("footerview height")
             print(footerView.frame.height)
             folderCollectionView.delegate = self
             folderCollectionView.dataSource = self
-            self.folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
+            //self.folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
 
-            folderCollectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
+           
             print("UICollectionView.elementKindSectionFooter 1")
             let width: CGFloat = folderCollectionView.bounds.width
             let height: CGFloat = folderCollectionView.bounds.height

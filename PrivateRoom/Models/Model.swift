@@ -21,26 +21,26 @@ struct FolderIn: Codable {
 }
 
 struct Schedule: Codable {
-    var scheduleId: Double
-    var userId: Double
+    var scheduleId: Int
+    var userId: Int
     var title: String
     var scheduleDate: String
     var selectedList: [Int] //선택된 알림 날
 }
 
 struct Phrase: Codable {
-    var userId: Double
-    var folderId: Double
-    var phraseId: Double
+    var userId: Int
+    var folderId: Int
+    var phraseId: Int
     var text: String
     var bookmark: Bool
     var date: String
 }
 
 struct Link:Codable {
-    var userId: Double
-    var folderId: Double
-    var linkId: Double
+    var userId: Int
+    var folderId: Int
+    var linkId: Int
     var link: String
     var title: String
     var bookmark: Bool
@@ -49,8 +49,8 @@ struct Link:Codable {
 
 
 struct Timeout {
-    var userId: Double
-    var timeoutId: Double
+    var userId: Int
+    var timeoutId: Int
     var title: String
     var timeoutImage: UIImage
     var deadLine: String

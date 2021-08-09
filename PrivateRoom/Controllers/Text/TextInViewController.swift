@@ -25,10 +25,6 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         hideButton()
     }
     
-    override func viewDidLayoutSubviews() {
-        print("view did layout subview")
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         
         //collectionviewHeight.constant = self.collectionView.contentSize.height
@@ -40,7 +36,6 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         frameTableView.reloadData()
         
         frameTableView.tableFooterView?.frame.size.height = collectionView.contentSize.height + 50
-        print("footer view")
         print(frameTableView.tableFooterView?.frame.size.height )
         
     }
@@ -112,8 +107,8 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
 
     
-    var sorting = ["가나다 순", "생성 순", "최신 순"]
-    
+    var sorting = ["이름 순", "생성 순", "최신 순"]
+    var sortingText = "이름 순"
     lazy var buttons: [UIButton] = [self.folderButton, self.writeButton]
     
     
@@ -214,7 +209,11 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     func sortingButtonSetting(){
         let sortingButton = UIButton()
         let sortingButtonTextAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.green, NSAttributedString.Key.kern: 10]
-        let sortingButtonText = NSMutableAttributedString(string: "생성 순", attributes: sortingButtonTextAttributes)
+        let allLabels = header.get(all: UIButton.self)
+          for sub in allLabels {
+            sub.removeFromSuperview()
+         }
+        let sortingButtonText = NSMutableAttributedString(string: "\(sortingText)", attributes: sortingButtonTextAttributes)
         sortingButton.setTitle(sortingButtonText.string, for: .normal)
         sortingButton.setTitleColor(UIColor.gray, for: .normal)
         header.addSubview(sortingButton)
@@ -231,7 +230,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     private func setupCitySelectionAlert() {
         
         let alertVC = UIViewController.init()
-        let rect = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: 300.0)
+        let rect = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: 250.0)
         alertVC.preferredContentSize = rect.size
         
         
@@ -242,8 +241,6 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 70))
         let headerLabel = UILabel(frame: CGRect(x: 20, y: 10, width: 300, height: 50))
-
-  
         
         let nsHeaderTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold),
                                       NSAttributedString.Key.foregroundColor: UIColor.black]
@@ -480,7 +477,6 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
     }
     
     func textCellDelete(indexPath: IndexPath){
-        print(indexPath.row)
         textCell.remove(at: indexPath.row)
         filteredTextCell = textCell
         frameTableView.reloadData()
@@ -502,12 +498,10 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(indexPath.row)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         let defaultCell = tableView.dequeueReusableCell(withIdentifier: "cell")
         if(tableView == tblView){
             let cell = tblView.dequeueReusableCell(withIdentifier: "sortingCell")!
-            
             let nsHeaderTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.light),
                                           NSAttributedString.Key.foregroundColor: UIColor.black]
             
@@ -555,17 +549,57 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
         //sorting
         if(tableView == tblView){
             if(indexPath.row == 0){
-                
+                sortingAlpanumeric()
             }else if(indexPath.row == 1){
-                
+                sortingOldest()
             }else if(indexPath.row == 2){
-                
+                sortingLatest()
             }
+            sortingText = sorting[indexPath.row]
+            sortingButtonSetting()
+            self.dismissAlertController()
+            frameTableView.reloadData() // for 글자 업데이트
+            frameTableView.layoutIfNeeded()
         }else{
             tableView.deselectRow(at: indexPath, animated: false)
         }
        
     }
+    
+    
+    //sorting
+    func sortingAlpanumeric(){
+        textCell = textCell.sorted {$0.text.localizedStandardCompare($1.text) == .orderedAscending}
+        filteredTextCell = textCell
+        
+        textFolder = textFolder.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
+        filteredTextFolder = textFolder
+        frameTableView.reloadData()
+        collectionView.reloadData()
+    }
+    
+    func sortingOldest(){
+        textCell = textCell.sorted { $0.phraseId < $1.phraseId }
+        filteredTextCell = textCell
+        
+        textFolder = textFolder.sorted { $0.folderId < $1.folderId }
+        filteredTextFolder = textFolder
+        
+        frameTableView.reloadData()
+        collectionView.reloadData()
+    }
+    
+    func sortingLatest(){
+        textCell = textCell.sorted { $0.phraseId > $1.phraseId }
+        filteredTextCell = textCell
+        
+        textFolder = textFolder.sorted { $0.folderId > $1.folderId }
+        filteredTextFolder = textFolder
+        
+        frameTableView.reloadData()
+        collectionView.reloadData()
+    }
+    
 }
 
 extension TextInViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
