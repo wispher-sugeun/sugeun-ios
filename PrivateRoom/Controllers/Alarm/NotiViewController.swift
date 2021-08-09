@@ -9,7 +9,7 @@ import UIKit
 import DropDown
 import PhotosUI
 
-class NotiViewController: UIViewController{
+class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     
 
     var timeOut = [Timeout]()
@@ -90,6 +90,14 @@ class NotiViewController: UIViewController{
     }
     
     func collectionViewSetting(collectionView: UICollectionView){
+        
+        //longGesture for delete timeout cell
+        let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
+        longPressedGesture.minimumPressDuration = 0.5
+        longPressedGesture.delegate = self
+        longPressedGesture.delaysTouchesBegan = true
+        self.collectionView.addGestureRecognizer(longPressedGesture)
+        
         collectionView.delegate = self
         collectionView.dataSource = self
 
@@ -107,6 +115,34 @@ class NotiViewController: UIViewController{
         makeNotiFolderView.modalPresentationStyle = .overCurrentContext
         self.present(makeNotiFolderView, animated: true, completion: nil)
     }
+    
+    @objc func handleLongPress(gestureRecognizer : UILongPressGestureRecognizer){
+        if (gestureRecognizer.state != .began) {
+                return
+            }
+
+            let p = gestureRecognizer.location(in: collectionView)
+
+            if let indexPath = collectionView?.indexPathForItem(at: p) {
+               // if(self.timeOut[indexPath.row].isValid == false){ // isValid false인 경우에만 반응
+                    self.alertWithNoViewController(title: "알림 삭제", message: "알림을 삭제 하시겠습니까?", completion: { (response) in
+                        if (response == "OK") {
+                            self.timeOut.remove(at: indexPath.row)
+                            self.filteredtimeOut = self.timeOut
+                            DispatchQueue.main.async {
+                                self.collectionView.reloadData()
+                            }
+                            self.alertViewController(title: "삭제 완료", message: "알림이 삭제 되었습니다.", completion: {(response) in })
+                    }
+                        
+                    })
+                }
+            
+            
+           // }
+
+    }
+ 
         
 }
 
@@ -125,26 +161,11 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if(index == 0){ // 수정 view로 이동
                     //TO DO -> update folder Name
                 let makeNotiFolderView = self.storyboard?.instantiateViewController(identifier: "MakeNotiFolderViewController") as! MakeNotiFolderViewController
-                
-//                let editNotiView = makeNotiFolderView
-//                makeNotiFolderView.makeNotiFolderView.nameTextField.text = "test"
                 makeNotiFolderView.editMode = true
                 let editTimeoutCell = (cell.indexPath?[1])!
                 makeNotiFolderView.timeOut = timeOut[editTimeoutCell]
                 makeNotiFolderView.modalPresentationStyle = .overCurrentContext
                 self.present(makeNotiFolderView, animated: true, completion: nil)
-                
-//                let wirteVc = self.storyboard?.instantiateViewController(identifier: "makeLinkCell") as! MakeLinkViewController
-//
-//
-//                guard let currentLink = cell.linkLabel.text else {
-//                    print("no currentLink exits")
-//                    return
-//                }
-//
-//                wirteVc.string = currentLink
-//                wirteVc.modalPresentationStyle = .fullScreen
-//                self.present(wirteVc, animated: true, completion: nil)
 
             }else if(index == 1){ // 사용 완료
                 if(cell.inValidView.isHidden == true){
@@ -168,20 +189,6 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     })
                 }
                
-            }else if(index == 2) { // 알림 삭제
-                self.alertWithNoViewController(title: "알림 삭제", message: "알림을 삭제 하시겠습니까?", completion: { (response) in
-                    if (response == "OK") {
-                        timeOut.remove(at: (cell.indexPath?[1])!)
-                        self.alertViewController(title: "삭제 완료", message: "알림이 삭제 되었습니다.", completion: {(response) in
-                            //TO DO 사용 완료 처리
-                            DispatchQueue.main.async {
-                                
-                            }
-                        })
-                }
-                    
-                })
-                    
             }
         }
         more_dropDown.clearSelection()
@@ -215,13 +222,11 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     //위 아래 라인 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        print("위 아래 간격")
         return 50
     }
     
     //옆 라인 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        print("옆 라인 간격")
         return 1
     }
     
