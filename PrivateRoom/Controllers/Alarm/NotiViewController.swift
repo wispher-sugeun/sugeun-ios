@@ -54,7 +54,7 @@ class NotiViewController: UIViewController{
     
         
         timeOut.append(Timeout(userId: 1, timeoutId: 1, title: "스타벅스 자허블", timeoutImage: imageArray[0], deadLine: "2021-08-07", selectedList: [1,3], isValid: true))
-        timeOut.append(Timeout(userId: 2, timeoutId: 2, title: "이디야 아이스티", timeoutImage: imageArray[1], deadLine: "2021-07-30", selectedList: [1,3, 7], isValid: false))
+        timeOut.append(Timeout(userId: 2, timeoutId: 2, title: "이디야 아이스티", timeoutImage: imageArray[1], deadLine: "2021-07-30", selectedList: [1,3,7], isValid: false))
         timeOut.append(Timeout(userId: 3, timeoutId: 3, title: "투썸 아이스박스", timeoutImage: imageArray[2], deadLine: "2021-09-10", selectedList: [1, 7], isValid: true))
         filteredtimeOut = timeOut
         
@@ -113,7 +113,6 @@ class NotiViewController: UIViewController{
 extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSource, TimeOutCollectionViewCellDelegate, UICollectionViewDelegateFlowLayout {
     
     func moreButton(cell: TimeOutCollectionViewCell) {
-        print("more button click")
         more_dropDown.anchorView = cell.moreButton
         more_dropDown.show()
         selectedCellIndexPath = cell.indexPath!
@@ -125,6 +124,28 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
             if(index == 0){ // 수정 view로 이동
                     //TO DO -> update folder Name
+                let makeNotiFolderView = self.storyboard?.instantiateViewController(identifier: "MakeNotiFolderViewController") as! MakeNotiFolderViewController
+                
+//                let editNotiView = makeNotiFolderView
+//                makeNotiFolderView.makeNotiFolderView.nameTextField.text = "test"
+                makeNotiFolderView.editMode = true
+                let editTimeoutCell = (cell.indexPath?[1])!
+                makeNotiFolderView.timeOut = timeOut[editTimeoutCell]
+                makeNotiFolderView.modalPresentationStyle = .overCurrentContext
+                self.present(makeNotiFolderView, animated: true, completion: nil)
+                
+//                let wirteVc = self.storyboard?.instantiateViewController(identifier: "makeLinkCell") as! MakeLinkViewController
+//
+//
+//                guard let currentLink = cell.linkLabel.text else {
+//                    print("no currentLink exits")
+//                    return
+//                }
+//
+//                wirteVc.string = currentLink
+//                wirteVc.modalPresentationStyle = .fullScreen
+//                self.present(wirteVc, animated: true, completion: nil)
+
             }else if(index == 1){ // 사용 완료
                 if(cell.inValidView.isHidden == true){
                     self.alertWithNoViewController(title: "사용 완료 하시겠습니까?", message: "한번 사용 완료시 다시 알림 등록을 하셔야 합니다", completion: { (response) in
@@ -167,6 +188,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filteredtimeOut.count
     }
@@ -176,7 +198,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell?.delegate = self
         cell?.configure(model: filteredtimeOut[indexPath.row])
         cell?.backgroundColor = .red
-        cell?.configureHeight(with: 200)
+        cell?.configureHeight(with: 160)
         cell?.indexPath = indexPath
         return cell!
     }
@@ -186,9 +208,9 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
             let width = collectionView.bounds.width
             let height = collectionView.bounds.height
-            print("width : \(collectionView.bounds.width / 2)")
-            print("height : \(collectionView.bounds.height / 2)")
-        return CGSize(width: (width / 2) - 100, height: height)
+//        print("width : \(collectionView.bounds.width / 2.5)")
+//            print("height : \(collectionView.bounds.height / 2)")
+        return CGSize(width: (width / 2) - 140, height: height)
     }
     
     //위 아래 라인 간격
@@ -200,8 +222,12 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
     //옆 라인 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         print("옆 라인 간격")
-        return 10
+        return 1
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+           return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        }
     
     //for cell info and sort
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -422,6 +448,10 @@ extension NotiViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate {
+    
+    var editMode: Bool = false
+    var timeOut: Timeout?
+    
     func dissMiss() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -480,7 +510,10 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         makeNotiFolderView.delegate = self
-        print("view did load")
+        if(editMode){
+            print("eidt timeout is \(timeOut!)")
+            self.makeNotiFolderView.configure(cell: timeOut!)
+        }
     }
     
     

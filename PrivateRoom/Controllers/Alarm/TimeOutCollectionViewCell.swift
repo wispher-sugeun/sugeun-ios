@@ -22,9 +22,10 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var alarmImageView: UIImageView!
     
+    @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var dateTextLabel: UILabel!
     
-    @IBOutlet weak var moreButton: UIImageView!
+    
     @IBAction func moreButton(_ sender: Any) {
         delegate?.moreButton(cell: self)
     }
@@ -36,13 +37,11 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         mainView.layer.borderColor = UIColor.darkGray.cgColor
-        mainView.layer.opacity = 0.8
         mainView.layer.borderWidth = 1.0
-        
         inValidView.isHidden = true        
         //width 고정
         mainView.translatesAutoresizingMaskIntoConstraints = false
-        mainView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2 - 5).isActive = true
+        mainView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2 - 20).isActive = true
         // Initialization code
     }
     
@@ -66,7 +65,7 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(model: Timeout) {
-        print(model.title)
+        
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let startTime = Date()
@@ -75,7 +74,6 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
         let dday = Int(((endTime.timeIntervalSince(startTime)))) / 86400
         
         if(model.isValid == true){ // 비활성화
-            //print("model.isValid == true \(model.title)")
             inValidView.isHidden = false
             mainView.isUserInteractionEnabled = false
         }else{

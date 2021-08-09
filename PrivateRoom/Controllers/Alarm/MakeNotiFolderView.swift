@@ -53,6 +53,7 @@ class MakeNotiFolderView: UIView {
     
     
     @IBOutlet weak var oneDayButton: UIButton!
+    
     @IBAction func oneDayButton(_ sender: UIButton) {
         if(sender.isSelected){
             sender.isSelected = false
@@ -99,8 +100,6 @@ class MakeNotiFolderView: UIView {
             
             border.backgroundColor = UIColor.white.cgColor
             nameTextField.layer.addSublayer((border))
-            //nameTextField.layer.masksToBounds = true
-            //nameTextField.textAlignment = .center
             nameTextField.textColor = UIColor.white
     
         }
@@ -110,4 +109,23 @@ class MakeNotiFolderView: UIView {
             delegate?.tapImageView()
            
         }
+    
+    func configure(cell: Timeout){
+        print("here configure")
+        nameTextField.text = cell.title
+        imageView.image = cell.timeoutImage
+        let parseDate = DateUtil.parseDate(cell.deadLine)
+        datePicker.date = parseDate
+        for i in cell.selectedList {
+            if(i == 7){
+                weekDayButton.isSelected = true
+            }
+            if(i == 3){
+                threeDayButton.isSelected = true
+            }
+            if(i == 1){
+                oneDayButton.isSelected = true
+            }
+        }
+    }
 }

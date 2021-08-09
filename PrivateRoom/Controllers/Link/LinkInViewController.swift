@@ -527,7 +527,6 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             print("인덱스 : \(index)")
             
             if(index == 0){ // 수정 view로 이동
-                    //TO DO -> 링크 수정
                 let wirteVc = self.storyboard?.instantiateViewController(identifier: "makeLinkCell") as! MakeLinkViewController
                
                 
