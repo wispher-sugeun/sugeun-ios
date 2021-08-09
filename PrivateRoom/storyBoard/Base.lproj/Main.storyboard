@@ -884,10 +884,10 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1zU-Vq-CPs" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="186" width="414" height="263"/>
+                                <rect key="frame" x="0.0" y="186" width="414" height="310.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="263" id="f7A-KD-hPs"/>
+                                    <constraint firstAttribute="width" secondItem="1zU-Vq-CPs" secondAttribute="height" multiplier="400:300" id="vqy-MA-Efd"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pbw-oe-j2e">
@@ -913,30 +913,8 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="7wA-lg-HsB">
-                                <rect key="frame" x="0.0" y="449" width="414" height="413"/>
+                                <rect key="frame" x="0.0" y="496.5" width="414" height="365.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="hHI-fx-muL" userLabel="headerView">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="thN-Ef-Fd5">
-                                            <rect key="frame" x="364" y="5" width="30" height="34"/>
-                                            <state key="normal" title="편집">
-                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="editButton:" destination="ggU-0o-nhp" eventType="touchUpInside" id="9xq-Fd-1pV"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    <constraints>
-                                        <constraint firstItem="thN-Ef-Fd5" firstAttribute="top" secondItem="hHI-fx-muL" secondAttribute="top" constant="5" id="KXf-MJ-Zfh"/>
-                                        <constraint firstAttribute="trailing" secondItem="thN-Ef-Fd5" secondAttribute="trailing" constant="20" id="M6F-o5-rxn"/>
-                                        <constraint firstItem="thN-Ef-Fd5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hHI-fx-muL" secondAttribute="leading" constant="20" symbolic="YES" id="Y0p-bH-RwC"/>
-                                        <constraint firstAttribute="bottom" secondItem="thN-Ef-Fd5" secondAttribute="bottom" constant="5" id="hcN-k6-AHs"/>
-                                    </constraints>
-                                </view>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hG2-68-f8G"/>

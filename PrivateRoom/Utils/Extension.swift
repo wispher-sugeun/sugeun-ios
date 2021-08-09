@@ -203,6 +203,14 @@ extension UIView {
      }
 }
 
+extension UIPageViewController {
+
+    var scrollView: UIScrollView? {
+        return view.subviews.first { $0 is UIScrollView } as? UIScrollView
+    }
+
+}
+
 //var version: String? {
 //    guard let dictionary = Bundle.main.infoDictionary, let version = dictionary["CFBundleShortVersionString"] as? String, let build = dictionary["CFBundleVersion"] as? String else {return nil}
 //    let versionAndBuild: String = "vserion: \(version), build: \(build)"

@@ -46,7 +46,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dDC-n6-6Fm">
-                                        <rect key="frame" x="413" y="7" width="19" height="18"/>
+                                        <rect key="frame" x="401" y="7" width="31" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="dDC-n6-6Fm" secondAttribute="height" multiplier="19:20" id="5tY-fH-pTY"/>
+                                        </constraints>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" backgroundImage="ellipsis" catalog="system"/>
                                         <connections>

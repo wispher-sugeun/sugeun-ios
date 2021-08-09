@@ -14,7 +14,7 @@ protocol calendarViewDelegate: NSObject {
     func editButton()
 }
 
-class CalendarViewController: UIViewController {
+class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
 
 
     @IBOutlet weak var calendar: FSCalendar!
@@ -22,16 +22,8 @@ class CalendarViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
-    @IBAction func editButton(_ sender: Any) {
-        print("edit button click")
-        isEditing = !isEditing
-        delegate?.editButton()
-    }
-    
     @IBAction func addScheButton(_ sender: Any) {
-        
-     
-        
+    
         guard let addCalendarVC = self.storyboard?.instantiateViewController(identifier: "addCalendar") else { return }
         addCalendarVC.modalPresentationStyle = .fullScreen
         
@@ -64,6 +56,7 @@ class CalendarViewController: UIViewController {
         searchTextField.delegate = self
         searchTextField.circle()
         filtered = schedule
+        handleSwipeDelete()
 
     }
     
@@ -96,11 +89,59 @@ class CalendarViewController: UIViewController {
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.register(CalendarTableViewCell.nib(), forCellReuseIdentifier: CalendarTableViewCell.identifider)
     }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
     
+//    func handleSwipeDelete() {
+//        if let pageController = parent?.parent as? UIPageViewController {
+//            let gestureRecognizer = UIPanGestureRecognizer(target: self, action: nil)
+//            gestureRecognizer.delaysTouchesBegan = true
+//            gestureRecognizer.cancelsTouchesInView = false
+//            gestureRecognizer.delegate = self
+//            tableView.addGestureRecognizer(gestureRecognizer)
+//
+//            pageController.scrollView?.canCancelContentTouches = false
+//            pageController.scrollView?.panGestureRecognizer.require(toFail: gestureRecognizer)
+//        }
+//        print("here")
+//    }
+    
+    func handleSwipeDelete() {
+        guard let pageController = parent as? UIPageViewController else {
+            print("return")
+            return
+        }
 
+        pageController.scrollView?.canCancelContentTouches = false
+        tableView.gestureRecognizers?.forEach { recognizer in
+            let name = String(describing: type(of: recognizer))
+            guard name == "_UISwipeActionPanGestureRecognizer" else {
+                return
+            }
+            pageController.scrollView?
+                .panGestureRecognizer
+                .require(toFail: recognizer)
+        }
+    }
+
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard let panGesture = gestureRecognizer as? UIPanGestureRecognizer else {
+            return false
+        }
+
+        let translation = panGesture.translation(in: tableView)
+        print(translation)
+        // In my case I have only trailing actions, so I used below condition.
+        return translation.x < 0
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return otherGestureRecognizer.view == tableView
+    }
 
 }
 
@@ -153,53 +194,27 @@ extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    private func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    
-    //for delete
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if(editingStyle == .delete){
-            let askToDelete = UIAlertController(title: "일정 삭제", message: "\(filtered[indexPath.row].title) 의 일정을 삭제하시겠습니까?", preferredStyle: .alert)
-            
-            askToDelete.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in
-//                self.setScheduledView.beginUpdates()
-//                self.setscheduled.remove(at: indexPath.row)
-//                self.filtered = self.setscheduled
-//                self.setScheduledView.deleteRows(at: [indexPath], with: .fade)
-//                self.setScheduledView.endUpdates()
-        }))
-            askToDelete.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
-            present(askToDelete, animated: true)
-        }
-    }
-    
     //swipe 일정 삭제
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let deleteAction = UIContextualAction(style: .normal, title: "삭제") { (action, view, success) in
+        let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { (action, view, completion) in
             let scheduleTitle = self.filtered[indexPath.row].title
             print(scheduleTitle)
             self.alertWithNoViewController(title: "일정 삭제", message: "\(scheduleTitle) 일정을 삭제하시겠습니까?", completion: { (response) in
                 if(response == "OK"){
                     self.filtered.remove(at: indexPath.row)
-                    tableView.reloadRows(at: [indexPath], with: .fade)
+                    tableView.reloadData()
+                    self.alertViewController(title: "일정 삭제 완료", message: "일정이 삭제 되었습니다", completion: { (response) in })
+                    completion(true)
+                }else{
+                    completion(false)
                 }
             })
-            
-        
         }
+        deleteAction.image = UIImage(systemName: "trash")
         
         let config = UISwipeActionsConfiguration(actions: [deleteAction])
-
+        config.performsFirstActionWithFullSwipe = false
         return config
         
     }
