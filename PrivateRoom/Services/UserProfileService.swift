@@ -19,14 +19,14 @@ class UserProfileService {
     }
     
     //get 회원 프로필
-    func getUserProfile(completion: @escaping ((GetProgileResponse) -> Void)){
+    func getUserProfile(completion: @escaping ((GetProfileResponse) -> Void)){
         let headers: HTTPHeaders = ["Authorization" : deviceToken]
         let url = Config.base_url + "/user/\(userId)"
         AF.request(url, method: .get, headers: headers).validate(statusCode: 200...500).responseJSON {
             (response) in
             switch response.result {
                 case .success(let obj):
-                    let responses = obj as! GetProgileResponse
+                    let responses = obj as! GetProfileResponse
                     completion(responses)  // userResDTO
                     break
                 case .failure(let error):
@@ -43,32 +43,105 @@ class UserProfileService {
     }
     
     //아이디 업데이트
-    func updateProfileID(){
+    func updateProfileID(nickName: String){
         let url = Config.base_url + "/user/\(userId)"
         let headers: HTTPHeaders = ["Authorization" : deviceToken]
+        let parameter: Parameters = ["updateNickName": nickName]
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "PATCH"
+        let formDataString = (parameter.compactMap({(key, value) -> String in
+            return "\(key)=\(value)" }) as Array).joined(separator: "&")
+        let formEncodedData = formDataString.data(using: .utf8)
+        
+        
+        request.httpBody = formEncodedData
+        AF.request(url, method: .patch, parameters: parameter, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+            switch response.result {
+                case .success(let obj):
+                    let responses = obj as! String
+                   print(responses) //아이디 변경 완료
+                    break
+                case .failure(let error):
+                    print(error)
+            }
+        }
     }
     
-    func updateProfilePassword(){
+    func updateProfilePassword(password: String){
         let url = Config.base_url + "/user/\(userId)"
         let headers: HTTPHeaders = ["Authorization" : deviceToken]
+        
+        
+        let parameter: Parameters = ["updatePassword": password]
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "PATCH"
+        let formDataString = (parameter.compactMap({(key, value) -> String in
+            return "\(key)=\(value)" }) as Array).joined(separator: "&")
+        let formEncodedData = formDataString.data(using: .utf8)
+        
+        
+        request.httpBody = formEncodedData
+        AF.request(url, method: .patch, parameters: parameter, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+            switch response.result {
+                case .success(let obj):
+                    let responses = obj as! String
+                   print(responses) //비밀번호 변경 완료
+                    break
+                case .failure(let error):
+                    print(error)
+            }
+        }
     }
     
     //회원 탈퇴
     func quitUser(){
         let url = Config.base_url + "/user/\(userId)"
         let headers: HTTPHeaders = ["Authorization" : deviceToken]
+        AF.request(url, method: .delete, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+            switch response.result {
+                case .success(let obj):
+                    let responses = obj as! String
+                   print(responses) //회원 탈퇴 완료
+                    break
+                case .failure(let error):
+                    print(error)
+            }
+        }
     }
     
     //알림 허용
     func updateAlarmValue(){
-        let url = Config.base_url + "/user/\(userId)"
+        let url = Config.base_url + "/user/\(userId)/alarm"
         let headers: HTTPHeaders = ["Authorization" : deviceToken]
+        AF.request(url, method: .patch, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+            switch response.result {
+                case .success(let obj):
+                    let responses = obj as! String
+                   print(responses) //알림허용 변경 완료
+                    break
+                case .failure(let error):
+                    print(error)
+            }
+        }
+        
+        
     }
     
     //북마크 조회
     func getMyBookMark(){
-        let url = Config.base_url + "/user/\(userId)"
+        let url = Config.base_url + "/user/\(userId)/bookmark"
         let headers: HTTPHeaders = ["Authorization" : deviceToken]
-        AF.request(url, method: .get, headers: headers).responseJSON{ (response) in }
+        AF.request(url, method: .get, headers: headers).responseJSON{ (response) in
+            switch response.result {
+                case .success(let obj):
+                    let responses = obj as! String
+                   print(responses) //북마크 조회 ~~ ing
+                    break
+                case .failure(let error):
+                    print(error)
+            }
+        }
     }
 }

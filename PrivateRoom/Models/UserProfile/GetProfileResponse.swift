@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GetProgileResponse: Codable {
+struct GetProfileResponse: Codable {
     private var userId: Int
     private var nickname: String
     private var phone: String
