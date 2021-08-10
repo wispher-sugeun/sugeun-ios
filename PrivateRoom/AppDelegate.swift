@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 import AppTrackingTransparency
 
 @main
@@ -46,13 +47,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
    //foreground에서 알림이 온 상태
    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
        // 푸시가 오면 alert, badge, sound표시를 하라는 의미
-       //completionHandler([.alert, .sound])
+    print("willPresent")
+    completionHandler([.list, .sound, .badge, .banner])
    }
+    
+    
 
    //TODO
    //push 온 경우 (보내는 쪽)
    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-
+        print("receive")
        //post
        NotificationCenter.default.post(name: .alarm, object: nil)
     }

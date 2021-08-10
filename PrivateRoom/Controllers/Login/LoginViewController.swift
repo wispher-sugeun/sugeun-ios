@@ -7,22 +7,52 @@
 
 import UIKit
 import JGProgressHUD
+import UserNotifications
 
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var IDTextfield: UITextField!
     
     @IBOutlet weak var PasswordTextfield: UITextField!
+    let unc = UNUserNotificationCenter.current()
+    
     let spinner = JGProgressHUD()
     
     @IBAction func loginButton(_ sender: Any) {
-        
+        let options = UNAuthorizationOptions(arrayLiteral: [.badge, .sound, .alert])
+        unc.requestAuthorization(options: options, completionHandler: { [weak self] success, error in
+            if success {
+                self!.sendLocalNotification()
+            }else {
+                print(error?.localizedDescription ?? "nil")
+            }
+        })
         //로그인 성공시
         let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "VC")
         let rootNC = UINavigationController(rootViewController: mainVC)
         
         UIApplication.shared.windows.first?.rootViewController = rootNC
         UIApplication.shared.windows.first?.makeKeyAndVisible()
+        
+    }
+    
+    private func sendLocalNotification(){
+        let content = UNMutableNotificationContent()
+        content.title = "test"
+        content.body = "푸시 알림 테스트 내용"
+//        let date = Date().addingTimeInterval(32460)
+//        print(date)
+//        let dateComponents = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        let uuidString = UUID().uuidString
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+        
+        unc.add(request) {
+            (error) in
+            print("error occured")
+        }
+
         
     }
     
