@@ -60,6 +60,10 @@
 		8E782ADC2647D3AC00D93D89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E782ADB2647D3AC00D93D89 /* Assets.xcassets */; };
 		8E782ADF2647D3AC00D93D89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E782ADD2647D3AC00D93D89 /* LaunchScreen.storyboard */; };
 		8EA90B7C26C2541800469964 /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA90B7B26C2541800469964 /* Calendar.storyboard */; };
+		8EA90B7E26C2A3CF00469964 /* ScheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B7D26C2A3CF00469964 /* ScheduleService.swift */; };
+		8EA90B8126C2A57D00469964 /* GetScheduleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B8026C2A57D00469964 /* GetScheduleResponse.swift */; };
+		8EA90B8326C2A6E600469964 /* PostScheduleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B8226C2A6E600469964 /* PostScheduleRequest.swift */; };
+		8EA90B8526C2A8BB00469964 /* EditScheduleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B8426C2A8BB00469964 /* EditScheduleRequest.swift */; };
 		8ED15EA7269996F1002943C9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA6269996F0002943C9 /* SignInViewController.swift */; };
 		8ED15EA92699D687002943C9 /* FindIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA82699D687002943C9 /* FindIDViewController.swift */; };
 		8ED15EAB2699DB7E002943C9 /* FindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */; };
@@ -171,6 +175,10 @@
 		8E782ADE2647D3AC00D93D89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E782AE02647D3AC00D93D89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EA90B7B26C2541800469964 /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
+		8EA90B7D26C2A3CF00469964 /* ScheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleService.swift; sourceTree = "<group>"; };
+		8EA90B8026C2A57D00469964 /* GetScheduleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetScheduleResponse.swift; sourceTree = "<group>"; };
+		8EA90B8226C2A6E600469964 /* PostScheduleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScheduleRequest.swift; sourceTree = "<group>"; };
+		8EA90B8426C2A8BB00469964 /* EditScheduleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduleRequest.swift; sourceTree = "<group>"; };
 		8ED15EA6269996F0002943C9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		8ED15EA82699D687002943C9 /* FindIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDViewController.swift; sourceTree = "<group>"; };
 		8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWViewController.swift; sourceTree = "<group>"; };
@@ -390,6 +398,16 @@
 			path = PrivateRoom;
 			sourceTree = "<group>";
 		};
+		8EA90B7F26C2A56F00469964 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				8EA90B8026C2A57D00469964 /* GetScheduleResponse.swift */,
+				8EA90B8226C2A6E600469964 /* PostScheduleRequest.swift */,
+				8EA90B8426C2A8BB00469964 /* EditScheduleRequest.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
 		8EF00F0B2652BA1E00AA1EEA /* storyBoard */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,6 +423,7 @@
 		8EF00F1426539C9200AA1EEA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8EA90B7F26C2A56F00469964 /* Schedule */,
 				8E5B805E26BD20480030D4B9 /* UserProfile */,
 				8EFFBFBC26BC4F8A007C1868 /* User */,
 				8EF00F1526539CB300AA1EEA /* Model.swift */,
@@ -448,6 +467,7 @@
 			children = (
 				8EF3BFA4268F61FE00415150 /* UserLoginServices.swift */,
 				8E5B805C26BD1EBC0030D4B9 /* UserProfileService.swift */,
+				8EA90B7D26C2A3CF00469964 /* ScheduleService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -663,12 +683,15 @@
 				8EE69D6E26486B6E00ED19B9 /* ProfileViewController.swift in Sources */,
 				8E2B836126AFDF5600AC2570 /* MakeLinkViewController.swift in Sources */,
 				8EF00F1326539C0100AA1EEA /* FolderInViewController.swift in Sources */,
+				8EA90B8326C2A6E600469964 /* PostScheduleRequest.swift in Sources */,
 				8EF3BFA8268F627400415150 /* FolderViewModel.swift in Sources */,
 				8E782AD42647D3A400D93D89 /* ViewController.swift in Sources */,
 				8EFFBFC526BC5F0E007C1868 /* LoginResponse.swift in Sources */,
+				8EA90B8526C2A8BB00469964 /* EditScheduleRequest.swift in Sources */,
 				8E5B806026BD20660030D4B9 /* GetProfileResponse.swift in Sources */,
 				8E782AD02647D3A400D93D89 /* AppDelegate.swift in Sources */,
 				8E70C1C2269196FC006F1D2C /* Extension.swift in Sources */,
+				8EA90B8126C2A57D00469964 /* GetScheduleResponse.swift in Sources */,
 				8EF00F1626539CB300AA1EEA /* Model.swift in Sources */,
 				8E782AD22647D3A400D93D89 /* SceneDelegate.swift in Sources */,
 				8ED94269269D85C700B860BF /* MakeFolder.swift in Sources */,
@@ -698,6 +721,7 @@
 				8E1D607F26B92D0D00DF53FE /* UserDefaultKey.swift in Sources */,
 				8EF00F11265390C900AA1EEA /* FolderViewController.swift in Sources */,
 				8EF3BFAD268F677E00415150 /* LoginViewController.swift in Sources */,
+				8EA90B7E26C2A3CF00469964 /* ScheduleService.swift in Sources */,
 				8EE69D6626484B7D00ED19B9 /* TextViewController.swift in Sources */,
 				8ED15EAB2699DB7E002943C9 /* FindPWViewController.swift in Sources */,
 				8EE69D6C26484BAA00ED19B9 /* NotiViewController.swift in Sources */,
