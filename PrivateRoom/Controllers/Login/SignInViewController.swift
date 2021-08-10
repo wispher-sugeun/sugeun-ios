@@ -11,6 +11,12 @@ class SignInViewController: UIViewController {
 
     @IBOutlet weak var IDTextField: UITextField!
     
+    @IBOutlet weak var IDCheckButton: UIButton!
+    
+    @IBOutlet weak var authenRequestButton: UIButton!
+    
+    @IBOutlet weak var authenOKButton: UIButton!
+    
     @IBAction func SameIDCheck(_ sender: Any) {
         //api 호출
         if(IDTextField.text! == ""){
@@ -172,6 +178,7 @@ class SignInViewController: UIViewController {
         authenTextField.delegate = self
         
     }
+    
     
     
     func validpassword(mypassword : String) -> Bool {//숫자+문자 포함해서 8~20글자 사이의 text 체크하는 정규표현식
