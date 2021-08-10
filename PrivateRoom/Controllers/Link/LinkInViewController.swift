@@ -810,7 +810,7 @@ extension LinkInViewController: UITextFieldDelegate {
         }
         
         FrameCollectionView.reloadData()
-        //collectionView.reloadData()
+        textField.resignFirstResponder()
         return true
     }
 }

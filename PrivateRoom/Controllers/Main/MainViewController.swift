@@ -571,7 +571,9 @@ extension MainViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
                 
             }
         }
+        
         folderCollectionView.reloadData()
+        textField.resignFirstResponder()
         return true
     }
     

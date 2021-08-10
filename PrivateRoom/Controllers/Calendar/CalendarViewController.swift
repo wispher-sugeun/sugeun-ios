@@ -24,17 +24,15 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func addScheButton(_ sender: Any) {
     
-        guard let addCalendarVC = self.storyboard?.instantiateViewController(identifier: "addCalendar") else { return }
-        addCalendarVC.modalPresentationStyle = .fullScreen
-        
-        let addCalendar = AddCalendarViewController()
+        let addCalendarVC = self.storyboard?.instantiateViewController(identifier: "addCalendar") as! AddCalendarViewController
         if(calendar.selectedDate == nil){
-            addCalendar.selectedDate = Date().addingTimeInterval(86400)
+            addCalendarVC.selectedDate = Date().addingTimeInterval(86400)
         }else {
-            addCalendar.selectedDate = calendar.selectedDate?.addingTimeInterval(86400) // adding one day
+            addCalendarVC.selectedDate = calendar.selectedDate?.addingTimeInterval(86400) // adding one day
         }
-//        self.present(addCalendarVC, animated: true, completion: nil)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.pushViewController(addCalendarVC, animated: true)
+        
        
     }
 
@@ -219,6 +217,16 @@ extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedIndex = filtered[indexPath.row]
+        let addCalendarVC = self.storyboard?.instantiateViewController(identifier: "addCalendar") as! AddCalendarViewController
+        addCalendarVC.viewMode = true
+        addCalendarVC.selectedScheduled = selectedIndex
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.pushViewController(addCalendarVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     
     
 }
@@ -269,6 +277,7 @@ extension CalendarViewController: UITextFieldDelegate {
             }
         }
         tableView.reloadData()
+        textField.resignFirstResponder()
         return true
     }
 }

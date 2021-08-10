@@ -125,6 +125,7 @@ extension LoginViewController: UISearchTextFieldDelegate {
             // 맞지 않다면
 //            alertViewController(title: "로그인 에러", message: "로그인 정보가 맞지 않습니다. 다시 입력해주세요")
         }
+        textField.resignFirstResponder()
         return true
     }
     

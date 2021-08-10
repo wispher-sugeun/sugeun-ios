@@ -8,6 +8,8 @@
 import UIKit
 
 class AddCalendarViewController: UIViewController {
+    var viewMode: Bool = false
+    var selectedScheduled: Schedule?
     var selectedDate: Date?
     
     @IBOutlet weak var titleTextField: UITextField!
@@ -23,35 +25,68 @@ class AddCalendarViewController: UIViewController {
     @IBOutlet weak var timeTextField: UITextField!
     @IBOutlet weak var selectedAlarm: UILabel!
     
-    var alarmRange = ["일주일 전", "6일 전", "5일 전", "4일 전", "3일 전", "2일 전", "하루 전"]
+    var alarmRange = ["x", "하루 전", "2일 전", "3일 전", "4일 전", "5일 전", "6일 전", "일주일 전"]
     
     var isSelectedIndex = false
     var selectedString: String?
     
-    @IBAction func backButton(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-        //self.dismiss(animated: true, completion: nil)
-    }
+    lazy var leftButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "<", style: .plain, target: self, action: #selector(buttonPressed(_:)))
+        button.tintColor = .black
+        button.tag = 1
+        return button
+        
+    }()
     
-    @IBAction func doneButton(_ sender: Any) {
-        //tableView.reloadData()
-        //make new alarm
-        if(validCheck() == true){
-            //post
-            alertViewController(title: "알림 생성", message: "알림이 생성되었습니다", completion: {(string) in
-                self.dismiss(animated: true, completion: nil)
-            })
-        }else {
-            alertViewController(title: "알림 생성 실패", message: "비어 있는 곳들을 채워주세요", completion: {(string) in
-            })
+    lazy var rightButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(buttonPressed(_:)))
+        button.tintColor = .black
+        button.tag = 2
+        return button
+        
+    }()
+    
+    @objc private func buttonPressed(_ sender: Any) {
+        if let button = sender as? UIBarButtonItem {
+            switch button.tag {
+            case 1: 
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+                self.navigationController?.popViewController(animated: true)
+            case 2:
+                if(validCheck() == true){
+                    //post
+                    guard let naviTitle = navigationItem.title else {
+                        return
+                    }
+                    print(naviTitle)
+                    if(naviTitle == "일정 수정"){
+                        alertViewController(title: "알림 수정", message: "알림이 수정되었습니다", completion: {(string) in
+                            self.navigationController?.popViewController(animated: true)
+                        })
+                    }else{
+                        alertViewController(title: "알림 생성", message: "알림이 생성되었습니다", completion: {(string) in
+                            self.navigationController?.popViewController(animated: true)
+                        })
+                    }
+                }else {
+                    alertViewController(title: "알림 생성 실패", message: "비어 있는 곳들을 채워주세요", completion: {(string) in
+                    })
+                }
+                print(titleTextField.text!)
+                print(timeTextField.isSelected)
+                print(datePicker.date)
+                print(!amButton.isSelected)
+                print(!pmButton.isSelected)
+            default:
+                print("error")
+                
+            }
+            
         }
-        print(titleTextField.text!)
-        print(timeTextField.isSelected)
-        print(datePicker.date)
-        print(!amButton.isSelected)
-        print(!pmButton.isSelected)
+        
     }
-    
+
+
     func validCheck() -> Bool{
         if let _ = titleTextField.text, let _ = timeTextField.text, (amButton.isSelected || pmButton.isSelected) != false   {
             return true
@@ -73,21 +108,31 @@ class AddCalendarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("selectedDate \(selectedDate)")
+        //print("selectedDate \(selectedDate)")
+
+        if(viewMode){
+            self.navigationItem.title = "일정 수정"
+        }else{
+            self.navigationItem.title = "일정 추가"
+        }
         
+        self.navigationItem.leftBarButtonItem = self.leftButton
+        self.navigationItem.rightBarButtonItem = self.rightButton
    
+        
         tableViewSetting()
         
         let dismissKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         dismissKeyboardGesture.cancelsTouchesInView = false
         tableView.addGestureRecognizer(dismissKeyboardGesture)
         
-        if(selectedDate != nil){
-            datePicker.setDate(selectedDate!, animated: true)
-        }
+//        if(selectedDate != nil){
+//            datePicker.setDate(selectedDate!, animated: true)
+//        }
         
         
     }
+    
     
     @objc func hideKeyboard(){
         self.view.endEditing(true)
@@ -140,37 +185,93 @@ extension AddCalendarViewController: UITableViewDelegate, UITableViewDataSource,
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
-        if(indexPath.row == 0){
-            let cell = tableView.dequeueReusableCell(withIdentifier: TitleAddTableViewCell.identifier) as! TitleAddTableViewCell
-            self.titleTextField = cell.titleTextField
-            return cell
-        }else if(indexPath.row == 1){
-            let cell = tableView.dequeueReusableCell(withIdentifier: DateAddTableViewCell.identifier) as! DateAddTableViewCell
-            self.datePicker = cell.datePicker
-            return cell
-        }else if(indexPath.row == 2){
-            let cell = tableView.dequeueReusableCell(withIdentifier: DateTimeTableViewCell.identifier) as! DateTimeTableViewCell
-            self.amButton = cell.amButton
-            self.pmButton = cell.pmButton
-            self.timeTextField = cell.timeTextField
-            return cell
-        }else if(indexPath.row == 3){
-            let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.identifier) as! AlarmTableViewCell
-            let indexesToRedraw = [indexPath]
-            print(indexesToRedraw)
-            self.selectedAlarm = cell.setLabelText
-            
-            if(isSelectedIndex == false){ // 선택된 알림이 없다면
-                cell.setLabelText.isHidden = true
-            }else {
-                cell.setLabelText.text = selectedString
-                cell.setLabelText.isHidden = false
+        if(viewMode == true){
+            if(indexPath.row == 0){
+                let cell = tableView.dequeueReusableCell(withIdentifier: TitleAddTableViewCell.identifier) as! TitleAddTableViewCell
+                self.titleTextField = cell.titleTextField
+                self.titleTextField.text = selectedScheduled?.title
+                return cell
+            }else if(indexPath.row == 1){
+                let cell = tableView.dequeueReusableCell(withIdentifier: DateAddTableViewCell.identifier) as! DateAddTableViewCell
+                self.datePicker = cell.datePicker
+                let date = DateUtil.parseDate(selectedScheduled!.scheduleDate)
+                self.datePicker.date = date
+                return cell
+            }else if(indexPath.row == 2){
+                let cell = tableView.dequeueReusableCell(withIdentifier: DateTimeTableViewCell.identifier) as! DateTimeTableViewCell
+                self.amButton = cell.amButton
+                self.pmButton = cell.pmButton
+                self.timeTextField = cell.timeTextField
+                let date = DateUtil.parseDate(selectedScheduled!.scheduleDate)
+                if(date.hour > 12){
+                    pmButton.isSelected = true
+                    self.timeTextField.text = "\(date.hour - 12)"
+                }else{
+                    amButton.isSelected = true
+                    self.timeTextField.text = "\(date.hour)"
+                }
+                return cell
+            }else if(indexPath.row == 3){
+                let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.identifier) as! AlarmTableViewCell
+                let indexesToRedraw = [indexPath]
+                print(indexesToRedraw)
+                self.selectedAlarm = cell.setLabelText
+                
+                if(selectedScheduled?.selectedList == []){ // 선택된 알림이 없다면
+                    cell.setLabelText.isHidden = true
+                }else {
+                    var string = ""
+                    for i in selectedScheduled!.selectedList {
+                        if(i == selectedScheduled!.selectedList.last){
+                            string += alarmRange[i]
+                        }else{
+                            string += alarmRange[i] + ", "
+                        }
+                    }
+                    cell.setLabelText.text = string
+                    cell.setLabelText.isHidden = false
+                }
+                viewMode = false
+                cell.delegate = self
+                return cell
             }
             
-            cell.delegate = self
-            return cell
+        }else {
+            if(indexPath.row == 0){
+                let cell = tableView.dequeueReusableCell(withIdentifier: TitleAddTableViewCell.identifier) as! TitleAddTableViewCell
+                self.titleTextField = cell.titleTextField
+                return cell
+            }else if(indexPath.row == 1){
+                let cell = tableView.dequeueReusableCell(withIdentifier: DateAddTableViewCell.identifier) as! DateAddTableViewCell
+                self.datePicker = cell.datePicker
+                return cell
+            }else if(indexPath.row == 2){
+                let cell = tableView.dequeueReusableCell(withIdentifier: DateTimeTableViewCell.identifier) as! DateTimeTableViewCell
+                self.amButton = cell.amButton
+                self.pmButton = cell.pmButton
+                self.timeTextField = cell.timeTextField
+                return cell
+            }else if(indexPath.row == 3){
+                let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.identifier) as! AlarmTableViewCell
+                let indexesToRedraw = [indexPath]
+                print(indexesToRedraw)
+                self.selectedAlarm = cell.setLabelText
+                
+                if(isSelectedIndex == false){ // 선택된 알림이 없다면
+                    cell.setLabelText.isHidden = true
+                }else {
+                    cell.setLabelText.text = selectedString
+                    cell.setLabelText.isHidden = false
+                }
+                
+                cell.delegate = self
+                return cell
+            }
         }
+        
+        
         return cell
     }
     

@@ -398,6 +398,7 @@ extension TextViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
             }
         }
         collectionView.reloadData()
+        textField.resignFirstResponder()
         return true
     }
     

@@ -514,6 +514,7 @@ extension LinkViewController: UITextFieldDelegate {
         }
         
         collectionView.reloadData()
+        textField.resignFirstResponder()
         return true
     }
     

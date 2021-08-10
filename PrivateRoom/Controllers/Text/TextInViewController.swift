@@ -719,6 +719,7 @@ extension TextInViewController: UITextFieldDelegate {
         
         frameTableView.reloadData()
         collectionView.reloadData()
+        textField.resignFirstResponder()
         return true
     }
 }

@@ -379,6 +379,7 @@ extension NotiViewController: UITextFieldDelegate {
             }
         }
         collectionView.reloadData()
+        textField.resignFirstResponder()
         return true
     }
     
