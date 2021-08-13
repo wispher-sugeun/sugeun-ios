@@ -68,6 +68,7 @@
 		8EA90B8526C2A8BB00469964 /* EditScheduleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B8426C2A8BB00469964 /* EditScheduleRequest.swift */; };
 		8EB54A6426C605FE009C7F7C /* FolderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A6326C605FE009C7F7C /* FolderService.swift */; };
 		8EB54A6726C60775009C7F7C /* GetFolderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A6626C60775009C7F7C /* GetFolderResponse.swift */; };
+		8EB54A6A26C6102F009C7F7C /* CreateFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A6926C6102F009C7F7C /* CreateFolderRequest.swift */; };
 		8ED15EA7269996F1002943C9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA6269996F0002943C9 /* SignInViewController.swift */; };
 		8ED15EA92699D687002943C9 /* FindIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA82699D687002943C9 /* FindIDViewController.swift */; };
 		8ED15EAB2699DB7E002943C9 /* FindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */; };
@@ -187,6 +188,7 @@
 		8EA90B8426C2A8BB00469964 /* EditScheduleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduleRequest.swift; sourceTree = "<group>"; };
 		8EB54A6326C605FE009C7F7C /* FolderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderService.swift; sourceTree = "<group>"; };
 		8EB54A6626C60775009C7F7C /* GetFolderResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFolderResponse.swift; sourceTree = "<group>"; };
+		8EB54A6926C6102F009C7F7C /* CreateFolderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFolderRequest.swift; sourceTree = "<group>"; };
 		8ED15EA6269996F0002943C9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		8ED15EA82699D687002943C9 /* FindIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDViewController.swift; sourceTree = "<group>"; };
 		8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWViewController.swift; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 			isa = PBXGroup;
 			children = (
 				8EB54A6626C60775009C7F7C /* GetFolderResponse.swift */,
+				8EB54A6926C6102F009C7F7C /* CreateFolderRequest.swift */,
 			);
 			path = Folder;
 			sourceTree = "<group>";
@@ -733,6 +736,7 @@
 				8E1D604F26B9063600DF53FE /* PageViewController.swift in Sources */,
 				8E2B835F26ADD1DA00AC2570 /* LinkInViewController.swift in Sources */,
 				8E66D21C269F45EE00F48C26 /* DateAddTableViewCell.swift in Sources */,
+				8EB54A6A26C6102F009C7F7C /* CreateFolderRequest.swift in Sources */,
 				8EFFBFC226BC5EEE007C1868 /* LoginRequest.swift in Sources */,
 				8E2B834826A42DB200AC2570 /* TimeOutCollectionViewCell.swift in Sources */,
 				8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */,

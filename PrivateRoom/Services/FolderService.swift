@@ -26,7 +26,7 @@ class FolderService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
         
-        //post
+        
         print("[FolderService] 폴더 조회하기")
         
         request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
@@ -55,7 +55,40 @@ class FolderService {
     }
     
     //폴더 생성
-    func createFolder(){
+    func createFolder(folder: CreateFolderRequest){
+        let url = Config.base_url + "/users/\(userId)/folders"
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "POST"
+        
+        
+        print("[FolderService] 폴더 생성하기")
+        
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let jsonData = try JSONEncoder().encode(folder)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            request.httpBody = jsonData
+            // and decode it back
+//            let decoded = try JSONDecoder().decode(LoginRequest.self, from: jsonData)
+//            print(decoded)
+        } catch { print(error) }
+        
+        AF.request(request).responseJSON { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)")
+
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
+        
         
     }
     

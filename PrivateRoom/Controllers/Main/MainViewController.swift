@@ -585,6 +585,13 @@ extension MainViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
     }
 }
 
+enum MakeFolderError: Error {
+    case folderNameCount
+    case folderImage
+    case folderName
+    case folderType
+}
+
 class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFolderdelegate {
     
     func dissMiss() {
@@ -592,10 +599,57 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
     }
     
     func done() {
-        //to do server mk folder post
+        do {
+            try checkingNameValidating()
+            try validate()
+            //to do server mk folder post
+            guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else {
+                print("can't find userID")
+            }
+            //create folder 
+            let folderInfo = CreateFolderRequest(folderId: 0, folderName: folderView.folderNameTextField.text!, userId: userId, type: folderView.folderTypeButton.currentTitle!, parentFolderId: 0, imageFile: (folderView.folderImage.image?.jpeg(.lowest))!)
+            FolderService.shared.createFolder(folder: folderInfo)
+            
+        } catch {
+            print(error)
+            var errorMessage: String = ""
+            switch error as! MakeFolderError {
+            case .folderNameCount:
+                errorMessage = "7글자 이내로 폴더 이름을 지어주세요"
+            case .folderImage:
+                errorMessage = "이미지를 선택해주세요"
+            case .folderName:
+                errorMessage = "폴더 이름을 입력해주세요"
+            case .folderType:
+                errorMessage = "폴더 타입을 선택해주세요"
+            default:
+                print("error occured")
+            }
+            
+            self.alertViewController(title: "생성 실패", message: errorMessage, completion: { (response) in})
+        }
         
-        print("click done button")
-        //self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func checkingNameValidating() throws {
+        guard (folderView.folderNameTextField.text!.count > 7) else {
+            throw MakeFolderError.folderNameCount
+        }
+    }
+    
+    func validate() throws {
+        
+        guard (folderView.folderNameTextField.text!) != "" else {
+            throw MakeFolderError.folderName
+        }
+        guard (folderView.folderImage.image != nil) else {
+            throw MakeFolderError.folderImage
+        }
+        
+        guard folderView.folderTypeButton.currentTitle != "" else {
+            throw MakeFolderError.folderType
+        }
     }
     
     static let type_dropDown = DropDown()
