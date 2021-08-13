@@ -24,13 +24,14 @@ class SignInViewController: UIViewController {
         }
         
         UserLoginServices.shared.checkIDValid(nickName: IDTextField.text!, completion: { (response) in
-            if(response) { //사용 불가능 true시
+            if(response) {
                 self.IDSameText.isHidden = true
                 self.IDValidText.isHidden = false
             }
             else {
                 self.IDValidText.isHidden = true
                 self.IDSameText.isHidden = false
+       
             }
         })
       
@@ -103,14 +104,14 @@ class SignInViewController: UIViewController {
             //post 성공시
             let number = phoneNumberTextField.text?.phoneMake()
             let signInRequest = SignUpRequest(nickname: IDTextField.text!, password: PasswordTextfield.text!, phone: number!)
-            UserLoginServices.shared.signup(signUpRequest: signInRequest, completion: { (response) in
-                print(response)
-                self.alertViewController(title: "회원가입 완료", message: "회원 가입을 완료하였습니다. 로그인으로 이동합니다", completion: { response in
-                    if(response == "OK"){
-                        self.navigationController?.popToRootViewController(animated: true)
-                    }
-                })
+            UserLoginServices.shared.signup(signUpRequest: signInRequest)
+                
+            self.alertViewController(title: "회원가입 완료", message: "회원 가입을 완료하였습니다. 로그인으로 이동합니다", completion: { response in
+                if(response == "OK"){
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
             })
+        
         }else {  //else 빈칸이 있으면 입력해주쇼
             self.alertViewController(title: "회원가입 실패", message: "빈칸을 입력해주세요", completion: { (response) in })
         }
@@ -119,7 +120,8 @@ class SignInViewController: UIViewController {
     }
     
     func signInValidCheck() -> Bool{
-        if(IDValidText.isHidden == false && PasswordInValidText.isHidden == true && validpassword(mypassword: PasswordTextfield.text!) == true && authenValidText.isHidden == false){
+        if(IDValidText.isHidden == false && PasswordInValidText.isHidden == true && validpassword(mypassword: PasswordTextfield.text!) == true ){
+            //&& authenValidText.isHidden == false
             return true
         }
         return false

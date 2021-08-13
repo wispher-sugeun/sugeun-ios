@@ -16,6 +16,9 @@ class UserProfileService {
     init(){
         deviceToken = UserDefaults.standard.string(forKey: UserDefaultKey.deviceToken)!
         userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        
+        print("[UserProfileService] deviceToken : \(deviceToken)")
+        print("[UserProfileService] userId : \(userId)")
     }
     
     //get 회원 프로필
@@ -39,7 +42,7 @@ class UserProfileService {
     func updateProfileImage(){
         let url = Config.base_url + "/user/\(userId)"
         let headers: HTTPHeaders = ["Authorization" : deviceToken]
-        //imageFile data 자체를 ?
+        
     }
     
     //아이디 업데이트
@@ -113,18 +116,46 @@ class UserProfileService {
     
     //알림 허용
     func updateAlarmValue(){
-        let url = Config.base_url + "/user/\(userId)/alarm"
-        let headers: HTTPHeaders = ["Authorization" : deviceToken]
-        AF.request(url, method: .patch, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+        
+        let url = Config.base_url + "/api/login"
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "PATCH"
+        
+        //post
+        print("[UserProfileService] 알림 허용하기")
+
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+
+        AF.request(request).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
-                    let responses = obj as! String
-                   print(responses) //알림허용 변경 완료
+                    print("success : \(obj)")
+//                    let responses = obj as! LoginResponse
+                
+                    UserDefaults.standard.setValue("1", forKey: UserDefaultKey.isNewUser)
+                    //completion(responses)
                     break
                 case .failure(let error):
-                    print(error)
+                    print("AF : \(error.localizedDescription)")
             }
         }
+        
+        
+
+//        let headers: HTTPHeaders = ["Authorization" : deviceToken]
+//        AF.request(url, method: .patch, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+//            switch response.result {
+//                case .success(let obj):
+//                    let responses = obj as! String
+//                   print(responses) //알림허용 변경 완료
+//                    break
+//                case .failure(let error):
+//                    print(error)
+//            }
+//        }
         
         
     }

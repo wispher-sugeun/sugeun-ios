@@ -21,22 +21,35 @@ class UserLoginServices {
     static var shared = UserLoginServices()
     
     //회원 가입
-    func signup(signUpRequest : SignUpRequest, completion: @escaping ((String) -> Void)){
+    func signup(signUpRequest : SignUpRequest){
         //post
+        print("[API] 회원가입 하기")
         let url = Config.base_url + "/api/signup"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
-        
-        let formDataString = (signUpRequest.dictionary.compactMap({(key, value) -> String in
-            return "\(key)=\(value)" }) as Array).joined(separator: "&")
-        let formEncodedData = formDataString.data(using: .utf8)
 
-        request.httpBody = formEncodedData
-        AF.request(url, method: .post, encoding: URLEncoding.httpBody).responseJSON { (response) in
+        do {
+            let jsonData = try JSONEncoder().encode(signUpRequest)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            request.httpBody = jsonData
+            // and decode it back
+            let decoded = try JSONDecoder().decode(SignUpRequest.self, from: jsonData)
+            print(decoded)
+        } catch { print(error) }
+
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        AF.request(request).responseJSON { (response) in //->  Json
             switch response.result {
                 case .success(let obj):
-                    let responses = obj as! String
-                    completion(responses) // 회원가입 완료
+                    print(obj)
+                    print(type(of: obj))
+                    let userId = obj as! Int32
+                    //print("response \(userId)")
+                    UserDefaults.standard.setValue(userId, forKey: UserDefaultKey.userID)
+                    UserDefaults.standard.setValue(signUpRequest.phone, forKey: UserDefaultKey.phoneNumber)
+                    UserDefaults.standard.setValue(signUpRequest.nickname, forKey: UserDefaultKey.userNickName)
+                    
                     break
                 case .failure(let error):
                     print(error)
@@ -47,22 +60,28 @@ class UserLoginServices {
     
     //아이디 중복 확인
     func checkIDValid(nickName: String, completion: @escaping ((Bool) -> Void) ){
+        print("[API] post \(nickName) 아이디 중복 확인")
         let url = Config.base_url + "/api/duplicate"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
-        let parameters: [String: Any] = ["nickname": nickName]
-        let formDataString = (parameters.compactMap({(key, value) -> String in
-            return "\(key)=\(value)" }) as Array).joined(separator: "&")
-
-        let formEncodedData = formDataString.data(using: .utf8)
-
-        request.httpBody = formEncodedData
-        AF.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody).responseJSON { (response) in
+        let parameters: Parameters = ["nickname": nickName]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
+        
+//        let formDataString = (parameters.compactMap({(key, value) -> String in
+//            return "\(key)=\(value)" }) as Array).joined(separator: "&")
+//        print(formDataString)
+//        let formEncodedData = formDataString.data(using: .utf8)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        print(url)
+        print(request.httpBody)
+        AF.request(request).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
                     print(obj)
-                    //let responses = obj as! NSDictionary
-                    //completion(responses) // true, false
+                    let responses = obj as! Bool
+                    completion(responses) // true, false
                     break
                 case .failure(let error):
                     print(error)
@@ -72,11 +91,11 @@ class UserLoginServices {
     
     //휴대폰 인증 요청
     func sendMessage(number: String, completion: @escaping ((Int) -> Void) ){
-        print("[API] sms send")
+        print(number)
         let url = Config.base_url + "/api/send-sms"
         let parameters: [String: Any] = ["toNumber": number]
 
-        AF.request(url,method: .get, parameters: parameters).validate().responseJSON { (response) in
+        AF.request(url, method: .get, parameters: parameters).responseJSON { (response) in
             print(response)
             print("[API] sms send")
             switch response.result {
@@ -85,6 +104,7 @@ class UserLoginServices {
                 print(type(of: obj))
                 
                 let responses = obj as! Int
+                print(responses)
                 completion(responses)
                 
             case .failure(let e):
@@ -95,29 +115,41 @@ class UserLoginServices {
     }
     
     //로그인
-    func login(loginUserInfo : LoginRequest, completion: @escaping ((LoginResponse) -> Void) ){
-        let header: HTTPHeaders = [ "Authorization" : deviceToken]
+    func login(loginUserInfo : LoginRequest){
+//        completion: @escaping ((LoginResponse) -> Void)
+        //let header: HTTPHeaders = [ "Authorization" : deviceToken]
         let url = Config.base_url + "/api/login"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
         
-        let formDataString = (loginUserInfo.dictionary.compactMap({(key, value) -> String in
-            return "\(key)=\(value)" }) as Array).joined(separator: "&")
-        let formEncodedData = formDataString.data(using: .utf8)
+        //post
+        print("[API] 로그인 하기")
+        
+        do {
+            let jsonData = try JSONEncoder().encode(loginUserInfo)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            request.httpBody = jsonData
+            // and decode it back
+//            let decoded = try JSONDecoder().decode(LoginRequest.self, from: jsonData)
+//            print(decoded)
+        } catch { print(error) }
+        
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("deviceToken : \(deviceToken)")
 
-        request.httpBody = formEncodedData
-        AF.request(url, method: .post, encoding: URLEncoding.httpBody, headers: header).responseJSON { (response) in
+        AF.request(request).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
-                    let responses = obj as! LoginResponse
-                    UserDefaults.standard.setValue(loginUserInfo.userId, forKey: UserDefaultKey.userID)
+                    print("success : \(obj)")
+//                    let responses = obj as! LoginResponse
+                
                     UserDefaults.standard.setValue("1", forKey: UserDefaultKey.isNewUser)
-                    UserDefaults.standard.setValue(loginUserInfo.phone, forKey: UserDefaultKey.phoneNumber)
-                    UserDefaults.standard.setValue(loginUserInfo.nickname, forKey: UserDefaultKey.userNickName)
-                    completion(responses)
+                    //completion(responses)
                     break
                 case .failure(let error):
-                    print(error)
+                    print("AF : \(error.localizedDescription)")
             }
         }
         
@@ -126,15 +158,30 @@ class UserLoginServices {
     
     //로그 아웃
     func logout(){
-        
+        UserDefaults.standard.setValue("0", forKey: UserDefaultKey.isNewUser)
+        //로그인 화면으로 이동
+        let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
+        guard let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {
+            print("can not find loginNavC")
+            return
+        }
+
+        let rootNC = UINavigationController(rootViewController: loginVC)
+        UIApplication.shared.windows.first?.rootViewController = rootNC
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
     
     func autoLogin(){
         if(UserDefaults.standard.string(forKey: UserDefaultKey.isNewUser) == "1") {
-            //자동 로그인 성공 -> 화면으로 이동
-            let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "VC")
+            //자동 로그인 성공 -> 메인 화면으로 이동
+            guard let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "VC") as? ViewController else {
+                print("can not find mainVC")
+                return
+            }
+          
             let rootNC = UINavigationController(rootViewController: mainVC)
             
+            print(rootNC)
             UIApplication.shared.windows.first?.rootViewController = rootNC
             UIApplication.shared.windows.first?.makeKeyAndVisible()
             
@@ -153,7 +200,8 @@ class UserLoginServices {
 }
 
 struct Config {
-    static var base_url = "http://192.168.35.223:9203"
+    
+    static var base_url = "http://192.168.35.236:9203"
     //static var base_url = "http://172.30.1.34:9203"
 }
 

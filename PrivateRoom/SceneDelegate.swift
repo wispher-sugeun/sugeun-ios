@@ -17,17 +17,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         self.window = UIWindow(windowScene: windowScene)
-        //UserLoginServices.shared.autoLogin()
-        let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
+        if(UserDefaults.standard.string(forKey: UserDefaultKey.isNewUser) == "1") {
+            //자동 로그인 성공 -> 메인 화면으로 이동
+            guard let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "VC") as? ViewController else {
+                print("can not find mainVC")
+                return
+            }
+          
+            let rootNC = UINavigationController(rootViewController: mainVC)
+            
+            print(rootNC)
+        
+            window!.rootViewController = rootNC
+            window!.makeKeyAndVisible()
+            
+        }else {
+            let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
+            guard let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {
+                print("can not find loginNavC")
+                return
+            }
 
-        guard let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {
-            print("can not find loginNavC")
-            return
+            let rootNC = UINavigationController(rootViewController: loginVC)
+            window!.rootViewController = rootNC
+            window!.makeKeyAndVisible()
         }
-
-        let rootNC = UINavigationController(rootViewController: loginVC)
-            self.window?.rootViewController = rootNC
-            self.window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

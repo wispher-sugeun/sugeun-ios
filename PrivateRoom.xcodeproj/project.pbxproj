@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8E003BD7264FB92700CB5802 /* FolderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E003BD5264FB92700CB5802 /* FolderCollectionViewCell.swift */; };
 		8E003BD8264FB92700CB5802 /* FolderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E003BD6264FB92700CB5802 /* FolderCollectionViewCell.xib */; };
+		8E1496C126C39584002090CA /* Timeout.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1496C026C39584002090CA /* Timeout.storyboard */; };
+		8E1496C326C39616002090CA /* ViewNotiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1496C226C39616002090CA /* ViewNotiController.swift */; };
 		8E1D604F26B9063600DF53FE /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1D604E26B9063600DF53FE /* PageViewController.swift */; };
 		8E1D606D26B92BCC00DF53FE /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1D606C26B92BCC00DF53FE /* UserNotifications.framework */; };
 		8E1D606F26B92BCC00DF53FE /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1D606E26B92BCC00DF53FE /* UserNotificationsUI.framework */; };
@@ -64,6 +66,8 @@
 		8EA90B8126C2A57D00469964 /* GetScheduleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B8026C2A57D00469964 /* GetScheduleResponse.swift */; };
 		8EA90B8326C2A6E600469964 /* PostScheduleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B8226C2A6E600469964 /* PostScheduleRequest.swift */; };
 		8EA90B8526C2A8BB00469964 /* EditScheduleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B8426C2A8BB00469964 /* EditScheduleRequest.swift */; };
+		8EB54A6426C605FE009C7F7C /* FolderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A6326C605FE009C7F7C /* FolderService.swift */; };
+		8EB54A6726C60775009C7F7C /* GetFolderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A6626C60775009C7F7C /* GetFolderResponse.swift */; };
 		8ED15EA7269996F1002943C9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA6269996F0002943C9 /* SignInViewController.swift */; };
 		8ED15EA92699D687002943C9 /* FindIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA82699D687002943C9 /* FindIDViewController.swift */; };
 		8ED15EAB2699DB7E002943C9 /* FindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */; };
@@ -120,6 +124,8 @@
 		6FCDA5CC2DDC839482B705BB /* Pods-PrivateRoom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivateRoom.release.xcconfig"; path = "Target Support Files/Pods-PrivateRoom/Pods-PrivateRoom.release.xcconfig"; sourceTree = "<group>"; };
 		8E003BD5264FB92700CB5802 /* FolderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCollectionViewCell.swift; sourceTree = "<group>"; };
 		8E003BD6264FB92700CB5802 /* FolderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FolderCollectionViewCell.xib; sourceTree = "<group>"; };
+		8E1496C026C39584002090CA /* Timeout.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timeout.storyboard; sourceTree = "<group>"; };
+		8E1496C226C39616002090CA /* ViewNotiController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewNotiController.swift; sourceTree = "<group>"; };
 		8E1D604E26B9063600DF53FE /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		8E1D606B26B92BCC00DF53FE /* AlarmPushNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AlarmPushNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E1D606C26B92BCC00DF53FE /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -179,6 +185,8 @@
 		8EA90B8026C2A57D00469964 /* GetScheduleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetScheduleResponse.swift; sourceTree = "<group>"; };
 		8EA90B8226C2A6E600469964 /* PostScheduleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScheduleRequest.swift; sourceTree = "<group>"; };
 		8EA90B8426C2A8BB00469964 /* EditScheduleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduleRequest.swift; sourceTree = "<group>"; };
+		8EB54A6326C605FE009C7F7C /* FolderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderService.swift; sourceTree = "<group>"; };
+		8EB54A6626C60775009C7F7C /* GetFolderResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFolderResponse.swift; sourceTree = "<group>"; };
 		8ED15EA6269996F0002943C9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		8ED15EA82699D687002943C9 /* FindIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDViewController.swift; sourceTree = "<group>"; };
 		8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWViewController.swift; sourceTree = "<group>"; };
@@ -262,6 +270,7 @@
 				8E2B834426A41FFA00AC2570 /* MakeNotiFolderView.xib */,
 				8E2B834626A42DB100AC2570 /* TimeOutCollectionViewCell.swift */,
 				8E2B834726A42DB100AC2570 /* TimeOutCollectionViewCell.xib */,
+				8E1496C226C39616002090CA /* ViewNotiController.swift */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -408,6 +417,14 @@
 			path = Schedule;
 			sourceTree = "<group>";
 		};
+		8EB54A6526C60751009C7F7C /* Folder */ = {
+			isa = PBXGroup;
+			children = (
+				8EB54A6626C60775009C7F7C /* GetFolderResponse.swift */,
+			);
+			path = Folder;
+			sourceTree = "<group>";
+		};
 		8EF00F0B2652BA1E00AA1EEA /* storyBoard */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,6 +433,7 @@
 				8EF00F0E2652BA9700AA1EEA /* Profile.storyboard */,
 				8EF3BFAE268F678D00415150 /* Login.storyboard */,
 				8EA90B7B26C2541800469964 /* Calendar.storyboard */,
+				8E1496C026C39584002090CA /* Timeout.storyboard */,
 			);
 			path = storyBoard;
 			sourceTree = "<group>";
@@ -423,6 +441,7 @@
 		8EF00F1426539C9200AA1EEA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8EB54A6526C60751009C7F7C /* Folder */,
 				8EA90B7F26C2A56F00469964 /* Schedule */,
 				8E5B805E26BD20480030D4B9 /* UserProfile */,
 				8EFFBFBC26BC4F8A007C1868 /* User */,
@@ -468,6 +487,7 @@
 				8EF3BFA4268F61FE00415150 /* UserLoginServices.swift */,
 				8E5B805C26BD1EBC0030D4B9 /* UserProfileService.swift */,
 				8EA90B7D26C2A3CF00469964 /* ScheduleService.swift */,
+				8EB54A6326C605FE009C7F7C /* FolderService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -608,6 +628,7 @@
 				8E2B835D26AD724600AC2570 /* LayoutTableViewCell.xib in Resources */,
 				8E782ADC2647D3AC00D93D89 /* Assets.xcassets in Resources */,
 				8E70C1C92691A581006F1D2C /* IDInputTableViewCell.xib in Resources */,
+				8E1496C126C39584002090CA /* Timeout.storyboard in Resources */,
 				8EA90B7C26C2541800469964 /* Calendar.storyboard in Resources */,
 				8E66D219269F45D300F48C26 /* TitleAddTableViewCell.xib in Resources */,
 				8E782AD72647D3A400D93D89 /* Main.storyboard in Resources */,
@@ -676,6 +697,7 @@
 				8EE69D6A26484B9900ED19B9 /* LinkViewController.swift in Sources */,
 				8E782ADA2647D3A400D93D89 /* PrivateRoom.xcdatamodeld in Sources */,
 				8E2B835126A7E9D800AC2570 /* LinkCollectionViewCell.swift in Sources */,
+				8E1496C326C39616002090CA /* ViewNotiController.swift in Sources */,
 				8E66D218269F45D300F48C26 /* TitleAddTableViewCell.swift in Sources */,
 				8E66D22526A00BD800F48C26 /* AlarmTableViewCell.swift in Sources */,
 				8E66D22826A017C300F48C26 /* MakeAlarmViewController.swift in Sources */,
@@ -695,6 +717,7 @@
 				8EF00F1626539CB300AA1EEA /* Model.swift in Sources */,
 				8E782AD22647D3A400D93D89 /* SceneDelegate.swift in Sources */,
 				8ED94269269D85C700B860BF /* MakeFolder.swift in Sources */,
+				8EB54A6426C605FE009C7F7C /* FolderService.swift in Sources */,
 				8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */,
 				8E2B834E26A7E14600AC2570 /* WriteViewController.swift in Sources */,
 				8E2B835826AD2C8F00AC2570 /* TextCellTableViewCell.swift in Sources */,
@@ -714,6 +737,7 @@
 				8E2B834826A42DB200AC2570 /* TimeOutCollectionViewCell.swift in Sources */,
 				8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */,
 				8E66D207269EDB6800F48C26 /* BookMarkViewController.swift in Sources */,
+				8EB54A6726C60775009C7F7C /* GetFolderResponse.swift in Sources */,
 				8ED15EA92699D687002943C9 /* FindIDViewController.swift in Sources */,
 				8ED15EA7269996F1002943C9 /* SignInViewController.swift in Sources */,
 				8E66D211269EE94B00F48C26 /* DateUtil.swift in Sources */,

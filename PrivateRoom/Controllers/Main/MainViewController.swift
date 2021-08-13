@@ -130,6 +130,8 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
         
         flowSetting()
+        
+        //FolderService.shared.getFolder()
     }
     
     func flowSetting(){

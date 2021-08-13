@@ -42,7 +42,8 @@ extension AlarmViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func switchTriggered(sender: UISwitch) {
-        sender.isOn ? UserDefaults.standard.setValue(true, forKey: "SwitchisOn") : UserDefaults.standard.setValue(false, forKey: "SwitchisOn")
+        sender.isOn ? UserDefaults.standard.setValue(true, forKey: UserDefaultKey.switchIsOn) : UserDefaults.standard.setValue(false, forKey: UserDefaultKey.switchIsOn)
+        UserProfileService.shared.updateAlarmValue()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

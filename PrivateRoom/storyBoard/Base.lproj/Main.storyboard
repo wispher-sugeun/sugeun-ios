@@ -123,7 +123,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S16-9L-1hT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3367" y="-597"/>
+            <point key="canvasLocation" x="3345" y="57"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="kuL-x8-Z0w">
@@ -788,84 +788,6 @@
             </objects>
             <point key="canvasLocation" x="4055.0724637681164" y="56.919642857142854"/>
         </scene>
-        <!--Noti View Controller-->
-        <scene sceneID="UdE-pa-V4G">
-            <objects>
-                <viewController storyboardIdentifier="noti" id="9Wx-a2-rT0" customClass="NotiViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qDZ-w7-nEC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="     보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="1QO-F7-t1p">
-                                <rect key="frame" x="20" y="64" width="374" height="60"/>
-                                <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="a7N-z1-3ah"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hGL-rm-LCY">
-                                <rect key="frame" x="0.0" y="134" width="414" height="728"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="M1m-Wi-ZKC">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="50" height="50"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="g0S-jB-HB8">
-                                        <rect key="frame" x="0.0" y="50" width="128" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="lD9-Yb-qSo">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="headerView" id="cpJ-gI-gvJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
-                                </collectionReusableView>
-                            </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bGB-EU-BV3">
-                                <rect key="frame" x="314" y="742.5" width="60" height="59"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="Xok-ZU-NP2"/>
-                                    <constraint firstAttribute="height" constant="60" id="oiN-xP-QG4"/>
-                                </constraints>
-                                <color key="tintColor" red="0.34372755890000001" green="0.37692308429999999" blue="0.51766455170000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" backgroundImage="plus.circle.fill" catalog="system"/>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="0Ql-Sq-HPm"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="1QO-F7-t1p" firstAttribute="top" secondItem="0Ql-Sq-HPm" secondAttribute="top" constant="20" id="B8f-09-HLX"/>
-                            <constraint firstItem="0Ql-Sq-HPm" firstAttribute="bottom" secondItem="hGL-rm-LCY" secondAttribute="bottom" id="ESY-FR-unR"/>
-                            <constraint firstItem="0Ql-Sq-HPm" firstAttribute="trailing" secondItem="bGB-EU-BV3" secondAttribute="trailing" constant="40" id="Hzy-iV-jJb"/>
-                            <constraint firstItem="hGL-rm-LCY" firstAttribute="top" secondItem="1QO-F7-t1p" secondAttribute="bottom" constant="10" id="KdG-n4-Y8m"/>
-                            <constraint firstItem="hGL-rm-LCY" firstAttribute="leading" secondItem="0Ql-Sq-HPm" secondAttribute="leading" id="R2k-k5-KvY"/>
-                            <constraint firstItem="0Ql-Sq-HPm" firstAttribute="trailing" secondItem="1QO-F7-t1p" secondAttribute="trailing" constant="20" id="of2-cR-dwR"/>
-                            <constraint firstItem="1QO-F7-t1p" firstAttribute="leading" secondItem="0Ql-Sq-HPm" secondAttribute="leading" constant="20" id="vNb-ai-Jh1"/>
-                            <constraint firstItem="0Ql-Sq-HPm" firstAttribute="bottom" secondItem="bGB-EU-BV3" secondAttribute="bottom" constant="60" id="vbo-BM-5TF"/>
-                            <constraint firstItem="0Ql-Sq-HPm" firstAttribute="trailing" secondItem="hGL-rm-LCY" secondAttribute="trailing" id="vr6-mJ-nM2"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="collectionView" destination="hGL-rm-LCY" id="ve3-VO-iVd"/>
-                        <outlet property="collectionViewLayout" destination="M1m-Wi-ZKC" id="sNl-mT-6RS"/>
-                        <outlet property="floatingButton" destination="bGB-EU-BV3" id="j3Z-wH-02L"/>
-                        <outlet property="searchTextField" destination="1QO-F7-t1p" id="HpA-0u-G8f"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ctW-Ql-XWV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4784" y="71"/>
-        </scene>
         <!--Calendar View Controller-->
         <scene sceneID="sVC-2w-IqX">
             <objects>
@@ -1389,38 +1311,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GqX-tv-Tyt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="9466.6666666666679" y="70.982142857142847"/>
-        </scene>
-        <!--Make Noti Folder View Controller-->
-        <scene sceneID="tpI-bV-etl">
-            <objects>
-                <viewController storyboardIdentifier="MakeNotiFolderViewController" id="EDO-NA-pzc" customClass="MakeNotiFolderViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="EQa-sZ-VKc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WHu-ee-Obn" customClass="MakeNotiFolderView" customModule="PrivateRoom" customModuleProvider="target">
-                                <rect key="frame" x="55" y="124" width="304" height="648"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="I6c-Ba-Lih"/>
-                        <color key="backgroundColor" red="0.92941176470588238" green="0.92941176470588238" blue="0.92941176470588238" alpha="0.81000000000000005" colorSpace="custom" customColorSpace="displayP3"/>
-                        <constraints>
-                            <constraint firstItem="WHu-ee-Obn" firstAttribute="top" secondItem="I6c-Ba-Lih" secondAttribute="top" constant="80" id="0YR-dP-CoU"/>
-                            <constraint firstItem="WHu-ee-Obn" firstAttribute="leading" secondItem="I6c-Ba-Lih" secondAttribute="leading" constant="55" id="2AH-FZ-wp5"/>
-                            <constraint firstItem="I6c-Ba-Lih" firstAttribute="bottom" secondItem="WHu-ee-Obn" secondAttribute="bottom" constant="90" id="KJ1-CS-gUO"/>
-                            <constraint firstItem="I6c-Ba-Lih" firstAttribute="trailing" secondItem="WHu-ee-Obn" secondAttribute="trailing" constant="55" id="XSZ-Am-GXb"/>
-                            <constraint firstItem="WHu-ee-Obn" firstAttribute="centerX" secondItem="EQa-sZ-VKc" secondAttribute="centerX" id="rga-r3-2g2"/>
-                            <constraint firstItem="WHu-ee-Obn" firstAttribute="centerY" secondItem="EQa-sZ-VKc" secondAttribute="centerY" id="vsd-5h-Z7T"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="makeNotiFolderView" destination="WHu-ee-Obn" id="csY-KX-CNt"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GZe-wn-2Mp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5494" y="71"/>
         </scene>
     </scenes>
     <resources>

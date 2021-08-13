@@ -70,7 +70,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "main") as MainViewController
             let textVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "text") as TextViewController
             let linkVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "link") as LinkViewController
-            let notiVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "noti") as NotiViewController
+            let notiVC = UIStoryboard.init(name: "Timeout", bundle: nil).instantiateViewController(identifier: "noti") as NotiViewController
             let calendarVC = UIStoryboard.init(name: "Calendar", bundle: nil).instantiateViewController(identifier: "calendar") as CalendarViewController
     
         ViewControllers.append(mainVC)
