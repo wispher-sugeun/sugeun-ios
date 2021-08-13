@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol FolderCollectionViewCellDelegate: AnyObject {
     

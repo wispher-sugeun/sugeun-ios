@@ -7,12 +7,19 @@
 
 import Foundation
 
-struct GetFolderResponse:Codable {
-    private var folderId: Int
+struct GetFolderResponse: Codable {
+    var folderId: Int?
 
-    private var folderName: String
+    var folderName: String?
 
-    private var userId: Int
+    var userId: Int?
 
-    private var imageData: Data
+    var imageData: Data?
+    
+    init(folderId: Int, folderName: String, userId: Int, imageData: Data){
+        self.folderId = folderId
+        self.folderName = folderName
+        self.userId = userId
+        self.imageData = imageData
+    }
 }

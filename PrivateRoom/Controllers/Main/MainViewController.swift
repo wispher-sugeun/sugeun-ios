@@ -14,7 +14,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     var sortingText = "이름 순"
     
     private var mainViewModels = [FolderViewModel]()
-    var folders = [Folder]()
+    var folders = [GetFolderResponse]()
     var filteredFolder = [FolderViewModel]()
     
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout! {
@@ -109,16 +109,24 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
-        folders.append(Folder(folderId: 0, folderName: "abc", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderId: 1, folderName: "def", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderId: 2, folderName: "efg", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderId: 3, folderName: "가나다", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderId: 4, folderName: "나라마", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderId: 5, folderName: "아자차", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderId: 6, folderName: "카타하", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderId: 7, folderName: "123하이", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        folders.append(Folder(folderId: 8, folderName: "하이123", folderImage: UIImage(systemName: "person.fill"), isLike: true)) // 가장
+        
+        FolderService.shared.getFolder(completion: { (response) in
+            self.folders = response
+        })
+        
         self.mainViewModels = folders.map({ return FolderViewModel(allFolder: $0)})
+        filteredFolder = mainViewModels
+        
+//        folders.append(Folder(folderId: 0, folderName: "abc", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+//        folders.append(Folder(folderId: 1, folderName: "def", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+//        folders.append(Folder(folderId: 2, folderName: "efg", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+//        folders.append(Folder(folderId: 3, folderName: "가나다", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+//        folders.append(Folder(folderId: 4, folderName: "나라마", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+//        folders.append(Folder(folderId: 5, folderName: "아자차", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+//        folders.append(Folder(folderId: 6, folderName: "카타하", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+//        folders.append(Folder(folderId: 7, folderName: "123하이", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+//        folders.append(Folder(folderId: 8, folderName: "하이123", folderImage: UIImage(systemName: "person.fill"), isLike: true)) // 가장
+        
         filteredFolder = mainViewModels
         
         collectionViewSetting(collectionView: folderCollectionView)
@@ -131,7 +139,6 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         
         flowSetting()
         
-        //FolderService.shared.getFolder()
     }
     
     func flowSetting(){
@@ -150,8 +157,8 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         print(notification.userInfo ?? "")
         print("folderImageChanged")
         if let dict = notification.userInfo as NSDictionary? {
-            if let folderImage = dict["image"] as? UIImage{
-                filteredFolder[selectedCellIndexPath[1]].image = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
+            if let folderImage = dict["image"] as? UIImage {
+//                filteredFolder[selectedCellIndexPath[1]].imageData = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
                     
                 DispatchQueue.main.async {
                     self.folderCollectionView.reloadData()
@@ -507,19 +514,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     //sorting
     func sortingAlpanumeric(){
-        mainViewModels = mainViewModels.sorted {$0.name.localizedStandardCompare($1.name) == .orderedAscending}
+        mainViewModels = mainViewModels.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
         filteredFolder = mainViewModels
         folderCollectionView.reloadData()
     }
     
     func sortingOldest(){
-        mainViewModels = mainViewModels.sorted { $0.id < $1.id }
+        mainViewModels = mainViewModels.sorted { $0.folderId < $1.folderId }
         filteredFolder = mainViewModels
         folderCollectionView.reloadData()
     }
     
     func sortingLatest(){
-        mainViewModels = mainViewModels.sorted { $0.id > $1.id }
+        mainViewModels = mainViewModels.sorted { $0.folderId > $1.folderId }
         filteredFolder = mainViewModels
         folderCollectionView.reloadData()
     }
@@ -538,7 +545,7 @@ extension MainViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
         let searchText = textField.text! + string
         if searchText.count >= 2{
             filteredFolder = mainViewModels.filter({ (result) -> Bool in
-                result.name.range(of: searchText, options: .caseInsensitive) != nil
+                result.folderName.range(of: searchText, options: .caseInsensitive) != nil
             })
         }else {
             filteredFolder = mainViewModels
@@ -565,7 +572,7 @@ extension MainViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
         if textField.text?.count != 0 {
             self.filteredFolder.removeAll()
             for i in mainViewModels {
-                let name = i.name.lowercased()
+                let name = i.folderName.lowercased()
                 let range = name.range(of: textField.text!, options: .caseInsensitive, range: nil, locale: nil)
                 if range != nil {
                     self.filteredFolder.append(i)
@@ -621,8 +628,8 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
             FolderService.shared.createFolder(folder: folderInfo)
             self.dismiss(animated: true, completion: nil)
             
+            
         } catch {
-            print(error)
             var errorMessage: String = ""
             switch error as! MakeFolderError {
             case .folderNameCount:

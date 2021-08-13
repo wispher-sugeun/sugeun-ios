@@ -19,8 +19,8 @@ class FolderService {
         deviceToken = UserDefaults.standard.string(forKey: UserDefaultKey.deviceToken)!
     }
     
-    //폴더 조회
-    func getFolder(){
+    //폴더 목록
+    func getFolder(completion: @escaping ([GetFolderResponse]) -> (Void)){
         let url = Config.base_url + "/users/\(userId)/folders"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -34,12 +34,54 @@ class FolderService {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
 
+        AF.request(request).responseJSON(completionHandler: { (response) in
+            switch response.result {
+                case .success(let obj):
+                    do {
+                        
+                        let dataJSON = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
+                        
+                        let postData = try JSONDecoder().decode([GetFolderResponse].self, from: dataJSON)
+                        print(postData)
+                        
+                        completion(postData)
+                    }catch let DecodingError.dataCorrupted(context) {
+                        print(context)
+                    } catch let DecodingError.keyNotFound(key, context) {
+                        print("Key '\(key)' not found:", context.debugDescription)
+                        print("codingPath:", context.codingPath)
+                    } catch let DecodingError.valueNotFound(value, context) {
+                        print("Value '\(value)' not found:", context.debugDescription)
+                        print("codingPath:", context.codingPath)
+                    } catch let DecodingError.typeMismatch(type, context)  {
+                        print("Type '\(type)' mismatch:", context.debugDescription)
+                        print("codingPath:", context.codingPath)
+                    } catch {
+                        print("error: ", error)
+                    }
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        })
+    }
+    
+    //타입 별 폴더 조회 PHRASE
+    func phraseFolder(){
+        let url = Config.base_url + "/users/\(userId)/folders?type=PHRASE"
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "GET"
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        print("[FolderService] PHRASE 폴더 조회하기")
         AF.request(request).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
-                    print(obj)
-                    //let responses = obj as! GetFolderResponse
-                    //print(responses)
+                    print("success : \(obj)")
+                    let responses = obj as! GetByFolderResponse
+                    print(responses)
                     
                     //completion(responses)
                     break
@@ -49,35 +91,39 @@ class FolderService {
         }
     }
     
-    //타입 별 폴더 조회
-    func tyoeFolder(){
+    //타입 별 폴더 조회 LINK
+    func linkFolder(){
+        let url = Config.base_url + "/users/\(userId)/folders?type=LINK"
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "GET"
         
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        print("[FolderService] LINK 폴더 조회하기")
+        AF.request(request).responseJSON { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)")
+                    let responses = obj as! GetByFolderResponse
+                    print(responses)
+                    
+                    //completion(responses)
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
     }
     
-    //폴더 생성
+    //폴더 생성 o
     func createFolder(folder: CreateFolderRequest){
         let url = Config.base_url + "/users/\(userId)/folders"
         
-//        var request = URLRequest(url: URL(string: url)!)
-//        request.httpMethod = "POST"
-//
-//
-//
-//        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
-//        request.addValue("\(userId)", forHTTPHeaderField: "userId")
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-//        if(folder.parentFolderId == 0){
-//
-//        }else{
-//
-//        }
-        
         let headers: HTTPHeaders = [
-            //"Content-Type" : "application/json",
             "userId" : "\(userId)",
             "Authorization" : deviceToken
-            //"Content-type": "multipart/form-data"
         ]
         
         let parameter: Parameters
@@ -116,10 +162,6 @@ class FolderService {
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
-//                    let responses = obj as! LoginResponse
-                
-                    UserDefaults.standard.setValue("1", forKey: UserDefaultKey.isNewUser)
-                    //completion(responses)
                     break
                 case .failure(let error):
                     print("AF : \(error.localizedDescription)")
@@ -130,18 +172,112 @@ class FolderService {
         
     }
     
-    //폴더 조회
-    func viewFolder(){
+    //폴더 id로 조회
+    func viewFolder(folderId: Int){
+        let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "GET"
+        
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        print("[FolderService] 폴더 id \(folderId)로 조회하기")
+        AF.request(request).responseJSON { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)")
+//                    let responses = obj as! DetailFolderResponse
+//                    print(responses)
+                    
+                    //completion(responses)
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
     }
     
     //폴더 이미지 변경
-    func changeFolderImage(){
+    func changeFolderImage(folderId: Int, changeImage: Data){
+        let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "PATCH"
         
+        //post
+        print("[UserProfileService] 폴더 \(folderId) 이미지 변경하기")
+        
+        let headers: HTTPHeaders = [
+            "userId" : "\(userId)",
+            "Authorization" : deviceToken
+        ]
+        
+        //let parameter: Parameters = [ "imgFile" : changeImage]
+        
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            print("[FolderService] 폴더 이미지 변경하기")
+
+        
+            var fileName = "\(changeImage).jpg"
+            fileName = fileName.replacingOccurrences(of: " ", with: "_")
+            print(fileName)
+            multipartFormData.append(changeImage, withName: "images", fileName: fileName, mimeType: "image/jpg")
+
+        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate().responseString { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)")
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
+
+//        AF.request(request).responseString { (response) in
+//            switch response.result {
+//                case .success(let obj):
+//                    print("success : \(obj)")
+////                    let responses = obj as! LoginResponse
+//
+//                    UserDefaults.standard.setValue("1", forKey: UserDefaultKey.isNewUser)
+//                    //completion(responses)
+//                    break
+//                case .failure(let error):
+//                    print("AF : \(error.localizedDescription)")
+//            }
     }
     
     //폴더 이름 변경
-    func changeFolderName(){
+    func changeFolderName(folderId: Int, changeName: String){
+        let url = Config.base_url + "/users/(user-id)/folders/\(folderId)"
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "PATCH"
+        
+        let parameters: Parameters = ["folderName": changeName]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
+
+        request.httpBody = jsonData
+        //post
+        print("[UserProfileService] \(folderId) 폴더 이름 변경하기")
+
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+
+        AF.request(request).responseString { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)")
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
         
     }
     

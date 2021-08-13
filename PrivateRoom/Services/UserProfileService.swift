@@ -143,21 +143,6 @@ class UserProfileService {
             }
         }
         
-        
-
-//        let headers: HTTPHeaders = ["Authorization" : deviceToken]
-//        AF.request(url, method: .patch, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
-//            switch response.result {
-//                case .success(let obj):
-//                    let responses = obj as! String
-//                   print(responses) //알림허용 변경 완료
-//                    break
-//                case .failure(let error):
-//                    print(error)
-//            }
-//        }
-        
-        
     }
     
     //북마크 조회

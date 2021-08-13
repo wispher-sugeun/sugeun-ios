@@ -7,19 +7,26 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 struct FolderViewModel {
-    let id: Int
-    var name: String
-    var image: UIImage
-    var like: Bool
+    
+    var folderId: Int
+
+    var folderName: String
+
+    var userId: Int
+
+    var imageData: Data
+    
+    
     
     //dependency injection(DI)
-    init(allFolder: Folder){
+    init(allFolder: GetFolderResponse){
         // 이 안에 계산된 로직을 넣는다
-        self.id = allFolder.folderId
-        self.name = allFolder.folderName
-        self.image = allFolder.folderImage!
-        self.like = allFolder.isLike
+        self.folderId = allFolder.folderId ?? 0
+        self.folderName = allFolder.folderName ?? ""
+        self.userId = allFolder.userId ?? 0
+        self.imageData = allFolder.imageData ?? Data()
     }
 }
