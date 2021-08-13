@@ -8,8 +8,7 @@
 import Foundation
 
 
-struct CreateFolderRequest {
-    var folderId: Int
+struct CreateFolderRequest: Codable {
 
     var folderName: String
 
@@ -20,4 +19,21 @@ struct CreateFolderRequest {
     var parentFolderId: Int
 
     var imageFile: Data
+}
+
+struct CreateFolderRequestNull: Codable {
+
+    var folderName: String
+
+    var userId: Int
+
+    var type: String
+}
+
+struct CreateFolderRequestParameter: Codable {
+    var folderName: String
+
+    var userId: Int
+
+    var type: String
 }

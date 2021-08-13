@@ -58,36 +58,74 @@ class FolderService {
     func createFolder(folder: CreateFolderRequest){
         let url = Config.base_url + "/users/\(userId)/folders"
         
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "POST"
+//        var request = URLRequest(url: URL(string: url)!)
+//        request.httpMethod = "POST"
+//
+//
+//
+//        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+//        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
+//        if(folder.parentFolderId == 0){
+//
+//        }else{
+//
+//        }
         
-        print("[FolderService] 폴더 생성하기")
+        let headers: HTTPHeaders = [
+            //"Content-Type" : "application/json",
+            "userId" : "\(userId)",
+            "Authorization" : deviceToken
+            //"Content-type": "multipart/form-data"
+        ]
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let parameter: Parameters
         
-        do {
-            let jsonData = try JSONEncoder().encode(folder)
-            let jsonString = String(data: jsonData, encoding: .utf8)!
-            print(jsonString)
-            request.httpBody = jsonData
-            // and decode it back
-//            let decoded = try JSONDecoder().decode(LoginRequest.self, from: jsonData)
-//            print(decoded)
-        } catch { print(error) }
+        if(folder.parentFolderId == 0){
+            parameter = CreateFolderRequestNull(folderName: folder.folderName, userId: folder.userId, type: folder.type).dictionary
+        }else {
+            parameter = CreateFolderRequestParameter(folderName: folder.folderName, userId: folder.userId, type: folder.type).dictionary
+        }
+    
         
-        AF.request(request).responseJSON { (response) in
+        AF.upload(multipartFormData: { multipartFormData in
+            print("[FolderService] 폴더 생성하기")
+
+        
+            var fileName = "\(folder.imageFile).jpg"
+            fileName = fileName.replacingOccurrences(of: " ", with: "_")
+            print(fileName)
+            multipartFormData.append(folder.imageFile, withName: "images", fileName: fileName, mimeType: "image/jpg")
+        
+            for (key, value) in parameter {
+                if let temp = value as? Int {
+                    multipartFormData.append("\(temp)".data(using: .utf8)!, withName: key)
+                    print(temp)
+                }
+
+                if let temp = value as? String {
+                    multipartFormData.append(temp.data(using: .utf8)!, withName: key)
+                    print(temp)
+               }
+
+            }
+
+
+        }, to: url, usingThreshold: UInt64.init(), method: .post, headers: headers).validate().responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
-
+//                    let responses = obj as! LoginResponse
+                
+                    UserDefaults.standard.setValue("1", forKey: UserDefaultKey.isNewUser)
+                    //completion(responses)
                     break
                 case .failure(let error):
                     print("AF : \(error.localizedDescription)")
             }
         }
+       
         
         
     }

@@ -606,9 +606,20 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
             guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else {
                 print("can't find userID")
             }
-            //create folder 
-            let folderInfo = CreateFolderRequest(folderId: 0, folderName: folderView.folderNameTextField.text!, userId: userId, type: folderView.folderTypeButton.currentTitle!, parentFolderId: 0, imageFile: (folderView.folderImage.image?.jpeg(.lowest))!)
+            //create folder
+            var type: String = ""
+            
+            if(folderView.folderTypeButton.currentTitle! == "텍스트"){
+                type = "PHRASE"
+            }else if(folderView.folderTypeButton.currentTitle! == "링크"){
+                type = "LINK"
+            }
+            
+            print("type : \(type)")
+            
+            let folderInfo = CreateFolderRequest(folderName: folderView.folderNameTextField.text!, userId: userId, type: type, parentFolderId: 0, imageFile: (folderView.folderImage.image?.jpeg(.lowest))!)
             FolderService.shared.createFolder(folder: folderInfo)
+            self.dismiss(animated: true, completion: nil)
             
         } catch {
             print(error)
@@ -626,14 +637,16 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
                 print("error occured")
             }
             
-            self.alertViewController(title: "생성 실패", message: errorMessage, completion: { (response) in})
+            self.alertViewController(title: "생성 실패", message: errorMessage, completion: { (response) in
+                
+            })
         }
         
-        self.dismiss(animated: true, completion: nil)
+       
     }
     
     func checkingNameValidating() throws {
-        guard (folderView.folderNameTextField.text!.count > 7) else {
+        guard (folderView.folderNameTextField.text!.count < 7) else {
             throw MakeFolderError.folderNameCount
         }
     }

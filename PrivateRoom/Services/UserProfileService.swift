@@ -117,7 +117,7 @@ class UserProfileService {
     //알림 허용
     func updateAlarmValue(){
         
-        let url = Config.base_url + "/api/login"
+        let url = Config.base_url + "/users/\(userId)/alarm"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PATCH"
         
@@ -129,7 +129,7 @@ class UserProfileService {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
 
-        AF.request(request).responseJSON { (response) in
+        AF.request(request).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
