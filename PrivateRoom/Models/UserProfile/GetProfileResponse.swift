@@ -12,5 +12,5 @@ struct GetProfileResponse: Codable {
     var nickname: String
     var phone: String
     var alarm: Bool
-    var imageData: Data // data
+    var imageData: Data? // data
 }

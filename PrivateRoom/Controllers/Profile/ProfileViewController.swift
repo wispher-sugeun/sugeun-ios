@@ -32,13 +32,12 @@ class ProfileViewController: UIViewController {
         super.viewWillAppear(true)
         UserProfileService.shared.getUserProfile(completion: { (response) in
             self.userProfile = response
-            print(self.userProfile)
-            if(!(self.userProfile?.imageData != nil)){
-                self.profileImage.image = UIImage(data: self.userProfile!.imageData)
+            //print(self.userProfile?.imageData != nil)
+            if(self.userProfile?.imageData != nil){
+                self.profileImage.image = UIImage(data: self.userProfile!.imageData!)
             }
             
-            if(!(self.userProfile?.nickname.isEmpty)!){
-                
+            if((self.userProfile?.nickname != "")){
                 self.profileName.text = self.userProfile?.nickname
             }
         })

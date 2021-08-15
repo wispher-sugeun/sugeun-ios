@@ -22,7 +22,7 @@ class UserProfileService {
     }
     
     //get 회원 프로필
-    func getUserProfile(completion: @escaping ((GetProfileResponse) -> Void)){
+    func getUserProfile(completion: @escaping ((GetProfileResponse?) -> Void)){
         let url = Config.base_url + "/users/\(userId)"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
@@ -48,7 +48,7 @@ class UserProfileService {
                         //dictionary type to json object
                         let json = try JSONSerialization.data(withJSONObject: responses)
 
-                        let response = try JSONDecoder().decode(GetProfileResponse.self, from: json)
+                        let response = try JSONDecoder().decode(GetProfileResponse?.self, from: json)
                         completion(response)  // userResDTO
                     }catch {
                         print(error)
