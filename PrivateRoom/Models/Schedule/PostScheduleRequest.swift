@@ -8,15 +8,15 @@
 import Foundation
 
 struct PostScheduleRequest: Codable {
-    private var scheduleId:Int
+    //var scheduleId:Int
 
-    private var userId:Int
+    var userId:Int
 
-    private var title: String
+    var title: String
 
-    private var selected: Int
+    var selected: [Int]
 
-    private var scheduleDate: String
+    var scheduleDate: String
     
 }
 

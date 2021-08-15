@@ -20,7 +20,7 @@ class UserLoginServices {
     //user에 대한 데이터 받아 올 것
     static var shared = UserLoginServices()
     
-    //회원 가입
+    //회원 가입 0
     func signup(signUpRequest : SignUpRequest){
         //post
         print("[API] 회원가입 하기")
@@ -58,7 +58,7 @@ class UserLoginServices {
         
     }
     
-    //아이디 중복 확인
+    //아이디 중복 확인 0
     func checkIDValid(nickName: String, completion: @escaping ((Bool) -> Void) ){
         print("[API] post \(nickName) 아이디 중복 확인")
         let url = Config.base_url + "/api/duplicate"
@@ -67,11 +67,7 @@ class UserLoginServices {
         let parameters: Parameters = ["nickname": nickName]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
-        
-//        let formDataString = (parameters.compactMap({(key, value) -> String in
-//            return "\(key)=\(value)" }) as Array).joined(separator: "&")
-//        print(formDataString)
-//        let formEncodedData = formDataString.data(using: .utf8)
+
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
         print(url)
@@ -89,7 +85,7 @@ class UserLoginServices {
         }
     }
     
-    //휴대폰 인증 요청
+    //휴대폰 인증 요청 0
     func sendMessage(number: String, completion: @escaping ((Int) -> Void) ){
         print(number)
         let url = Config.base_url + "/api/send-sms"
@@ -114,7 +110,7 @@ class UserLoginServices {
         
     }
     
-    //로그인
+    //로그인 0
     func login(loginUserInfo : LoginRequest){
 //        completion: @escaping ((LoginResponse) -> Void)
         //let header: HTTPHeaders = [ "Authorization" : deviceToken]
@@ -146,6 +142,8 @@ class UserLoginServices {
 //                    let responses = obj as! LoginResponse
                 
                     UserDefaults.standard.setValue("1", forKey: UserDefaultKey.isNewUser)
+                    UserDefaults.standard.setValue(loginUserInfo.nickname, forKey: UserDefaultKey.userNickName)
+                    UserDefaults.standard.setValue(3, forKey: UserDefaultKey.userID)
                     //completion(responses)
                     break
                 case .failure(let error):
@@ -156,9 +154,13 @@ class UserLoginServices {
         
     }
     
-    //로그 아웃
+    //로그 아웃 0
     func logout(){
-        UserDefaults.standard.setValue("0", forKey: UserDefaultKey.isNewUser)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.phoneNumber)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.userID)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.userEmail)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.userNickName)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.isNewUser)
         //로그인 화면으로 이동
         let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
         guard let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {

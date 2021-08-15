@@ -16,7 +16,7 @@ class MakeAlarmViewController: UIViewController {
     }
     
     
-    var alarmRange = ["선택하지 않음", "일주일 전", "6일 전", "5일 전", "4일 전", "3일 전", "2일 전", "하루 전"]
+    var alarmRange = ["선택하지 않음", "하루 전", "2일 전", "3일 전", "4일 전", "5일 전", "6일 전", "일주일 전" ]
     var selectedIndex:[Int] = []
     
     func selectedAlarm(selectedIndex: [Int]) -> String {
@@ -48,7 +48,9 @@ class MakeAlarmViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
                 let previousVC = self.navigationController?.viewControllers.last as! AddCalendarViewController
                 previousVC.selectedString = ""
+                previousVC.selectedIndex = []
                 previousVC.isSelectedIndex = true
+                
             }
             else if indexPaths.count == 0 {
                 let alertVC = UIAlertController(title: "알람 선택", message: "알람을 하나 이상 선택해주세요", preferredStyle: .alert)
@@ -64,16 +66,8 @@ class MakeAlarmViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
                 let previousVC = self.navigationController?.viewControllers.last as! AddCalendarViewController
                 previousVC.selectedString = selectedAlarm(selectedIndex: selectedIndex)
+                previousVC.selectedIndex = selectedIndex
                 previousVC.isSelectedIndex = true
-               
-                //addCalendarVC.tableView.reloadRows(at: [[0, 3]], with: .fade)
-                //self.dismiss(animated: true, completion: nil)
-                
-                
-//                addCalendarVC.selectedIndex = selectedIndex
-//                addCalendarVC.titleTextField.text = UserDefaults.standard.string(forKey: "titleTextField")
-//                self.present(addCalendarVC, animated: true, completion: nil)
-               // self.dismiss(animated: true, completion: nil)
             }
         }else{
             let alertVC = UIAlertController(title: "알람 선택", message: "알람을 하나 이상 선택해주세요", preferredStyle: .alert)

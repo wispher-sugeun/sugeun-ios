@@ -8,9 +8,9 @@
 import Foundation
 
 struct GetProfileResponse: Codable {
-    private var userId: Int
-    private var nickname: String
-    private var phone: String
-    private var alarm: Bool
-    private var imageData: String // data
+    var userId: Int
+    var nickname: String
+    var phone: String
+    var alarm: Bool
+    var imageData: Data // data
 }

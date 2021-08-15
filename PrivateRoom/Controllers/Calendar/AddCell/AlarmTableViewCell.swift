@@ -9,6 +9,7 @@ import UIKit
 protocol AlarmTableViewCellDelegate {
     func selected(cell: AlarmTableViewCell)
 }
+
 class AlarmTableViewCell: UITableViewCell {
     static let identifier = "AlarmTableViewCell"
     @IBOutlet weak var setLabelText: UILabel!

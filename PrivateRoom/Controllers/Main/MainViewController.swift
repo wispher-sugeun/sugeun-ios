@@ -110,9 +110,9 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         screenWidth = screenSize.width
         screenHeight = screenSize.height
         
-        FolderService.shared.getFolder(completion: { (response) in
-            self.folders = response
-        })
+//        FolderService.shared.getFolder(completion: { (response) in
+//            self.folders = response
+//        })
         
         self.mainViewModels = folders.map({ return FolderViewModel(allFolder: $0)})
         filteredFolder = mainViewModels

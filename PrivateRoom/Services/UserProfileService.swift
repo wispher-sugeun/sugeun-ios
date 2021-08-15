@@ -23,14 +23,38 @@ class UserProfileService {
     
     //get 회원 프로필
     func getUserProfile(completion: @escaping ((GetProfileResponse) -> Void)){
-        let headers: HTTPHeaders = ["Authorization" : deviceToken]
-        let url = Config.base_url + "/user/\(userId)"
-        AF.request(url, method: .get, headers: headers).validate(statusCode: 200...500).responseJSON {
+        let url = Config.base_url + "/users/\(userId)"
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "GET"
+        
+        
+        
+        
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+
+        
+        AF.request(request).responseJSON { [self]
             (response) in
+            print("[UserProfileService] get \(userId) 회원 프로필")
             switch response.result {
+            
                 case .success(let obj):
-                    let responses = obj as! GetProfileResponse
-                    completion(responses)  // userResDTO
+                    //print(obj)
+                    let responses = obj as! NSDictionary
+                    do {
+                        //dictionary type to json object
+                        let json = try JSONSerialization.data(withJSONObject: responses)
+
+                        let response = try JSONDecoder().decode(GetProfileResponse.self, from: json)
+                        completion(response)  // userResDTO
+                    }catch {
+                        print(error)
+                    }
+                    
+                    
                     break
                 case .failure(let error):
                     print(error)
@@ -161,3 +185,4 @@ class UserProfileService {
         }
     }
 }
+

@@ -21,7 +21,7 @@ class ScheduleService {
     
     //스케쥴 조회 o
     func getSchedule(completion: @escaping (([GetScheduleResponse]) -> Void)){
-        let url = Config.base_url + "user/\(userId)/schedules"
+        let url = Config.base_url + "/users/\(userId)/schedules"
         let headers: HTTPHeaders = ["Authorization" : deviceToken]
         AF.request(url, method: .get, headers: headers).validate(statusCode: 200...500).responseJSON {
             (response) in
@@ -37,28 +37,56 @@ class ScheduleService {
     }
     
     
-    //스케쥴 생성
+    //스케쥴 생성 o
     func createSchedule(schedule: PostScheduleRequest){
-        let url = Config.base_url + "user/\(userId)/schedules"
+        let url = Config.base_url + "/users/\(userId)/schedules"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
-        let parameter: Parameters = schedule.dictionary
-        let formDataString = (schedule.dictionary.compactMap({(key, value) -> String in
-            return "\(key)=\(value)" }) as Array).joined(separator: "&")
-        let formEncodedData = formDataString.data(using: .utf8)
+
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let headers: HTTPHeaders = ["Authorization" : deviceToken]
-        request.httpBody = formEncodedData
-        AF.request(url, method: .post, parameters: parameter, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+        do {
+            let jsonData = try JSONEncoder().encode(schedule)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            request.httpBody = jsonData
+            // and decode it back
+            let decoded = try JSONDecoder().decode(PostScheduleRequest.self, from: jsonData)
+            print(decoded)
+        } catch { print(error) }
+        
+        
+        
+        AF.request(request).responseString { (response) in
+            print("[ScheduleService] 스케줄 생성")
             switch response.result {
                 case .success(let obj):
-                    let responses = obj as! String
-                   print(responses) //스케쥴 생성 완료
+                    print(obj) //스케줄 생성 완료
+                
                     break
                 case .failure(let error):
                     print(error)
             }
         }
+        
+//        let formDataString = (schedule.dictionary.compactMap({(key, value) -> String in
+//            return "\(key)=\(value)" }) as Array).joined(separator: "&")
+//        let formEncodedData = formDataString.data(using: .utf8)
+//
+//        let headers: HTTPHeaders = ["Authorization" : deviceToken]
+//        request.httpBody = formEncodedData
+//        AF.request(url, method: .post, parameters: parameter, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+//            switch response.result {
+//                case .success(let obj):
+//                    let responses = obj as! String
+//                   print(responses) //스케쥴 생성 완료
+//                    break
+//                case .failure(let error):
+//                    print(error)
+//            }
+//        }
     }
     
     

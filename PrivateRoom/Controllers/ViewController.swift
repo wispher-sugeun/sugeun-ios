@@ -128,7 +128,6 @@ class ViewController: UIViewController {
         var currentIndex : Int = 0 {
             didSet{
                 changeBtnColor()
-                print(currentIndex)
             }
         }
         

@@ -26,6 +26,23 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var userProfile: GetProfileResponse?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        UserProfileService.shared.getUserProfile(completion: { (response) in
+            self.userProfile = response
+            print(self.userProfile)
+            if(!(self.userProfile?.imageData != nil)){
+                self.profileImage.image = UIImage(data: self.userProfile!.imageData)
+            }
+            
+            if(!(self.userProfile?.nickname.isEmpty)!){
+                
+                self.profileName.text = self.userProfile?.nickname
+            }
+        })
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self

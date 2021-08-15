@@ -11,6 +11,7 @@ class AddCalendarViewController: UIViewController {
     var viewMode: Bool = false
     var selectedScheduled: Schedule?
     var selectedDate: Date?
+    var selectedIndex = [Int]()
     
     @IBOutlet weak var titleTextField: UITextField!
     
@@ -62,21 +63,24 @@ class AddCalendarViewController: UIViewController {
                     if(naviTitle == "일정 수정"){
                         alertViewController(title: "알림 수정", message: "알림이 수정되었습니다", completion: {(string) in
                             self.navigationController?.popViewController(animated: true)
+                            //print("selectedList : \(selectedScheduled?.selectedList)")
                         })
                     }else{
-                        alertViewController(title: "알림 생성", message: "알림이 생성되었습니다", completion: {(string) in
+                        alertViewController(title: "알림 생성", message: "알림이 생성되었습니다", completion: { [self](string) in
                             self.navigationController?.popViewController(animated: true)
+                            let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+                            let scheduleDateString = postScheduleFormat()
+                            print(scheduleDateString)
+                            let postSchedule = PostScheduleRequest(userId: userId, title: titleTextField.text!, selected: selectedIndex, scheduleDate: scheduleDateString)
+                            print("postSchedule : \(postSchedule)")
+                            ScheduleService.shared.createSchedule(schedule: postSchedule)
+                            
                         })
                     }
                 }else {
                     alertViewController(title: "알림 생성 실패", message: "비어 있는 곳들을 채워주세요", completion: {(string) in
                     })
                 }
-                print(titleTextField.text!)
-                print(timeTextField.isSelected)
-                print(datePicker.date)
-                print(!amButton.isSelected)
-                print(!pmButton.isSelected)
             default:
                 print("error")
                 
@@ -85,10 +89,22 @@ class AddCalendarViewController: UIViewController {
         }
         
     }
+    
+    func postScheduleFormat() -> String {
+        var string = ""
+        string = DateUtil.scheduledFormatDate(datePicker.date) + " "
+        if(!amButton.isSelected){ // true이면
+            string += timeTextField.text!
+        }else if (!pmButton.isSelected){
+            guard let tempInt = Int(timeTextField.text!) else { return "" }
+            string += String(tempInt + 12) + ":00"
+        }
+        return string
+    }
 
 
     func validCheck() -> Bool{
-        if let _ = titleTextField.text, let _ = timeTextField.text, (amButton.isSelected || pmButton.isSelected) != false   {
+        if let _ = titleTextField.text, let _ = timeTextField.text, (amButton.isSelected || pmButton.isSelected) != false, selectedIndex != [] {
             return true
         }
         return false

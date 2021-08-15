@@ -17,8 +17,9 @@ class FolderCollectionViewCell: UICollectionViewCell {
     
     var folderViewModel: FolderViewModel! {
         didSet {
-            self.folderImage.image = image(folderViewModel.image, withSize: CGSize(width: contentView.frame.width/2, height: 80))
-            self.folderName.text = folderViewModel.name
+            self.folderImage.image = UIImage(data: folderViewModel.imageData)
+                //image(folderViewModel.imageData, withSize: CGSize(width: contentView.frame.width/2, height: 80))
+            self.folderName.text = folderViewModel.folderName
         }
     }
     @IBOutlet weak var view: UIView!

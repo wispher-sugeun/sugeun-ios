@@ -33,5 +33,12 @@ class DateUtil {
         return date!.timeIntervalSince1970
     }
     
+    static func scheduledFormatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+
+        return formatter.string(from: date)
+    }
+    
     
 }
