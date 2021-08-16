@@ -141,9 +141,9 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         
         filteredLinkCell = linkCell
         
-        linkFolder.append(Folder(folderId: 0, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        linkFolder.append(Folder(folderId: 1, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        linkFolder.append(Folder(folderId: 2, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        linkFolder.append(Folder(folderId: 0, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        linkFolder.append(Folder(folderId: 1, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        linkFolder.append(Folder(folderId: 2, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
 
         linkFolder.append(Folder(folderId: 3, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         linkFolder.append(Folder(folderId: 4, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
@@ -572,7 +572,6 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if(collectionView == FrameCollectionView){
-            print("cell for item")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LinkCollectionViewCell.identifier, for: indexPath) as! LinkCollectionViewCell
             let urlString: String = filteredLinkCell[indexPath.row].link
             let url = URL(string: urlString)
@@ -701,16 +700,14 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
 //            footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 //            footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
             //footerView 내에 collectionview 생성
-            folderCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: footerView.frame.width, height: footerView.frame.height), collectionViewLayout: layout)
+//            folderCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: footerView.frame.width, height: footerView.frame.height), collectionViewLayout: layout)
+            folderCollectionView = UICollectionView(frame: footerView.bounds, collectionViewLayout: layout)
             folderCollectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
             print("footerview height")
             print(footerView.frame.height)
             folderCollectionView.delegate = self
             folderCollectionView.dataSource = self
-            //self.folderCollectionView.translatesAutoresizingMaskIntoConstraints = false
-
-           
-            print("UICollectionView.elementKindSectionFooter 1")
+     
             let width: CGFloat = folderCollectionView.bounds.width
             let height: CGFloat = folderCollectionView.bounds.height
             print("width is \(width)")
@@ -724,15 +721,15 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return UICollectionReusableView()
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        print("UICollectionView.elementKindSectionFooter 2")
-        let width: CGFloat = view.bounds.width
-        let height: CGFloat = view.bounds.height
-     
-        return CGSize(width: width, height: 100)
-
-        
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+//        print("UICollectionView.elementKindSectionFooter 2")
+//        let width: CGFloat = view.bounds.width
+//        let height: CGFloat = view.bounds.height
+//
+//        return CGSize(width: width, height: 100)
+//
+//
+//    }
 
     
     

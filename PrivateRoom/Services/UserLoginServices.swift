@@ -110,6 +110,8 @@ class UserLoginServices {
         
     }
     
+    
+    //func findID(
     //로그인 0
     func login(loginUserInfo : LoginRequest){
 //        completion: @escaping ((LoginResponse) -> Void)
@@ -153,6 +155,7 @@ class UserLoginServices {
         
         
     }
+
     
     //로그 아웃 0
     func logout(){

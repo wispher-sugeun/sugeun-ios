@@ -41,6 +41,7 @@ class ProfileEditViewController: UIViewController {
        
         
     }
+    
     @IBAction func quitApp(_ sender: Any) {
         //UserService
         alertDoneCancel(title: "회원 탈퇴", message: "회원 탈퇴하시겠습니까?", completionHandler: { action in
@@ -105,13 +106,6 @@ class ProfileEditViewController: UIViewController {
 
 extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource, IDInputTableViewCellDelegate {
     
-    //check for validate name from server
-    func haveSamenickName(name: String) -> Bool{
-        if name == "jouureee"{
-           return true
-        }
-        return false
-    }
     
     func correctPassword(password: String) -> Bool {
         if(password == "1234"){
@@ -145,15 +139,18 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
                     label.isHidden = false
                     self.present(alertVC, animated: true, completion: nil)
 
-                }else if self.haveSamenickName(name: userInput){
-                    label.text = "이미 같은 이름을 가진 사용자가 있습니다"
-                    label.isHidden = false
-                    self.present(alertVC, animated: true, completion: nil)
-                }else{
-                   // Services
-                    //API.shared.updateNickname(nickName: userInput)
-                    textfield.text = userInput
-                   
+                }else {
+                    UserLoginServices.shared.checkIDValid(nickName: userInput, completion: { (response) in
+                        if(response == true){ // 사용 가능
+                            // Services
+                             UserProfileService.shared.updateProfileID(nickName: userInput)
+                             textfield.text = userInput
+                        }else{
+                            label.text = "이미 같은 이름을 가진 사용자가 있습니다"
+                            label.isHidden = false
+                            self.present(alertVC, animated: true, completion: nil)
+                        }
+                    })
                 }
             }
            
@@ -306,7 +303,11 @@ extension ProfileEditViewController: PHPickerViewControllerDelegate {
         if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                 DispatchQueue.main.async {
-                    self.profileImage.image = image as? UIImage
+                    let uploadImage = image as? UIImage
+                    
+                    self.profileImage.image = uploadImage
+                    
+                    UserProfileService.shared.updateProfileImage(imgeFile: (uploadImage?.jpeg(.lowest))!)
                     
                 }
             }

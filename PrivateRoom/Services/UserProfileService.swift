@@ -27,9 +27,6 @@ class UserProfileService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
         
-        
-        
-        
         request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -63,31 +60,71 @@ class UserProfileService {
     }
     
     //이미지 업데이트
-    func updateProfileImage(){
-        let url = Config.base_url + "/user/\(userId)"
-        let headers: HTTPHeaders = ["Authorization" : deviceToken]
+    func updateProfileImage(imgeFile: Data){
+        let url = Config.base_url + "/users/\(userId)"
         
+        let headers: HTTPHeaders = [
+            "userId" : "\(userId)",
+            "Authorization" : deviceToken
+        ]
+        let dataResponseSerializer = DataResponseSerializer(emptyResponseCodes: [200, 204, 205])
+        // Default is [204, 205]
+
+        AF.upload(multipartFormData: { multipartFormData in
+            print("[UserProfileService] 이미지 변경하기")
+
+            var fileName = "\(imgeFile).jpg"
+            fileName = fileName.replacingOccurrences(of: " ", with: "_")
+            print(fileName)
+            multipartFormData.append(imgeFile, withName: "imgeFile", fileName: fileName, mimeType: "image/jpg")
+   
+
+        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).response(responseSerializer: dataResponseSerializer) { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)")
+                    print(type(of: obj))
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
     }
+
     
     //아이디 업데이트
     func updateProfileID(nickName: String){
-        let url = Config.base_url + "/user/\(userId)"
-        let headers: HTTPHeaders = ["Authorization" : deviceToken]
-        let parameter: Parameters = ["updateNickName": nickName]
+        let url = Config.base_url + "/users/\(userId)"
+        
+        let parameter: Parameters = ["updateNickname": nickName]
         
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PATCH"
-        let formDataString = (parameter.compactMap({(key, value) -> String in
-            return "\(key)=\(value)" }) as Array).joined(separator: "&")
-        let formEncodedData = formDataString.data(using: .utf8)
+
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameter)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            request.httpBody = jsonData
+        }catch {
+            print(error)
+        }
         
         
-        request.httpBody = formEncodedData
-        AF.request(url, method: .patch, parameters: parameter, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+
+        AF.request(request).responseString { (response) in
+            print("[UserProfileService] 아이디 변경 하기")
+            print(url)
+
             switch response.result {
+            
                 case .success(let obj):
-                    let responses = obj as! String
-                   print(responses) //아이디 변경 완료
+                    //let responses = obj as! String
+                   print("success \(obj)") //아이디 변경 완료
                     break
                 case .failure(let error):
                     print(error)
@@ -96,35 +133,47 @@ class UserProfileService {
     }
     
     func updateProfilePassword(password: String){
-        let url = Config.base_url + "/user/\(userId)"
-        let headers: HTTPHeaders = ["Authorization" : deviceToken]
+        let url = Config.base_url + "/users/\(userId)"
         
         
         let parameter: Parameters = ["updatePassword": password]
         
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PATCH"
-        let formDataString = (parameter.compactMap({(key, value) -> String in
-            return "\(key)=\(value)" }) as Array).joined(separator: "&")
-        let formEncodedData = formDataString.data(using: .utf8)
+
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameter)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            request.httpBody = jsonData
+        }catch {
+            print(error)
+        }
         
-        request.httpBody = formEncodedData
-        AF.request(url, method: .patch, parameters: parameter, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+
+        AF.request(request).responseJSON { (response) in
+            print("[UserProfileService] 비밀번호 변경 하기")
+
             switch response.result {
+            
                 case .success(let obj):
-                    let responses = obj as! String
-                   print(responses) //비밀번호 변경 완료
+                    //let responses = obj as! String
+                   print("success \(obj)") //비밀번호 변경 완료
                     break
                 case .failure(let error):
                     print(error)
             }
         }
+    
     }
     
     //회원 탈퇴
     func quitUser(){
-        let url = Config.base_url + "/user/\(userId)"
+        let url = Config.base_url + "/users/\(userId)"
         let headers: HTTPHeaders = ["Authorization" : deviceToken]
         AF.request(url, method: .delete, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
             switch response.result {
@@ -171,7 +220,7 @@ class UserProfileService {
     
     //북마크 조회
     func getMyBookMark(){
-        let url = Config.base_url + "/user/\(userId)/bookmark"
+        let url = Config.base_url + "/users/\(userId)/bookmark"
         let headers: HTTPHeaders = ["Authorization" : deviceToken]
         AF.request(url, method: .get, headers: headers).responseJSON{ (response) in
             switch response.result {
