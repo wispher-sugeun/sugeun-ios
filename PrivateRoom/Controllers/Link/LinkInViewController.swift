@@ -106,22 +106,44 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     var configuration = PHPickerConfiguration()
     
     @IBAction func backButton(_ sender: Any) {
-        self.dismiss(animated: false, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func editButton(_ sender: Any) {
         print("edit button")
     }
-    var linkCell = [Link]()
-    var filteredLinkCell = [Link]()
+    
+    var total: DetailFolderResponse? //folderid로 조회된 친구들
+    var linkCell = [LinkResDTO]()
+    var filteredLinkCell = [LinkResDTO]()
     
     var linkFolder = [GetByFolderResponse]()
     var filteredLinkFolder = [GetByFolderResponse]()
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        isShowFloating = false
+        hideButton()
+        linkCell = total.map { $0.linkResDTOList}!!
+        filteredLinkCell = linkCell
+        
+        linkFolder =  total.map { $0.folderResDTOList}!!
+        filteredLinkFolder = linkFolder
+        
+        if(!linkCell.isEmpty){
+            FrameCollectionView.reloadData()
+        }
+        
+        if(!linkFolder.isEmpty){
+            folderCollectionView.reloadData()
+        }
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        dummy()
+        //dummy()
         buttonSetting()
         textFieldSetting(textField: searchTextField)
         tapGestureSetting()
@@ -134,12 +156,12 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
 
     }
     
-    func dummy(){
-        linkCell.append(Link(userId: 0, folderId: 0, linkId: 0, link: "https://naver.com", title: "자주 가는 곳", bookmark: true, date: "2021-05-21"))
-        linkCell.append(Link(userId: 1, folderId: 1, linkId: 1, link: "https://google.com",title: "자주 가는 곳", bookmark: true, date: "2021-05-22"))
-        linkCell.append(Link(userId: 2, folderId: 2, linkId: 2, link: "https://jouureee.tistory.com",title: "자주 가는 곳", bookmark: true, date: "2021-05-23"))
-        
-        filteredLinkCell = linkCell
+   // func dummy(){
+//        linkCell.append(Link(userId: 0, folderId: 0, linkId: 0, link: "https://naver.com", title: "자주 가는 곳", bookmark: true, date: "2021-05-21"))
+//        linkCell.append(Link(userId: 1, folderId: 1, linkId: 1, link: "https://google.com",title: "자주 가는 곳", bookmark: true, date: "2021-05-22"))
+//        linkCell.append(Link(userId: 2, folderId: 2, linkId: 2, link: "https://jouureee.tistory.com",title: "자주 가는 곳", bookmark: true, date: "2021-05-23"))
+//
+//        filteredLinkCell = linkCell
         
 //        linkFolder.append(Folder(folderId: 0, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
 //        linkFolder.append(Folder(folderId: 1, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
@@ -149,9 +171,9 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
 //        linkFolder.append(Folder(folderId: 4, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
 //        linkFolder.append(Folder(folderId: 5, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         
-        filteredLinkFolder = linkFolder
+ //       filteredLinkFolder = linkFolder
         
-    }
+//    }
     
     func tapGestureSetting(){
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MyTapMethod))
@@ -236,10 +258,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         self.dismiss(animated: true, completion: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        isShowFloating = false
-        hideButton()
-    }
+  
     
     
     func buttonSetting(){
@@ -691,45 +710,53 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
         case UICollectionView.elementKindSectionFooter:
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerView", for: indexPath)
-            
-            footerView.backgroundColor = .white
-            let layout = UICollectionViewFlowLayout()
-//            footerView.translatesAutoresizingMaskIntoConstraints = false
-//
-//            footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//            footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//            footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-            //footerView 내에 collectionview 생성
-//            folderCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: footerView.frame.width, height: footerView.frame.height), collectionViewLayout: layout)
-            folderCollectionView = UICollectionView(frame: footerView.bounds, collectionViewLayout: layout)
-            folderCollectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
-            print("footerview height")
-            print(footerView.frame.height)
-            folderCollectionView.delegate = self
-            folderCollectionView.dataSource = self
-     
-            let width: CGFloat = folderCollectionView.bounds.width
-            let height: CGFloat = folderCollectionView.bounds.height
-            print("width is \(width)")
-            print("height is \(height)")
-            footerView.addSubview(folderCollectionView)
-            
-            return footerView
+            if(!linkFolder.isEmpty) { //linkFolder가 빈 배열이 아닐때만 collection view 넣기
+                footerView.backgroundColor = .white
+                let layout = UICollectionViewFlowLayout()
+    //            footerView.translatesAutoresizingMaskIntoConstraints = false
+    //
+    //            footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+    //            footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    //            footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+                //footerView 내에 collectionview 생성
+    //            folderCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: footerView.frame.width, height: footerView.frame.height), collectionViewLayout: layout)
+                folderCollectionView = UICollectionView(frame: footerView.bounds, collectionViewLayout: layout)
+                folderCollectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
+                print("footerview height")
+                print(footerView.frame.height)
+                folderCollectionView.delegate = self
+                folderCollectionView.dataSource = self
+         
+                let width: CGFloat = folderCollectionView.bounds.width
+                let height: CGFloat = folderCollectionView.bounds.height
+                print("width is \(width)")
+                print("height is \(height)")
+                footerView.addSubview(folderCollectionView)
+                
+                return footerView
+            }else {
+                return footerView
+            }
+           
         default: assert(false, "nothing")
             
         }
         return UICollectionReusableView()
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-//        print("UICollectionView.elementKindSectionFooter 2")
-//        let width: CGFloat = view.bounds.width
-//        let height: CGFloat = view.bounds.height
-//
-//        return CGSize(width: width, height: 100)
-//
-//
-//    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        print("UICollectionView.elementKindSectionFooter 2")
+        let width: CGFloat = view.bounds.width
+        let height: CGFloat = view.bounds.height
+
+        if(linkFolder.isEmpty){
+            return CGSize(width: width, height: 0)
+        }
+        return CGSize(width: width, height: 100)
+       
+
+
+    }
 
     
     

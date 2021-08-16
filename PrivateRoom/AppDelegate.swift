@@ -9,7 +9,6 @@ import UIKit
 import CoreData
 import UserNotifications
 import AppTrackingTransparency
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 

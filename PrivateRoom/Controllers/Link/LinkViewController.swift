@@ -292,9 +292,13 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     //todo - make with navigation
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let VC = self.storyboard?.instantiateViewController(identifier: "linkFolderIn") else { return }
-        VC.modalPresentationStyle = .fullScreen
-        self.present(VC, animated: true, completion: nil)
+        guard let linkVC = self.storyboard?.instantiateViewController(identifier: "linkFolderIn") as? LinkInViewController else { return }
+        let folderId = filteredLink[indexPath.row].folderId
+        FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
+            linkVC.total = response
+            self.navigationController?.pushViewController(linkVC, animated: true)
+        })
+
     }
     
     
