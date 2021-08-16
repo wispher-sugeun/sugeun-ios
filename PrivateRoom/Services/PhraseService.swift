@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class PhraseService {
     static var shared = PhraseService()
@@ -19,7 +20,7 @@ class PhraseService {
     }
     
     func createPhrase(folderId: Int, createRequest: CreatePhraseRequest){
-        let url = Config.base_url + "users/\(userId)/folders/\(folderId)/phrases"
+        let url = Config.base_url + "/users/\(userId)/folders/\(folderId)/phrases"
         
         
         var request = URLRequest(url: URL(string: url)!)
@@ -31,6 +32,27 @@ class PhraseService {
         request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let jsonData = try JSONEncoder().encode(createRequest)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            request.httpBody = jsonData
+            // and decode it back
+            let decoded = try JSONDecoder().decode(CreatePhraseRequest.self, from: jsonData)
+            print(decoded)
+        } catch { print(error) }
+        
+        AF.request(request).responseString { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)") //글귀 생성 완료
+
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
         
     }
 }

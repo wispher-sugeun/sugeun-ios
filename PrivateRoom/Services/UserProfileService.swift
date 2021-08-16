@@ -159,7 +159,6 @@ class UserProfileService {
 
         AF.request(request).responseJSON { (response) in
             print("[UserProfileService] 비밀번호 검증 하기")
-            print(url)
 
             switch response.result {
             

@@ -92,7 +92,7 @@ class AddCalendarViewController: UIViewController {
     
     func postScheduleFormat() -> String {
         var string = ""
-        string = DateUtil.scheduledFormatDate(datePicker.date) + " "
+        string = DateUtil.serverSendDateFormat(datePicker.date) + " "
         if(!amButton.isSelected){ // true이면
             string += timeTextField.text!
         }else if (!pmButton.isSelected){

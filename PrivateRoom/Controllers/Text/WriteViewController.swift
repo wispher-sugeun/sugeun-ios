@@ -28,6 +28,12 @@ class WriteViewController: UIViewController {
             //post and make textcell
             self.alertViewController(title: "작성 완료", message: "글 작성을 완료하였습니다", completion: {(response) in
                 if response == "OK" {
+                    //test
+                    guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else { return }
+                   let dateString =  DateUtil.serverSendDateFormat(Date()) 
+                    
+                    let createPhrase = CreatePhraseRequest(userId: userId, folderId: 1, text: self.textView.text!, bookmark: false, textDate: dateString)
+                    PhraseService.shared.createPhrase(folderId: 1, createRequest: createPhrase)
                     self.dismiss(animated: true, completion: nil)
                 }
                                             })
