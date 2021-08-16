@@ -67,7 +67,9 @@ class UserProfileService {
             "userId" : "\(userId)",
             "Authorization" : deviceToken
         ]
-        let dataResponseSerializer = DataResponseSerializer(emptyResponseCodes: [200, 204, 205])
+        
+        
+        //let dataResponseSerializer = DataResponseSerializer(emptyResponseCodes: [200, 204, 205])
         // Default is [204, 205]
 
         AF.upload(multipartFormData: { multipartFormData in
@@ -77,9 +79,9 @@ class UserProfileService {
             fileName = fileName.replacingOccurrences(of: " ", with: "_")
             print(fileName)
             multipartFormData.append(imgeFile, withName: "imgeFile", fileName: fileName, mimeType: "image/jpg")
-   
 
-        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).response(responseSerializer: dataResponseSerializer) { (response) in
+
+        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
@@ -132,6 +134,48 @@ class UserProfileService {
         }
     }
     
+    //기존 비밀번호 검증
+    func verifyPassword(password: String, completion: @escaping (Bool) -> (Void)){
+        let url = Config.base_url + "/users/\(userId)/verify"
+        
+        
+        let parameter: Parameters = ["password": password]
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "POST"
+
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameter)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            request.httpBody = jsonData
+        }catch {
+            print(error)
+        }
+
+        AF.request(request).responseJSON { (response) in
+            print("[UserProfileService] 비밀번호 검증 하기")
+            print(url)
+
+            switch response.result {
+            
+                case .success(let obj):
+                    let responses = obj as! Bool
+                   completion(responses)
+                   print("success \(obj)") //true, false
+                    break
+                case .failure(let error):
+                    print(error)
+            }
+        }
+    }
+    
+    
+    //비밀번호 변경하기
     func updateProfilePassword(password: String){
         let url = Config.base_url + "/users/\(userId)"
         
@@ -155,7 +199,7 @@ class UserProfileService {
         }
         
 
-        AF.request(request).responseJSON { (response) in
+        AF.request(request).responseString { (response) in
             print("[UserProfileService] 비밀번호 변경 하기")
 
             switch response.result {

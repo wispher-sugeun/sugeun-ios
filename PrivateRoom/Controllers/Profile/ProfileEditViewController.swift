@@ -29,18 +29,18 @@ class ProfileEditViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func doneButton(_ sender: Any) {
-        //UserService post
-        alertDone(title: "수정 완료",message: "회원 정보가 정상적으로 수정되었습니다", completionHandler: { response in
-            if response == "OK" {
-                //UserService post
-                
-                self.dismiss(animated: true, completion: nil)
-            }
-        })
-       
-        
-    }
+//    @IBAction func doneButton(_ sender: Any) {
+//        //UserService post
+//        alertDone(title: "수정 완료",message: "회원 정보가 정상적으로 수정되었습니다", completionHandler: { response in
+//            if response == "OK" {
+//                //UserService post
+//                
+//                self.dismiss(animated: true, completion: nil)
+//            }
+//        })
+//       
+//        
+//    }
     
     @IBAction func quitApp(_ sender: Any) {
         //UserService
@@ -107,12 +107,16 @@ class ProfileEditViewController: UIViewController {
 extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource, IDInputTableViewCellDelegate {
     
     
-    func correctPassword(password: String) -> Bool {
-        if(password == "1234"){
-            return true
-        }
-        return false
-    }
+//    func correctPassword(password: String) -> Bool {
+//        UserProfileService.shared.verifyPassword(password: password, completion: {(response) in
+//
+//        }
+//
+//        if(password == "1234"){
+//            return true
+//        }
+//        return false
+//    }
     
     //alertVC with textfield
     func alertEditName(textfield: UITextField){
@@ -145,6 +149,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
                             // Services
                              UserProfileService.shared.updateProfileID(nickName: userInput)
                              textfield.text = userInput
+                            UserDefaults.standard.setValue(userInput, forKey: UserDefaultKey.userNickName)
                         }else{
                             label.text = "이미 같은 이름을 가진 사용자가 있습니다"
                             label.isHidden = false
@@ -188,14 +193,25 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
                     label.isHidden = false
                     self.present(alertVC, animated: true, completion: nil)
 
-                }else if self.correctPassword(password: userInput) == false {
-
-                    label.text = "비밀번호가 일치하지 않습니다. 다시 입력해주세요."
-                    label.isHidden = false
-                    self.present(alertVC, animated: true, completion: nil)
-                }else if self.correctPassword(password: userInput) { // 비밀번호 변경
-                    alertNewPassWord(title: "새 비밀번호 입력", message: "변경할 비밀번호를 입력해주세요")
+                }else {
+                    UserProfileService.shared.verifyPassword(password: userInput, completion: {(response) in
+                        if(response){
+                            alertNewPassWord(title: "새 비밀번호 입력", message: "변경할 비밀번호를 입력해주세요")
+                        }else{
+                            label.text = "비밀번호가 일치하지 않습니다. 다시 입력해주세요."
+                            label.isHidden = false
+                            self.present(alertVC, animated: true, completion: nil)
+                        }
+                    })
                 }
+//                    if self.correctPassword(password: userInput) == false {
+//
+//                    label.text = "비밀번호가 일치하지 않습니다. 다시 입력해주세요."
+//                    label.isHidden = false
+//                    self.present(alertVC, animated: true, completion: nil)
+//                }else if self.correctPassword(password: userInput) { // 비밀번호 변경
+//                    alertNewPassWord(title: "새 비밀번호 입력", message: "변경할 비밀번호를 입력해주세요")
+//                }
                 
             }
            
@@ -240,6 +256,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
                         if(response == "OK"){
                             //UserService
                             //update password with userInput
+                            UserProfileService.shared.updateProfilePassword(password: userInput)
                             print("비밀번호 \(userInput)으로 수정")
                             
                         }

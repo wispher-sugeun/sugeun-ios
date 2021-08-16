@@ -14,11 +14,17 @@ class IDInputTableViewCell: UITableViewCell {
 
     @IBOutlet weak var label: UILabel!
 
-    @IBOutlet weak var textfield: UITextField!
+    @IBOutlet weak var textfield: UITextField! {
+        didSet {
+            guard let userNickName = UserDefaults.standard.string(forKey: UserDefaultKey.userNickName) else { return }
+            textfield.text = userNickName
+        }
+    }
     
     static var identifier = "IDInputTableViewCell"
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
     }
     

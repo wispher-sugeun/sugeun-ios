@@ -241,12 +241,6 @@
                                 <action selector="backButton:" destination="6Fm-61-iV1" id="rKI-QA-MAb"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="완료" id="arX-5D-Ny1">
-                            <color key="tintColor" red="0.1647058824" green="0.20000000000000001" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            <connections>
-                                <action selector="doneButton:" destination="6Fm-61-iV1" id="PO7-TV-h8S"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="editButton" destination="h0a-Hw-dNh" id="DcN-Dg-ctF"/>
