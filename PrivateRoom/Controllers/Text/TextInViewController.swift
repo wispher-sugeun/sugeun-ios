@@ -19,11 +19,6 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     let cellSpacingHeight: CGFloat = 20
 
-    override func viewWillAppear(_ animated: Bool) {
-        print("view will apear")
-        isShowFloating = false
-        hideButton()
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         
@@ -35,8 +30,13 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
      
         frameTableView.reloadData()
         
-        frameTableView.tableFooterView?.frame.size.height = collectionView.contentSize.height + 50
-        print(frameTableView.tableFooterView?.frame.size.height )
+        if(textFolder.isEmpty){ // data가 없을때 footerview 없애기
+            frameTableView.tableFooterView = nil
+        }else {
+            frameTableView.tableFooterView?.frame.size.height = collectionView.contentSize.height + 50
+        }
+        
+        //print(frameTableView.tableFooterView?.frame.size.height )
         
     }
     func didTapMoreButton(cell: FolderCollectionViewCell) {
@@ -71,12 +71,13 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     }
 
   
+    var total: DetailFolderResponse? //folderid로 조회된 친구들
     
-    var textCell = [Phrase]()
-    var filteredTextCell = [Phrase]()
+    var textCell = [PhraseResDTO]()
+    var filteredTextCell = [PhraseResDTO]()
     
-    var textFolder = [Folder]()
-    var filteredTextFolder = [Folder]()
+    var textFolder = [GetByFolderResponse]()
+    var filteredTextFolder = [GetByFolderResponse]()
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var ButtonStackView: UIStackView!
@@ -136,6 +137,27 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     var configuration = PHPickerConfiguration()
     //var cellHeight: CGFloat = 0.0
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        isShowFloating = false
+        hideButton()
+        
+        //total 값 folderdhk textCell에게 분기
+        textFolder = total.map { $0.folderResDTOList}!!
+        filteredTextFolder = textFolder
+        
+        textCell = total.map { $0.phraseResDTOList }!!
+        filteredTextCell = textCell
+        
+        if(!textCell.isEmpty) {
+            self.frameTableView.reloadData()
+        }
+        
+        if(!textFolder.isEmpty){
+            self.collectionView.reloadData()
+        }
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,25 +170,24 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         sortingButtonSetting()
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
-        print("view did load")
 
  
     }
     
     
     func dummy(){
-        textCell.append(Phrase(userId: 0, folderId: 0, phraseId: 0, text: "test1\ntest1\ntest1", bookmark: true, date: "2021-07-05"))
-        textCell.append(Phrase(userId: 1, folderId: 1, phraseId: 1, text: "text2\ntest1\ntest1\ntest1\ntext2\ntest1\ntest1\ntest1", bookmark: false, date: "2021-07-22"))
-        textCell.append(Phrase(userId: 1, folderId: 1, phraseId: 1, text: "text2", bookmark: false, date: "2021-07-22"))
-        filteredTextCell = textCell
+//        textCell.append(Phrase(userId: 0, folderId: 0, phraseId: 0, text: "test1\ntest1\ntest1", bookmark: true, date: "2021-07-05"))
+//        textCell.append(Phrase(userId: 1, folderId: 1, phraseId: 1, text: "text2\ntest1\ntest1\ntest1\ntext2\ntest1\ntest1\ntest1", bookmark: false, date: "2021-07-22"))
+//        textCell.append(Phrase(userId: 1, folderId: 1, phraseId: 1, text: "text2", bookmark: false, date: "2021-07-22"))
+//        filteredTextCell = textCell
         
-        textFolder.append(Folder(folderId: 0, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        textFolder.append(Folder(folderId: 1, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        textFolder.append(Folder(folderId: 2, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        
-        textFolder.append(Folder(folderId: 3, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        textFolder.append(Folder(folderId: 4, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        textFolder.append(Folder(folderId: 5, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        textFolder.append(Folder(folderId: 0, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        textFolder.append(Folder(folderId: 1, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        textFolder.append(Folder(folderId: 2, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//
+//        textFolder.append(Folder(folderId: 3, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        textFolder.append(Folder(folderId: 4, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        textFolder.append(Folder(folderId: 5, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         
         filteredTextFolder = textFolder
         
@@ -420,7 +441,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         print("folderImageChanged")
         if let dict = notification.userInfo as NSDictionary? {
             if let folderImage = dict["image"] as? UIImage{
-                filteredTextFolder[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
+//                filteredTextFolder[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
                     
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()

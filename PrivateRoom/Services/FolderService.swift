@@ -185,7 +185,7 @@ class FolderService {
     }
     
     //폴더 id로 조회
-    func viewFolder(folderId: Int){
+    func viewFolder(folderId: Int, completion: @escaping ((DetailFolderResponse) -> Void)){
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -200,10 +200,19 @@ class FolderService {
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
-//                    let responses = obj as! DetailFolderResponse
-//                    print(responses)
-                    
-                    //completion(responses)
+                    print(type(of: obj))
+                    let responses = obj as! NSDictionary
+                    do {
+                        //dictionary type to json object
+                        
+            
+                        let json = try JSONSerialization.data(withJSONObject: responses)
+                        
+                        let response = try JSONDecoder().decode(DetailFolderResponse.self, from: json)
+                        completion(response)  // DetailFolderResponse
+                    }catch {
+                        print(error)
+                    }
                     break
                 case .failure(let error):
                     print("AF : \(error.localizedDescription)")

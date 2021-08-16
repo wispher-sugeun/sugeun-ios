@@ -8,10 +8,47 @@
 import Foundation
 
 struct DetailFolderResponse: Codable {
+    var phraseResDTOList: [PhraseResDTO]?
     
+    var linkResDTOList: [LinkResDTO]?
+    
+    var folderResDTOList: [GetByFolderResponse]?
 //    private List<PhraseResDTO> phraseResDTOList = new ArrayList<>()
 //
 //    private List<LinkResDTO> linkResDTOList = new ArrayList<>()
 //
 //    private List<FolderResDTO> folderResDTOList = new ArrayList<>()
 }
+
+struct PhraseResDTO: Codable {
+    
+    var phraseId: Int
+
+    var text: String
+    
+    var bookmark: Bool
+    
+    var textDate: String
+}
+
+struct LinkResDTO: Codable {
+    var linkId: Int
+
+    var title: String
+    
+    var link: String
+    
+    var bookmark: Bool
+}
+
+//struct FolderResDTO: Codable {
+//
+//    var folderId: Int
+//
+//    var folderName: String
+//
+//    var userId: Int
+//
+//    var imageData: Data?
+//
+//}

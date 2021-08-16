@@ -67,7 +67,7 @@ class MakeFolder: UIView {
         folderNameTextField.layer.addSublayer((border))
         folderNameTextField.layer.masksToBounds = true
         //folderNameTextField.textAlignment = .center
-        folderNameTextField.textColor = UIColor.white
+        folderNameTextField.textColor = UIColor.black
 
     }
     

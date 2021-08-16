@@ -496,7 +496,6 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     //for cell info and sort
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        print("here")
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath)
@@ -528,11 +527,13 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let textInVC = self.storyboard?.instantiateViewController(identifier: "textIn") else { return }
-        self.navigationController?.pushViewController(textInVC, animated: true)
-//        VC.modalTransitionStyle = .coverVertical
-//        VC.modalPresentationStyle = .fullScreen
-//        self.present(VC, animated: true, completion: nil)
+        guard let textInVC = self.storyboard?.instantiateViewController(identifier: "textIn") as? TextInViewController else { return }
+        let folderId = filteredTextFolder[indexPath.row].folderId
+        FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
+            textInVC.total = response
+            self.navigationController?.pushViewController(textInVC, animated: true)
+        })
+        
     }
 
 }

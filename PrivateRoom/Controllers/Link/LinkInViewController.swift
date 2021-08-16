@@ -115,8 +115,8 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     var linkCell = [Link]()
     var filteredLinkCell = [Link]()
     
-    var linkFolder = [Folder]()
-    var filteredLinkFolder = [Folder]()
+    var linkFolder = [GetByFolderResponse]()
+    var filteredLinkFolder = [GetByFolderResponse]()
     
     
     override func viewDidLoad() {
@@ -145,9 +145,9 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
 //        linkFolder.append(Folder(folderId: 1, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
 //        linkFolder.append(Folder(folderId: 2, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
 
-        linkFolder.append(Folder(folderId: 3, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        linkFolder.append(Folder(folderId: 4, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        linkFolder.append(Folder(folderId: 5, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        linkFolder.append(Folder(folderId: 3, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        linkFolder.append(Folder(folderId: 4, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        linkFolder.append(Folder(folderId: 5, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         
         filteredLinkFolder = linkFolder
         
@@ -385,7 +385,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         print("folderImageChanged")
         if let dict = notification.userInfo as NSDictionary? {
             if let folderImage = dict["image"] as? UIImage{
-                filteredLinkFolder[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
+//                filteredLinkFolder[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
                     
                 DispatchQueue.main.async {
                     self.folderCollectionView.reloadData()

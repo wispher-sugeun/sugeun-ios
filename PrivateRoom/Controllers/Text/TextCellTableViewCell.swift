@@ -62,7 +62,7 @@ class TextCellTableViewCell: UITableViewCell {
            return UINib(nibName: "TextCellTableViewCell", bundle: nil)
     }
     
-    func configure(model: Phrase){
+    func configure(model: PhraseResDTO){
         if(model.bookmark) {
             bookmark.isSelected = true
             bookMarkToggle(bookmark)
@@ -70,7 +70,7 @@ class TextCellTableViewCell: UITableViewCell {
         
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "yyyy-MM-dd"
-        guard let date = dateFormat.date(from: model.date) else {
+        guard let date = dateFormat.date(from: model.textDate) else {
             print("no date")
             return
         }
