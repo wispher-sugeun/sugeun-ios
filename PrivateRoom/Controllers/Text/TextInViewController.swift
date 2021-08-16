@@ -12,6 +12,7 @@ import PhotosUI
 
 class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
+    var folderId: Int = 0;
     
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
@@ -462,7 +463,6 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
 extension TextInViewController: UITableViewDelegate, UITableViewDataSource, TextCellTableViewCellDelegate {
     
     func moreButton(cell: TextCellTableViewCell) {
-        print("text cell more button")
         textCell_dropDown.anchorView = cell.moreButton
         textCell_dropDown.show()
 
@@ -488,20 +488,28 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
     
     func textCellEdit(cell: TextCellTableViewCell){
         let editText = cell.labelText.text
-        let wirteVc = self.storyboard?.instantiateViewController(identifier: "writeText") as! WriteViewController
-        wirteVc.editText = editText!
-        wirteVc.editMode = true
+        let writeVc = self.storyboard?.instantiateViewController(identifier: "writeText") as! WriteViewController
+        writeVc.phraseId = filteredTextCell[cell.indexPath.row].phraseId
+        writeVc.folderId = folderId
+        writeVc.editText = editText!
+        writeVc.editMode = true
         
-        self.navigationController?.pushViewController(wirteVc, animated: true)
-//        wirteVc.modalPresentationStyle = .fullScreen
-//        self.present(wirteVc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(writeVc, animated: true)
+
     }
     
     func textCellDelete(indexPath: IndexPath){
+        print(indexPath.row)
+        
+        frameTableView.reloadData()
+        let phraseId = filteredTextCell[indexPath.row].phraseId
         textCell.remove(at: indexPath.row)
         filteredTextCell = textCell
-        frameTableView.reloadData()
-        self.alertViewController(title: "삭제 완료", message: "삭제 완료하였습니다.", completion: { (response) in })
+        self.alertViewController(title: "삭제 완료", message: "삭제 완료하였습니다.", completion: { (response) in
+            if( response == "OK"){
+                PhraseService.shared.deletePhrase(folderId: self.folderId, phraseId: phraseId)
+            }
+        })
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -534,13 +542,13 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
         
        
         if tableView == frameTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: TextCellTableViewCell.identifier, for: indexPath) as! TextCellTableViewCell
-           
-            cell.delegate = self
-            cell.configure(model: filteredTextCell[indexPath.section])
-            cell.indexPath = indexPath
-            
-            return cell
+            if(!filteredTextCell.isEmpty){
+                let cell = tableView.dequeueReusableCell(withIdentifier: TextCellTableViewCell.identifier, for: indexPath) as! TextCellTableViewCell
+                cell.configure(model: filteredTextCell[indexPath.section])
+                cell.indexPath = indexPath
+                cell.delegate = self
+                return cell
+            }
         }
         
         return defaultCell!

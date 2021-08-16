@@ -531,6 +531,7 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
         let folderId = filteredTextFolder[indexPath.row].folderId
         FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
             textInVC.total = response
+            textInVC.folderId = folderId
             self.navigationController?.pushViewController(textInVC, animated: true)
         })
         

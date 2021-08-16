@@ -9,6 +9,9 @@ import UIKit
 
 class WriteViewController: UIViewController {
 
+    var folderId: Int = 0
+    var phraseId: Int = 0
+    
     @IBOutlet weak var FrameView: UIView!
     
     @IBOutlet weak var textView: UITextView!
@@ -22,22 +25,29 @@ class WriteViewController: UIViewController {
     }
     
     @IBAction func doneButton(_ sender: Any) {
+        guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else { return }
         
         if(validate() == true){
             //try validation
-            //post and make textcell
-            self.alertViewController(title: "작성 완료", message: "글 작성을 완료하였습니다", completion: {(response) in
-                if response == "OK" {
-                    //test
-                    guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else { return }
-                   let dateString =  DateUtil.serverSendDateFormat(Date()) 
-                    
-                    let createPhrase = CreatePhraseRequest(userId: userId, folderId: 1, text: self.textView.text!, bookmark: false, textDate: dateString)
-                    PhraseService.shared.createPhrase(folderId: 1, createRequest: createPhrase)
-                    self.dismiss(animated: true, completion: nil)
-                }
-                                            })
-            
+            if(editMode){ // 글 수정에서 넘어온 글
+                self.alertViewController(title: "수정 완료", message: "글 수정을 완료하였습니다", completion: {(response) in
+                    if response == "OK" {
+                        PhraseService.shared.updatePhrase(folderId: self.folderId, phraseId: self.phraseId, text: self.textView.text!)
+                    }
+                })
+            } else {
+                self.alertViewController(title: "작성 완료", message: "글 작성을 완료하였습니다", completion: {(response) in
+                    if response == "OK" {
+                        //test
+                        
+                       let dateString =  DateUtil.serverSendDateFormat(Date())
+                        
+                        let createPhrase = CreatePhraseRequest(userId: userId, folderId: self.folderId, text: self.textView.text!, bookmark: false, textDate: dateString)
+                        PhraseService.shared.createPhrase(folderId: self.folderId, createRequest: createPhrase)
+                    }
+                                                })
+            }
+            self.navigationController?.popViewController(animated: true)
             
         }else{
             self.alertViewController(title: "글 작성 실패", message: "글을 작성해주세요", completion: {(response) in })
@@ -60,6 +70,11 @@ class WriteViewController: UIViewController {
         if textView.text != "" {
             return true
         }
+        
+        if(folderId == 0 || phraseId == 0) {
+            return false
+        }
+        
         return false
         
     }
