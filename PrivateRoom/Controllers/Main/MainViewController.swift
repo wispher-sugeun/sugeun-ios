@@ -39,10 +39,11 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         more_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("선택한 아이템 : \(item)")
             print("인덱스 : \(index)")
-            
+            let folderId = filteredFolder[cell.indexPath.row].folderId
             if(index == 0){ // 이름 변경
-                editFolderName(completionHandler: {(response) in
+                editFolderName(folderId: folderId, completionHandler: {(response) in
                     //TO DO -> update folder Name
+                    
                     cell.folderName.text = response
                 })
             }else if(index == 1){ // 이미지 변경
@@ -178,6 +179,8 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     func folderDelete(){
         filteredFolder.remove(at: selectedCellIndexPath[1])
+        print("folderID : \(selectedCellIndexPath[1])")
+        FolderService.shared.deleteFolder(folderId: filteredFolder[selectedCellIndexPath[1]].folderId)
         self.alertViewController(title: "삭제 완료", message: "폴더를 삭제하였습니다", completion: { (response) in
             if(response == "OK"){
                 DispatchQueue.main.async {
@@ -198,7 +201,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     }
     
     
-    func editFolderName(completionHandler: @escaping ((String) -> Void)){
+    func editFolderName(folderId: Int, completionHandler: @escaping ((String) -> Void)){
         let alertVC = UIAlertController(title: "폴더 이름 수정", message: nil, preferredStyle: .alert)
        
         alertVC.addTextField(configurationHandler: { (textField) -> Void in
@@ -225,6 +228,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
                 self.present(alertVC, animated: true, completion: nil)
 
             }else {
+                FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput)
                 completionHandler(userInput)
             }
             
@@ -373,6 +377,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     //todo - make with navigation
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         guard let VC = self.storyboard?.instantiateViewController(identifier: "folderIn") else { return }
         VC.modalPresentationStyle = .fullScreen
         self.present(VC, animated: true, completion: nil)

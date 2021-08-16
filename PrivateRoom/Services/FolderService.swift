@@ -184,7 +184,7 @@ class FolderService {
         
     }
     
-    //폴더 id로 조회
+    //폴더 id로 조회 o
     func viewFolder(folderId: Int, completion: @escaping ((DetailFolderResponse) -> Void)){
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         
@@ -272,7 +272,7 @@ class FolderService {
     
     //폴더 이름 변경
     func changeFolderName(folderId: Int, changeName: String){
-        let url = Config.base_url + "/users/(user-id)/folders/\(folderId)"
+        let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PATCH"
@@ -282,8 +282,7 @@ class FolderService {
         let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
 
         request.httpBody = jsonData
-        //post
-        print("[UserProfileService] \(folderId) 폴더 이름 변경하기")
+    
 
         request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
@@ -291,6 +290,7 @@ class FolderService {
         
 
         AF.request(request).responseString { (response) in
+            print("[UserProfileService] \(folderId) 폴더 이름 변경하기")
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
@@ -304,7 +304,27 @@ class FolderService {
     
     
     //폴더 삭제
-    func deleteFolder(){
+    func deleteFolder(folderId: Int){
+        let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "DELETE"
+    
+
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+
+        AF.request(request).responseString { (response) in
+            print("[UserProfileService] \(folderId) 폴더 삭제하기")
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)")
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
     }
 }
