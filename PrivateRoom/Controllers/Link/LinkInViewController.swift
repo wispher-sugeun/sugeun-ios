@@ -10,6 +10,8 @@ import DropDown
 import PhotosUI
 
 class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, UIGestureRecognizerDelegate {
+    
+    var folderId: Int = 0
     func didTapMoreButton(cell: FolderCollectionViewCell) {
         more_dropDown.anchorView = cell.moreButton
         more_dropDown.show()
@@ -281,6 +283,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     
     @objc func didTapWriteButton(){
         let wirteVc = self.storyboard?.instantiateViewController(identifier: "makeLinkCell") as! MakeLinkViewController
+        wirteVc.folderId = folderId
         wirteVc.modalPresentationStyle = .fullScreen
         self.present(wirteVc, animated: true, completion: nil)
 

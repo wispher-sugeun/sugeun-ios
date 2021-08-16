@@ -295,6 +295,7 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
         guard let linkVC = self.storyboard?.instantiateViewController(identifier: "linkFolderIn") as? LinkInViewController else { return }
         let folderId = filteredLink[indexPath.row].folderId
         FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
+            linkVC.folderId = folderId
             linkVC.total = response
             self.navigationController?.pushViewController(linkVC, animated: true)
         })

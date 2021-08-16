@@ -13,25 +13,42 @@ class MakeLinkViewController: UIViewController {
     
     @IBOutlet var linkTextView: UITextView!
     
-    var string = ""
+    @IBOutlet weak var linkTitleTextField: UITextField!
     
+    var string = ""
+    var folderId: Int = 0
     @IBAction func dismissButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func doneButton(_ sender: Any) {
-        if(linkTextView.text != ""){
+        if(validating()){
             //post link cell
+            guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else { return }
+            
+            let linkRequest = CreateLinkRequest(userId: userId, folderId: folderId, title: linkTitleTextField.text!, link: linkTextView.text!, bookmark: false)
+            LinkService.shared.createLink(folderId: folderId, linkRequest: linkRequest)
             self.alertViewController(title: "작성 완료", message: "링크가 생성되었습니다", completion: {(response) in
                 if response == "OK" {
                     self.dismiss(animated: true, completion: nil)
                 }
-                                            })
-        }else {
-            self.alertViewController(title: "생성 실패", message: "링크를 입력해주세요", completion: { (response) in
+            })
+            
+        } else {
+            self.alertViewController(title: "생성 실패", message: "빈칸을 채워주세요", completion: { (response) in
                 }
             )
         }
+    }
+    
+    func validating() -> Bool {
+        if(linkTitleTextField.text == "" && linkTextView.text == "") {
+            return false
+        }
+        if(folderId == 0){
+            return false
+        }
+        return true
     }
     
     override func viewDidLoad() {

@@ -74,6 +74,9 @@
 		8EB54A7026C66604009C7F7C /* DetailFolderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A6F26C66604009C7F7C /* DetailFolderResponse.swift */; };
 		8EB54A7226CA4B46009C7F7C /* PhraseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A7126CA4B46009C7F7C /* PhraseService.swift */; };
 		8EB54A7426CA4D40009C7F7C /* CreatePhraseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A7326CA4D40009C7F7C /* CreatePhraseRequest.swift */; };
+		8EB54A7626CA73EF009C7F7C /* LinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A7526CA73EF009C7F7C /* LinkService.swift */; };
+		8EB54A7926CA74FC009C7F7C /* CreateLinkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A7826CA74FC009C7F7C /* CreateLinkRequest.swift */; };
+		8EB54A7B26CA7592009C7F7C /* Link.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB54A7A26CA7592009C7F7C /* Link.storyboard */; };
 		8ED15EA7269996F1002943C9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA6269996F0002943C9 /* SignInViewController.swift */; };
 		8ED15EA92699D687002943C9 /* FindIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA82699D687002943C9 /* FindIDViewController.swift */; };
 		8ED15EAB2699DB7E002943C9 /* FindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */; };
@@ -199,6 +202,9 @@
 		8EB54A6F26C66604009C7F7C /* DetailFolderResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFolderResponse.swift; sourceTree = "<group>"; };
 		8EB54A7126CA4B46009C7F7C /* PhraseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseService.swift; sourceTree = "<group>"; };
 		8EB54A7326CA4D40009C7F7C /* CreatePhraseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePhraseRequest.swift; sourceTree = "<group>"; };
+		8EB54A7526CA73EF009C7F7C /* LinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkService.swift; sourceTree = "<group>"; };
+		8EB54A7826CA74FC009C7F7C /* CreateLinkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLinkRequest.swift; sourceTree = "<group>"; };
+		8EB54A7A26CA7592009C7F7C /* Link.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Link.storyboard; sourceTree = "<group>"; };
 		8ED15EA6269996F0002943C9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		8ED15EA82699D687002943C9 /* FindIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDViewController.swift; sourceTree = "<group>"; };
 		8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWViewController.swift; sourceTree = "<group>"; };
@@ -440,6 +446,14 @@
 			path = Folder;
 			sourceTree = "<group>";
 		};
+		8EB54A7726CA74E7009C7F7C /* Link */ = {
+			isa = PBXGroup;
+			children = (
+				8EB54A7826CA74FC009C7F7C /* CreateLinkRequest.swift */,
+			);
+			path = Link;
+			sourceTree = "<group>";
+		};
 		8EF00F0B2652BA1E00AA1EEA /* storyBoard */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,6 +463,7 @@
 				8EF3BFAE268F678D00415150 /* Login.storyboard */,
 				8EA90B7B26C2541800469964 /* Calendar.storyboard */,
 				8E1496C026C39584002090CA /* Timeout.storyboard */,
+				8EB54A7A26CA7592009C7F7C /* Link.storyboard */,
 			);
 			path = storyBoard;
 			sourceTree = "<group>";
@@ -456,6 +471,7 @@
 		8EF00F1426539C9200AA1EEA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8EB54A7726CA74E7009C7F7C /* Link */,
 				8EB54A6526C60751009C7F7C /* Folder */,
 				8EA90B7F26C2A56F00469964 /* Schedule */,
 				8E5B805E26BD20480030D4B9 /* UserProfile */,
@@ -505,6 +521,7 @@
 				8EA90B7D26C2A3CF00469964 /* ScheduleService.swift */,
 				8EB54A6326C605FE009C7F7C /* FolderService.swift */,
 				8EB54A7126CA4B46009C7F7C /* PhraseService.swift */,
+				8EB54A7526CA73EF009C7F7C /* LinkService.swift */,
 				8EB54A6B26C649BA009C7F7C /* Config.swift */,
 			);
 			path = Services;
@@ -639,6 +656,7 @@
 				8ED94267269D844900B860BF /* MakeFolder.xib in Resources */,
 				8E2B834926A42DB200AC2570 /* TimeOutCollectionViewCell.xib in Resources */,
 				8E2B834526A41FFA00AC2570 /* MakeNotiFolderView.xib in Resources */,
+				8EB54A7B26CA7592009C7F7C /* Link.storyboard in Resources */,
 				8E003BD8264FB92700CB5802 /* FolderCollectionViewCell.xib in Resources */,
 				8EF3BFAF268F678D00415150 /* Login.storyboard in Resources */,
 				8E2B835926AD2C9000AC2570 /* TextCellTableViewCell.xib in Resources */,
@@ -773,8 +791,10 @@
 				8EE69D6626484B7D00ED19B9 /* TextViewController.swift in Sources */,
 				8ED15EAB2699DB7E002943C9 /* FindPWViewController.swift in Sources */,
 				8EE69D6C26484BAA00ED19B9 /* NotiViewController.swift in Sources */,
+				8EB54A7926CA74FC009C7F7C /* CreateLinkRequest.swift in Sources */,
 				8E003BD7264FB92700CB5802 /* FolderCollectionViewCell.swift in Sources */,
 				8E66D20B269EDC6A00F48C26 /* LinkBookViewController.swift in Sources */,
+				8EB54A7626CA73EF009C7F7C /* LinkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
