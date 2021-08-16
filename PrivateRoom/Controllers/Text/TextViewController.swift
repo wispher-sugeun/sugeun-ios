@@ -49,8 +49,8 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var textFolder = [Folder]()
-    var filteredTextFolder = [Folder]()
+    var textFolder = [GetByFolderResponse]()
+    var filteredTextFolder = [GetByFolderResponse]()
     var sortingText = "이름 순"
     var sorting = ["이름 순", "생성 순", "최신 순"]
     
@@ -72,13 +72,28 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         return dropDown
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+//        textFolder.append(Folder(folderId: 0, folderName: "텍스트 폴더1", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        textFolder.append(Folder(folderId: 1, folderName: "텍스트 폴더2", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        textFolder.append(Folder(folderId: 2, folderName: "텍스트 폴더3", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+        FolderService.shared.getPhraseFolder(completion: { (response) in
+            self.textFolder = response
+            self.filteredTextFolder = self.textFolder
+            self.collectionView.reloadData()
+        })
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonSetting(button: floatingButton)
         textFieldSetting(textField: searchTextField)
         collectionViewSetting()
-        dummyFolder()
+        //dummyFolder()
        
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
@@ -113,7 +128,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         print("folderImageChanged")
         if let dict = notification.userInfo as NSDictionary? {
             if let folderImage = dict["image"] as? UIImage{
-                filteredTextFolder[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
+//                filteredTextFolder[selectedCellIndexPath[1]].imageData = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
                     
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
@@ -190,15 +205,15 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         
     }
     
-    func dummyFolder(){
-        textFolder.append(Folder(folderId: 0, folderName: "텍스트 폴더1", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        textFolder.append(Folder(folderId: 1, folderName: "텍스트 폴더2", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        textFolder.append(Folder(folderId: 2, folderName: "텍스트 폴더3", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        
-        filteredTextFolder = textFolder
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
-    }
+//    func dummyFolder(){
+//        textFolder.append(Folder(folderId: 0, folderName: "텍스트 폴더1", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        textFolder.append(Folder(folderId: 1, folderName: "텍스트 폴더2", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//        textFolder.append(Folder(folderId: 2, folderName: "텍스트 폴더3", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
+//
+//        filteredTextFolder = textFolder
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
+//    }
     
     func buttonSetting(button: UIButton){
         button.circle()

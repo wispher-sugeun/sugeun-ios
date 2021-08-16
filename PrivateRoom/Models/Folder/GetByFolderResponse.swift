@@ -14,5 +14,5 @@ struct GetByFolderResponse: Codable {
 
     var userId: Int
 
-    var imageData: Data
+    var imageData: Data?
 }

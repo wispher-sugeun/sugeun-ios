@@ -78,8 +78,8 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     var sortingText = "이름 순"
     var selectedCellIndexPath = IndexPath()
     
-    var link = [Folder]()
-    var filteredLink = [Folder]()
+    var link = [GetByFolderResponse]()
+    var filteredLink = [GetByFolderResponse]()
     
     
     let more_dropDown: DropDown = {
@@ -98,6 +98,16 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        FolderService.shared.getLinkFolder(completion: { (response) in
+            self.link = response
+            self.filteredLink = self.link
+            self.collectionView.reloadData()
+        })
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         screenSize = UIScreen.main.bounds
@@ -107,12 +117,11 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         collectionViewSetting()
         floatingButtonSetting(button: floatingButton)
         
-        link.append(Folder(folderId: 1, folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-        link.append(Folder(folderId: 2, folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+//        link.append(Folder(folderId: 1, folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
+//        link.append(Folder(folderId: 2, folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
 //        link.append(Link(userId: 1, folderId: 1, linkId: 1, link: "www.naver.com", bookmark: true, date: "2021-02-05"))
 //        link.append(Link(userId: 2, folderId: 2, linkId: 2, link: "www.google.com", bookmark: true, date: "2021-03-05"))
 //        link.append(Link(userId: 3, folderId: 3, linkId: 3, link: "www.daum.net", bookmark: false, date: "2021-03-05"))
-        filteredLink = link
         
         flowSetting()
     }
@@ -155,7 +164,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         print("folderImageChanged")
         if let dict = notification.userInfo as NSDictionary? {
             if let folderImage = dict["image"] as? UIImage{
-                filteredLink[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
+//                filteredLink[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
                     
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()

@@ -70,8 +70,21 @@ class FolderCollectionViewCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
     
-    func configure(folder: Folder){
-        folderImage.image = image(folder.folderImage!, withSize: CGSize(width: contentView.frame.width/2, height: 80))
+//    func configure(folder: Folder){
+//     
+//        
+//        folderImage.image = image(folder.folderImage!, withSize: CGSize(width: contentView.frame.width/2, height: 80))
+//        folderName.text = folder.folderName
+//        
+//        
+//    }
+    
+    func configure(folder: GetByFolderResponse){
+        if(folder.imageData != nil) {
+            folderImage.image = UIImage(data: folder.imageData!)
+        }
+        
+//            image(folder.folderImage!, withSize: CGSize(width: contentView.frame.width/2, height: 80))
         folderName.text = folder.folderName
         
         

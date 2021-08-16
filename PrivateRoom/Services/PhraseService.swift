@@ -55,4 +55,39 @@ class PhraseService {
         }
         
     }
+    
+    //테스트 x
+    func updatePhrase(folderId: Int, text: String){
+        let url = "/users/\(userId)/folders/\(folderId)/phrases/(phraseId)"
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "PATCH"
+        let parameter: Parameters = ["text" : text]
+        
+        print("[PhraseService] 글귀 수정하기")
+        
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameter)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            request.httpBody = jsonData
+        }catch {
+            print(error)
+        }
+        
+        AF.request(request).responseString { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)") //글귀 TEXT 변경 완료
+
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
+    }
 }

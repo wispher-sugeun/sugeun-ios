@@ -66,7 +66,7 @@ class FolderService {
     }
     
     //타입 별 폴더 조회 PHRASE
-    func phraseFolder(){
+    func getPhraseFolder(completion: @escaping ([GetByFolderResponse]) -> (Void) ){
         let url = Config.base_url + "/users/\(userId)/folders?type=PHRASE"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -80,10 +80,16 @@ class FolderService {
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
-                    let responses = obj as! GetByFolderResponse
-                    print(responses)
-                    
-                    //completion(responses)
+                    let responses = obj as! [NSDictionary]
+                    do {
+                        //dictionary type to json object
+                        let json = try JSONSerialization.data(withJSONObject: responses)
+
+                        let response = try JSONDecoder().decode([GetByFolderResponse].self, from: json)
+                        completion(response)  // GetByFolderResponse
+                    }catch {
+                        print(error)
+                    }
                     break
                 case .failure(let error):
                     print("AF : \(error.localizedDescription)")
@@ -92,7 +98,7 @@ class FolderService {
     }
     
     //타입 별 폴더 조회 LINK
-    func linkFolder(){
+    func getLinkFolder(completion: @escaping ([GetByFolderResponse]) -> (Void)){
         let url = Config.base_url + "/users/\(userId)/folders?type=LINK"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
@@ -106,10 +112,16 @@ class FolderService {
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
-                    let responses = obj as! GetByFolderResponse
-                    print(responses)
-                    
-                    //completion(responses)
+                    let responses = obj as! [NSDictionary]
+                    do {
+                        //dictionary type to json object
+                        let json = try JSONSerialization.data(withJSONObject: responses)
+
+                        let response = try JSONDecoder().decode([GetByFolderResponse].self, from: json)
+                        completion(response)  // GetByFolderResponse
+                    }catch {
+                        print(error)
+                    }
                     break
                 case .failure(let error):
                     print("AF : \(error.localizedDescription)")

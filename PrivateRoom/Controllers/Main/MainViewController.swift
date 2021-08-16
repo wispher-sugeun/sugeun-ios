@@ -103,6 +103,17 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         return textfield
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        FolderService.shared.getFolder(completion: { (response) in
+            self.folders = response
+            self.mainViewModels = self.folders.map({ return FolderViewModel(allFolder: $0)})
+            self.filteredFolder = self.mainViewModels
+            print("get folders : \(self.filteredFolder)")
+            self.folderCollectionView.reloadData()
+        })
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,12 +121,8 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         screenWidth = screenSize.width
         screenHeight = screenSize.height
         
-//        FolderService.shared.getFolder(completion: { (response) in
-//            self.folders = response
-//        })
+       
         
-        self.mainViewModels = folders.map({ return FolderViewModel(allFolder: $0)})
-        filteredFolder = mainViewModels
         
 //        folders.append(Folder(folderId: 0, folderName: "abc", folderImage: UIImage(systemName: "person.fill"), isLike: true))
 //        folders.append(Folder(folderId: 1, folderName: "def", folderImage: UIImage(systemName: "person.fill"), isLike: true))
@@ -126,8 +133,6 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
 //        folders.append(Folder(folderId: 6, folderName: "카타하", folderImage: UIImage(systemName: "person.fill"), isLike: true))
 //        folders.append(Folder(folderId: 7, folderName: "123하이", folderImage: UIImage(systemName: "person.fill"), isLike: true))
 //        folders.append(Folder(folderId: 8, folderName: "하이123", folderImage: UIImage(systemName: "person.fill"), isLike: true)) // 가장
-        
-        filteredFolder = mainViewModels
         
         collectionViewSetting(collectionView: folderCollectionView)
         
@@ -299,7 +304,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        filteredFolder.count
+        print(filteredFolder.count)
+        return filteredFolder.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -313,7 +319,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.layer.shadowOpacity = 1.0
         cell.layer.masksToBounds = false
         //cell 크기 고정
-        cell.viewLayout(width: view.fs_width/2 - 50, height: 140)
+        cell.viewLayout(width: view.fs_width/2 - 40, height: 140)
         cell.cellDelegate = self
         let folderViewModel = filteredFolder[indexPath.row]
         cell.folderViewModel = folderViewModel
