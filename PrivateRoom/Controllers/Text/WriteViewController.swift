@@ -21,7 +21,7 @@ class WriteViewController: UIViewController {
     
     @IBAction func backButton(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
-        //self.dismiss(animated: true, completion: nil)
+        
     }
     
     @IBAction func doneButton(_ sender: Any) {
@@ -33,6 +33,7 @@ class WriteViewController: UIViewController {
                 self.alertViewController(title: "수정 완료", message: "글 수정을 완료하였습니다", completion: {(response) in
                     if response == "OK" {
                         PhraseService.shared.updatePhrase(folderId: self.folderId, phraseId: self.phraseId, text: self.textView.text!)
+                        self.navigationController?.popViewController(animated: true)
                     }
                 })
             } else {
@@ -44,10 +45,11 @@ class WriteViewController: UIViewController {
                         
                         let createPhrase = CreatePhraseRequest(userId: userId, folderId: self.folderId, text: self.textView.text!, bookmark: false, textDate: dateString)
                         PhraseService.shared.createPhrase(folderId: self.folderId, createRequest: createPhrase)
+                        self.navigationController?.popViewController(animated: true)
                     }
                                                 })
             }
-            self.navigationController?.popViewController(animated: true)
+           
             
         }else{
             self.alertViewController(title: "글 작성 실패", message: "글을 작성해주세요", completion: {(response) in })

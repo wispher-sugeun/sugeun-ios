@@ -27,7 +27,7 @@ class PhraseService {
         request.httpMethod = "POST"
         
         
-        print("[PhraseService] 글귀 생성하기")
+        print("[PhraseService] \(folderId) 글귀 생성하기")
         
         request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
@@ -108,6 +108,32 @@ class PhraseService {
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)") //글귀 삭제 완료
+
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    //글귀 북마크 수정
+    func phraseBookMark(phraseId: Int){
+        let url = Config.base_url + "/phrases/\(phraseId)/bookmark"
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "PATCH"
+
+        
+        print("[PhraseService] \(phraseId) 글귀 북마크 수정하기")
+        
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        AF.request(request).responseString { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)") //글귀 북마크 변경 완료
 
                     break
                 case .failure(let error):

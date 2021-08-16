@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
-                                    <navigationItem title="Title" id="Lng-cZ-4R8">
+                                    <navigationItem title="글쓰기" id="Lng-cZ-4R8">
                                         <barButtonItem key="leftBarButtonItem" image="chevron.backward" catalog="system" id="Dg8-VB-NXA">
                                             <color key="tintColor" systemColor="labelColor"/>
                                             <connections>

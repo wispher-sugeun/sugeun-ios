@@ -34,6 +34,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         if(textFolder.isEmpty){ // data가 없을때 footerview 없애기
             frameTableView.tableFooterView = nil
         }else {
+            frameTableView.tableFooterView?.isHidden = false
             frameTableView.tableFooterView?.frame.size.height = collectionView.contentSize.height + 50
         }
         
@@ -98,6 +99,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     @IBOutlet weak var header: UIView!
     
     @IBOutlet weak var footer: UIView!
+    
     private var tblView = UITableView()
     
     private var alertController = UIAlertController()
@@ -212,6 +214,8 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         frameTableView.allowsSelection = false
         frameTableView.separatorStyle = .none
         frameTableView.backgroundColor = .white
+        //처음에 없을 데이터를 위해 비활성화하기
+        frameTableView.tableFooterView?.isHidden = true
         frameTableView.register(TextCellTableViewCell.nib(), forCellReuseIdentifier: TextCellTableViewCell.identifier)
         self.frameTableView.translatesAutoresizingMaskIntoConstraints = false
         frameTableView.backgroundColor = .clear
@@ -320,10 +324,9 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     }
     
     @objc func didTapWriteButton(){
-        let wirteVc = self.storyboard?.instantiateViewController(identifier: "writeText") as! WriteViewController
-        wirteVc.modalPresentationStyle = .fullScreen
-        self.present(wirteVc, animated: true, completion: nil)
-
+        let writeVc = self.storyboard?.instantiateViewController(identifier: "writeText") as! WriteViewController
+        writeVc.folderId = folderId
+        self.navigationController?.pushViewController(writeVc, animated: true)
     }
     
     func textFieldSetting(textField: UITextField){
@@ -484,6 +487,12 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
         }
         textCell_dropDown.clearSelection()
         
+    }
+    
+    func bookMark(cell: TextCellTableViewCell) {
+        let index = cell.indexPath.row
+        let phraseId = filteredTextCell[index].phraseId
+        PhraseService.shared.phraseBookMark(phraseId: phraseId)
     }
     
     func textCellEdit(cell: TextCellTableViewCell){

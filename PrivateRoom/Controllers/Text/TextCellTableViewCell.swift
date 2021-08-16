@@ -9,7 +9,9 @@ import UIKit
 
 protocol TextCellTableViewCellDelegate {
     func moreButton(cell: TextCellTableViewCell)
+    func bookMark(cell: TextCellTableViewCell)
 }
+
 class TextCellTableViewCell: UITableViewCell {
     
     
@@ -21,12 +23,16 @@ class TextCellTableViewCell: UITableViewCell {
         sender.scalesLargeContentImage = true
         sender.isSelected = sender.isSelected ? false : true
         bookMarkToggle(sender)
+        
+        //to server
+        delegate?.bookMark(cell: self)
     }
         
     @IBOutlet weak var moreButton: UIButton!
     
     @IBAction func moreButton(_ sender: UIButton) {
         delegate?.moreButton(cell: self)
+        
     }
     
     @IBOutlet weak var dateLabel: UILabel!
@@ -34,6 +40,7 @@ class TextCellTableViewCell: UITableViewCell {
     var indexPath: IndexPath = []
     
     var delegate: TextCellTableViewCellDelegate?
+    
     static let identifier = "TextCellTableViewCell"
     
     
