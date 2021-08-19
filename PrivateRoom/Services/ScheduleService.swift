@@ -27,8 +27,13 @@ class ScheduleService {
             (response) in
             switch response.result {
                 case .success(let obj):
-                    let responses = obj as! [GetScheduleResponse]
-                    completion(responses)  // userResDTO
+                    do {
+                        let dataJSON = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
+                        let postData = try JSONDecoder().decode([GetScheduleResponse].self, from: dataJSON)
+                        completion(postData)
+                    }catch {
+                        print(error)
+                    }
                     break
                 case .failure(let error):
                     print(error)
@@ -91,24 +96,34 @@ class ScheduleService {
     
     
     //스케쥴 수정
-    func editSchedule(schedule: EditScheduleRequest){
+    func editSchedule(schedule: PutScheduleRequest){
         let url = "/users/\(userId)/schedules/\(schedule.scheduleId)"
-        let headers: HTTPHeaders = ["Authorization" : deviceToken]
-        let parameter: Parameters = schedule.dictionary
         
         var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "PATCH"
-        let formDataString = (schedule.dictionary.compactMap({(key, value) -> String in
-            return "\(key)=\(value)" }) as Array).joined(separator: "&")
-        let formEncodedData = formDataString.data(using: .utf8)
+        request.httpMethod = "PUT"
+
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let jsonData = try JSONEncoder().encode(schedule)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            request.httpBody = jsonData
+            // and decode it back
+            let decoded = try JSONDecoder().decode(PutScheduleRequest.self, from: jsonData)
+            print(decoded)
+        } catch { print(error) }
         
         
-        request.httpBody = formEncodedData
-        AF.request(url, method: .patch, parameters: parameter, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+        
+        AF.request(request).responseString { (response) in
+            print("[ScheduleService] 스케줄 수정하기")
             switch response.result {
                 case .success(let obj):
-                    let responses = obj as! String
-                   print(responses) //스케쥴 변경 완료
+                    print(obj) //스케줄 수정 완료
+                
                     break
                 case .failure(let error):
                     print(error)

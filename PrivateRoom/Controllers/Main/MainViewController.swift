@@ -610,6 +610,7 @@ enum MakeFolderError: Error {
 }
 
 class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFolderdelegate {
+    var parentFolderId: Int = 0
     
     func dissMiss() {
         self.dismiss(animated: true, completion: nil)
@@ -634,7 +635,8 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
             
             print("type : \(type)")
             
-            let folderInfo = CreateFolderRequest(folderName: folderView.folderNameTextField.text!, userId: userId, type: type, parentFolderId: 0, imageFile: (folderView.folderImage.image?.jpeg(.lowest))!)
+            let folderInfo = CreateFolderRequest(folderName: folderView.folderNameTextField.text!, userId: userId, type: type, parentFolderId: parentFolderId, imageFile: (folderView.folderImage.image?.jpeg(.lowest))!)
+            print(folderInfo)
             FolderService.shared.createFolder(folder: folderInfo)
             self.dismiss(animated: true, completion: nil)
             

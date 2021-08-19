@@ -242,7 +242,8 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
 
     
     @objc func makeFolder(){
-        let makeFolderView = self.storyboard?.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let makeFolderView = storyBoard.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
         makeFolderAlertView.type_dropDown.dataSource = ["링크"]
         makeFolderView.modalPresentationStyle = .overCurrentContext
         self.present(makeFolderView, animated: true, completion: nil)

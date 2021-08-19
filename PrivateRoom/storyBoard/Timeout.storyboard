@@ -96,7 +96,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dPU-Xm-NzS" customClass="MakeNotiFolderView" customModule="PrivateRoom" customModuleProvider="target">
-                                <rect key="frame" x="55" y="124" width="304" height="648"/>
+                                <rect key="frame" x="55" y="104" width="304" height="688"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
@@ -104,11 +104,10 @@
                         <color key="backgroundColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="0.81000000000000005" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="dPU-Xm-NzS" firstAttribute="leading" secondItem="ydc-SY-1hP" secondAttribute="leading" constant="55" id="3Ig-yP-6hH"/>
-                            <constraint firstItem="ydc-SY-1hP" firstAttribute="bottom" secondItem="dPU-Xm-NzS" secondAttribute="bottom" constant="90" id="IeD-Bt-6MY"/>
                             <constraint firstItem="ydc-SY-1hP" firstAttribute="trailing" secondItem="dPU-Xm-NzS" secondAttribute="trailing" constant="55" id="UHD-zq-NIw"/>
                             <constraint firstItem="dPU-Xm-NzS" firstAttribute="centerY" secondItem="e4u-Ro-moi" secondAttribute="centerY" id="cXm-dy-PfK"/>
                             <constraint firstItem="dPU-Xm-NzS" firstAttribute="centerX" secondItem="e4u-Ro-moi" secondAttribute="centerX" id="ccS-Fk-Oad"/>
-                            <constraint firstItem="dPU-Xm-NzS" firstAttribute="top" secondItem="ydc-SY-1hP" secondAttribute="top" constant="80" id="kon-fa-com"/>
+                            <constraint firstItem="dPU-Xm-NzS" firstAttribute="top" secondItem="ydc-SY-1hP" secondAttribute="top" constant="60" id="kon-fa-com"/>
                         </constraints>
                     </view>
                     <connections>
@@ -133,7 +132,14 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cm2-Vh-B91">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
-                                    <navigationItem title="Title" id="lVd-nR-rfC"/>
+                                    <navigationItem title="Title" id="lVd-nR-rfC">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="chevron.backward" catalog="system" id="EAY-xm-v4T">
+                                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <connections>
+                                                <action selector="backButton:" destination="ZAA-ck-Xgb" id="FEP-E8-1hU"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                         </subviews>
@@ -160,6 +166,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

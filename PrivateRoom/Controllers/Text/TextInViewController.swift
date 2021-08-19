@@ -106,7 +106,6 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     @IBAction func backButton(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
-        //self.dismiss(animated: false, completion: nil)
     }
     
 

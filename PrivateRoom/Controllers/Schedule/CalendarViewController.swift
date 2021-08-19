@@ -37,25 +37,37 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     public var delegate: calendarViewDelegate?
-    var schedule = [Schedule]()
-    var filtered = [Schedule]()
+    var schedule = [GetScheduleResponse]()
+    var filtered = [GetScheduleResponse]()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        ScheduleService.shared.getSchedule(completion: { (response) in
+            self.schedule = response
+            self.filtered = self.schedule
+            self.tableView.reloadData()
+        })
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         calenderSetting()
         tableviewSetting()
-        schedule.append(Schedule(scheduleId: 1, userId: 1, title: "test1", scheduleDate: "2021/07/04", selectedList: [1,2,3]))
         
-        schedule.append( Schedule(scheduleId: 2, userId: 2, title: "test2", scheduleDate: "2021/07/14", selectedList: [1,2]))
-
-        schedule.append(Schedule(scheduleId: 3, userId: 3, title: "test3", scheduleDate: "2021/07/15", selectedList: [1,2,7]))
-
-   
-        searchTextField.delegate = self
-        searchTextField.circle()
-        filtered = schedule
+//        schedule.append(Schedule(scheduleId: 1, userId: 1, title: "test1", scheduleDate: "2021/07/04", selectedList: [1,2,3]))
+//
+//        schedule.append( Schedule(scheduleId: 2, userId: 2, title: "test2", scheduleDate: "2021/07/14", selectedList: [1,2]))
+//
+//        schedule.append(Schedule(scheduleId: 3, userId: 3, title: "test3", scheduleDate: "2021/07/15", selectedList: [1,2,7]))
+        textfieldSetting()
+       
         handleSwipeDelete()
 
+    }
+    
+    func textfieldSetting(){
+        searchTextField.delegate = self
+        searchTextField.circle()
     }
     
     func calenderSetting(){
@@ -148,11 +160,13 @@ extension CalendarViewController: FSCalendarDataSource, FSCalendarDelegate {
     func filtersetDayList(day: Int, month: Int, year: Int){
         filtered.removeAll()
         for i in schedule {
-            print(DateUtil.parseDate(i.scheduleDate).day)
             if (day == DateUtil.parseDate(i.scheduleDate).day && month == DateUtil.parseDate(i.scheduleDate).month && year == DateUtil.parseDate(i.scheduleDate).year){
                 print(i)
                 filtered.append(i)
             }
+        }
+            
+
         }
     
     }
@@ -161,7 +175,7 @@ extension CalendarViewController: FSCalendarDataSource, FSCalendarDelegate {
         print(date.day)
         
         filtersetDayList(day: date.day, month: date.month, year: date.year)
-        tableView.reloadData()
+        self.tableView.reloadData()
         
     }
     
@@ -217,7 +231,7 @@ extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { // 수정 모드
         let selectedIndex = filtered[indexPath.row]
         let addCalendarVC = self.storyboard?.instantiateViewController(identifier: "addCalendar") as! AddCalendarViewController
         addCalendarVC.viewMode = true

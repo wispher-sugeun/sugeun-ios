@@ -64,13 +64,13 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
     
-    public func configure(model: Timeout) {
+    public func configure(model: GetTimeoutResponse) {
         
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let startTime = Date()
         
-        let endTime = DateUtil.parseDate(model.deadLine)
+        let endTime = DateUtil.parseDate(model.deadline)
         let dday = Int(((endTime.timeIntervalSince(startTime)))) / 86400
         
         if(model.isValid == true){ // 비활성화
@@ -82,8 +82,11 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
         }
         
         self.titleTextLabel.text = model.title
-        self.alarmImageView.image = model.timeoutImage
-        let deadLine = DateUtil.parseDate(model.deadLine)
+        if(!model.imageData!.isEmpty) {
+            self.alarmImageView.image = UIImage(data: model.imageData!)
+        }
+        //self.alarmImageView.image = model.timeoutImage
+        let deadLine = DateUtil.parseDate(model.deadline)
         
         self.dateTextLabel.text = "~\(deadLine.year)년 \(deadLine.month)월 \(deadLine.day)까지"
         

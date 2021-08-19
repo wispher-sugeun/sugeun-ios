@@ -9,6 +9,7 @@ import Foundation
 
 
 struct GetScheduleResponse: Codable {
+    
     private var scheduleId: Int
 
     private var userId: Int

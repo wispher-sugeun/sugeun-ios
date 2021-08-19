@@ -40,5 +40,14 @@ class DateUtil {
         return formatter.string(from: date)
     }
     
+    static func serverSendDateTimeFormat(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+
+        return formatter.string(from: date)
+    }
+    
+    
+    
     
 }

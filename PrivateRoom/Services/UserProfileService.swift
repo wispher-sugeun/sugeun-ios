@@ -78,14 +78,13 @@ class UserProfileService {
             var fileName = "\(imgeFile).jpg"
             fileName = fileName.replacingOccurrences(of: " ", with: "_")
             print(fileName)
-            multipartFormData.append(imgeFile, withName: "imgeFile", fileName: fileName, mimeType: "image/jpg")
+            multipartFormData.append(imgeFile, withName: "imageFile", fileName: fileName, mimeType: "image/jpg")
 
 
         }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
-                    print(type(of: obj))
                     break
                 case .failure(let error):
                     print("AF : \(error.localizedDescription)")

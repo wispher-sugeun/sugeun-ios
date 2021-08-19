@@ -19,6 +19,7 @@ class FolderService {
         deviceToken = UserDefaults.standard.string(forKey: UserDefaultKey.deviceToken)!
     }
     
+    
     //폴더 목록
     func getFolder(completion: @escaping ([GetFolderResponse]) -> (Void)){
         let url = Config.base_url + "/users/\(userId)/folders"
@@ -143,8 +144,10 @@ class FolderService {
         if(folder.parentFolderId == 0){
             parameter = CreateFolderRequestNull(folderName: folder.folderName, userId: folder.userId, type: folder.type).dictionary
         }else {
-            parameter = CreateFolderRequestParameter(folderName: folder.folderName, userId: folder.userId, type: folder.type).dictionary
+            parameter = CreateFolderRequestParameter(parentFolderId: folder.parentFolderId, folderName: folder.folderName, userId: folder.userId, type: folder.type).dictionary
         }
+        
+        print("parameter : \(parameter)")
     
         
         AF.upload(multipartFormData: { multipartFormData in
@@ -154,7 +157,7 @@ class FolderService {
             var fileName = "\(folder.imageFile).jpg"
             fileName = fileName.replacingOccurrences(of: " ", with: "_")
             print(fileName)
-            multipartFormData.append(folder.imageFile, withName: "images", fileName: fileName, mimeType: "image/jpg")
+            multipartFormData.append(folder.imageFile, withName: "imageFile", fileName: fileName, mimeType: "image/jpg")
         
             for (key, value) in parameter {
                 if let temp = value as? Int {
@@ -234,7 +237,7 @@ class FolderService {
             "Authorization" : deviceToken
         ]
         
-        //let parameter: Parameters = [ "imgFile" : changeImage]
+        //let parameter: Parameters = ["imgFile" : changeImage]
         
         
         AF.upload(multipartFormData: { multipartFormData in
@@ -244,7 +247,7 @@ class FolderService {
             var fileName = "\(changeImage).jpg"
             fileName = fileName.replacingOccurrences(of: " ", with: "_")
             print(fileName)
-            multipartFormData.append(changeImage, withName: "images", fileName: fileName, mimeType: "image/jpg")
+            multipartFormData.append(changeImage, withName: "imageFile", fileName: fileName, mimeType: "image/jpg")
 
         }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate().responseString { (response) in
             switch response.result {

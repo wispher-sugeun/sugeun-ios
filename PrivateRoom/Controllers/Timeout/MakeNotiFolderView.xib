@@ -19,7 +19,7 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="400" height="1237"/>
+            <rect key="frame" x="0.0" y="0.0" width="400" height="845"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름 :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UyY-GB-iYX">
@@ -114,7 +114,7 @@
                     </constraints>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTc-K9-xW0">
-                    <rect key="frame" x="30" y="770" width="340" height="437"/>
+                    <rect key="frame" x="30" y="770" width="340" height="45"/>
                     <color key="backgroundColor" red="0.29878696799999999" green="0.34688293930000003" blue="0.56473058460000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <state key="normal" title="완료">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -172,7 +172,7 @@
                 <constraint firstAttribute="bottom" secondItem="aTc-K9-xW0" secondAttribute="bottom" constant="30" id="wkC-in-fDk"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-5.7971014492753632" y="265.51339285714283"/>
+            <point key="canvasLocation" x="-5.7971014492753632" y="133.59375"/>
         </view>
     </objects>
     <resources>

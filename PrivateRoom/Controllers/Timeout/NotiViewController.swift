@@ -12,8 +12,8 @@ import PhotosUI
 class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     
 
-    var timeOut = [Timeout]()
-    var filteredtimeOut = [Timeout]()
+    var timeOut = [GetTimeoutResponse]()
+    var filteredtimeOut = [GetTimeoutResponse]()
     
     var screenSize: CGRect!
     var screenWidth: CGFloat!
@@ -23,6 +23,7 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
             collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         }
     }
+    
     
     @IBOutlet weak var floatingButton: UIButton!
     
@@ -45,6 +46,16 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
         return dropDown
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        TimeoutService.shared.getTimeout(completion: { (response) in
+            self.timeOut = response
+            self.filteredtimeOut = self.timeOut
+            
+            print(response)
+        })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         var imageArray = [UIImage]()
@@ -53,10 +64,10 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
         imageArray.append(UIImage(named: "alarm1")!)
     
         
-        timeOut.append(Timeout(userId: 1, timeoutId: 1, title: "스타벅스 자허블", timeoutImage: imageArray[0], deadLine: "2021-08-07", selectedList: [1,3], isValid: true))
-        timeOut.append(Timeout(userId: 2, timeoutId: 2, title: "이디야 아이스티", timeoutImage: imageArray[1], deadLine: "2021-07-30", selectedList: [1,3,7], isValid: false))
-        timeOut.append(Timeout(userId: 3, timeoutId: 3, title: "투썸 아이스박스", timeoutImage: imageArray[2], deadLine: "2021-09-10", selectedList: [1, 7], isValid: true))
-        filteredtimeOut = timeOut
+//        timeOut.append(Timeout(userId: 1, timeoutId: 1, title: "스타벅스 자허블", timeoutImage: imageArray[0], deadLine: "2021-08-07", selectedList: [1,3], isValid: true))
+//        timeOut.append(Timeout(userId: 2, timeoutId: 2, title: "이디야 아이스티", timeoutImage: imageArray[1], deadLine: "2021-07-30", selectedList: [1,3,7], isValid: false))
+//        timeOut.append(Timeout(userId: 3, timeoutId: 3, title: "투썸 아이스박스", timeoutImage: imageArray[2], deadLine: "2021-09-10", selectedList: [1, 7], isValid: true))
+//        filteredtimeOut = timeOut
         
         floatingButtonSetting(floatingButton)
         collectionViewSetting(collectionView: collectionView)
@@ -213,7 +224,8 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = filteredtimeOut[indexPath.row]
         let viewNoti =  (self.storyboard?.instantiateViewController(identifier: "ViewNoti"))! as ViewNotiController
-        viewNoti.tempImageName = cell.timeoutImage
+        //viewNoti.tempImageName = cell.timeoutImage
+        viewNoti.imageData = cell.imageData
         self.navigationController?.pushViewController(viewNoti, animated: true)
        
         
@@ -456,7 +468,7 @@ extension NotiViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func sortingValidity(){
-        timeOut = timeOut.sorted { DateUtil.toSecond($0.deadLine) < DateUtil.toSecond($1.deadLine)}
+        timeOut = timeOut.sorted { DateUtil.toSecond($0.deadline) < DateUtil.toSecond($1.deadline)}
         filteredtimeOut = timeOut
     }
     
@@ -466,23 +478,27 @@ extension NotiViewController: UITableViewDelegate, UITableViewDataSource {
 class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate {
     
     var editMode: Bool = false
-    var timeOut: Timeout?
+    var timeOut: GetTimeoutResponse?
     
     func dissMiss() {
         self.dismiss(animated: true, completion: nil)
     }
     
     func done() {
+        
         if(validate()){
             print(makeNotiFolderView.nameTextField.text!)
  
             print(makeNotiFolderView.datePicker.date)
             let intArray = alarmIntArray()
             print(intArray)
-            
-
+            let date = DateUtil.serverSendDateTimeFormat(makeNotiFolderView.datePicker.date)
+            guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else { return }
+            let createTimoutRequest = CreateTimeoutRequest(userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: false, selected: intArray, imageFile: (makeNotiFolderView.imageView.image?.jpeg(.lowest))!)
+            TimeoutService.shared.createTimeout(createTimoutRequest: createTimoutRequest)
             self.dismiss(animated: true, completion: nil)
-            print("생성 완료")
+        }else {
+            //alert to do
         }
     }
     
@@ -528,7 +544,7 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
         makeNotiFolderView.delegate = self
         if(editMode){
             print("eidt timeout is \(timeOut!)")
-            self.makeNotiFolderView.configure(cell: timeOut!)
+            self.makeNotiFolderView.configure(cell: timeOut)
         }
     }
     

@@ -61,15 +61,18 @@ class AddCalendarViewController: UIViewController {
                     }
                     print(naviTitle)
                     if(naviTitle == "일정 수정"){
-                        alertViewController(title: "알림 수정", message: "알림이 수정되었습니다", completion: {(string) in
+                        alertViewController(title: "스케줄 수정", message: "스케줄이 수정되었습니다", completion: { [self](string) in
                             self.navigationController?.popViewController(animated: true)
+                            
+                            let putSchedule = PutScheduleRequest(scheduleId: selectedScheduled!.scheduleId, userId: selectedScheduled!.userId, title: selectedScheduled!.title, selected: selectedScheduled!.selectedList, scheduleDate: selectedScheduled!.scheduleDate)
+                            ScheduleService.shared.editSchedule(schedule: putSchedule)
                             //print("selectedList : \(selectedScheduled?.selectedList)")
                         })
                     }else{
-                        alertViewController(title: "알림 생성", message: "알림이 생성되었습니다", completion: { [self](string) in
+                        alertViewController(title: "스케줄 생성", message: "스케줄이 생성되었습니다", completion: { [self](string) in
                             self.navigationController?.popViewController(animated: true)
                             let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
-                            let scheduleDateString = postScheduleFormat()
+                            let scheduleDateString = postScheduleFormat(date: datePicker.date)
                             print(scheduleDateString)
                             let postSchedule = PostScheduleRequest(userId: userId, title: titleTextField.text!, selected: selectedIndex, scheduleDate: scheduleDateString)
                             print("postSchedule : \(postSchedule)")
@@ -90,9 +93,9 @@ class AddCalendarViewController: UIViewController {
         
     }
     
-    func postScheduleFormat() -> String {
+    func postScheduleFormat(date: Date) -> String {
         var string = ""
-        string = DateUtil.serverSendDateFormat(datePicker.date) + " "
+        string = DateUtil.serverSendDateFormat(date) + " "
         if(!amButton.isSelected){ // true이면
             string += timeTextField.text!
         }else if (!pmButton.isSelected){

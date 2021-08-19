@@ -65,7 +65,6 @@
 		8EA90B7E26C2A3CF00469964 /* ScheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B7D26C2A3CF00469964 /* ScheduleService.swift */; };
 		8EA90B8126C2A57D00469964 /* GetScheduleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B8026C2A57D00469964 /* GetScheduleResponse.swift */; };
 		8EA90B8326C2A6E600469964 /* PostScheduleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B8226C2A6E600469964 /* PostScheduleRequest.swift */; };
-		8EA90B8526C2A8BB00469964 /* EditScheduleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B8426C2A8BB00469964 /* EditScheduleRequest.swift */; };
 		8EB54A6426C605FE009C7F7C /* FolderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A6326C605FE009C7F7C /* FolderService.swift */; };
 		8EB54A6726C60775009C7F7C /* GetFolderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A6626C60775009C7F7C /* GetFolderResponse.swift */; };
 		8EB54A6A26C6102F009C7F7C /* CreateFolderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A6926C6102F009C7F7C /* CreateFolderRequest.swift */; };
@@ -77,6 +76,10 @@
 		8EB54A7626CA73EF009C7F7C /* LinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A7526CA73EF009C7F7C /* LinkService.swift */; };
 		8EB54A7926CA74FC009C7F7C /* CreateLinkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A7826CA74FC009C7F7C /* CreateLinkRequest.swift */; };
 		8EB54A7B26CA7592009C7F7C /* Link.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB54A7A26CA7592009C7F7C /* Link.storyboard */; };
+		8EB54A7D26CCD073009C7F7C /* TimoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A7C26CCD073009C7F7C /* TimoutService.swift */; };
+		8EB54A8026CCD187009C7F7C /* CreateTimeoutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A7F26CCD187009C7F7C /* CreateTimeoutRequest.swift */; };
+		8EB54A8226CCF362009C7F7C /* GetTimeoutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A8126CCF362009C7F7C /* GetTimeoutResponse.swift */; };
+		8EB54A8426CDD5C6009C7F7C /* PutScheduleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54A8326CDD5C5009C7F7C /* PutScheduleRequest.swift */; };
 		8ED15EA7269996F1002943C9 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA6269996F0002943C9 /* SignInViewController.swift */; };
 		8ED15EA92699D687002943C9 /* FindIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EA82699D687002943C9 /* FindIDViewController.swift */; };
 		8ED15EAB2699DB7E002943C9 /* FindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */; };
@@ -193,7 +196,6 @@
 		8EA90B7D26C2A3CF00469964 /* ScheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleService.swift; sourceTree = "<group>"; };
 		8EA90B8026C2A57D00469964 /* GetScheduleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetScheduleResponse.swift; sourceTree = "<group>"; };
 		8EA90B8226C2A6E600469964 /* PostScheduleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScheduleRequest.swift; sourceTree = "<group>"; };
-		8EA90B8426C2A8BB00469964 /* EditScheduleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduleRequest.swift; sourceTree = "<group>"; };
 		8EB54A6326C605FE009C7F7C /* FolderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderService.swift; sourceTree = "<group>"; };
 		8EB54A6626C60775009C7F7C /* GetFolderResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFolderResponse.swift; sourceTree = "<group>"; };
 		8EB54A6926C6102F009C7F7C /* CreateFolderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFolderRequest.swift; sourceTree = "<group>"; };
@@ -205,6 +207,10 @@
 		8EB54A7526CA73EF009C7F7C /* LinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkService.swift; sourceTree = "<group>"; };
 		8EB54A7826CA74FC009C7F7C /* CreateLinkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLinkRequest.swift; sourceTree = "<group>"; };
 		8EB54A7A26CA7592009C7F7C /* Link.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Link.storyboard; sourceTree = "<group>"; };
+		8EB54A7C26CCD073009C7F7C /* TimoutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimoutService.swift; sourceTree = "<group>"; };
+		8EB54A7F26CCD187009C7F7C /* CreateTimeoutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTimeoutRequest.swift; sourceTree = "<group>"; };
+		8EB54A8126CCF362009C7F7C /* GetTimeoutResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTimeoutResponse.swift; sourceTree = "<group>"; };
+		8EB54A8326CDD5C5009C7F7C /* PutScheduleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutScheduleRequest.swift; sourceTree = "<group>"; };
 		8ED15EA6269996F0002943C9 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		8ED15EA82699D687002943C9 /* FindIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDViewController.swift; sourceTree = "<group>"; };
 		8ED15EAA2699DB7E002943C9 /* FindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWViewController.swift; sourceTree = "<group>"; };
@@ -280,7 +286,7 @@
 			path = AlarmPushNotificationService;
 			sourceTree = "<group>";
 		};
-		8E2B833B26A41D5400AC2570 /* Alarm */ = {
+		8E2B833B26A41D5400AC2570 /* Timeout */ = {
 			isa = PBXGroup;
 			children = (
 				8EE69D6B26484BAA00ED19B9 /* NotiViewController.swift */,
@@ -290,7 +296,7 @@
 				8E2B834726A42DB100AC2570 /* TimeOutCollectionViewCell.xib */,
 				8E1496C226C39616002090CA /* ViewNotiController.swift */,
 			);
-			path = Alarm;
+			path = Timeout;
 			sourceTree = "<group>";
 		};
 		8E2B834A26A462E500AC2570 /* Main */ = {
@@ -336,7 +342,7 @@
 			path = UserProfile;
 			sourceTree = "<group>";
 		};
-		8E66D212269F3E8700F48C26 /* Calendar */ = {
+		8E66D212269F3E8700F48C26 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
 				8E66D215269F45B900F48C26 /* AddCell */,
@@ -344,7 +350,7 @@
 				8E66D213269F3EA300F48C26 /* AddCalendarViewController.swift */,
 				8E66D22726A017C300F48C26 /* MakeAlarmViewController.swift */,
 			);
-			path = Calendar;
+			path = Schedule;
 			sourceTree = "<group>";
 		};
 		8E66D215269F45B900F48C26 /* AddCell */ = {
@@ -428,9 +434,9 @@
 		8EA90B7F26C2A56F00469964 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
+				8EB54A8326CDD5C5009C7F7C /* PutScheduleRequest.swift */,
 				8EA90B8026C2A57D00469964 /* GetScheduleResponse.swift */,
 				8EA90B8226C2A6E600469964 /* PostScheduleRequest.swift */,
-				8EA90B8426C2A8BB00469964 /* EditScheduleRequest.swift */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -454,6 +460,15 @@
 			path = Link;
 			sourceTree = "<group>";
 		};
+		8EB54A7E26CCD178009C7F7C /* Timeout */ = {
+			isa = PBXGroup;
+			children = (
+				8EB54A7F26CCD187009C7F7C /* CreateTimeoutRequest.swift */,
+				8EB54A8126CCF362009C7F7C /* GetTimeoutResponse.swift */,
+			);
+			path = Timeout;
+			sourceTree = "<group>";
+		};
 		8EF00F0B2652BA1E00AA1EEA /* storyBoard */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,6 +486,7 @@
 		8EF00F1426539C9200AA1EEA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8EB54A7E26CCD178009C7F7C /* Timeout */,
 				8EB54A7726CA74E7009C7F7C /* Link */,
 				8EB54A6526C60751009C7F7C /* Folder */,
 				8EA90B7F26C2A56F00469964 /* Schedule */,
@@ -489,8 +505,8 @@
 				8E2B834B26A7D97300AC2570 /* Text */,
 				8E782AD32647D3A400D93D89 /* ViewController.swift */,
 				8E2B834A26A462E500AC2570 /* Main */,
-				8E2B833B26A41D5400AC2570 /* Alarm */,
-				8E66D212269F3E8700F48C26 /* Calendar */,
+				8E2B833B26A41D5400AC2570 /* Timeout */,
+				8E66D212269F3E8700F48C26 /* Schedule */,
 				8E70C1C526919A32006F1D2C /* Profile */,
 				8EF3BFAB268F675C00415150 /* Login */,
 				8EF00F1226539C0100AA1EEA /* FolderInViewController.swift */,
@@ -522,6 +538,7 @@
 				8EB54A6326C605FE009C7F7C /* FolderService.swift */,
 				8EB54A7126CA4B46009C7F7C /* PhraseService.swift */,
 				8EB54A7526CA73EF009C7F7C /* LinkService.swift */,
+				8EB54A7C26CCD073009C7F7C /* TimoutService.swift */,
 				8EB54A6B26C649BA009C7F7C /* Config.swift */,
 			);
 			path = Services;
@@ -747,7 +764,6 @@
 				8EF3BFA8268F627400415150 /* FolderViewModel.swift in Sources */,
 				8E782AD42647D3A400D93D89 /* ViewController.swift in Sources */,
 				8EFFBFC526BC5F0E007C1868 /* LoginResponse.swift in Sources */,
-				8EA90B8526C2A8BB00469964 /* EditScheduleRequest.swift in Sources */,
 				8E5B806026BD20660030D4B9 /* GetProfileResponse.swift in Sources */,
 				8E782AD02647D3A400D93D89 /* AppDelegate.swift in Sources */,
 				8E70C1C2269196FC006F1D2C /* Extension.swift in Sources */,
@@ -763,12 +779,14 @@
 				8E66D214269F3EA300F48C26 /* AddCalendarViewController.swift in Sources */,
 				8E66D220269F460000F48C26 /* DateTimeTableViewCell.swift in Sources */,
 				8E5B805D26BD1EBD0030D4B9 /* UserProfileService.swift in Sources */,
+				8EB54A8426CDD5C6009C7F7C /* PutScheduleRequest.swift in Sources */,
 				8EB54A7226CA4B46009C7F7C /* PhraseService.swift in Sources */,
 				8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */,
 				8E2B835526A95D0700AC2570 /* TextInViewController.swift in Sources */,
 				8E2B834326A41F9F00AC2570 /* MakeNotiFolderView.swift in Sources */,
 				8EFFBFBE26BC4FBD007C1868 /* SignUpRequest.swift in Sources */,
 				8EFFBFC026BC4FD2007C1868 /* SignUpResponse.swift in Sources */,
+				8EB54A7D26CCD073009C7F7C /* TimoutService.swift in Sources */,
 				8E1D604F26B9063600DF53FE /* PageViewController.swift in Sources */,
 				8E2B835F26ADD1DA00AC2570 /* LinkInViewController.swift in Sources */,
 				8E66D21C269F45EE00F48C26 /* DateAddTableViewCell.swift in Sources */,
@@ -783,6 +801,7 @@
 				8ED15EA7269996F1002943C9 /* SignInViewController.swift in Sources */,
 				8E66D211269EE94B00F48C26 /* DateUtil.swift in Sources */,
 				8EE69D6426484B4F00ED19B9 /* MainViewController.swift in Sources */,
+				8EB54A8026CCD187009C7F7C /* CreateTimeoutRequest.swift in Sources */,
 				8E1D607F26B92D0D00DF53FE /* UserDefaultKey.swift in Sources */,
 				8EF00F11265390C900AA1EEA /* FolderViewController.swift in Sources */,
 				8EB54A6E26C66452009C7F7C /* GetByFolderResponse.swift in Sources */,
@@ -791,6 +810,7 @@
 				8EE69D6626484B7D00ED19B9 /* TextViewController.swift in Sources */,
 				8ED15EAB2699DB7E002943C9 /* FindPWViewController.swift in Sources */,
 				8EE69D6C26484BAA00ED19B9 /* NotiViewController.swift in Sources */,
+				8EB54A8226CCF362009C7F7C /* GetTimeoutResponse.swift in Sources */,
 				8EB54A7926CA74FC009C7F7C /* CreateLinkRequest.swift in Sources */,
 				8E003BD7264FB92700CB5802 /* FolderCollectionViewCell.swift in Sources */,
 				8E66D20B269EDC6A00F48C26 /* LinkBookViewController.swift in Sources */,

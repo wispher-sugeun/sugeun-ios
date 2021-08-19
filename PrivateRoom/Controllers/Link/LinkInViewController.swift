@@ -131,14 +131,15 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         
         linkFolder =  total.map { $0.folderResDTOList}!!
         filteredLinkFolder = linkFolder
+        print(filteredLinkFolder)
         
         if(!linkCell.isEmpty){
             FrameCollectionView.reloadData()
         }
         
-        if(!linkFolder.isEmpty){
-            folderCollectionView.reloadData()
-        }
+//        if(!linkFolder.isEmpty){
+//            folderCollectionView.reloadData()
+//        }
         
     }
     
@@ -271,6 +272,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         })
         floatingButton.circle()
         writeButton.addTarget(self, action: #selector(didTapWriteButton), for: .touchUpInside)
+        folderButton.addTarget(self, action: #selector(didTapMakeFolder), for: .touchUpInside)
     }
     
     @objc func MyTapMethod(){
@@ -287,6 +289,15 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         wirteVc.modalPresentationStyle = .fullScreen
         self.present(wirteVc, animated: true, completion: nil)
 
+    }
+    
+    @objc func didTapMakeFolder(){
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let makeFolderView = storyBoard.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
+        makeFolderAlertView.type_dropDown.dataSource = ["링크"]
+        makeFolderView.parentFolderId = folderId
+        makeFolderView.modalPresentationStyle = .overCurrentContext
+        self.present(makeFolderView, animated: true, completion: nil)
     }
     
     func textFieldSetting(textField: UITextField){
@@ -587,6 +598,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if(collectionView == FrameCollectionView) {
             return filteredLinkCell.count
         }
+        print("filtered folder \(filteredLinkFolder.count)")
         return filteredLinkFolder.count
     }
     
@@ -713,16 +725,12 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
         case UICollectionView.elementKindSectionFooter:
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerView", for: indexPath)
-            if(!linkFolder.isEmpty) { //linkFolder가 빈 배열이 아닐때만 collection view 넣기
+            print(footerView)
+            //if(!filteredLinkFolder.isEmpty) { //linkFolder가 빈 배열이 아닐때만 collection view 넣기
                 footerView.backgroundColor = .white
                 let layout = UICollectionViewFlowLayout()
-    //            footerView.translatesAutoresizingMaskIntoConstraints = false
-    //
-    //            footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-    //            footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-    //            footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-                //footerView 내에 collectionview 생성
-    //            folderCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: footerView.frame.width, height: footerView.frame.height), collectionViewLayout: layout)
+
+                print("UICollectionView.elementKindSectionFooter 1")
                 folderCollectionView = UICollectionView(frame: footerView.bounds, collectionViewLayout: layout)
                 folderCollectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
                 print("footerview height")
@@ -737,9 +745,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 footerView.addSubview(folderCollectionView)
                 
                 return footerView
-            }else {
-                return footerView
-            }
+            
            
         default: assert(false, "nothing")
             
@@ -755,6 +761,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if(linkFolder.isEmpty){
             return CGSize(width: width, height: 0)
         }
+        folderCollectionView.reloadData()
         return CGSize(width: width, height: 100)
        
 

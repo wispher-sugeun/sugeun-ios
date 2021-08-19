@@ -31,6 +31,8 @@ struct CreateFolderRequestNull: Codable {
 }
 
 struct CreateFolderRequestParameter: Codable {
+    
+    var parentFolderId: Int
     var folderName: String
 
     var userId: Int

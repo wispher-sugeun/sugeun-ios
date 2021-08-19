@@ -24,6 +24,7 @@ class MakeNotiFolderView: UIView {
         print("dismiss")
         delegate?.dissMiss()
     }
+    
     @IBOutlet weak var nameTextField: UITextField!
     
     @IBOutlet weak var imageView: UIImageView!
@@ -65,6 +66,7 @@ class MakeNotiFolderView: UIView {
     var delegate: MakeNotiFolderViewdelegate?
     
     @IBAction func doneButton(_ sender: Any) {
+        print("doneButton")
         delegate?.done()
     }
     override init(frame: CGRect) {
@@ -110,13 +112,16 @@ class MakeNotiFolderView: UIView {
            
         }
     
-    func configure(cell: Timeout){
+    func configure(cell: GetTimeoutResponse){
         print("here configure")
         nameTextField.text = cell.title
-        imageView.image = cell.timeoutImage
-        let parseDate = DateUtil.parseDate(cell.deadLine)
+        if(cell.imageData != nil){
+            imageView.image = UIImage(data: cell.imageData!)
+        }
+        
+        let parseDate = DateUtil.parseDate(cell.deadline)
         datePicker.date = parseDate
-        for i in cell.selectedList {
+        for i in cell.selected {
             if(i == 7){
                 weekDayButton.isSelected = true
             }
