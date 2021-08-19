@@ -11,6 +11,7 @@ import PhotosUI
 
 class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, UIGestureRecognizerDelegate {
     
+    
     var folderId: Int = 0
     func didTapMoreButton(cell: FolderCollectionViewCell) {
         more_dropDown.anchorView = cell.moreButton
@@ -125,13 +126,14 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         isShowFloating = false
+        //print("total is \(total)")
         hideButton()
         linkCell = total.map { $0.linkResDTOList}!!
         filteredLinkCell = linkCell
         
         linkFolder =  total.map { $0.folderResDTOList}!!
         filteredLinkFolder = linkFolder
-        print(filteredLinkFolder)
+        print("filteredLinkFolder is \(filteredLinkFolder)")
         
         if(!linkCell.isEmpty){
             FrameCollectionView.reloadData()
@@ -539,7 +541,8 @@ extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LinkCollectionViewCellDelegate {
+extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LinkCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching {
+   
     func clipAction(cell: LinkCollectionViewCell) {
         print("click clip")
         let copyString = cell.linkLabel.text
@@ -594,6 +597,11 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             }
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(collectionView == FrameCollectionView) {
             return filteredLinkCell.count
@@ -706,6 +714,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
+            print("header view loaded")
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath)
             let allLabels = headerView.get(all: UILabel.self)
               for sub in allLabels {
@@ -724,8 +733,8 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return headerView
             
         case UICollectionView.elementKindSectionFooter:
+            print("footerView view loaded")
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerView", for: indexPath)
-            print(footerView)
             //if(!filteredLinkFolder.isEmpty) { //linkFolder가 빈 배열이 아닐때만 collection view 넣기
                 footerView.backgroundColor = .white
                 let layout = UICollectionViewFlowLayout()
@@ -737,6 +746,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 print(footerView.frame.height)
                 folderCollectionView.delegate = self
                 folderCollectionView.dataSource = self
+                folderCollectionView.prefetchDataSource = self
          
                 let width: CGFloat = folderCollectionView.bounds.width
                 let height: CGFloat = folderCollectionView.bounds.height
@@ -758,10 +768,13 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let width: CGFloat = view.bounds.width
         let height: CGFloat = view.bounds.height
 
-        if(linkFolder.isEmpty){
-            return CGSize(width: width, height: 0)
-        }
-        folderCollectionView.reloadData()
+//        if(filteredLinkFolder.isEmpty){
+//            print("here")
+//            return CGSize(width: width, height: 0)
+//        }else {
+//            folderCollectionView.reloadData()
+//        }
+        
         return CGSize(width: width, height: 100)
        
 

@@ -142,6 +142,30 @@ class TimeoutService {
         })
     }
     
+    func useTiemout(timeoutId: Int){
+        let url = Config.base_url + "/timeouts/\(timeoutId)/valid"
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "PATCH"
+        
+        print("[PhraseService] \(timeoutId) 타임아웃 사용시키기")
+        
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        AF.request(request).responseString { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)") //타임아웃 사용 완료
+
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
+    }
+    
     func deleteTimeout(timeoutId: Int){
         let url = Config.base_url + "/users/\(userId)/timeouts/\(timeoutId)"
         

@@ -40,7 +40,7 @@ class CalendarTableViewCell: UITableViewCell {
     }
     
     public func configure(model: GetScheduleResponse){
-        let date = DateUtil.parseDate(model.scheduleDate).day
+        let date = DateUtil.parseDateTime(model.scheduleDate).day
         
         dayLabel.text = "\(date)" // 날짜만
         nameLabel.text = model.title

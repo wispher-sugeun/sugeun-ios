@@ -54,21 +54,23 @@ class AddCalendarViewController: UIViewController {
                 self.navigationController?.setNavigationBarHidden(true, animated: true)
                 self.navigationController?.popViewController(animated: true)
             case 2:
-                if(validCheck() == true){
-                    //post
-                    guard let naviTitle = navigationItem.title else {
-                        return
-                    }
-                    print(naviTitle)
-                    if(naviTitle == "일정 수정"){
-                        alertViewController(title: "스케줄 수정", message: "스케줄이 수정되었습니다", completion: { [self](string) in
-                            self.navigationController?.popViewController(animated: true)
-                            
-                            let putSchedule = PutScheduleRequest(scheduleId: selectedScheduled!.scheduleId, userId: selectedScheduled!.userId, title: selectedScheduled!.title, selected: selectedScheduled!.selected, scheduleDate: selectedScheduled!.scheduleDate)
-                            ScheduleService.shared.editSchedule(schedule: putSchedule)
-                            //print("selectedList : \(selectedScheduled?.selectedList)")
-                        })
-                    }else{
+                //post
+                guard let naviTitle = navigationItem.title else {
+                    return
+                }
+                print(naviTitle)
+                if(naviTitle == "일정 수정"){
+                    alertViewController(title: "스케줄 수정", message: "스케줄이 수정되었습니다", completion: { [self](string) in
+                        self.navigationController?.popViewController(animated: true)
+                        
+                        let putSchedule = PutScheduleRequest(scheduleId: selectedScheduled!.scheduleId, userId: selectedScheduled!.userId, title: selectedScheduled!.title, selected: selectedScheduled!.selected, scheduleDate: selectedScheduled!.scheduleDate)
+                        ScheduleService.shared.editSchedule(schedule: putSchedule)
+                        //print("selectedList : \(selectedScheduled?.selectedList)")
+                    })
+                }
+                
+                else{
+                    if(validCheck() == true){
                         alertViewController(title: "스케줄 생성", message: "스케줄이 생성되었습니다", completion: { [self](string) in
                             self.navigationController?.popViewController(animated: true)
                             let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
@@ -79,17 +81,17 @@ class AddCalendarViewController: UIViewController {
                             ScheduleService.shared.createSchedule(schedule: postSchedule)
                             
                         })
+                    } else {
+                        self.alertViewController(title: "알림 생성 실패", message: "비어 있는 곳들을 채워주세요", completion: {(string) in
+                        })
                     }
-                }else {
-                    alertViewController(title: "알림 생성 실패", message: "비어 있는 곳들을 채워주세요", completion: {(string) in
-                    })
                 }
             default:
                 print("error")
                 
             }
             
-        }
+            }
         
     }
     
@@ -215,7 +217,7 @@ extension AddCalendarViewController: UITableViewDelegate, UITableViewDataSource,
             }else if(indexPath.row == 1){
                 let cell = tableView.dequeueReusableCell(withIdentifier: DateAddTableViewCell.identifier) as! DateAddTableViewCell
                 self.datePicker = cell.datePicker
-                let date = DateUtil.parseDate(selectedScheduled!.scheduleDate)
+                let date = DateUtil.parseDateTime(selectedScheduled!.scheduleDate)
                 self.datePicker.date = date
                 return cell
             }else if(indexPath.row == 2){
@@ -223,12 +225,12 @@ extension AddCalendarViewController: UITableViewDelegate, UITableViewDataSource,
                 self.amButton = cell.amButton
                 self.pmButton = cell.pmButton
                 self.timeTextField = cell.timeTextField
-                let date = DateUtil.parseDate(selectedScheduled!.scheduleDate)
+                let date = DateUtil.parseDateTime(selectedScheduled!.scheduleDate)
                 if(date.hour > 12){
-                    pmButton.isSelected = true
+                    amButton.isSelected = true
                     self.timeTextField.text = "\(date.hour - 12)"
                 }else{
-                    amButton.isSelected = true
+                    pmButton.isSelected = true
                     self.timeTextField.text = "\(date.hour)"
                 }
                 return cell

@@ -22,7 +22,10 @@ class ScheduleService {
     //스케쥴 조회 o
     func getSchedule(completion: @escaping (([GetScheduleResponse]) -> Void)){
         let url = Config.base_url + "/users/\(userId)/schedules"
-        let headers: HTTPHeaders = ["Authorization" : deviceToken]
+        let headers: HTTPHeaders = ["Authorization" : deviceToken,
+                                    "userId" : "\(userId)",
+                                    "Content-Type" : "application/json" ]
+        
         
         print(userId)
         AF.request(url, method: .get, headers: headers).responseJSON {
@@ -31,9 +34,8 @@ class ScheduleService {
             switch response.result {
                 case .success(let obj):
                     do {
-                        let response = obj as! NSDictionary
-                        print(response)
-                        let dataJSON = try JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
+                        print(obj)
+                        let dataJSON = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
                         let postData = try JSONDecoder().decode([GetScheduleResponse].self, from: dataJSON)
                         completion(postData)
                     }catch {
@@ -102,10 +104,10 @@ class ScheduleService {
     
     //스케쥴 수정
     func editSchedule(schedule: PutScheduleRequest){
-        let url = "/users/\(userId)/schedules/\(schedule.scheduleId)"
+        let url = Config.base_url + "/users/\(userId)/schedules/\(schedule.scheduleId)"
         
         var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "PUT"
+        request.httpMethod = "PATCH"
 
         request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
@@ -137,19 +139,16 @@ class ScheduleService {
     }
     
     func deleteSchedule(scheduleID: Int){
-        let url = "/users/\(userId)/schedules/\(scheduleID)"
-        let headers: HTTPHeaders = ["Authorization" : deviceToken]
-        //let parameter: Parameters = schedule.dictionary
+        let url =  Config.base_url + "/users/\(userId)/schedules/\(scheduleID)"
+        let headers: HTTPHeaders = ["Authorization" : deviceToken,
+                                    "userId" : "\(userId)",
+                                    "Content-Type" : "application/json" ]
         
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "DELETE"
-//        let formDataString = (schedule.dictionary.compactMap({(key, value) -> String in
-//            return "\(key)=\(value)" }) as Array).joined(separator: "&")
-        //let formEncodedData = formDataString.data(using: .utf8)
-        
-        
-        //request.httpBody = formEncodedData
-        AF.request(url, method: .delete, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+
+        AF.request(url, method: .delete, encoding: URLEncoding.httpBody, headers: headers).responseString { (response) in
+            print("[ScheduleService] 스케줄 삭제하기")
             switch response.result {
                 case .success(let obj):
                     let responses = obj as! String

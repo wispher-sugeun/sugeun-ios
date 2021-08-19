@@ -184,6 +184,8 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
                         if (response == "OK") {
                             cell.inValidView.isHidden = false
                             self.alertViewController(title: "사용 완료", message: "쿠폰 사용 완료 되었습니다.", completion: {(response) in
+                                let timeoutId = filteredtimeOut[cell.indexPath!.row].timeoutId
+                                TimeoutService.shared.useTiemout(timeoutId: timeoutId)
                                 //TO DO 사용 완료 처리
 //                                DispatchQueue.main.async {
 //                                    (at: cell.)
