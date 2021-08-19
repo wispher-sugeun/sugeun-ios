@@ -47,7 +47,8 @@ class TimeoutService {
             var fileName = "\(createTimoutRequest.imageFile).jpg"
             fileName = fileName.replacingOccurrences(of: " ", with: "_")
             print(fileName)
-            multipartFormData.append(createTimoutRequest.imageFile, withName: "imageFile", fileName: fileName, mimeType: "image/jpg")
+            //multipartFormData.append(createTimoutRequest.imageFile, withName: "imageFile", fileName: fileName, mimeType: "image/jpg")
+            multipartFormData.append(createTimoutRequest.imageFile, withName: "images", fileName: fileName, mimeType: "image/jpg")
         
             for (key, value) in parameter {
                 if let temp = value as? Int {
@@ -114,7 +115,7 @@ class TimeoutService {
             switch response.result {
                 case .success(let obj):
                     do {
-                        
+                        print(obj)
                         let dataJSON = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
                         
                         let postData = try JSONDecoder().decode([GetTimeoutResponse].self, from: dataJSON)
@@ -139,6 +140,31 @@ class TimeoutService {
                     print("AF : \(error.localizedDescription)")
             }
         })
+    }
+    
+    func deleteTimeout(timeoutId: Int){
+        let url = Config.base_url + "/users/\(userId)/timeouts/\(timeoutId)"
+        
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "DELETE"
+        
+        print("[PhraseService] \(timeoutId) 타임아웃 삭제하기")
+        
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        AF.request(request).responseString { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)") //타임아웃 삭제 완료
+
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
     }
     
     

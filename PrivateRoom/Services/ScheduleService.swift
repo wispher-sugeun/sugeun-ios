@@ -23,12 +23,17 @@ class ScheduleService {
     func getSchedule(completion: @escaping (([GetScheduleResponse]) -> Void)){
         let url = Config.base_url + "/users/\(userId)/schedules"
         let headers: HTTPHeaders = ["Authorization" : deviceToken]
-        AF.request(url, method: .get, headers: headers).validate(statusCode: 200...500).responseJSON {
+        
+        print(userId)
+        AF.request(url, method: .get, headers: headers).responseJSON {
             (response) in
+            print("[ScheduleService] 스케줄 조회하기")
             switch response.result {
                 case .success(let obj):
                     do {
-                        let dataJSON = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
+                        let response = obj as! NSDictionary
+                        print(response)
+                        let dataJSON = try JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
                         let postData = try JSONDecoder().decode([GetScheduleResponse].self, from: dataJSON)
                         completion(postData)
                     }catch {

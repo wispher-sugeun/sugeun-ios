@@ -119,7 +119,7 @@ class MakeNotiFolderView: UIView {
             imageView.image = UIImage(data: cell.imageData!)
         }
         
-        let parseDate = DateUtil.parseDate(cell.deadline)
+        let parseDate = DateUtil.parseDateTime(cell.deadline)
         datePicker.date = parseDate
         for i in cell.selected {
             if(i == 7){

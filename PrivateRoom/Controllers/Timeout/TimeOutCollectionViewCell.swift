@@ -70,23 +70,23 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let startTime = Date()
         
-        let endTime = DateUtil.parseDate(model.deadline)
+        let endTime = DateUtil.parseDateTime(model.deadline)
         let dday = Int(((endTime.timeIntervalSince(startTime)))) / 86400
         
         if(model.isValid == true){ // 비활성화
-            inValidView.isHidden = false
-            mainView.isUserInteractionEnabled = false
-        }else{
             inValidView.isHidden = true
             mainView.isUserInteractionEnabled = true
+        }else{
+            inValidView.isHidden = false
+            mainView.isUserInteractionEnabled = false
         }
         
         self.titleTextLabel.text = model.title
-        if(!model.imageData!.isEmpty) {
+        if(model.imageData != nil) {
             self.alarmImageView.image = UIImage(data: model.imageData!)
         }
         //self.alarmImageView.image = model.timeoutImage
-        let deadLine = DateUtil.parseDate(model.deadline)
+        let deadLine = DateUtil.parseDateTime(model.deadline)
         
         self.dateTextLabel.text = "~\(deadLine.year)년 \(deadLine.month)월 \(deadLine.day)까지"
         

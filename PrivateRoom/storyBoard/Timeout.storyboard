@@ -136,7 +136,7 @@
                                         <barButtonItem key="leftBarButtonItem" title="Item" image="chevron.backward" catalog="system" id="EAY-xm-v4T">
                                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <connections>
-                                                <action selector="backButton:" destination="ZAA-ck-Xgb" id="FEP-E8-1hU"/>
+                                                <action selector="backButton:" destination="ZAA-ck-Xgb" id="Q6d-We-RGU"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>

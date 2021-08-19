@@ -9,7 +9,7 @@ import UIKit
 
 class AddCalendarViewController: UIViewController {
     var viewMode: Bool = false
-    var selectedScheduled: Schedule?
+    var selectedScheduled: GetScheduleResponse?
     var selectedDate: Date?
     var selectedIndex = [Int]()
     
@@ -64,7 +64,7 @@ class AddCalendarViewController: UIViewController {
                         alertViewController(title: "스케줄 수정", message: "스케줄이 수정되었습니다", completion: { [self](string) in
                             self.navigationController?.popViewController(animated: true)
                             
-                            let putSchedule = PutScheduleRequest(scheduleId: selectedScheduled!.scheduleId, userId: selectedScheduled!.userId, title: selectedScheduled!.title, selected: selectedScheduled!.selectedList, scheduleDate: selectedScheduled!.scheduleDate)
+                            let putSchedule = PutScheduleRequest(scheduleId: selectedScheduled!.scheduleId, userId: selectedScheduled!.userId, title: selectedScheduled!.title, selected: selectedScheduled!.selected, scheduleDate: selectedScheduled!.scheduleDate)
                             ScheduleService.shared.editSchedule(schedule: putSchedule)
                             //print("selectedList : \(selectedScheduled?.selectedList)")
                         })
@@ -238,12 +238,12 @@ extension AddCalendarViewController: UITableViewDelegate, UITableViewDataSource,
                 print(indexesToRedraw)
                 self.selectedAlarm = cell.setLabelText
                 
-                if(selectedScheduled?.selectedList == []){ // 선택된 알림이 없다면
+                if(selectedScheduled?.selected == []){ // 선택된 알림이 없다면
                     cell.setLabelText.isHidden = true
                 }else {
                     var string = ""
-                    for i in selectedScheduled!.selectedList {
-                        if(i == selectedScheduled!.selectedList.last){
+                    for i in selectedScheduled!.selected {
+                        if(i == selectedScheduled!.selected.last){
                             string += alarmRange[i]
                         }else{
                             string += alarmRange[i] + ", "

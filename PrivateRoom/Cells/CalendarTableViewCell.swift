@@ -39,7 +39,7 @@ class CalendarTableViewCell: UITableViewCell {
            return UINib(nibName: "CalendarTableViewCell", bundle: nil)
     }
     
-    public func configure(model: Schedule){
+    public func configure(model: GetScheduleResponse){
         let date = DateUtil.parseDate(model.scheduleDate).day
         
         dayLabel.text = "\(date)" // 날짜만

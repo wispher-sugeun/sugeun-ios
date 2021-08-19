@@ -51,8 +51,7 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
         TimeoutService.shared.getTimeout(completion: { (response) in
             self.timeOut = response
             self.filteredtimeOut = self.timeOut
-            
-            print(response)
+            self.collectionView.reloadData()
         })
     }
     
@@ -136,12 +135,13 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
 
             if let indexPath = collectionView?.indexPathForItem(at: p) {
                // if(self.timeOut[indexPath.row].isValid == false){ // isValid false인 경우에만 반응
-                    self.alertWithNoViewController(title: "알림 삭제", message: "알림을 삭제 하시겠습니까?", completion: { (response) in
+                self.alertWithNoViewController(title: "알림 삭제", message: "알림을 삭제 하시겠습니까?", completion: { [self] (response) in
                         if (response == "OK") {
-                            self.timeOut.remove(at: indexPath.row)
-                            self.filteredtimeOut = self.timeOut
+                            TimeoutService.shared.deleteTimeout(timeoutId: timeOut[indexPath.row].timeoutId)
+                            timeOut.remove(at: indexPath.row)
+                            filteredtimeOut = timeOut
                             DispatchQueue.main.async {
-                                self.collectionView.reloadData()
+                                collectionView.reloadData()
                             }
                             self.alertViewController(title: "삭제 완료", message: "알림이 삭제 되었습니다.", completion: {(response) in })
                     }
@@ -494,7 +494,7 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
             print(intArray)
             let date = DateUtil.serverSendDateTimeFormat(makeNotiFolderView.datePicker.date)
             guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else { return }
-            let createTimoutRequest = CreateTimeoutRequest(userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: false, selected: intArray, imageFile: (makeNotiFolderView.imageView.image?.jpeg(.lowest))!)
+            let createTimoutRequest = CreateTimeoutRequest(userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: true, selected: intArray, imageFile: (makeNotiFolderView.imageView.image?.jpeg(.lowest))!)
             TimeoutService.shared.createTimeout(createTimoutRequest: createTimoutRequest)
             self.dismiss(animated: true, completion: nil)
         }else {
@@ -544,7 +544,7 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
         makeNotiFolderView.delegate = self
         if(editMode){
             print("eidt timeout is \(timeOut!)")
-            self.makeNotiFolderView.configure(cell: timeOut)
+            self.makeNotiFolderView.configure(cell: timeOut!)
         }
     }
     

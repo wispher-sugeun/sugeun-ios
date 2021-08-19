@@ -9,12 +9,17 @@ import UIKit
 
 class ViewNotiController: UIViewController {
 
-    @IBAction func backButton(_ sender: Any) {
-    }
+
     @IBOutlet weak var imageView: UIImageView!
     
     var tempImageName: UIImage?
     var imageData: Data?
+    
+    
+    @IBAction func backButton(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadImageView()
@@ -22,7 +27,7 @@ class ViewNotiController: UIViewController {
     
     func loadImageView(){
         imageView.image = tempImageName
-        if(!imageData!.isEmpty){
+        if(imageData != nil){
             imageView.image = UIImage(data: imageData!)
         }
     }
