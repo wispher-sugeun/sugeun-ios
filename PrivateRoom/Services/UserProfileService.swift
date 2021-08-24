@@ -46,6 +46,7 @@ class UserProfileService {
                         let json = try JSONSerialization.data(withJSONObject: responses)
 
                         let response = try JSONDecoder().decode(GetProfileResponse?.self, from: json)
+                        print(response)
                         completion(response)  // userResDTO
                     }catch {
                         print(error)

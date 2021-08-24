@@ -47,8 +47,8 @@ class TimeoutService {
             var fileName = "\(createTimoutRequest.imageFile).jpg"
             fileName = fileName.replacingOccurrences(of: " ", with: "_")
             print(fileName)
-            //multipartFormData.append(createTimoutRequest.imageFile, withName: "imageFile", fileName: fileName, mimeType: "image/jpg")
-            multipartFormData.append(createTimoutRequest.imageFile, withName: "images", fileName: fileName, mimeType: "image/jpg")
+            multipartFormData.append(createTimoutRequest.imageFile, withName: "imageFile", fileName: fileName, mimeType: "image/jpg")
+
         
             for (key, value) in parameter {
                 if let temp = value as? Int {
@@ -96,7 +96,8 @@ class TimeoutService {
 
     }
     
-    func getTimeout(completion: @escaping (([GetTimeoutResponse]) -> (Void))) {
+    //타임아웃 조화
+    func getTimeout(completion: @escaping (([GetTimeoutResponse?]) -> (Void))) {
         let url = Config.base_url + "/users/\(userId)/timeouts"
         
         
@@ -118,7 +119,7 @@ class TimeoutService {
                         print(obj)
                         let dataJSON = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
                         
-                        let postData = try JSONDecoder().decode([GetTimeoutResponse].self, from: dataJSON)
+                        let postData = try JSONDecoder().decode([GetTimeoutResponse?].self, from: dataJSON)
                         print(postData)
                         
                         completion(postData)
@@ -142,13 +143,14 @@ class TimeoutService {
         })
     }
     
+    //타임아웃 사용
     func useTiemout(timeoutId: Int){
         let url = Config.base_url + "/timeouts/\(timeoutId)/valid"
         
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PATCH"
         
-        print("[PhraseService] \(timeoutId) 타임아웃 사용시키기")
+        print("[TimeoutService] \(timeoutId) 타임아웃 사용시키기")
         
         request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
@@ -166,6 +168,74 @@ class TimeoutService {
         }
     }
     
+    //타임 아웃 이미지 변경
+    func updateTimeoutImage(timeoutId: Int, imageFile: Data){
+        let url = Config.base_url + "/users/\(userId)/timeouts/\(timeoutId)"
+        
+        let headers: HTTPHeaders = [
+            "userId" : "\(userId)",
+            "Authorization" : deviceToken
+        ]
+
+        AF.upload(multipartFormData: { multipartFormData in
+            print("[TimeoutService] 이미지 변경하기")
+
+            var fileName = "\(imageFile).jpg"
+            fileName = fileName.replacingOccurrences(of: " ", with: "_")
+            print(fileName)
+            multipartFormData.append(imageFile, withName: "imageFile", fileName: fileName, mimeType: "image/jpg")
+
+
+        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).responseString { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)")
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    //타임아웃 정보 업데이트
+    func updateTimeoutInfo(timeoutId: Int, timeoutRequest: UpdateimeoutRequest){
+        let url = Config.base_url + "/users/\(userId)/timeouts/(timeoutId)"
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "PATCH"
+        
+        
+        print("[TimeoutService] \(timeoutId) 타임아웃 정보 변경하기")
+        
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let jsonData = try JSONEncoder().encode(timeoutRequest)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            request.httpBody = jsonData
+            // and decode it back
+            let decoded = try JSONDecoder().decode(UpdateimeoutRequest.self, from: jsonData)
+            print(decoded)
+        } catch { print(error) }
+        
+        AF.request(request).responseString { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)") //타임아웃 정보 변경 완료
+
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
+        
+        
+    }
+    
+    //타임아웃 삭제
     func deleteTimeout(timeoutId: Int){
         let url = Config.base_url + "/users/\(userId)/timeouts/\(timeoutId)"
         

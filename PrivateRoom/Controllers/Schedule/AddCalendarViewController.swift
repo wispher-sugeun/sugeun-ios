@@ -62,7 +62,8 @@ class AddCalendarViewController: UIViewController {
                     alertViewController(title: "스케줄 수정", message: "스케줄이 수정되었습니다", completion: { [self](string) in
                         self.navigationController?.popViewController(animated: true)
                         
-                        let putSchedule = PutScheduleRequest(scheduleId: selectedScheduled!.scheduleId, userId: selectedScheduled!.userId, title: selectedScheduled!.title, selected: selectedScheduled!.selected, scheduleDate: selectedScheduled!.scheduleDate)
+                        let putSchedule = PutScheduleRequest(scheduleId: selectedScheduled!.scheduleId, userId: selectedScheduled!.userId, title: titleTextField.text!, selected: selectedIndex, scheduleDate: postScheduleFormat(date: datePicker.date))
+                        print("post edit Schedule : \(putSchedule)")
                         ScheduleService.shared.editSchedule(schedule: putSchedule)
                     })
                 }
@@ -76,6 +77,7 @@ class AddCalendarViewController: UIViewController {
                             print(scheduleDateString)
                             let postSchedule = PostScheduleRequest(userId: userId, title: titleTextField.text!, selected: selectedIndex, scheduleDate: scheduleDateString)
                             print("postSchedule : \(postSchedule)")
+                            
                             ScheduleService.shared.createSchedule(schedule: postSchedule)
                             
                         })
@@ -97,7 +99,7 @@ class AddCalendarViewController: UIViewController {
         var string = ""
         string = DateUtil.serverSendDateFormat(date) + " "
         if(!amButton.isSelected){ // true이면
-            string += timeTextField.text!
+            string += "0" + timeTextField.text! + ":00"
         }else if (!pmButton.isSelected){
             guard let tempInt = Int(timeTextField.text!) else { return "" }
             string += String(tempInt + 12) + ":00"

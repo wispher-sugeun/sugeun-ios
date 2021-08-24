@@ -82,10 +82,11 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
         }
         
         self.titleTextLabel.text = model.title
+        print("model.title")
         if(model.imageData != nil) {
+            
             self.alarmImageView.image = UIImage(data: model.imageData!)
         }
-        //self.alarmImageView.image = model.timeoutImage
         let deadLine = DateUtil.parseDateTime(model.deadline)
         
         self.dateTextLabel.text = "~\(deadLine.year)년 \(deadLine.month)월 \(deadLine.day)까지"

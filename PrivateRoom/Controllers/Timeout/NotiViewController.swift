@@ -12,8 +12,8 @@ import PhotosUI
 class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     
 
-    var timeOut = [GetTimeoutResponse]()
-    var filteredtimeOut = [GetTimeoutResponse]()
+    var timeOut = [GetTimeoutResponse?]()
+    var filteredtimeOut = [GetTimeoutResponse?]()
     
     var screenSize: CGRect!
     var screenWidth: CGFloat!
@@ -57,10 +57,10 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var imageArray = [UIImage]()
-        imageArray.append(UIImage(named: "alarm1")!)
-        imageArray.append(UIImage(named: "alarm2")!)
-        imageArray.append(UIImage(named: "alarm1")!)
+//        var imageArray = [UIImage]()
+//        imageArray.append(UIImage(named: "alarm1")!)
+//        imageArray.append(UIImage(named: "alarm2")!)
+//        imageArray.append(UIImage(named: "alarm1")!)
     
         
 //        timeOut.append(Timeout(userId: 1, timeoutId: 1, title: "스타벅스 자허블", timeoutImage: imageArray[0], deadLine: "2021-08-07", selectedList: [1,3], isValid: true))
@@ -137,7 +137,7 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
                // if(self.timeOut[indexPath.row].isValid == false){ // isValid false인 경우에만 반응
                 self.alertWithNoViewController(title: "알림 삭제", message: "알림을 삭제 하시겠습니까?", completion: { [self] (response) in
                         if (response == "OK") {
-                            TimeoutService.shared.deleteTimeout(timeoutId: timeOut[indexPath.row].timeoutId)
+                            TimeoutService.shared.deleteTimeout(timeoutId: timeOut[indexPath.row]!.timeoutId)
                             timeOut.remove(at: indexPath.row)
                             filteredtimeOut = timeOut
                             DispatchQueue.main.async {
@@ -184,7 +184,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
                         if (response == "OK") {
                             cell.inValidView.isHidden = false
                             self.alertViewController(title: "사용 완료", message: "쿠폰 사용 완료 되었습니다.", completion: {(response) in
-                                let timeoutId = filteredtimeOut[cell.indexPath!.row].timeoutId
+                                let timeoutId = filteredtimeOut[cell.indexPath!.row]!.timeoutId
                                 TimeoutService.shared.useTiemout(timeoutId: timeoutId)
                                 //TO DO 사용 완료 처리
 //                                DispatchQueue.main.async {
@@ -216,7 +216,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeOutCollectionViewCell.identifier, for: indexPath) as? TimeOutCollectionViewCell
         cell?.delegate = self
-        cell?.configure(model: filteredtimeOut[indexPath.row])
+        cell?.configure(model: filteredtimeOut[indexPath.row]!)
         cell?.backgroundColor = .red
         cell?.configureHeight(with: 160)
         cell?.indexPath = indexPath
@@ -227,7 +227,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = filteredtimeOut[indexPath.row]
         let viewNoti =  (self.storyboard?.instantiateViewController(identifier: "ViewNoti"))! as ViewNotiController
         //viewNoti.tempImageName = cell.timeoutImage
-        viewNoti.imageData = cell.imageData
+        viewNoti.imageData = cell?.imageData
         self.navigationController?.pushViewController(viewNoti, animated: true)
        
         
@@ -294,7 +294,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
     
     func notUsedSorting(){
-        timeOut = timeOut.sorted(by: { $0.isValid == false && $1.isValid == true})
+        timeOut = timeOut.sorted(by: { $0?.isValid == false && $1?.isValid == true})
         filteredtimeOut = timeOut
     }
     
@@ -367,7 +367,7 @@ extension NotiViewController: UITextFieldDelegate {
         let searchText = textField.text! + string
         if searchText.count >= 2{
             filteredtimeOut = timeOut.filter({ (result) -> Bool in
-                result.title.range(of: searchText, options: .caseInsensitive) != nil
+                result!.title.range(of: searchText, options: .caseInsensitive) != nil
             })
         }else {
             filteredtimeOut = timeOut
@@ -394,8 +394,8 @@ extension NotiViewController: UITextFieldDelegate {
         if textField.text?.count != 0 {
             self.filteredtimeOut.removeAll()
             for str in timeOut {
-                let name = str.title.lowercased()
-                let range = name.range(of: textField.text!, options: .caseInsensitive, range: nil, locale: nil)
+                let name = str?.title.lowercased()
+                let range = name!.range(of: textField.text!, options: .caseInsensitive, range: nil, locale: nil)
                 if range != nil {
                     self.filteredtimeOut.append(str)
                 }
@@ -453,24 +453,24 @@ extension NotiViewController: UITableViewDelegate, UITableViewDataSource {
     
     //sorting
     func sortingAlpanumeric(){
-        timeOut = timeOut.sorted {$0.title.localizedStandardCompare($1.title) == .orderedAscending}
+        timeOut = timeOut.sorted {$0!.title.localizedStandardCompare($1!.title) == .orderedAscending}
         filteredtimeOut = timeOut
     }
     
     func sortingOldest(){
-        timeOut = timeOut.sorted { $0.timeoutId < $1.timeoutId }
+        timeOut = timeOut.sorted { $0!.timeoutId < $1!.timeoutId }
         filteredtimeOut = timeOut
 
     }
     
     func sortingLatest(){
-        timeOut = timeOut.sorted { $0.timeoutId > $1.timeoutId }
+        timeOut = timeOut.sorted { $0!.timeoutId > $1!.timeoutId }
         filteredtimeOut = timeOut
 
     }
     
     func sortingValidity(){
-        timeOut = timeOut.sorted { DateUtil.toSecond($0.deadline) < DateUtil.toSecond($1.deadline)}
+        timeOut = timeOut.sorted { DateUtil.toSecond($0!.deadline) < DateUtil.toSecond($1!.deadline)}
         filteredtimeOut = timeOut
     }
     
@@ -498,6 +498,7 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
             guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else { return }
             let createTimoutRequest = CreateTimeoutRequest(userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: true, selected: intArray, imageFile: (makeNotiFolderView.imageView.image?.jpeg(.lowest))!)
             TimeoutService.shared.createTimeout(createTimoutRequest: createTimoutRequest)
+            
             self.dismiss(animated: true, completion: nil)
         }else {
             //alert to do

@@ -107,7 +107,7 @@ class ScheduleService {
         let url = Config.base_url + "/users/\(userId)/schedules/\(schedule.scheduleId)"
         
         var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "PATCH"
+        request.httpMethod = "PUT"
 
         request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
@@ -122,7 +122,6 @@ class ScheduleService {
             let decoded = try JSONDecoder().decode(PutScheduleRequest.self, from: jsonData)
             print(decoded)
         } catch { print(error) }
-        
         
         
         AF.request(request).responseString { (response) in

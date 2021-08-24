@@ -22,3 +22,17 @@ struct CreateTimeoutRequest: Codable {
     
     var imageFile: Data
 }
+
+struct UpdateimeoutRequest: Codable {
+    
+    var userId: Int
+    
+    var title: String
+    
+    var deadline: String
+    
+    var isValid: Bool
+    
+    var selected: [Int]
+
+}

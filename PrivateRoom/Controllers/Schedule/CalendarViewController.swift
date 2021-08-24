@@ -160,7 +160,7 @@ extension CalendarViewController: FSCalendarDataSource, FSCalendarDelegate {
     func filtersetDayList(day: Int, month: Int, year: Int){
         filtered.removeAll()
         for i in schedule {
-            if (day == DateUtil.parseDate(i.scheduleDate).day && month == DateUtil.parseDate(i.scheduleDate).month && year == DateUtil.parseDate(i.scheduleDate).year){
+            if (day == DateUtil.parseDateTime(i.scheduleDate).day && month == DateUtil.parseDateTime(i.scheduleDate).month && year == DateUtil.parseDateTime(i.scheduleDate).year){
                 print(i)
                 filtered.append(i)
             }
@@ -179,7 +179,7 @@ extension CalendarViewController: FSCalendarDataSource, FSCalendarDelegate {
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        let events = schedule.map{ DateUtil.parseDate($0.scheduleDate) }
+        let events = schedule.map{ DateUtil.parseDateTime($0.scheduleDate) }
         if events.contains(date) {
             return 1
         } else {
