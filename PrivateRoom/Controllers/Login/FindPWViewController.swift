@@ -10,20 +10,28 @@ import UIKit
 class FindPWViewController: UIViewController {
 
     @IBOutlet weak var IDTextField: UITextField!
-    
+    var userID: Int = 0
+    //아이디 중복 체크
     @IBAction func IDCheckButton(_ sender: Any) {
         //DB id 있는지 체크
-        //if 존재
-//        phoneNumberTextField.becomeFirstResponder()
-//        else if( IDTextField.text! == ""){
-//            self.alertViewController(title: "아이디 입력", message: "아이디를 입력해주세요", completion: { (response) in})
-//        }
-//        else {
-//            self.alertViewController(title: "존재하지 않는 아이디", message: "존재하지 않는 아이디입니다.", completion: { (response) in})
-//        }
-        
+        if(IDTextField.text! == ""){
+            self.alertViewController(title: "아이디 입력", message: "아이디를 입력해주세요", completion: { (response) in})
+        }else{
+            UserLoginServices.shared.checkValidID(nickName: IDTextField.text!, completion: { (response) in
+                if(response != -1) {
+                    self.phoneNumberTextField.becomeFirstResponder()
+                    self.userID = response
+                    self.inValidIDText.isHidden = true
+                }else if(response == -1){
+                    
+                    self.alertViewController(title: "존재하지 않는 아이디", message: "존재하지 않는 아이디입니다.", completion: { (response) in})
+                    self.inValidIDText.isHidden = false
+                }})
+        }
+       
     }
 
+    @IBOutlet weak var inValidIDText: UILabel!
     @IBOutlet weak var phoneNumberTextField: UITextField!
     
     @IBOutlet weak var sendTextLabel: UILabel!
@@ -100,6 +108,7 @@ class FindPWViewController: UIViewController {
    }
     
     func UISetting(){
+        inValidIDText.isHidden = true
         reAuthenText.isHidden = true
         AuthenSuccess.isHidden = true
         sendTextLabel.isHidden = true

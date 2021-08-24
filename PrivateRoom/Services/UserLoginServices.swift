@@ -72,8 +72,6 @@ class UserLoginServices {
 
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
-        print(url)
-        print(request.httpBody)
         AF.request(request).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
@@ -107,6 +105,27 @@ class UserLoginServices {
                 
             case .failure(let e):
                 print(e.localizedDescription)
+            }
+        }
+        
+    }
+    
+    func checkValidID(nickName: String, completion: @escaping (Int) -> (Void)){
+        let url = Config.base_url + "/api/check-nickname"
+        
+        print("[API] post \(nickName) 유효한 아이디인지 확인")
+        
+        let parameters: Parameters = ["nickname": nickName]
+
+        AF.request(url, parameters: parameters).responseJSON { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print(obj)
+                    let responses = obj as! Int
+                    completion(responses) // userID, -1
+                    break
+                case .failure(let error):
+                    print(error)
             }
         }
         
