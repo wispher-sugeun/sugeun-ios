@@ -48,7 +48,7 @@
                                     <constraint firstAttribute="height" constant="40" id="Wew-na-uJ7"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzs-Qv-6ww">
                                 <rect key="frame" x="72" y="643" width="270" height="60"/>
@@ -939,7 +939,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="twg-Xs-W6e"/>
+        <segue reference="wGn-eu-S3z"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="gift.fill" catalog="system" width="128" height="124"/>

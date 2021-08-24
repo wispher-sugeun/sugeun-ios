@@ -207,10 +207,9 @@ class FolderService {
                     let responses = obj as! NSDictionary
                     do {
                         //dictionary type to json object
-                        
+                        print(responses)
             
                         let json = try JSONSerialization.data(withJSONObject: responses)
-                        
                         let response = try JSONDecoder().decode(DetailFolderResponse.self, from: json)
                         completion(response)  // DetailFolderResponse
                     }catch {
@@ -224,7 +223,7 @@ class FolderService {
     }
     
     //폴더 이미지 변경
-    func changeFolderImage(folderId: Int, changeImage: Data){
+    func changeFolderImage(folderId: Int, changeImage: Data, completion: @escaping (Bool) -> (Void)){
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PATCH"
@@ -253,6 +252,7 @@ class FolderService {
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
+                    completion(true)
                     break
                 case .failure(let error):
                     print("AF : \(error.localizedDescription)")
@@ -281,7 +281,7 @@ class FolderService {
         request.httpMethod = "PATCH"
         
         let parameters: Parameters = ["folderName": changeName]
-        
+        print(parameters)
         let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
 
         request.httpBody = jsonData

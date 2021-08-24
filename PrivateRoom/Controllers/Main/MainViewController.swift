@@ -106,6 +106,10 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        fetchData()
+    }
+    
+    func fetchData(){
         FolderService.shared.getFolder(completion: { (response) in
             self.folders = response
             self.mainViewModels = self.folders.map({ return FolderViewModel(allFolder: $0)})
@@ -157,26 +161,25 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         
     }
 
-    
+    //폴더 이미지 변경
     @objc func folderImageChanged(_ notification: NSNotification){
         //text ~~
         print(notification.userInfo ?? "")
         print("folderImageChanged")
         if let dict = notification.userInfo as NSDictionary? {
             if let folderImage = dict["image"] as? UIImage {
-//                filteredFolder[selectedCellIndexPath[1]].imageData = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
-                    
-                DispatchQueue.main.async {
-                    self.folderCollectionView.reloadData()
-                }
-                
-                // do something with your image
+                let folderId = filteredFolder[selectedCellIndexPath[1]].folderId
+                FolderService.shared.changeFolderImage(folderId: folderId, changeImage: folderImage.jpeg(.lowest)!, completion: { (response) in
+                    if(response == true){
+                        self.fetchData()
+                    }
+                })
             }
         }
         
     }
     
-    
+    //폴더 이름 변경
     func folderDelete(){
         filteredFolder.remove(at: selectedCellIndexPath[1])
         print("folderID : \(selectedCellIndexPath[1])")
@@ -375,12 +378,25 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 //    }
     
-    //todo - make with navigation
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        guard let VC = self.storyboard?.instantiateViewController(identifier: "folderIn") else { return }
-        VC.modalPresentationStyle = .fullScreen
-        self.present(VC, animated: true, completion: nil)
+        let folderType = folders[indexPath.row].type
+        let folderId = folders[indexPath.row].folderId
+        if(folderType == "PHRASE"){
+            guard let textVC = self.storyboard?.instantiateViewController(identifier: "textIn") as? TextInViewController else { return }
+            FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
+                textVC.total = response
+            })
+            self.navigationController?.pushViewController(textVC, animated: true)
+            
+        }else if(folderType == "LINK"){
+            let storyBoard = UIStoryboard(name: "Link", bundle: nil)
+            guard let linkVC = storyBoard.instantiateViewController(identifier: "linkFolderIn") as? LinkInViewController else { return }
+            FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
+                linkVC.total = response
+            })
+            self.navigationController?.pushViewController(linkVC, animated: true)
+        }
+       
     }
     
     

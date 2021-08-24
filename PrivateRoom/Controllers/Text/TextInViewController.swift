@@ -145,19 +145,19 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         hideButton()
         
         //total 값 folderdhk textCell에게 분기
-        textFolder = total.map { $0.folderResDTOList}!!
-        filteredTextFolder = textFolder
-        
-        textCell = total.map { $0.phraseResDTOList }!!
-        filteredTextCell = textCell
-        
-        if(!textCell.isEmpty) {
-            self.frameTableView.reloadData()
-        }
-        
-        if(!textFolder.isEmpty){
+        if((((total?.folderResDTOList!.isEmpty) != nil))) {
+            textFolder = total.map { $0.folderResDTOList}!!
+            filteredTextFolder = textFolder
             self.collectionView.reloadData()
         }
+        
+        if((((total?.phraseResDTOList!.isEmpty) != nil))) {
+            textCell = total.map { $0.phraseResDTOList }!!
+            filteredTextCell = textCell
+            self.frameTableView.reloadData()
+        }
+
+
 
     }
     
