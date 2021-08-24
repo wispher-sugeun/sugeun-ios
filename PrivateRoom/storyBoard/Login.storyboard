@@ -755,9 +755,6 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="phoneNumberTextField:" destination="mou-6c-fCz" eventType="editingDidEnd" id="Gmr-Ev-cYK"/>
-                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="인증 코드 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wii-Ir-oKK">
                                 <rect key="frame" x="35" y="532" width="240" height="40"/>
@@ -767,9 +764,6 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="authenTextField:" destination="mou-6c-fCz" eventType="editingDidEnd" id="fZV-jN-1tU"/>
-                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호 찾기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAe-Dn-6YN">
                                 <rect key="frame" x="35" y="138" width="163" height="36"/>
@@ -778,13 +772,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호를 찾으셨나요?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVc-LR-nf1">
-                                <rect key="frame" x="40" y="755" width="114" height="27"/>
+                                <rect key="frame" x="40" y="765" width="114" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.1647058824" green="0.20000000000000001" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVX-O6-ZV9">
-                                <rect key="frame" x="156" y="755" width="97" height="27"/>
+                                <rect key="frame" x="156" y="765" width="97" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="-&gt; 로그인 하러 가기">
                                     <color key="titleColor" red="0.50567162040000002" green="0.55177193879999997" blue="0.75688809160000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -906,8 +900,8 @@
                             <constraint firstItem="yAe-Dn-6YN" firstAttribute="leading" secondItem="n4U-K0-Vu1" secondAttribute="leading" constant="35" id="aHW-Tf-jrt"/>
                             <constraint firstItem="Q6f-AX-9Uf" firstAttribute="leading" secondItem="wii-Ir-oKK" secondAttribute="trailing" constant="30" id="b2Y-hf-jJX"/>
                             <constraint firstItem="yGx-l5-WNp" firstAttribute="top" secondItem="UL4-IX-9WM" secondAttribute="bottom" constant="10" id="c26-jj-3jL"/>
-                            <constraint firstItem="n4U-K0-Vu1" firstAttribute="bottom" secondItem="EVX-O6-ZV9" secondAttribute="bottom" constant="80" id="dgp-5W-caD"/>
-                            <constraint firstItem="n4U-K0-Vu1" firstAttribute="bottom" secondItem="gVc-LR-nf1" secondAttribute="bottom" constant="80" id="dmu-Ol-zi8"/>
+                            <constraint firstItem="n4U-K0-Vu1" firstAttribute="bottom" secondItem="EVX-O6-ZV9" secondAttribute="bottom" constant="70" id="dgp-5W-caD"/>
+                            <constraint firstItem="n4U-K0-Vu1" firstAttribute="bottom" secondItem="gVc-LR-nf1" secondAttribute="bottom" constant="70" id="dmu-Ol-zi8"/>
                             <constraint firstItem="gVc-LR-nf1" firstAttribute="leading" secondItem="n4U-K0-Vu1" secondAttribute="leading" constant="40" id="fkL-vS-XSM"/>
                             <constraint firstItem="gVc-LR-nf1" firstAttribute="top" relation="greaterThanOrEqual" secondItem="T4O-oi-nOM" secondAttribute="bottom" constant="20" id="gkC-YW-2Lu"/>
                             <constraint firstItem="n4U-K0-Vu1" firstAttribute="trailing" secondItem="Q6f-AX-9Uf" secondAttribute="trailing" constant="20" id="gpQ-mh-GuS"/>

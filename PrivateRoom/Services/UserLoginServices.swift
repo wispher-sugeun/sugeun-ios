@@ -110,6 +110,7 @@ class UserLoginServices {
         
     }
     
+    //아이디 있는 사용자인지 확인
     func checkValidID(nickName: String, completion: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/api/check-nickname"
         
@@ -129,6 +130,60 @@ class UserLoginServices {
             }
         }
         
+    }
+    
+    //비밀번호 찾기 -> phone number 검증
+    func checkPhoneNumber(userId: Int, phoneNumber: String, completed: @escaping (String) -> (Void)){
+        let url = Config.base_url + "/api/verify-phone"
+        var request = URLRequest(url: URL(string: url)!)
+        let parameters: Parameters = [ "userId": userId, "phone" : phoneNumber]
+        print(parameters)
+        do {
+            let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
+
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+            request.httpBody = jsonData
+        } catch { print(error) }
+        
+        AF.request(request).responseJSON {
+            (response) in
+            print("[UserLoginService] 비밀번호 찾기 -> \(phoneNumber)로 검증 ")
+                switch response.result {
+                    case .success(let obj):
+                        print("success : \(obj)")
+                        print(type(of: obj))
+                        let response = obj as? String
+                        completed(response ?? "")
+                    case .failure(let error):
+                        print("AF : \(error.localizedDescription)")
+                }
+        
+        }
+    }
+        
+    func checkingNewPassword(userId: Int, password: String){
+        let url = Config.base_url + "/api/new-password"
+        var request = URLRequest(url: URL(string: url)!)
+        let parameters: Parameters = [ "userId": userId, "password" : password]
+        do {
+            let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
+
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+            request.httpBody = jsonData
+        } catch { print(error) }
+        
+        AF.request(request).responseString {
+            (response) in
+                switch response.result {
+                    case .success(let obj):
+                        print("success : \(obj)")
+                       
+                    case .failure(let error):
+                        print("AF : \(error.localizedDescription)")
+                }
+        }
     }
     
     
@@ -226,15 +281,17 @@ class UserLoginServices {
 }
 
 
-struct JSON {
-    static let encoder = JSONEncoder()
-}
+    struct JSON {
+        static let encoder = JSONEncoder()
+    }
 
-extension Encodable {
-    subscript(key: String) -> Any? {
-        return dictionary[key]
+    extension Encodable {
+        subscript(key: String) -> Any? {
+            return dictionary[key]
+        }
+        var dictionary: [String: Any] {
+            return (try? JSONSerialization.jsonObject(with: JSON.encoder.encode(self))) as? [String: Any] ?? [:]
+        }
     }
-    var dictionary: [String: Any] {
-        return (try? JSONSerialization.jsonObject(with: JSON.encoder.encode(self))) as? [String: Any] ?? [:]
-    }
-}
+    
+

@@ -11,6 +11,7 @@ class FindIDViewController: UIViewController {
 
     @IBOutlet weak var phoneNumberTextField: UITextField!
     
+    
     @IBOutlet weak var authenCodeTextField: UITextField!
     
     @IBOutlet weak var sendMessageText: UILabel!
@@ -74,6 +75,7 @@ class FindIDViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         UISetting()
+        textfieldDelegate()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -97,6 +99,11 @@ class FindIDViewController: UIViewController {
         AuthenSuccessText.isHidden = true
         reAuthenText.isHidden = true
         
+    }
+    
+    func textfieldDelegate(){
+        phoneNumberTextField.delegate = self
+        authenCodeTextField.delegate = self
     }
 
 }
