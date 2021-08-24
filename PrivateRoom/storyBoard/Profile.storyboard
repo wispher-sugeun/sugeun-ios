@@ -328,6 +328,9 @@
                             <constraint firstItem="cYU-zB-Ph0" firstAttribute="trailing" secondItem="amw-gb-Yae" secondAttribute="trailing" id="s32-0R-TUG"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="linkTableView" destination="amw-gb-Yae" id="f03-xX-MZA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SmA-xC-iYu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -355,6 +358,9 @@
                             <constraint firstItem="WIQ-cq-l8t" firstAttribute="bottom" secondItem="YkM-Kc-U9X" secondAttribute="bottom" id="vho-J5-Q5B"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textTableView" destination="YkM-Kc-U9X" id="BEj-r1-IWG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="858-iu-Dhs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

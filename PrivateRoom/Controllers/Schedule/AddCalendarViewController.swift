@@ -58,14 +58,12 @@ class AddCalendarViewController: UIViewController {
                 guard let naviTitle = navigationItem.title else {
                     return
                 }
-                print(naviTitle)
                 if(naviTitle == "일정 수정"){
                     alertViewController(title: "스케줄 수정", message: "스케줄이 수정되었습니다", completion: { [self](string) in
                         self.navigationController?.popViewController(animated: true)
                         
                         let putSchedule = PutScheduleRequest(scheduleId: selectedScheduled!.scheduleId, userId: selectedScheduled!.userId, title: selectedScheduled!.title, selected: selectedScheduled!.selected, scheduleDate: selectedScheduled!.scheduleDate)
                         ScheduleService.shared.editSchedule(schedule: putSchedule)
-                        //print("selectedList : \(selectedScheduled?.selectedList)")
                     })
                 }
                 

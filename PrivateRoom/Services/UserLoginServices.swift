@@ -11,10 +11,12 @@ import Alamofire
 class UserLoginServices {
     private let userEmail: String
     private let deviceToken: String
+    private let userId: Int
     
     init() {
         userEmail = "spqjf12345@gmail.com"
         deviceToken = UserDefaults.standard.string(forKey: UserDefaultKey.deviceToken)!
+        userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID)
     }
     
     //user에 대한 데이터 받아 올 것

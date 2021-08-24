@@ -58,9 +58,6 @@ class ProfileViewController: UIViewController {
     @objc func didTapEditButton(){
         performSegue(withIdentifier: "edit", sender: nil)
     }
-    
-
-
 
 }
 

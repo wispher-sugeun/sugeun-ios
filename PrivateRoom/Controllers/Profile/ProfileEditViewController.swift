@@ -47,10 +47,17 @@ class ProfileEditViewController: UIViewController {
         alertDoneCancel(title: "회원 탈퇴", message: "회원 탈퇴하시겠습니까?", completionHandler: { action in
             if(action == "OK"){
                 //userService 회원 탈퇴
-                self.alertDone(title: "회원 탈퇴 완료", message: "그동안 저의 앱을 이용해주셔서 감사합니다.", completionHandler: {action in print(action)
-                    exit(0)
-                    
+                UserProfileService.shared.quit(completion: { (response) in
+                    if(response == true){
+                        self.alertDone(title: "회원 탈퇴 완료", message: "그동안 저의 앱을 이용해주셔서 감사합니다.", completionHandler: {action in print(action)
+                            exit(0)
+                            
+                        })
+                    }else {
+                        self.alertDone(title: "회원 탈퇴 실패", message: "회원 탈퇴가 이루어지지 않았습니다. 다시 시도해주세요.", completionHandler: { (response) in})
+                    }
                 })
+              
             }
         })
     }

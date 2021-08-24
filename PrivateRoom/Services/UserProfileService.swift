@@ -213,18 +213,35 @@ class UserProfileService {
     
     }
     
-    //회원 탈퇴
-    func quitUser(){
+    //회원 탛퇴
+    func quit(completion: @escaping ((Bool) -> (Void))){
         let url = Config.base_url + "/users/\(userId)"
-        let headers: HTTPHeaders = ["Authorization" : deviceToken]
-        AF.request(url, method: .delete, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "DELETE"
+        
+        //post
+        print("[UserLoginServices] 회원 탈퇴 하기")
+
+        
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+
+        AF.request(request).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
-                    let responses = obj as! String
-                   print(responses) //회원 탈퇴 완료
+                    print("success : \(obj)")
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.phoneNumber)
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.userID)
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.userEmail)
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.userNickName)
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.isNewUser)
+                    
+                    completion(true)
                     break
                 case .failure(let error):
-                    print(error)
+                    print("AF : \(error.localizedDescription)")
             }
         }
     }
@@ -261,15 +278,35 @@ class UserProfileService {
     }
     
     //북마크 조회
-    func getMyBookMark(){
+    func getMyBookMark(completion: @escaping (BookMarkProfileResponse) -> (Void)){
         let url = Config.base_url + "/users/\(userId)/bookmark"
-        let headers: HTTPHeaders = ["Authorization" : deviceToken]
-        AF.request(url, method: .get, headers: headers).responseJSON{ (response) in
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "GET"
+        
+        //post
+        print("[UserProfileService] 북마크 조회 하기")
+
+        
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        AF.request(request).responseJSON{ (response) in
             switch response.result {
-                case .success(let obj):
-                    let responses = obj as! String
-                   print(responses) //북마크 조회 ~~ ing
-                    break
+            case .success(let obj):
+                print("success : \(obj)")
+                print(type(of: obj))
+                let responses = obj as! NSDictionary
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: responses)
+                    
+                    let response = try JSONDecoder().decode(BookMarkProfileResponse.self, from: json)
+                    completion(response)  // BookMarkProfileResponse
+                }catch {
+                    print(error)
+                }
+                break
                 case .failure(let error):
                     print(error)
             }
