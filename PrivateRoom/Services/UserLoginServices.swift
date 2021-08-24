@@ -110,7 +110,32 @@ class UserLoginServices {
         
     }
     
-    //아이디 있는 사용자인지 확인
+    func checkID(phoneNumber: String, completion: @escaping (String) -> (Void)){
+        let url = Config.base_url + "/api/find-nickname"
+        
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "POST"
+        let parameters: Parameters = ["phone": phoneNumber]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
+
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        AF.request(request).responseJSON { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print(obj)
+                    let responses = obj as! String
+                    completion(responses)
+                    break
+                case .failure(let error):
+                    print(error)
+            }
+        }
+    }
+    
+    //비밀번호 찾기 -> 아이디 있는 사용자인지 확인
     func checkValidID(nickName: String, completion: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/api/check-nickname"
         

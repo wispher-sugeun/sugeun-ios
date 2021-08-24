@@ -19,6 +19,7 @@ class FindIDViewController: UIViewController {
     @IBOutlet weak var AuthenSuccessText: UILabel!
     @IBOutlet weak var reAuthenText: UILabel!
     var authenCode: Int = 0
+    
     @IBAction func sendMessageButton(_ sender: Any) {
         
         if(phoneNumberTextField.text! == ""){
@@ -42,12 +43,17 @@ class FindIDViewController: UIViewController {
         if(String(authenCode) == authenCodeTextField.text) {
             AuthenSuccessText.isHidden = false
             reAuthenText.isHidden = true
+            guard let phoneNumber = phoneNumberTextField.text?.phoneMake() else { return }
+            UserLoginServices.shared.checkID(phoneNumber: phoneNumber, completion: { (response) in
+                if(response != ""){
+                    self.alertViewController(title: "아이디 찾기", message: response, completion: { (response) in })
+                }
+            })
+           
         }else {
             reAuthenText.isHidden = false
             AuthenSuccessText.isHidden = true
-            //indicator ~~
-            //get by userId -> userNickname
-            self.alertViewController(title: "아이디", message: "spqjf12345", completion: { (response) in })
+            
         }
 
 
