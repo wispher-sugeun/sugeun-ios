@@ -23,7 +23,8 @@ struct CreateTimeoutRequest: Codable {
     var imageFile: Data
 }
 
-struct UpdateimeoutRequest: Codable {
+struct UpdateTimeoutRequest: Codable {
+    var timeoutId: Int
     
     var userId: Int
     

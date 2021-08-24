@@ -496,8 +496,18 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
             print(intArray)
             let date = DateUtil.serverSendDateTimeFormat(makeNotiFolderView.datePicker.date)
             guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else { return }
-            let createTimoutRequest = CreateTimeoutRequest(userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: true, selected: intArray, imageFile: (makeNotiFolderView.imageView.image?.jpeg(.lowest))!)
-            TimeoutService.shared.createTimeout(createTimoutRequest: createTimoutRequest)
+            if(editMode == true){ // 알림 수정에서 넘어온 데이터
+              
+                let updateTimeout = UpdateTimeoutRequest(timeoutId: timeOut!.timeoutId, userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: true, selected: intArray)
+                print("updateTimeout \(updateTimeout)")
+                print("timeoutID \(timeOut!.timeoutId)")
+                TimeoutService.shared.updateTimeoutInfo(timeoutId: timeOut!.timeoutId, timeoutRequest: updateTimeout)
+                TimeoutService.shared.updateTimeoutImage(timeoutId: timeOut!.timeoutId, imageFile: (makeNotiFolderView.imageView.image?.jpeg(.lowest))!)
+            }else {
+                let createTimoutRequest = CreateTimeoutRequest(userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: true, selected: intArray, imageFile: (makeNotiFolderView.imageView.image?.jpeg(.lowest))!)
+                TimeoutService.shared.createTimeout(createTimoutRequest: createTimoutRequest)
+            }
+           
             
             self.dismiss(animated: true, completion: nil)
         }else {

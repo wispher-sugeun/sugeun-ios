@@ -178,7 +178,7 @@ class TimeoutService {
         ]
 
         AF.upload(multipartFormData: { multipartFormData in
-            print("[TimeoutService] 이미지 변경하기")
+            print("[TimeoutService] 타임아웃 이미지 변경하기")
 
             var fileName = "\(imageFile).jpg"
             fileName = fileName.replacingOccurrences(of: " ", with: "_")
@@ -198,8 +198,8 @@ class TimeoutService {
     }
     
     //타임아웃 정보 업데이트
-    func updateTimeoutInfo(timeoutId: Int, timeoutRequest: UpdateimeoutRequest){
-        let url = Config.base_url + "/users/\(userId)/timeouts/(timeoutId)"
+    func updateTimeoutInfo(timeoutId: Int, timeoutRequest: UpdateTimeoutRequest){
+        let url = Config.base_url + "/users/\(userId)/timeouts/\(timeoutId)"
         
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PATCH"
@@ -217,7 +217,7 @@ class TimeoutService {
             print(jsonString)
             request.httpBody = jsonData
             // and decode it back
-            let decoded = try JSONDecoder().decode(UpdateimeoutRequest.self, from: jsonData)
+            let decoded = try JSONDecoder().decode(UpdateTimeoutRequest.self, from: jsonData)
             print(decoded)
         } catch { print(error) }
         

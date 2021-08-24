@@ -82,7 +82,6 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
         }
         
         self.titleTextLabel.text = model.title
-        print("model.title")
         if(model.imageData != nil) {
             
             self.alarmImageView.image = UIImage(data: model.imageData!)

@@ -113,7 +113,6 @@ class MakeNotiFolderView: UIView {
         }
     
     func configure(cell: GetTimeoutResponse){
-        print("here configure")
         nameTextField.text = cell.title
         if(cell.imageData != nil){
             imageView.image = UIImage(data: cell.imageData!)
