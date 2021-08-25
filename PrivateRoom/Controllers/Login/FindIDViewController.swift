@@ -43,7 +43,8 @@ class FindIDViewController: UIViewController {
         if(String(authenCode) == authenCodeTextField.text) {
             AuthenSuccessText.isHidden = false
             reAuthenText.isHidden = true
-            guard let phoneNumber = phoneNumberTextField.text?.phoneMake() else { return }
+            guard let phoneNumber = phoneNumberTextField.text else { return }
+            print("phoneNumber \(phoneNumber)")
             UserLoginServices.shared.checkID(phoneNumber: phoneNumber, completion: { (response) in
                 if(response != ""){
                     self.alertViewController(title: "아이디 찾기", message: response, completion: { (response) in })

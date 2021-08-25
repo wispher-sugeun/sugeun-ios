@@ -11,8 +11,8 @@ import PhotosUI
 
 class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, UIGestureRecognizerDelegate {
     
-    
     var folderId: Int = 0
+    
     func didTapMoreButton(cell: FolderCollectionViewCell) {
         more_dropDown.anchorView = cell.moreButton
         more_dropDown.show()
@@ -126,7 +126,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         isShowFloating = false
-        //print("total is \(total)")
+        print("total is \(total)")
         hideButton()
         linkCell = total.map { $0.linkResDTOList}!!
         filteredLinkCell = linkCell
@@ -550,6 +550,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         UIPasteboard.general.string = copyString
         self.showToast(message: "클립 보드에 복사되었습니다.")
     }
+    
     func moreButton(cell: LinkCollectionViewCell) {
         
         print("more button")
@@ -760,26 +761,28 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         default: assert(false, "nothing")
             
         }
-        return UICollectionReusableView()
+        
+        
+       // return UICollectionReusableView()
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        print("UICollectionView.elementKindSectionFooter 2")
-        let width: CGFloat = view.bounds.width
-        let height: CGFloat = view.bounds.height
-
-//        if(filteredLinkFolder.isEmpty){
-//            print("here")
-//            return CGSize(width: width, height: 0)
-//        }else {
-//            folderCollectionView.reloadData()
-//        }
-        
-        return CGSize(width: width, height: 100)
-       
-
-
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+//        print("UICollectionView.elementKindSectionFooter 2")
+//        let width: CGFloat = view.bounds.width
+//        let height: CGFloat = view.bounds.height
+//
+////        if(filteredLinkFolder.isEmpty){
+////            print("here")
+////            return CGSize(width: width, height: 0)
+////        }else {
+////            folderCollectionView.reloadData()
+////        }
+//
+//        return CGSize(width: width, height: 100)
+//
+//
+//
+//    }
 
     
     

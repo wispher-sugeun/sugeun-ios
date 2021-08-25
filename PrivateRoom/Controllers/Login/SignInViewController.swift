@@ -102,8 +102,7 @@ class SignInViewController: UIViewController {
         //check
         if(signInValidCheck()){
             //post 성공시
-            let number = phoneNumberTextField.text?.phoneMake()
-            let signInRequest = SignUpRequest(nickname: IDTextField.text!, password: PasswordTextfield.text!, phone: number!)
+            let signInRequest = SignUpRequest(nickname: IDTextField.text!, password: PasswordTextfield.text!, phone: phoneNumberTextField.text!)
             UserLoginServices.shared.signup(signUpRequest: signInRequest)
                 
             self.alertViewController(title: "회원가입 완료", message: "회원 가입을 완료하였습니다. 로그인으로 이동합니다", completion: { response in

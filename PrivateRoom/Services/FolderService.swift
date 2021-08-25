@@ -233,7 +233,8 @@ class FolderService {
         
         let headers: HTTPHeaders = [
             "userId" : "\(userId)",
-            "Authorization" : deviceToken
+            "Authorization" : deviceToken,
+            
         ]
         
         //let parameter: Parameters = ["imgFile" : changeImage]
@@ -277,23 +278,41 @@ class FolderService {
     func changeFolderName(folderId: Int, changeName: String){
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "PATCH"
+//        var request = URLRequest(url: URL(string: url)!)
+//        request.httpMethod = "PATCH"
+        
+        let headers: HTTPHeaders = [
+            "userId" : "\(userId)",
+            "Authorization" : deviceToken
+        ]
         
         let parameters: Parameters = ["folderName": changeName]
-        print(parameters)
-        let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
-
-        request.httpBody = jsonData
-    
-
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        print(parameters)
+//        let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
+//
+//        request.httpBody = jsonData
+//
+//
+//        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+//        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+//        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
+        AF.upload(multipartFormData: { multipartFormData in
+            print("[FolderService] 폴더 정보 변경하기")
+            for (key, value) in parameters {
+                if let temp = value as? Int {
+                    multipartFormData.append("\(temp)".data(using: .utf8)!, withName: key)
+                    print(temp)
+                }
 
-        AF.request(request).responseString { (response) in
-            print("[UserProfileService] \(folderId) 폴더 이름 변경하기")
+                if let temp = value as? String {
+                    multipartFormData.append(temp.data(using: .utf8)!, withName: key)
+                    print(temp)
+               }
+
+            }
+        
+        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate().responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
@@ -302,6 +321,18 @@ class FolderService {
                     print("AF : \(error.localizedDescription)")
             }
         }
+        
+        
+//        AF.request(request).responseString { (response) in
+//            print("[UserProfileService] \(folderId) 폴더 이름 변경하기")
+//            switch response.result {
+//                case .success(let obj):
+//                    print("success : \(obj)")
+//                    break
+//                case .failure(let error):
+//                    print("AF : \(error.localizedDescription)")
+//            }
+//        }
         
     }
     

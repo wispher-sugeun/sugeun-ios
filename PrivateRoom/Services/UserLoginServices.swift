@@ -122,10 +122,12 @@ class UserLoginServices {
 
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
-        AF.request(request).responseJSON { (response) in
+        AF.request(request).responseString { (response) in
+            print("[UserLoginSerive] 아이디 확인하기")
             switch response.result {
                 case .success(let obj):
                     print(obj)
+                    print(type(of: obj))
                     let responses = obj as! String
                     completion(responses)
                     break
@@ -158,7 +160,7 @@ class UserLoginServices {
     }
     
     //비밀번호 찾기 -> phone number 검증
-    func checkPhoneNumber(userId: Int, phoneNumber: String, completed: @escaping (String) -> (Void)){
+    func checkPhoneNumber(userId: Int, phoneNumber: String, completed: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/api/verify-phone"
         var request = URLRequest(url: URL(string: url)!)
         let parameters: Parameters = [ "userId": userId, "phone" : phoneNumber]
@@ -178,8 +180,8 @@ class UserLoginServices {
                     case .success(let obj):
                         print("success : \(obj)")
                         print(type(of: obj))
-                        let response = obj as? String
-                        completed(response ?? "")
+                        let response = obj as? Int
+                        completed(response ?? 0)
                     case .failure(let error):
                         print("AF : \(error.localizedDescription)")
                 }

@@ -46,8 +46,8 @@ class FindPWViewController: UIViewController {
 //            guard let number = phoneNumberTextField.text?.phoneMake() else { return }
             sendTextLabel.isHidden = false
             UserLoginServices.shared.checkPhoneNumber(userId: userID, phoneNumber: phoneNumberTextField.text!, completed: { (response) in
-                if(response != ""){
-                    self.authenCode = Int(response)!
+                if(response != 0){
+                    self.authenCode = response
                 }
             
             })
@@ -171,15 +171,15 @@ class FindPWViewController: UIViewController {
     }
     
     @IBAction func authenCodeButton(_ sender: Any) {
+        print("authenCode \(authenCode)")
         if(String(authenCode) == authenTextField.text) {
             //인증 번호가 같다면
             AuthenSuccess.isHidden = false
             reAuthenText.isHidden = true
-//            alertNewPassWord(title: "새 비밀번호 입력", message: "새 비밀번호를 입력해주세요")
+            alertNewPassWord(title: "새 비밀번호 입력", message: "새 비밀번호를 입력해주세요")
         }else {
             reAuthenText.isHidden = false
             AuthenSuccess.isHidden = true
-            alertNewPassWord(title: "새 비밀번호 입력", message: "새 비밀번호를 입력해주세요")
             
 //            self.alertViewController(title: "비밀번호", message: "spqjf12345", completion: { (response) in })
         }
