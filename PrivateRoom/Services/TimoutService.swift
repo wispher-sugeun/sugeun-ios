@@ -253,7 +253,7 @@ class TimeoutService {
             }
 
 
-        }, to: url, usingThreshold: UInt64.init(), method: .post, headers: headers).validate().responseString { (response) in
+        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate().responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
