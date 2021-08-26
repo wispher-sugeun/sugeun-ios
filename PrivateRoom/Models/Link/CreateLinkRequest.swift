@@ -19,3 +19,18 @@ struct CreateLinkRequest: Codable {
 
     var bookmark: Bool
 }
+
+struct UpdateLinkRequest: Codable {
+
+    var userId: Int
+    
+    var linkId: Int
+
+    var folderId: Int
+
+    var title: String
+
+    var link: String
+
+    var bookmark: Bool
+}

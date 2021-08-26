@@ -9,12 +9,11 @@ import Foundation
 import Alamofire
 
 class UserLoginServices {
-    private let userEmail: String
+    
     private let deviceToken: String
     private let userId: Int
     
     init() {
-        userEmail = "spqjf12345@gmail.com"
         deviceToken = UserDefaults.standard.string(forKey: UserDefaultKey.deviceToken)!
         userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID)
     }
@@ -245,7 +244,7 @@ class UserLoginServices {
                 case .success(let obj):
                     print("success : \(obj)")
 //                    let responses = obj as! LoginResponse
-                
+                    //loginResDTO
                     UserDefaults.standard.setValue("1", forKey: UserDefaultKey.isNewUser)
                     UserDefaults.standard.setValue(loginUserInfo.nickname, forKey: UserDefaultKey.userNickName)
                     UserDefaults.standard.setValue(3, forKey: UserDefaultKey.userID)

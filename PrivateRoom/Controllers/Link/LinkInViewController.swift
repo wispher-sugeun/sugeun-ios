@@ -197,8 +197,10 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         FrameCollectionView.delegate = self
         FrameCollectionView.dataSource = self
         
-        self.FrameCollectionView.translatesAutoresizingMaskIntoConstraints  = false
+        //self.FrameCollectionView.translatesAutoresizingMaskIntoConstraints  = false
         FrameCollectionView.register(LinkCollectionViewCell.nib(), forCellWithReuseIdentifier: LinkCollectionViewCell.identifier)
+       
+        print(FrameCollectionView.fs_height)
        
     }
  

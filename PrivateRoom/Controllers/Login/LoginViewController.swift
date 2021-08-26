@@ -27,9 +27,7 @@ class LoginViewController: UIViewController {
                 print(error?.localizedDescription ?? "nil")
             }
         })
-        
-        //임시 로그인 userId "3"
-        UserDefaults.standard.setValue(3, forKey: UserDefaultKey.userID)
+
         //로그인 성공시
         let loginRequest = LoginRequest(nickname: IDTextfield.text!, password: PasswordTextfield.text!)
         UserLoginServices.shared.login(loginUserInfo: loginRequest)

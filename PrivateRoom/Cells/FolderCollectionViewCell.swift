@@ -18,6 +18,7 @@ class FolderCollectionViewCell: UICollectionViewCell {
     var folderViewModel: FolderViewModel! {
         didSet {
             self.folderImage.image = UIImage(data: folderViewModel.imageData)
+            folderImage.contentMode = .scaleAspectFill
                 //image(folderViewModel.imageData, withSize: CGSize(width: contentView.frame.width/2, height: 80))
             self.folderName.text = folderViewModel.folderName
         }

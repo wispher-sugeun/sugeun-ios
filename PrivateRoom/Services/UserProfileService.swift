@@ -216,22 +216,26 @@ class UserProfileService {
     
     }
     
-    //회원 탛퇴
+    //회원 탈퇴
     func quit(completion: @escaping ((Bool) -> (Void))){
         let url = Config.base_url + "/users/\(userId)"
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "DELETE"
+//        var request = URLRequest(url: URL(string: url)!)
+//        request.httpMethod = "DELETE"
         
         //post
         print("[UserLoginServices] 회원 탈퇴 하기")
 
+        let header : HTTPHeaders = ["Authorization" : deviceToken,
+                                    "userId" :"\(userId)",
+                                    "Content-Type" :"application/json"
+        ]
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+//        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
 
-        AF.request(request).responseJSON { (response) in
+        AF.request(url, method: .delete, headers: header).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")

@@ -179,7 +179,6 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         
     }
     
-    //폴더 이름 변경
     func folderDelete(){
         filteredFolder.remove(at: selectedCellIndexPath[1])
         print("folderID : \(selectedCellIndexPath[1])")
@@ -203,7 +202,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         return newImage!.withRenderingMode(.automatic)
     }
     
-    
+    //폴더 이름 변경
     func editFolderName(folderId: Int, completionHandler: @escaping ((String) -> Void)){
         let alertVC = UIAlertController(title: "폴더 이름 수정", message: nil, preferredStyle: .alert)
        

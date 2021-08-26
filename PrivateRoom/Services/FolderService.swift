@@ -287,7 +287,7 @@ class FolderService {
         ]
         
         let parameters: Parameters = ["folderName": changeName]
-//        print(parameters)
+        print(parameters)
 //        let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
 //
 //        request.httpBody = jsonData
