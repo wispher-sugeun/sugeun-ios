@@ -12,6 +12,7 @@ import LinkPresentation
 protocol LinkCollectionViewCellDelegate {
     func moreButton(cell: LinkCollectionViewCell)
     func clipAction(cell: LinkCollectionViewCell)
+    func bookmark(cell: LinkCollectionViewCell)
 }
 
 
@@ -42,9 +43,13 @@ class LinkCollectionViewCell: UICollectionViewCell {
         sender.scalesLargeContentImage = true
         sender.isSelected = sender.isSelected ? false : true
         bookMarkToggle(sender)
+        delegate?.bookmark(cell: self)
+        
     }
     
     private lazy var linkView = LPLinkView()
+    
+    
     
     private var metaData: LPLinkMetadata = LPLinkMetadata() {
         didSet {

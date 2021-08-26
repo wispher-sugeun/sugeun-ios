@@ -545,6 +545,9 @@ extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LinkCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching {
    
+    func bookmark(cell: LinkCollectionViewCell) {
+        LinkService.shared.linkBookMark(linkId: linkCell[cell.indexPath!.row].linkId)
+    }
     func clipAction(cell: LinkCollectionViewCell) {
         print("click clip")
         let copyString = cell.linkLabel.text
@@ -567,18 +570,13 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
             if(index == 0){ // 수정 view로 이동
                 let wirteVc = self.storyboard?.instantiateViewController(identifier: "makeLinkCell") as! MakeLinkViewController
-               
-                
-                guard let currentLink = cell.linkLabel.text else {
-                    print("no currentLink exits")
-                    return
-                }
-                
-                wirteVc.string = currentLink
+                wirteVc.folderId = folderId
+                wirteVc.editMode = true
+                wirteVc.link = linkCell[cell.indexPath!.row]
                 wirteVc.modalPresentationStyle = .fullScreen
                 self.present(wirteVc, animated: true, completion: nil)
                 
-            }else if(index == 1) { // 알림 삭제
+            }else if(index == 1) { // 링크 삭제
                 self.alertWithNoViewController(title: "링크 삭제", message: "링크를 삭제 하시겠습니까?", completion: { (response) in
                     if (response == "OK") {
                         //링크 삭제
@@ -589,10 +587,9 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
                             FrameCollectionView.reloadData()
                             
                         }
-                        self.alertViewController(title: "삭제 완료", message: "알림이 삭제 되었습니다.", completion: {(response) in
-                           
-                           
-                        })
+                        
+                        LinkService.shared.deleteLink(folderId: folderId, linkId: linkCell[cell.indexPath!.row].linkId)
+                        alertViewController(title: "삭제 완료", message: "알림이 삭제 되었습니다.", completion: {(response) in })
                 }
                     
                 })

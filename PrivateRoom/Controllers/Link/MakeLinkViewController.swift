@@ -14,34 +14,49 @@ class MakeLinkViewController: UIViewController {
     @IBOutlet var linkTextView: UITextView!
     
     @IBOutlet weak var linkTitleTextField: UITextField!
+    var link: LinkResDTO?
+    var editMode : Bool = false
     
-    var string = ""
     var folderId: Int = 0
     @IBAction func dismissButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func doneButton(_ sender: Any) {
-        if(validating()){
-            //post link cell
-            guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else { return }
-            
-            let linkRequest = CreateLinkRequest(userId: userId, folderId: folderId, title: linkTitleTextField.text!, link: linkTextView.text!, bookmark: false)
-            LinkService.shared.createLink(folderId: folderId, linkRequest: linkRequest)
-            self.alertViewController(title: "작성 완료", message: "링크가 생성되었습니다", completion: {(response) in
-                if response == "OK" {
-                    self.dismiss(animated: true, completion: nil)
+        let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID)
+        
+        if(validateing()){
+            if(editMode == true){ //수정에서 넘어온 뷰
+                let updateLink = UpdateLinkRequest(userId: userId, linkId: link!.linkId, folderId: folderId, title: linkTitleTextField.text!, link: linkTextView.text, bookmark: (link?.bookmark)!)
+                LinkService.shared.updateLink(folderId: folderId, linkId: link!.linkId, link: updateLink)
+                
+            }else { // 생성뷰
+                if(createValidating()){
+                    let linkRequest = CreateLinkRequest(userId: userId, folderId: folderId, title: linkTitleTextField.text!, link: linkTextView.text!, bookmark: false)
+                    LinkService.shared.createLink(folderId: folderId, linkRequest: linkRequest)
+                    self.alertViewController(title: "작성 완료", message: "링크가 생성되었습니다", completion: {(response) in
+                        if response == "OK" {
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    })
+                    
+                } else {
+                    self.alertViewController(title: "생성 실패", message: "빈칸을 채워주세요", completion: { (response) in
+                        }
+                    )
                 }
-            })
-            
-        } else {
-            self.alertViewController(title: "생성 실패", message: "빈칸을 채워주세요", completion: { (response) in
-                }
-            )
+            }
         }
     }
     
-    func validating() -> Bool {
+    func validateing() -> Bool {
+        if(folderId == 0){
+            return false
+        }
+        return true
+    }
+    
+    func createValidating() -> Bool {
         if(linkTitleTextField.text == "" && linkTextView.text == "") {
             return false
         }
@@ -54,9 +69,11 @@ class MakeLinkViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         linkTextViewSetting()
-        if(string != ""){
-            linkTextView.text = string
+        if(editMode == true) {
+            linkTitleTextField.text = link?.title
+            linkTextView.text = link?.link
         }
+
  
     }
     

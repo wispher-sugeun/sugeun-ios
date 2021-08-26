@@ -55,6 +55,7 @@ class LinkService {
         }
     }
     
+    //링크 수정
     func updateLink(folderId: Int, linkId: Int, link: UpdateLinkRequest){
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)/links/\(linkId)"
         
@@ -89,8 +90,9 @@ class LinkService {
         }
     }
     
-    func deleteLink(){
-        let url =  Config.base_url + "/users/\(userId)/folders/\(folderId)"
+    //링크 삭제
+    func deleteLink(folderId: Int, linkId: Int){
+        let url =  Config.base_url + "/users/\(userId)/folders/\(folderId)/links/\(linkId)"
         let headers: HTTPHeaders = ["Authorization" : deviceToken,
                                     "userId" : "\(userId)",
                                     "Content-Type" : "application/json" ]
@@ -99,7 +101,7 @@ class LinkService {
         request.httpMethod = "DELETE"
 
         AF.request(url, method: .delete, encoding: URLEncoding.httpBody, headers: headers).responseString { (response) in
-            print("[ScheduleService] 스케줄 삭제하기")
+            print("[LinkService] 링크 삭제하기")
             switch response.result {
                 case .success(let obj):
                     let responses = obj as! String
@@ -110,6 +112,31 @@ class LinkService {
             }
         }
     
+    }
+    
+    //링크 북마크 수정
+    func linkBookMark(linkId: Int){
+        let url = Config.base_url + "/links/\(linkId)/bookmark"
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "PATCH"
+
+        
+        print("[LinkService] \(linkId) 링크 북마크 수정하기")
+        
+        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue("\(userId)", forHTTPHeaderField: "userId")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        AF.request(request).responseString { (response) in
+            switch response.result {
+                case .success(let obj):
+                    print("success : \(obj)") //링크 북마크 변경 완료
+
+                    break
+                case .failure(let error):
+                    print("AF : \(error.localizedDescription)")
+            }
+        }
     }
     
 }
