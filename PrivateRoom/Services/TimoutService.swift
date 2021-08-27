@@ -83,7 +83,7 @@ class TimeoutService {
             }
 
 
-        }, to: url, usingThreshold: UInt64.init(), method: .post, headers: headers).validate().responseString { (response) in
+        }, to: url, usingThreshold: UInt64.init(), method: .post, headers: headers).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
@@ -112,7 +112,7 @@ class TimeoutService {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
 
-        AF.request(request).responseJSON(completionHandler: { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseJSON(completionHandler: { (response) in
             switch response.result {
                 case .success(let obj):
                     do {
@@ -156,7 +156,7 @@ class TimeoutService {
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)") //타임아웃 사용 완료
@@ -186,7 +186,7 @@ class TimeoutService {
             multipartFormData.append(imageFile, withName: "imageFile", fileName: fileName, mimeType: "image/jpg")
 
 
-        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).responseString { (response) in
+        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
@@ -253,7 +253,7 @@ class TimeoutService {
             }
 
 
-        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate().responseString { (response) in
+        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
@@ -280,7 +280,7 @@ class TimeoutService {
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)") //타임아웃 삭제 완료

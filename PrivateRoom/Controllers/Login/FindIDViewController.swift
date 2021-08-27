@@ -31,7 +31,7 @@ class FindIDViewController: UIViewController {
             sendMessageText.isHidden = false
             UserLoginServices.shared.sendMessage(number: number, completion: { (response) in
                 self.authenCode = response
-            })
+            }, errorHandler: { (error) in })
             
         }else{
             alertViewController(title: "전화번호 입력", message: "전화번호 형식이 맞지 않습니다. 다시 입력해주세요", completion: {response in print(response)})
@@ -49,7 +49,7 @@ class FindIDViewController: UIViewController {
                 if(response != ""){
                     self.alertViewController(title: "아이디 찾기", message: response, completion: { (response) in })
                 }
-            })
+            }, errorHandler: { (error) in})
            
         }else {
             reAuthenText.isHidden = false

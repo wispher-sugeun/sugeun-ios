@@ -28,7 +28,7 @@ class ScheduleService {
         
         
         print(userId)
-        AF.request(url, method: .get, headers: headers).responseJSON {
+        AF.request(url, method: .get, headers: headers).validate(statusCode: 200..<300).responseJSON {
             (response) in
             print("[ScheduleService] 스케줄 조회하기")
             switch response.result {
@@ -71,7 +71,7 @@ class ScheduleService {
         
         
         
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             print("[ScheduleService] 스케줄 생성")
             switch response.result {
                 case .success(let obj):
@@ -124,7 +124,7 @@ class ScheduleService {
         } catch { print(error) }
         
         
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             print("[ScheduleService] 스케줄 수정하기")
             switch response.result {
                 case .success(let obj):
@@ -146,7 +146,7 @@ class ScheduleService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "DELETE"
 
-        AF.request(url, method: .delete, encoding: URLEncoding.httpBody, headers: headers).responseString { (response) in
+        AF.request(url, method: .delete, encoding: URLEncoding.httpBody, headers: headers).validate(statusCode: 200..<300).responseString { (response) in
             print("[ScheduleService] 스케줄 삭제하기")
             switch response.result {
                 case .success(let obj):

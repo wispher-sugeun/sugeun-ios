@@ -33,7 +33,7 @@ class SignInViewController: UIViewController {
                 self.IDSameText.isHidden = false
        
             }
-        })
+        }, errorHandler: { (error) in})
       
     }
     
@@ -75,7 +75,7 @@ class SignInViewController: UIViewController {
         let number = phoneNumberTextField.text?.phoneMake() // dash delete string
         UserLoginServices.shared.sendMessage(number: number!, completion: { (response) in
             self.autheCode = response
-        })
+        }, errorHandler:  { (error) in})
         //문자 보내기 성공시
         phoneNumberGuideText.isHidden = false
     }
@@ -103,7 +103,7 @@ class SignInViewController: UIViewController {
         if(signInValidCheck()){
             //post 성공시
             let signInRequest = SignUpRequest(nickname: IDTextField.text!, password: PasswordTextfield.text!, phone: phoneNumberTextField.text!)
-            UserLoginServices.shared.signup(signUpRequest: signInRequest)
+            UserLoginServices.shared.signup(signUpRequest: signInRequest, errorHandler:  { (error) in})
                 
             self.alertViewController(title: "회원가입 완료", message: "회원 가입을 완료하였습니다. 로그인으로 이동합니다", completion: { response in
                 if(response == "OK"){

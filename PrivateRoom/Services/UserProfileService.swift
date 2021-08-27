@@ -33,7 +33,7 @@ class UserProfileService {
         
 
         
-        AF.request(request).responseJSON { [self]
+        AF.request(request).validate(statusCode: 200..<300).responseJSON { [self]
             (response) in
             print("[UserProfileService] get \(userId) 회원 프로필")
             switch response.result {
@@ -82,7 +82,7 @@ class UserProfileService {
             multipartFormData.append(imgeFile, withName: "imageFile", fileName: fileName, mimeType: "image/jpg")
 
 
-        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).responseString { (response) in
+        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
@@ -119,7 +119,7 @@ class UserProfileService {
         
         
 
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             print("[UserProfileService] 아이디 변경 하기")
             print(url)
 
@@ -158,7 +158,7 @@ class UserProfileService {
             print(error)
         }
 
-        AF.request(request).responseJSON { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseJSON { (response) in
             print("[UserProfileService] 비밀번호 검증 하기")
 
             switch response.result {
@@ -201,7 +201,7 @@ class UserProfileService {
         }
         
 
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             print("[UserProfileService] 비밀번호 변경 하기")
 
             switch response.result {
@@ -236,7 +236,7 @@ class UserProfileService {
 //        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
 
-        AF.request(url, method: .delete, headers: header).responseJSON { (response) in
+        AF.request(url, method: .delete, headers: header).validate(statusCode: 200..<300).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
@@ -269,7 +269,7 @@ class UserProfileService {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
 
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
@@ -300,7 +300,7 @@ class UserProfileService {
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        AF.request(request).responseJSON{ (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseJSON{ (response) in
             switch response.result {
             case .success(let obj):
                 print("success : \(obj)")

@@ -43,7 +43,7 @@ class PhraseService {
             print(decoded)
         } catch { print(error) }
         
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)") //글귀 생성 완료
@@ -79,7 +79,7 @@ class PhraseService {
             print(error)
         }
         
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)") //글귀 TEXT 변경 완료
@@ -104,7 +104,7 @@ class PhraseService {
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)") //글귀 삭제 완료
@@ -130,7 +130,7 @@ class PhraseService {
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)") //글귀 북마크 변경 완료

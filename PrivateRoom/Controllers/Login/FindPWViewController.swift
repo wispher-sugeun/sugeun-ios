@@ -27,7 +27,7 @@ class FindPWViewController: UIViewController {
                     
                     self.alertViewController(title: "존재하지 않는 아이디", message: "존재하지 않는 아이디입니다.", completion: { (response) in})
                     self.inValidIDText.isHidden = false
-                }})
+                }}, errorHandler: { (error) in})
         }
        
     }
@@ -50,7 +50,7 @@ class FindPWViewController: UIViewController {
                     self.authenCode = response
                 }
             
-            })
+            }, errorHandler: { (error ) in})
             
         }else{
             alertViewController(title: "전화번호 입력", message: "전화번호 형식이 맞지 않습니다. 다시 입력해주세요", completion: {response in print(response)})
@@ -153,7 +153,7 @@ class FindPWViewController: UIViewController {
                     //비밀번호 반영
                     self.alertViewController(title: "변경 완료", message: "비밀번호가 정상적으로 변경되었습니다. 로그인 뷰로 이동합니다.", completion: { (response) in
                         if(response == "OK") {
-                            UserLoginServices.shared.checkingNewPassword(userId: userID, password: userInput)
+                            UserLoginServices.shared.checkingNewPassword(userId: userID, password: userInput, errorHandler: { (error ) in})
                             self.navigationController?.popToRootViewController(animated: true)
                         }
                     })

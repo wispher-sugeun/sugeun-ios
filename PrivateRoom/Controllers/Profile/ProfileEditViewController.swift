@@ -171,7 +171,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
                             label.isHidden = false
                             self.present(alertVC, animated: true, completion: nil)
                         }
-                    })
+                    }, errorHandler:  { (error) in} )
                 }
             }
            

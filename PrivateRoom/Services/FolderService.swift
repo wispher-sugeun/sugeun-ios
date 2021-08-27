@@ -21,7 +21,7 @@ class FolderService {
     
     
     //폴더 목록
-    func getFolder(completion: @escaping ([GetFolderResponse]) -> (Void)){
+    func getFolder(completion: @escaping ([GetFolderResponse]) -> (Void), errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/users/\(userId)/folders"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -61,13 +61,27 @@ class FolderService {
                         print("error: ", error)
                     }
                 case .failure(let error):
-                    print("AF : \(error.localizedDescription)")
+                    if let httpStatusCode = response.response?.statusCode {
+                          switch(httpStatusCode) {
+                          case 403:
+                            errorHandler(403)
+                            break
+
+                          default:
+                            break
+                          }
+                       }
+                    else {
+                        errorHandler(403)
+                        print("AF : \(error.localizedDescription)")
+                       }
+                    
             }
         })
     }
     
     //타입 별 폴더 조회 PHRASE
-    func getPhraseFolder(completion: @escaping ([GetByFolderResponse]) -> (Void) ){
+    func getPhraseFolder(completion: @escaping ([GetByFolderResponse]) -> (Void),errorHandler: @escaping (Int) -> (Void) ){
         let url = Config.base_url + "/users/\(userId)/folders?type=PHRASE"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -95,15 +109,26 @@ class FolderService {
                     }
                     break
                 case .failure(let error):
-                    var statusCode = response.response?.statusCode
-                    print("status code is \(statusCode)")
-                    print("AF : \(error.localizedDescription)")
+                    if let httpStatusCode = response.response?.statusCode {
+                          switch(httpStatusCode) {
+                          case 403:
+
+                            errorHandler(403)
+                            break
+                          default:
+                            break
+                          }
+                       }
+                    else {
+                        errorHandler(500)
+                        print("AF : \(error.localizedDescription)")
+                       }
             }
         }
     }
     
     //타입 별 폴더 조회 LINK
-    func getLinkFolder(completion: @escaping ([GetByFolderResponse]) -> (Void)){
+    func getLinkFolder(completion: @escaping ([GetByFolderResponse]) -> (Void), errorHandler: @escaping (Int) -> (Void)) {
         let url = Config.base_url + "/users/\(userId)/folders?type=LINK"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
@@ -130,15 +155,26 @@ class FolderService {
                     }
                     break
                 case .failure(let error):
-                    var statusCode = response.response?.statusCode
-                    print("status code is \(statusCode)")
-                    print("AF : \(error.localizedDescription)")
+                    if let httpStatusCode = response.response?.statusCode {
+                          switch(httpStatusCode) {
+                          case 403:
+                            errorHandler(403)
+                            break
+                          default:
+                            break
+                          }
+                       }
+                    else {
+                        errorHandler(500)
+                        print("AF : \(error.localizedDescription)")
+                       }
+
             }
         }
     }
     
     //폴더 생성 o
-    func createFolder(folder: CreateFolderRequest){
+    func createFolder(folder: CreateFolderRequest, errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/users/\(userId)/folders"
         
         let headers: HTTPHeaders = [
@@ -180,13 +216,25 @@ class FolderService {
             }
 
 
-        }, to: url, usingThreshold: UInt64.init(), method: .post, headers: headers).validate().responseString { (response) in
+        }, to: url, usingThreshold: UInt64.init(), method: .post, headers: headers).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
                     break
                 case .failure(let error):
-                    print("AF : \(error.localizedDescription)")
+                    if let httpStatusCode = response.response?.statusCode {
+                          switch(httpStatusCode) {
+                          case 403:
+                            errorHandler(403)
+                            break
+                          default:
+                            break
+                          }
+                       }
+                    else {
+                        errorHandler(500)
+                        print("AF : \(error.localizedDescription)")
+                       }
             }
         }
        
@@ -195,7 +243,7 @@ class FolderService {
     }
     
     //폴더 id로 조회 o
-    func viewFolder(folderId: Int, completion: @escaping ((DetailFolderResponse) -> Void)){
+    func viewFolder(folderId: Int, completion: @escaping ((DetailFolderResponse) -> Void), errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -206,7 +254,7 @@ class FolderService {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         print("[FolderService] 폴더 id \(folderId)로 조회하기")
-        AF.request(request).responseJSON { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
@@ -224,13 +272,25 @@ class FolderService {
                     }
                     break
                 case .failure(let error):
-                    print("AF : \(error.localizedDescription)")
+                    if let httpStatusCode = response.response?.statusCode {
+                          switch(httpStatusCode) {
+                          case 403:
+                            errorHandler(403)
+                            break
+                          default:
+                            break
+                          }
+                       }
+                    else {
+                        errorHandler(500)
+                        print("AF : \(error.localizedDescription)")
+                       }
             }
         }
     }
     
     //폴더 이미지 변경
-    func changeFolderImage(folderId: Int, changeImage: Data, completion: @escaping (Bool) -> (Void)){
+    func changeFolderImage(folderId: Int, changeImage: Data, completion: @escaping (Bool) -> (Void), errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PATCH"
@@ -254,14 +314,26 @@ class FolderService {
             print(fileName)
             multipartFormData.append(changeImage, withName: "imageFile", fileName: fileName, mimeType: "image/jpg")
 
-        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate().responseString { (response) in
+        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
                     completion(true)
                     break
                 case .failure(let error):
-                    print("AF : \(error.localizedDescription)")
+                    if let httpStatusCode = response.response?.statusCode {
+                          switch(httpStatusCode) {
+                          case 403:
+                            errorHandler(403)
+                            break
+                          default:
+                            break
+                          }
+                       }
+                    else {
+                        errorHandler(500)
+                        print("AF : \(error.localizedDescription)")
+                       }
             }
         }
 
@@ -280,7 +352,7 @@ class FolderService {
     }
     
     //폴더 이름 변경
-    func changeFolderName(folderId: Int, changeName: String){
+    func changeFolderName(folderId: Int, changeName: String, errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         
 //        var request = URLRequest(url: URL(string: url)!)
@@ -317,13 +389,25 @@ class FolderService {
 
             }
         
-        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate().responseString { (response) in
+        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
                     break
                 case .failure(let error):
-                    print("AF : \(error.localizedDescription)")
+                    if let httpStatusCode = response.response?.statusCode {
+                          switch(httpStatusCode) {
+                          case 403:
+                            errorHandler(403)
+                            break
+                          default:
+                            break
+                          }
+                       }
+                    else {
+                        errorHandler(500)
+                        print("AF : \(error.localizedDescription)")
+                       }
             }
         }
         
@@ -343,7 +427,7 @@ class FolderService {
     
     
     //폴더 삭제
-    func deleteFolder(folderId: Int){
+    func deleteFolder(folderId: Int, errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -355,14 +439,26 @@ class FolderService {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
 
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             print("[UserProfileService] \(folderId) 폴더 삭제하기")
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
                     break
                 case .failure(let error):
-                    print("AF : \(error.localizedDescription)")
+                    if let httpStatusCode = response.response?.statusCode {
+                          switch(httpStatusCode) {
+                          case 403:
+                            errorHandler(403)
+                            break
+                          default:
+                            break
+                          }
+                       }
+                    else {
+                        errorHandler(500)
+                        print("AF : \(error.localizedDescription)")
+                       }
             }
         }
     }

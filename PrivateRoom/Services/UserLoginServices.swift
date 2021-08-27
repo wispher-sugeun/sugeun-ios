@@ -22,7 +22,7 @@ class UserLoginServices {
     static var shared = UserLoginServices()
     
     //회원 가입 0
-    func signup(signUpRequest : SignUpRequest){
+    func signup(signUpRequest : SignUpRequest, errorHandler: @escaping (Int) -> (Void)){
         //post
         print("[API] 회원가입 하기")
         let url = Config.base_url + "/api/signup"
@@ -40,7 +40,7 @@ class UserLoginServices {
         } catch { print(error) }
 
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        AF.request(request).responseJSON { (response) in //->  Json
+        AF.request(request).validate(statusCode: 200..<300).responseJSON { (response) in //->  Json
             switch response.result {
                 case .success(let obj):
                     print(obj)
@@ -53,14 +53,16 @@ class UserLoginServices {
                     
                     break
                 case .failure(let error):
-                    print(error)
+                    errorHandler(500)
+                    print("AF : \(error.localizedDescription)")
+                       
             }
         }
         
     }
     
     //아이디 중복 확인 0
-    func checkIDValid(nickName: String, completion: @escaping ((Bool) -> Void) ){
+    func checkIDValid(nickName: String, completion: @escaping ((Bool) -> Void) ,errorHandler: @escaping (Int) -> (Void)){
         print("[API] post \(nickName) 아이디 중복 확인")
         let url = Config.base_url + "/api/duplicate"
         var request = URLRequest(url: URL(string: url)!)
@@ -71,7 +73,7 @@ class UserLoginServices {
 
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
-        AF.request(request).responseJSON { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
                     print(obj)
@@ -79,37 +81,38 @@ class UserLoginServices {
                     completion(responses) // true, false
                     break
                 case .failure(let error):
-                    print(error)
+                    errorHandler(500)
+                    print("AF : \(error.localizedDescription)")
             }
         }
     }
     
     //휴대폰 인증 요청 0
-    func sendMessage(number: String, completion: @escaping ((Int) -> Void) ){
+    func sendMessage(number: String, completion: @escaping ((Int) -> Void),errorHandler: @escaping (Int) -> (Void) ){
         print(number)
         let url = Config.base_url + "/api/send-sms"
         let parameters: [String: Any] = ["toNumber": number]
 
-        AF.request(url, method: .get, parameters: parameters).responseJSON { (response) in
+        AF.request(url, method: .get, parameters: parameters).validate(statusCode: 200..<300).responseJSON { (response) in
             print(response)
             print("[API] sms send")
             switch response.result {
-            case .success(let obj):
-                print(obj)
-                print(type(of: obj))
-                
-                let responses = obj as! Int
-                print(responses)
-                completion(responses)
-                
-            case .failure(let e):
-                print(e.localizedDescription)
+                case .success(let obj):
+                    print(obj)
+                    print(type(of: obj))
+                    
+                    let responses = obj as! Int
+                    print(responses)
+                    completion(responses)
+                case .failure(let error):
+                        errorHandler(500)
+                        print("AF : \(error.localizedDescription)")
             }
         }
         
     }
     
-    func checkID(phoneNumber: String, completion: @escaping (String) -> (Void)){
+    func checkID(phoneNumber: String, completion: @escaping (String) -> (Void), errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/api/find-nickname"
         
         
@@ -121,30 +124,29 @@ class UserLoginServices {
 
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             print("[UserLoginSerive] 아이디 확인하기")
             switch response.result {
                 case .success(let obj):
                     print(obj)
                     print(type(of: obj))
-                    let responses = obj as! String
-                    completion(responses)
+                    completion(obj)
                     break
-                case .failure(let error):
-                    print(error)
+            case .failure(_):
+                    errorHandler(500)
             }
         }
     }
     
     //비밀번호 찾기 -> 아이디 있는 사용자인지 확인
-    func checkValidID(nickName: String, completion: @escaping (Int) -> (Void)){
+    func checkValidID(nickName: String, completion: @escaping (Int) -> (Void), errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/api/check-nickname"
         
         print("[API] post \(nickName) 유효한 아이디인지 확인")
         
         let parameters: Parameters = ["nickname": nickName]
 
-        AF.request(url, parameters: parameters).responseJSON { (response) in
+        AF.request(url, parameters: parameters).validate(statusCode: 200..<300).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
                     print(obj)
@@ -152,14 +154,16 @@ class UserLoginServices {
                     completion(responses) // userID, -1
                     break
                 case .failure(let error):
-                    print(error)
+                    errorHandler(500)
+                    print("AF : \(error.localizedDescription)")
+                       
             }
         }
         
     }
     
     //비밀번호 찾기 -> phone number 검증
-    func checkPhoneNumber(userId: Int, phoneNumber: String, completed: @escaping (Int) -> (Void)){
+    func checkPhoneNumber(userId: Int, phoneNumber: String, completed: @escaping (Int) -> (Void), errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/api/verify-phone"
         var request = URLRequest(url: URL(string: url)!)
         let parameters: Parameters = [ "userId": userId, "phone" : phoneNumber]
@@ -170,9 +174,9 @@ class UserLoginServices {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             request.httpBody = jsonData
-        } catch { print(error) }
+        }
         
-        AF.request(request).responseJSON {
+        AF.request(request).validate(statusCode: 200..<300).responseJSON {
             (response) in
             print("[UserLoginService] 비밀번호 찾기 -> \(phoneNumber)로 검증 ")
                 switch response.result {
@@ -182,13 +186,16 @@ class UserLoginServices {
                         let response = obj as? Int
                         completed(response ?? 0)
                     case .failure(let error):
+                        
+                        errorHandler(500)
                         print("AF : \(error.localizedDescription)")
+                           
                 }
         
         }
     }
         
-    func checkingNewPassword(userId: Int, password: String){
+    func checkingNewPassword(userId: Int, password: String, errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/api/new-password"
         var request = URLRequest(url: URL(string: url)!)
         let parameters: Parameters = [ "userId": userId, "password" : password]
@@ -198,26 +205,26 @@ class UserLoginServices {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             request.httpBody = jsonData
-        } catch { print(error) }
+        }
         
-        AF.request(request).responseString {
+        AF.request(request).validate(statusCode: 200..<300).responseString {
             (response) in
                 switch response.result {
                     case .success(let obj):
                         print("success : \(obj)")
                        
                     case .failure(let error):
+                        errorHandler(500)
+                        
                         print("AF : \(error.localizedDescription)")
+                           
                 }
         }
     }
     
-    
-    //func findID(
     //로그인 0
-    func login(loginUserInfo : LoginRequest){
+    func login(loginUserInfo : LoginRequest, errorHandler: @escaping (Int) -> (Void)){
 //        completion: @escaping ((LoginResponse) -> Void)
-        //let header: HTTPHeaders = [ "Authorization" : deviceToken]
         let url = Config.base_url + "/api/login"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
@@ -239,7 +246,7 @@ class UserLoginServices {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         print("deviceToken : \(deviceToken)")
 
-        AF.request(request).responseJSON { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
@@ -251,7 +258,20 @@ class UserLoginServices {
                     //completion(responses)
                     break
                 case .failure(let error):
-                    print("AF : \(error.localizedDescription)")
+                    //let statusCode = response.response?.statusCode
+                    if let httpStatusCode = response.response?.statusCode {
+                          switch(httpStatusCode) {
+                          case 403:
+                            errorHandler(403)
+                            break
+                          default:
+                            break
+                          }
+                       }
+                    else {
+                        errorHandler(500)
+                        print("AF : \(error.localizedDescription)")
+                       }
             }
         }
         

@@ -113,6 +113,15 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
             self.mainViewModels = self.link.map ({ return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "LINK"))})
             self.filteredLink = self.mainViewModels
             self.collectionView.reloadData()
+        }, errorHandler: {(errorMessage) in
+            if(errorMessage != 0){
+                self.alertViewController(title: "로그인 실패", message: "로그인 화면으로 이동합니다.", completion: { (response) in
+                    if(response == "OK"){
+                        UserDefaults.standard.setValue("0", forKey: UserDefaultKey.isNewUser)
+                        UserLoginServices.shared.autoLogin()
+                    }
+                })
+            }
         })
     }
     
@@ -178,7 +187,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
                         self.fetchData()
                         self.alertViewController(title: "이미지 변경", message: "이미지가 변경되었습니다", completion: { (response) in})
                     }
-                })
+                }, errorHandler: { (error) in })
             }
         }
     }
@@ -187,7 +196,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         
         let index = cell.indexPath.row
         print("folderID : \(index)")
-        FolderService.shared.deleteFolder(folderId: filteredLink[index].folderId)
+        FolderService.shared.deleteFolder(folderId: filteredLink[index].folderId, errorHandler: { (error) in})
         filteredLink.remove(at: index)
         self.alertViewController(title: "삭제 완료", message: "폴더를 삭제하였습니다", completion: { (response) in
             if(response == "OK"){
@@ -236,7 +245,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
                 self.present(alertVC, animated: true, completion: nil)
 
             }else {
-                FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput)
+                FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput, errorHandler: { (error) in})
                 completionHandler(userInput)
             }
             
@@ -319,7 +328,7 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
             linkVC.folderId = folderId
             linkVC.total = response
             self.navigationController?.pushViewController(linkVC, animated: true)
-        })
+        }, errorHandler: { (error) in })
 
     }
     

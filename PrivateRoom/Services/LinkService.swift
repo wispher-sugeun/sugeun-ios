@@ -43,7 +43,7 @@ class LinkService {
             print(decoded)
         } catch { print(error) }
         
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)") //링크 생성 완료
@@ -77,7 +77,7 @@ class LinkService {
         } catch { print(error) }
         
         
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             print("[LinkService] 링크 수정하기")
             switch response.result {
                 case .success(let obj):
@@ -100,7 +100,7 @@ class LinkService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "DELETE"
 
-        AF.request(url, method: .delete, encoding: URLEncoding.httpBody, headers: headers).responseString { (response) in
+        AF.request(url, method: .delete, encoding: URLEncoding.httpBody, headers: headers).validate(statusCode: 200..<300).responseString { (response) in
             print("[LinkService] 링크 삭제하기")
             switch response.result {
                 case .success(let obj):
@@ -127,7 +127,7 @@ class LinkService {
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        AF.request(request).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)") //링크 북마크 변경 완료

@@ -30,7 +30,7 @@ class LoginViewController: UIViewController {
 
         //로그인 성공시
         let loginRequest = LoginRequest(nickname: IDTextfield.text!, password: PasswordTextfield.text!)
-        UserLoginServices.shared.login(loginUserInfo: loginRequest)
+        UserLoginServices.shared.login(loginUserInfo: loginRequest, errorHandler:  { (error) in})
         let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "VC")
         let rootNC = UINavigationController(rootViewController: mainVC)
         
