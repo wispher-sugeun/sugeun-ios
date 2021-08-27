@@ -43,14 +43,15 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
 
     
     var configuration = PHPickerConfiguration()
+    
     @IBOutlet weak var floatingButton: UIButton!
     
     @IBOutlet weak var searchTextField: UITextField!
 
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    var mainViewModel = [FolderViewModel]()
     var textFolder = [GetByFolderResponse]()
-    var filteredTextFolder = [GetByFolderResponse]()
+    var filteredTextFolder = [FolderViewModel]()
     var sortingText = "이름 순"
     var sorting = ["이름 순", "생성 순", "최신 순"]
     
@@ -74,17 +75,17 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-//        textFolder.append(Folder(folderId: 0, folderName: "텍스트 폴더1", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//        textFolder.append(Folder(folderId: 1, folderName: "텍스트 폴더2", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//        textFolder.append(Folder(folderId: 2, folderName: "텍스트 폴더3", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        FolderService.shared.getPhraseFolder(completion: { (response) in
-            self.textFolder = response
-            self.filteredTextFolder = self.textFolder
-            self.collectionView.reloadData()
-        })
-        
+        fetchData()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
+    }
+    
+    func fetchData(){
+        FolderService.shared.getPhraseFolder(completion: { (response) in
+            self.textFolder = response
+            self.filteredTextFolder = self.textFolder.map( { FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData!, type: "PHRASE"))})
+            self.collectionView.reloadData()
+        })
     }
     
     
@@ -122,19 +123,21 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     }
     
     
+    
+    //폴더 이미지 변경
     @objc func folderImageChanged(_ notification: NSNotification){
         //text ~~
         print(notification.userInfo ?? "")
         print("folderImageChanged")
         if let dict = notification.userInfo as NSDictionary? {
-            if let folderImage = dict["image"] as? UIImage{
-//                filteredTextFolder[selectedCellIndexPath[1]].imageData = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
-                    
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-                
-                // do something with your image
+            if let folderImage = dict["image"] as? UIImage {
+                let folderId = filteredTextFolder[selectedCellIndexPath[1]].folderId
+                FolderService.shared.changeFolderImage(folderId: folderId, changeImage: folderImage.jpeg(.lowest)!, completion: { (response) in
+                    if(response == true){
+                        self.fetchData()
+                        self.alertViewController(title: "이미지 변경", message: "이미지가 변경되었습니다", completion: { (response) in})
+                    }
+                })
             }
         }
         
@@ -346,20 +349,20 @@ extension TextViewController: UITableViewDelegate, UITableViewDataSource {
     
     //sorting
     func sortingAlpanumeric(){
-        textFolder = textFolder.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
-        filteredTextFolder = textFolder
+        mainViewModel = mainViewModel.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
+        filteredTextFolder = mainViewModel
         collectionView.reloadData()
     }
     
     func sortingOldest(){
-        textFolder = textFolder.sorted { $0.folderId < $1.folderId }
-        filteredTextFolder = textFolder
+        mainViewModel = mainViewModel.sorted { $0.folderId < $1.folderId }
+        filteredTextFolder = mainViewModel
         collectionView.reloadData()
     }
     
     func sortingLatest(){
-        textFolder = textFolder.sorted { $0.folderId > $1.folderId }
-        filteredTextFolder = textFolder
+        mainViewModel = mainViewModel.sorted { $0.folderId > $1.folderId }
+        filteredTextFolder = mainViewModel
         collectionView.reloadData()
     }
     
@@ -376,11 +379,11 @@ extension TextViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let searchText = textField.text! + string
         if searchText.count >= 2{
-            filteredTextFolder = textFolder.filter({ (result) -> Bool in
+            filteredTextFolder = mainViewModel.filter({ (result) -> Bool in
                 result.folderName.range(of: searchText, options: .caseInsensitive) != nil
             })
         }else {
-            filteredTextFolder = textFolder
+            filteredTextFolder = mainViewModel
         }
        
         collectionView.reloadData()
@@ -392,7 +395,7 @@ extension TextViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
         textField.resignFirstResponder()
         textField.text = ""
         self.filteredTextFolder.removeAll()
-        for str in textFolder {
+        for str in mainViewModel {
             filteredTextFolder.append(str)
         }
         collectionView.reloadData()
@@ -403,7 +406,7 @@ extension TextViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text?.count != 0 {
             self.filteredTextFolder.removeAll()
-            for str in textFolder {
+            for str in mainViewModel {
                 let name = str.folderName.lowercased()
                 let range = name.range(of: textField.text!, options: .caseInsensitive, range: nil, locale: nil)
                 if range != nil {
@@ -425,6 +428,7 @@ extension TextViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
 }
 
 extension TextViewController: UICollectionViewDataSource, UICollectionViewDelegate, FolderCollectionViewCellDelegate, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filteredTextFolder.count
     }
@@ -464,29 +468,40 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCollectionViewCell.identifier, for: indexPath) as! FolderCollectionViewCell
-        cell.contentView.layer.cornerRadius = 10
-        cell.contentView.layer.masksToBounds = true
-        cell.layer.shadowRadius = 2.0
-        cell.layer.shadowOpacity = 1.0
-        cell.layer.masksToBounds = false
-        cell.cellDelegate = self
-        cell.viewLayout(width: view.fs_width/2 - 50, height: 140)
-        //let folderModel = filteredTextFolder[indexPath.row]
-        cell.configure(folder: filteredTextFolder[indexPath.row])
-        cell.indexPath = indexPath
-        return cell
+        
+            //cell 크기 고정
+            cell.viewLayout(width: view.fs_width/2 - 30, height: 170)
+            cell.cellDelegate = self
+            cell.view.layer.borderColor = UIColor.darkGray.cgColor
+            cell.view.layer.masksToBounds = true
+            cell.view.layer.cornerRadius = 5
+            cell.view.layer.borderWidth = 1
+            cell.view.layer.shadowOpacity = 1.0
+
+            let folderViewModel = filteredTextFolder[indexPath.row]
+            cell.folderViewModel = folderViewModel
+            //cell.configure(folder: filteredFolder[indexPath.row])
+            cell.indexPath = indexPath
+            return cell
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width  = (view.frame.width-20)/3
-                    return CGSize(width: width, height: width)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let width  = (view.frame.width-20)/3
+//                    return CGSize(width: width, height: width)
+//    }
     
     //위 아래 라인 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if let flowLayout = self.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.invalidateLayout()
+        }
+    }
+    
     
     //옆 라인 간격
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

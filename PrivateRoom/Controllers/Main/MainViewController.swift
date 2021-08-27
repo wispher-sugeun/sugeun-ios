@@ -34,7 +34,6 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         more_dropDown.anchorView = cell.moreButton
         more_dropDown.show()
         selectedCellIndexPath = cell.indexPath
-        print(selectedCellIndexPath)
         more_dropDown.backgroundColor = UIColor.white
         more_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("선택한 아이템 : \(item)")
@@ -114,7 +113,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
             self.folders = response
             self.mainViewModels = self.folders.map({ return FolderViewModel(allFolder: $0)})
             self.filteredFolder = self.mainViewModels
-            print("get folders : \(self.filteredFolder)")
+            //print("get folders : \(self.filteredFolder)")
             self.folderCollectionView.reloadData()
         })
     }
@@ -125,19 +124,6 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
-        
-       
-        
-        
-//        folders.append(Folder(folderId: 0, folderName: "abc", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-//        folders.append(Folder(folderId: 1, folderName: "def", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-//        folders.append(Folder(folderId: 2, folderName: "efg", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-//        folders.append(Folder(folderId: 3, folderName: "가나다", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-//        folders.append(Folder(folderId: 4, folderName: "나라마", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-//        folders.append(Folder(folderId: 5, folderName: "아자차", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-//        folders.append(Folder(folderId: 6, folderName: "카타하", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-//        folders.append(Folder(folderId: 7, folderName: "123하이", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-//        folders.append(Folder(folderId: 8, folderName: "하이123", folderImage: UIImage(systemName: "person.fill"), isLike: true)) // 가장
         
         collectionViewSetting(collectionView: folderCollectionView)
         
@@ -172,6 +158,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
                 FolderService.shared.changeFolderImage(folderId: folderId, changeImage: folderImage.jpeg(.lowest)!, completion: { (response) in
                     if(response == true){
                         self.fetchData()
+                        self.alertViewController(title: "이미지 변경", message: "이미지가 변경되었습니다", completion: { (response) in})
                     }
                 })
             }
@@ -318,14 +305,18 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
     
         //custom cell connected
-        cell.contentView.layer.cornerRadius = 10
-        cell.contentView.layer.masksToBounds = true
-        cell.layer.shadowRadius = 2.0
-        cell.layer.shadowOpacity = 1.0
-        cell.layer.masksToBounds = false
+//        cell.layer.shadowRadius = 2.0
+        
+    
         //cell 크기 고정
-        cell.viewLayout(width: view.fs_width/2 - 40, height: 140)
+        cell.viewLayout(width: view.fs_width/2 - 30, height: 170)
         cell.cellDelegate = self
+        cell.view.layer.borderColor = UIColor.darkGray.cgColor
+        cell.view.layer.masksToBounds = true
+        cell.view.layer.cornerRadius = 5
+        cell.view.layer.borderWidth = 1
+        cell.view.layer.shadowOpacity = 1.0
+
         let folderViewModel = filteredFolder[indexPath.row]
         cell.folderViewModel = folderViewModel
         //cell.configure(folder: filteredFolder[indexPath.row])
@@ -667,8 +658,6 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
                 errorMessage = "폴더 이름을 입력해주세요"
             case .folderType:
                 errorMessage = "폴더 타입을 선택해주세요"
-            default:
-                print("error occured")
             }
             
             self.alertViewController(title: "생성 실패", message: errorMessage, completion: { (response) in

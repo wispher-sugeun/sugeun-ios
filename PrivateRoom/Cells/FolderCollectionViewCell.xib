@@ -11,43 +11,58 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="FolderCollectionViewCell" reuseIdentifier="FolderCollectionViewCell" id="gTV-IL-0wX" customClass="FolderCollectionViewCell" customModule="PrivateRoom" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="265" height="243"/>
+            <rect key="frame" x="0.0" y="0.0" width="310" height="274"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="265" height="243"/>
+                <rect key="frame" x="0.0" y="0.0" width="310" height="274"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lay-ba-g4M">
-                        <rect key="frame" x="0.0" y="0.0" width="265" height="243"/>
+                        <rect key="frame" x="0.0" y="0.0" width="310" height="274"/>
                         <subviews>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7JX-05-zNn">
-                                <rect key="frame" x="0.0" y="0.0" width="265" height="170"/>
+                                <rect key="frame" x="0.0" y="0.0" width="310" height="186"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="7JX-05-zNn" secondAttribute="height" multiplier="5:3" id="fqY-mc-Fsu"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dtb-u3-ubR">
-                                <rect key="frame" x="20" y="180" width="225" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="20" y="196" width="270" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ssf-ko-sW0">
-                                <rect key="frame" x="226" y="211" width="19" height="22"/>
+                                <rect key="frame" x="268" y="237" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Ssf-ko-sW0" secondAttribute="height" multiplier="1:1" id="RPw-xs-u7r"/>
+                                </constraints>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="ellipsis" catalog="system"/>
                                 <connections>
                                     <action selector="folderEditButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Obc-Ym-VB8"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOx-a1-gQ3" userLabel="type">
+                                <rect key="frame" x="15" y="237" width="37.5" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="eOx-a1-gQ3" firstAttribute="leading" secondItem="lay-ba-g4M" secondAttribute="leading" constant="15" id="0o6-lw-1YL"/>
+                            <constraint firstItem="eOx-a1-gQ3" firstAttribute="top" secondItem="Dtb-u3-ubR" secondAttribute="bottom" constant="10" id="Bx9-Rc-fML"/>
                             <constraint firstAttribute="trailing" secondItem="7JX-05-zNn" secondAttribute="trailing" id="MMs-ns-uBY"/>
+                            <constraint firstAttribute="bottom" secondItem="eOx-a1-gQ3" secondAttribute="bottom" constant="15" id="NXR-1Y-qz9"/>
                             <constraint firstItem="Dtb-u3-ubR" firstAttribute="leading" secondItem="lay-ba-g4M" secondAttribute="leading" constant="20" id="ZDT-zE-VZ2"/>
                             <constraint firstAttribute="trailing" secondItem="Dtb-u3-ubR" secondAttribute="trailing" constant="20" id="aeS-ep-yf9"/>
                             <constraint firstItem="Ssf-ko-sW0" firstAttribute="top" secondItem="Dtb-u3-ubR" secondAttribute="bottom" constant="10" id="b6I-B6-4Np"/>
                             <constraint firstAttribute="trailing" secondItem="Ssf-ko-sW0" secondAttribute="trailing" constant="20" id="dD3-vo-P2A"/>
                             <constraint firstItem="Dtb-u3-ubR" firstAttribute="top" secondItem="7JX-05-zNn" secondAttribute="bottom" constant="10" id="gIx-KP-3PP"/>
                             <constraint firstItem="7JX-05-zNn" firstAttribute="leading" secondItem="lay-ba-g4M" secondAttribute="leading" id="h8u-UN-COx"/>
-                            <constraint firstAttribute="bottom" secondItem="Ssf-ko-sW0" secondAttribute="bottom" constant="10" id="ptx-No-mZL"/>
+                            <constraint firstAttribute="bottom" secondItem="Ssf-ko-sW0" secondAttribute="bottom" constant="15" id="ptx-No-mZL"/>
                             <constraint firstItem="7JX-05-zNn" firstAttribute="top" secondItem="lay-ba-g4M" secondAttribute="top" id="zEw-ZX-EoJ"/>
                         </constraints>
                     </view>
@@ -61,14 +76,15 @@
                 <constraint firstItem="lay-ba-g4M" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="z5R-wn-YAh"/>
                 <constraint firstItem="lay-ba-g4M" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="zUj-U9-BhK"/>
             </constraints>
-            <size key="customSize" width="265" height="243"/>
+            <size key="customSize" width="310" height="274"/>
             <connections>
                 <outlet property="folderImage" destination="7JX-05-zNn" id="VRC-eP-p9j"/>
                 <outlet property="folderName" destination="Dtb-u3-ubR" id="K3r-FG-CPT"/>
+                <outlet property="folderType" destination="eOx-a1-gQ3" id="sP7-fR-vzw"/>
                 <outlet property="moreButton" destination="Ssf-ko-sW0" id="8S4-42-k4S"/>
                 <outlet property="view" destination="lay-ba-g4M" id="8sC-Gr-IE8"/>
             </connections>
-            <point key="canvasLocation" x="183.33333333333334" y="137.61160714285714"/>
+            <point key="canvasLocation" x="215.94202898550725" y="147.99107142857142"/>
         </collectionViewCell>
     </objects>
     <resources>

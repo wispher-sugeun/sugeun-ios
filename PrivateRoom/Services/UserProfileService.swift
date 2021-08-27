@@ -61,7 +61,7 @@ class UserProfileService {
     }
     
     //이미지 업데이트
-    func updateProfileImage(imgeFile: Data){
+    func updateProfileImage(imgeFile: Data, completed: @escaping (Bool) -> (Void)){
         let url = Config.base_url + "/users/\(userId)"
         
         let headers: HTTPHeaders = [
@@ -86,6 +86,7 @@ class UserProfileService {
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
+                    completed(true)
                     break
                 case .failure(let error):
                     print("AF : \(error.localizedDescription)")

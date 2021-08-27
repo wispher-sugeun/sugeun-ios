@@ -29,6 +29,15 @@ class ProfileEditViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        UserProfileService.shared.getUserProfile(completion:  { [self] response in
+            if(!(response?.imageData!.isEmpty)!){
+                profileImage.image = UIImage(data: (response?.imageData)!)
+            }
+        })
+    }
+    
 //    @IBAction func doneButton(_ sender: Any) {
 //        //UserService post
 //        alertDone(title: "수정 완료",message: "회원 정보가 정상적으로 수정되었습니다", completionHandler: { response in
@@ -331,7 +340,11 @@ extension ProfileEditViewController: PHPickerViewControllerDelegate {
                     
                     self.profileImage.image = uploadImage
                     
-                    UserProfileService.shared.updateProfileImage(imgeFile: (uploadImage?.jpeg(.lowest))!)
+                    UserProfileService.shared.updateProfileImage(imgeFile: (uploadImage?.jpeg(.lowest))!, completed: { (response) in
+                        if( response == true){
+                            self.alertViewController(title: "변경 완료", message: "프로필 이미지가 변경 되었습니다.", completion: { (response) in})
+                        }
+                    })
                     
                 }
             }

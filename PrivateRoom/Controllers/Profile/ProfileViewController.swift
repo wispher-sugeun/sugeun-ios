@@ -51,6 +51,7 @@ class ProfileViewController: UIViewController {
         self.tableView.separatorStyle = .singleLine
         self.tableView.separatorColor = .gray
         profileImage.circle()
+        profileImage.contentMode = .scaleToFill
         editButton.circle()
         editButton.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
     }

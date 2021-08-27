@@ -645,6 +645,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cell.indexPath = indexPath
             return cell
         }
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCollectionViewCell.identifier, for: indexPath) as! FolderCollectionViewCell
         //custom cell connected
         cell.contentView.layer.cornerRadius = 10

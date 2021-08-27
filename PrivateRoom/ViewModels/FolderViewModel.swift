@@ -19,14 +19,16 @@ struct FolderViewModel {
 
     var imageData: Data
     
+    var type: String
     
     
     //dependency injection(DI)
     init(allFolder: GetFolderResponse){
         // 이 안에 계산된 로직을 넣는다
-        self.folderId = allFolder.folderId ?? 0
+        self.folderId = allFolder.folderId
         self.folderName = allFolder.folderName ?? ""
         self.userId = allFolder.userId ?? 0
         self.imageData = allFolder.imageData ?? Data()
+        self.type = allFolder.type ?? ""
     }
 }

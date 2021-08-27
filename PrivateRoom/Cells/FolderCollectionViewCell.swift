@@ -21,13 +21,16 @@ class FolderCollectionViewCell: UICollectionViewCell {
             folderImage.contentMode = .scaleAspectFill
                 //image(folderViewModel.imageData, withSize: CGSize(width: contentView.frame.width/2, height: 80))
             self.folderName.text = folderViewModel.folderName
+            self.folderType.text = folderViewModel.type
         }
     }
+    
     @IBOutlet weak var view: UIView!
     
     static var identifier = "FolderCollectionViewCell"
     @IBOutlet weak var folderImage: UIImageView!
     
+    @IBOutlet weak var folderType: UILabel!
     @IBOutlet weak var folderName: UILabel!
     
     @IBOutlet weak var moreButton: UIButton!

@@ -18,6 +18,11 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         }
     }
     
+    private var mainViewModels = [FolderViewModel]()
+
+    
+    var link = [GetByFolderResponse]()
+    var filteredLink = [FolderViewModel]()
     
     var configuration = PHPickerConfiguration()
     
@@ -78,9 +83,6 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     var sortingText = "이름 순"
     var selectedCellIndexPath = IndexPath()
     
-    var link = [GetByFolderResponse]()
-    var filteredLink = [GetByFolderResponse]()
-    
     
     let more_dropDown: DropDown = {
         let dropDown = DropDown()
@@ -100,12 +102,19 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        fetchData()
+        
+
+        
+    }
+    
+    func fetchData(){
         FolderService.shared.getLinkFolder(completion: { (response) in
             self.link = response
-            self.filteredLink = self.link
+            self.mainViewModels = self.link.map ({ return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData!, type: "LINK"))})
+            self.filteredLink = self.mainViewModels
             self.collectionView.reloadData()
         })
-        
     }
     
     override func viewDidLoad() {
@@ -158,22 +167,22 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         floatingButton.circle()
     }
     
+    //폴더 이미지 변경
     @objc func folderImageChanged(_ notification: NSNotification){
         //text ~~
         print(notification.userInfo ?? "")
         print("folderImageChanged")
         if let dict = notification.userInfo as NSDictionary? {
-            if let folderImage = dict["image"] as? UIImage{
-//                filteredLink[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
-                    
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-                
-                // do something with your image
+            if let folderImage = dict["image"] as? UIImage {
+                let folderId = filteredLink[selectedCellIndexPath[1]].folderId
+                FolderService.shared.changeFolderImage(folderId: folderId, changeImage: folderImage.jpeg(.lowest)!, completion: { (response) in
+                    if(response == true){
+                        self.fetchData()
+                        self.alertViewController(title: "이미지 변경", message: "이미지가 변경되었습니다", completion: { (response) in})
+                    }
+                })
             }
         }
-        
     }
     
     func folderDelete(){
@@ -252,7 +261,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
 
 }
 
-extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filteredLink.count
     }
@@ -260,36 +269,44 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCollectionViewCell.identifier, for: indexPath) as! FolderCollectionViewCell
-        //custom cell connected
-        cell.contentView.layer.cornerRadius = 10
-        cell.contentView.layer.masksToBounds = true
-        cell.layer.shadowRadius = 2.0
-        cell.layer.shadowOpacity = 1.0
-        cell.layer.masksToBounds = false
+        //cell 크기 고정
+        cell.viewLayout(width: view.fs_width/2 - 30, height: 170)
         cell.cellDelegate = self
-    
-        cell.viewLayout(width: view.fs_width/2 - 50, height: 140)
-        cell.configure(folder: filteredLink[indexPath.row])
+        cell.view.layer.borderColor = UIColor.darkGray.cgColor
+        cell.view.layer.masksToBounds = true
+        cell.view.layer.cornerRadius = 5
+        cell.view.layer.borderWidth = 1
+        cell.view.layer.shadowOpacity = 1.0
+
+        let folderViewModel = filteredLink[indexPath.row]
+        cell.folderViewModel = folderViewModel
+        //cell.configure(folder: filteredFolder[indexPath.row])
         cell.indexPath = indexPath
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-       
-        let width  = (view.frame.width-20)/3
-        print("linkVC width \(width)")
-        return CGSize(width: width, height: width)
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        let width  = (view.frame.width-20)/3
+//        print("linkVC width \(width)")
+//        return CGSize(width: width, height: width)
+//    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if let flowLayout = self.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.invalidateLayout()
+        }
     }
     
     //위 아래 라인 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 50
+        return 20
     }
     
-    //옆 라인 간격
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.2
-    }
+//    //옆 라인 간격
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 0.2
+//    }
     
     //todo - make with navigation
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -442,8 +459,8 @@ extension LinkViewController: UITableViewDelegate, UITableViewDataSource {
     
     //sorting
     func sortingAlpanumeric(){
-        link = link.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
-        filteredLink = link
+        mainViewModels = mainViewModels.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
+        filteredLink = mainViewModels
         
         collectionView.reloadData()
         
@@ -451,16 +468,16 @@ extension LinkViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func sortingOldest(){
-        link = link.sorted { $0.folderId < $1.folderId }
-        filteredLink = link
+        mainViewModels = mainViewModels.sorted { $0.folderId < $1.folderId }
+        filteredLink = mainViewModels
 
         collectionView.reloadData()
 
     }
     
     func sortingLatest(){
-        link = link.sorted { $0.folderId > $1.folderId }
-        filteredLink = link
+        mainViewModels = mainViewModels.sorted { $0.folderId > $1.folderId }
+        filteredLink = mainViewModels
 
         collectionView.reloadData()
     }
@@ -469,22 +486,22 @@ extension LinkViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension LinkViewController: UITextFieldDelegate {
+   
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        guard textField.text != nil else {return}
+        guard let text = textField.text else {return}
+        print("text \(text)")
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let searchText = textField.text! + string
         if searchText.count >= 2{
-            filteredLink = link.filter({ (result) -> Bool in
+            filteredLink = mainViewModels.filter({ (result) -> Bool in
                 result.folderName.range(of: searchText, options: .caseInsensitive) != nil
             })
-            
-         
         }else {
-            filteredLink = link
+            filteredLink = mainViewModels
         }
-        
+       
         collectionView.reloadData()
         return true
         
@@ -493,13 +510,10 @@ extension LinkViewController: UITextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         textField.text = ""
-        
         self.filteredLink.removeAll()
-        
-        for str in link {
-            filteredLink.append(str)
+        for i in mainViewModels {
+            filteredLink.append(i)
         }
-        
         collectionView.reloadData()
         return false
         
@@ -508,21 +522,11 @@ extension LinkViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text?.count != 0 {
             self.filteredLink.removeAll()
-            
-            for str in link {
-                let name = str.folderName.lowercased()
+            for i in mainViewModels {
+                let name = i.folderName.lowercased()
                 let range = name.range(of: textField.text!, options: .caseInsensitive, range: nil, locale: nil)
                 if range != nil {
-                    self.filteredLink.append(str)
-                }
-                
-            }
-            
-            for str in link {
-                let name = str.folderName.lowercased()
-                let range = name.range(of: textField.text!, options: .caseInsensitive, range: nil, locale: nil)
-                if range != nil {
-                    self.filteredLink.append(str)
+                    self.filteredLink.append(i)
                 }
                 
             }

@@ -37,7 +37,7 @@ class DateUtil {
     
     static func toSecond(_ dateString: String) -> Double {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
         let date = formatter.date(from: dateString)
         return date!.timeIntervalSince1970
     }
