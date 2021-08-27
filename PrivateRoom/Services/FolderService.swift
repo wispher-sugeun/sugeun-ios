@@ -237,8 +237,6 @@ class FolderService {
             
         ]
         
-        //let parameter: Parameters = ["imgFile" : changeImage]
-        
         
         AF.upload(multipartFormData: { multipartFormData in
             print("[FolderService] 폴더 이미지 변경하기")

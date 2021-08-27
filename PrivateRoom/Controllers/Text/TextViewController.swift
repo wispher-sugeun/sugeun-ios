@@ -28,7 +28,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                 if let image = image as? UIImage {
-                    NotificationCenter.default.post(name: .folderImageChanged, object: nil, userInfo: ["image" : image])
+                    NotificationCenter.default.post(name: .folderImageChangedInPhrase, object: nil, userInfo: ["image" : image])
 
 
                 }
@@ -77,7 +77,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         super.viewWillAppear(true)
         fetchData()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChangedInPhrase(_:)), name: .folderImageChangedInPhrase, object: nil)
     }
     
     func fetchData(){
@@ -125,10 +125,10 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     
     
     //폴더 이미지 변경
-    @objc func folderImageChanged(_ notification: NSNotification){
+    @objc func folderImageChangedInPhrase(_ notification: NSNotification){
         //text ~~
         print(notification.userInfo ?? "")
-        print("folderImageChanged")
+        
         if let dict = notification.userInfo as NSDictionary? {
             if let folderImage = dict["image"] as? UIImage {
                 let folderId = filteredTextFolder[selectedCellIndexPath[1]].folderId
@@ -435,11 +435,9 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
 
     
     func didTapMoreButton(cell: FolderCollectionViewCell) {
-        print("more button")
         more_dropDown.anchorView = cell.moreButton
         more_dropDown.show()
         selectedCellIndexPath = cell.indexPath
-        print(selectedCellIndexPath)
         more_dropDown.backgroundColor = UIColor.white
         more_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("선택한 아이템 : \(item)")

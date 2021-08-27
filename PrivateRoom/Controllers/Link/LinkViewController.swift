@@ -27,7 +27,6 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     var configuration = PHPickerConfiguration()
     
     func didTapMoreButton(cell: FolderCollectionViewCell) {
-        print("more button")
         more_dropDown.anchorView = cell.moreButton
         more_dropDown.show()
         selectedCellIndexPath = cell.indexPath
@@ -132,6 +131,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
 //        link.append(Link(userId: 2, folderId: 2, linkId: 2, link: "www.google.com", bookmark: true, date: "2021-03-05"))
 //        link.append(Link(userId: 3, folderId: 3, linkId: 3, link: "www.daum.net", bookmark: false, date: "2021-03-05"))
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChangedInLink(_:)), name: .folderImageChangedInLink, object: nil)
         flowSetting()
     }
     
@@ -168,13 +168,11 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     }
     
     //폴더 이미지 변경
-    @objc func folderImageChanged(_ notification: NSNotification){
-        //text ~~
-        print(notification.userInfo ?? "")
-        print("folderImageChanged")
+    @objc func folderImageChangedInLink(_ notification: NSNotification){
         if let dict = notification.userInfo as NSDictionary? {
             if let folderImage = dict["image"] as? UIImage {
                 let folderId = filteredLink[selectedCellIndexPath[1]].folderId
+                print("folderId \(folderId)")
                 FolderService.shared.changeFolderImage(folderId: folderId, changeImage: folderImage.jpeg(.lowest)!, completion: { (response) in
                     if(response == true){
                         self.fetchData()
@@ -360,7 +358,6 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     
     @objc func didTapSortingButton(){
-        print("did Tap sorting button")
         setupCitySelectionAlert()
     }
     
@@ -550,7 +547,7 @@ extension LinkViewController: PHPickerViewControllerDelegate{
         if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                 if let image = image as? UIImage {
-                    NotificationCenter.default.post(name: .folderImageChanged, object: nil, userInfo: ["image" : image])
+                    NotificationCenter.default.post(name: .folderImageChangedInLink, object: nil, userInfo: ["image" : image])
 
 
                 }

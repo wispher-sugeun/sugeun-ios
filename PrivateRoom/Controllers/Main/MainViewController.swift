@@ -51,7 +51,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
                 self.alertWithNoViewController(title: "폴더 삭제", message: "폴더를 삭제하시겠습니까?", completion: {
                     (response) in
                     if(response == "OK"){
-                        folderDelete()
+                        folderDelete(cell: cell)
                     }
                 }
                 )
@@ -166,10 +166,11 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         
     }
     
-    func folderDelete(){
-        filteredFolder.remove(at: selectedCellIndexPath[1])
-        print("folderID : \(selectedCellIndexPath[1])")
-        FolderService.shared.deleteFolder(folderId: filteredFolder[selectedCellIndexPath[1]].folderId)
+    func folderDelete(cell: FolderCollectionViewCell){
+        let index = cell.indexPath.row
+        print("folderID : \(index)")
+        FolderService.shared.deleteFolder(folderId: filteredFolder[index].folderId)
+        filteredFolder.remove(at: index)
         self.alertViewController(title: "삭제 완료", message: "폴더를 삭제하였습니다", completion: { (response) in
             if(response == "OK"){
                 DispatchQueue.main.async {
@@ -264,10 +265,6 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         
     }
 
-}
-
-extension Notification.Name {
-    static let folderImageChanged = Notification.Name("folderImageChanged")
 }
 
 extension MainViewController: PHPickerViewControllerDelegate{
