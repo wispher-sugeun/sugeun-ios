@@ -80,7 +80,7 @@ class FolderService {
         AF.request(request).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
-                    print("success : \(obj)")
+                    //print("success : \(obj)")
                     let responses = obj as! [NSDictionary]
                     do {
                         //dictionary type to json object
@@ -112,7 +112,7 @@ class FolderService {
         AF.request(request).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
-                    print("success : \(obj)")
+                    //print("success : \(obj)")
                     let responses = obj as! [NSDictionary]
                     do {
                         //dictionary type to json object

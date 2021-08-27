@@ -83,7 +83,8 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     func fetchData(){
         FolderService.shared.getPhraseFolder(completion: { (response) in
             self.textFolder = response
-            self.filteredTextFolder = self.textFolder.map( { FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData!, type: "PHRASE"))})
+            self.mainViewModel = self.textFolder.map( { FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData!, type: "PHRASE"))})
+            self.filteredTextFolder = self.mainViewModel
             self.collectionView.reloadData()
         })
     }
@@ -94,7 +95,6 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         buttonSetting(button: floatingButton)
         textFieldSetting(textField: searchTextField)
         collectionViewSetting()
-        //dummyFolder()
        
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
@@ -143,8 +143,12 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         
     }
     
-    func folderDelete(){
-        filteredTextFolder.remove(at: selectedCellIndexPath[1])
+    func folderDelete(cell: FolderCollectionViewCell){
+        
+        let index = cell.indexPath.row
+        print("folderID : \(index)")
+        FolderService.shared.deleteFolder(folderId: filteredTextFolder[index].folderId)
+        filteredTextFolder.remove(at: index)
         self.alertViewController(title: "삭제 완료", message: "폴더를 삭제하였습니다", completion: { (response) in
             if(response == "OK"){
                 DispatchQueue.main.async {
@@ -152,21 +156,9 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
                 }
             }
         })
-       
-    }
-
-    
-    func image( _ image:UIImage, withSize newSize:CGSize) -> UIImage {
-
-        UIGraphicsBeginImageContext(newSize)
-        image.draw(in: CGRect(x: 0,y: 0,width: newSize.width,height: newSize.height))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!.withRenderingMode(.automatic)
     }
     
-    
-    func editFolderName(completionHandler: @escaping ((String) -> Void)){
+    func editFolderName(folderId: Int, completionHandler: @escaping ((String) -> Void)){
         let alertVC = UIAlertController(title: "폴더 이름 수정", message: nil, preferredStyle: .alert)
        
         alertVC.addTextField(configurationHandler: { (textField) -> Void in
@@ -193,6 +185,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
                 self.present(alertVC, animated: true, completion: nil)
 
             }else {
+                FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput)
                 completionHandler(userInput)
             }
             
@@ -207,16 +200,6 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         
         
     }
-    
-//    func dummyFolder(){
-//        textFolder.append(Folder(folderId: 0, folderName: "텍스트 폴더1", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//        textFolder.append(Folder(folderId: 1, folderName: "텍스트 폴더2", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//        textFolder.append(Folder(folderId: 2, folderName: "텍스트 폴더3", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//
-//        filteredTextFolder = textFolder
-//
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
-//    }
     
     func buttonSetting(button: UIButton){
         button.circle()
@@ -442,11 +425,11 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
         more_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("선택한 아이템 : \(item)")
             print("인덱스 : \(index)")
-            
+            let folderId = filteredTextFolder[cell.indexPath.row].folderId
             if(index == 0){ // 이름 변경
-                editFolderName(completionHandler: {(response) in
-                    //TO DO -> update folder Name
+                editFolderName(folderId: folderId, completionHandler: {(response) in
                     cell.folderName.text = response
+                    self.alertViewController(title: "이름 변경 완료", message: "폴더 이름이 수정되었습니다", completion: { (response) in})
                 })
             }else if(index == 1){ // 이미지 변경
                 presentPicker()
@@ -454,7 +437,7 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
                 self.alertWithNoViewController(title: "폴더 삭제", message: "폴더를 삭제하시겠습니까?", completion: {
                     (response) in
                     if(response == "OK"){
-                        folderDelete()
+                        folderDelete(cell: cell)
                     }
                 }
                 )

@@ -22,11 +22,11 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         more_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("선택한 아이템 : \(item)")
             print("인덱스 : \(index)")
-            
+            let folderId = filteredLinkFolder[cell.indexPath.row].folderId
             if(index == 0){ // 이름 변경
-                editFolderName(completionHandler: {(response) in
-                    //TO DO -> update folder Name
+                editFolderName(folderId: folderId, completionHandler: {(response) in
                     cell.folderName.text = response
+                    self.alertViewController(title: "이름 변경 완료", message: "폴더 이름이 수정되었습니다", completion: { (response) in})
                 })
             }else if(index == 1){ // 이미지 변경
                 presentPicker()
@@ -342,7 +342,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         }
     }
     
-    func editFolderName(completionHandler: @escaping ((String) -> Void)){
+    func editFolderName(folderId: Int, completionHandler: @escaping ((String) -> Void)){
         let alertVC = UIAlertController(title: "폴더 이름 수정", message: nil, preferredStyle: .alert)
        
         alertVC.addTextField(configurationHandler: { (textField) -> Void in
@@ -369,6 +369,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
                 self.present(alertVC, animated: true, completion: nil)
 
             }else {
+                FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput)
                 completionHandler(userInput)
             }
             

@@ -35,11 +35,11 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         more_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("선택한 아이템 : \(item)")
             print("인덱스 : \(index)")
-            
+            let folderId = filteredLink[cell.indexPath.row].folderId
             if(index == 0){ // 이름 변경
-                editFolderName(completionHandler: {(response) in
-                    //TO DO -> update folder Name
+                editFolderName(folderId: folderId, completionHandler: {(response) in
                     cell.folderName.text = response
+                    self.alertViewController(title: "이름 변경 완료", message: "폴더 이름이 수정되었습니다", completion: { (response) in})
                 })
             }else if(index == 1){ // 이미지 변경
                 presentPicker()
@@ -47,7 +47,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
                 self.alertWithNoViewController(title: "폴더 삭제", message: "폴더를 삭제하시겠습니까?", completion: {
                     (response) in
                     if(response == "OK"){
-                        folderDelete()
+                        folderDelete(cell: cell)
                     }
                 }
                 )
@@ -110,7 +110,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     func fetchData(){
         FolderService.shared.getLinkFolder(completion: { (response) in
             self.link = response
-            self.mainViewModels = self.link.map ({ return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData!, type: "LINK"))})
+            self.mainViewModels = self.link.map ({ return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "LINK"))})
             self.filteredLink = self.mainViewModels
             self.collectionView.reloadData()
         })
@@ -183,8 +183,12 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         }
     }
     
-    func folderDelete(){
-        filteredLink.remove(at: selectedCellIndexPath[1])
+    func folderDelete(cell: FolderCollectionViewCell){
+        
+        let index = cell.indexPath.row
+        print("folderID : \(index)")
+        FolderService.shared.deleteFolder(folderId: filteredLink[index].folderId)
+        filteredLink.remove(at: index)
         self.alertViewController(title: "삭제 완료", message: "폴더를 삭제하였습니다", completion: { (response) in
             if(response == "OK"){
                 DispatchQueue.main.async {
@@ -205,7 +209,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     }
     
     
-    func editFolderName(completionHandler: @escaping ((String) -> Void)){
+    func editFolderName(folderId: Int, completionHandler: @escaping ((String) -> Void)){
         let alertVC = UIAlertController(title: "폴더 이름 수정", message: nil, preferredStyle: .alert)
        
         alertVC.addTextField(configurationHandler: { (textField) -> Void in
@@ -232,6 +236,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
                 self.present(alertVC, animated: true, completion: nil)
 
             }else {
+                FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput)
                 completionHandler(userInput)
             }
             

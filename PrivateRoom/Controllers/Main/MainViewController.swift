@@ -41,9 +41,8 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
             let folderId = filteredFolder[cell.indexPath.row].folderId
             if(index == 0){ // 이름 변경
                 editFolderName(folderId: folderId, completionHandler: {(response) in
-                    //TO DO -> update folder Name
-                    
                     cell.folderName.text = response
+                    self.alertViewController(title: "이름 변경 완료", message: "폴더 이름이 수정되었습니다", completion: { (response) in})
                 })
             }else if(index == 1){ // 이미지 변경
                 presentPicker()
