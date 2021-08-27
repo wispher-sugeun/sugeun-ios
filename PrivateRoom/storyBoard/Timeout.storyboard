@@ -96,8 +96,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dPU-Xm-NzS" customClass="MakeNotiFolderView" customModule="PrivateRoom" customModuleProvider="target">
-                                <rect key="frame" x="55" y="104" width="304" height="688"/>
+                                <rect key="frame" x="55" y="129" width="304" height="638"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="dPU-Xm-NzS" secondAttribute="height" multiplier="1:2.1" id="Isr-LK-PTo"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ydc-SY-1hP"/>
@@ -107,7 +110,6 @@
                             <constraint firstItem="ydc-SY-1hP" firstAttribute="trailing" secondItem="dPU-Xm-NzS" secondAttribute="trailing" constant="55" id="UHD-zq-NIw"/>
                             <constraint firstItem="dPU-Xm-NzS" firstAttribute="centerY" secondItem="e4u-Ro-moi" secondAttribute="centerY" id="cXm-dy-PfK"/>
                             <constraint firstItem="dPU-Xm-NzS" firstAttribute="centerX" secondItem="e4u-Ro-moi" secondAttribute="centerX" id="ccS-Fk-Oad"/>
-                            <constraint firstItem="dPU-Xm-NzS" firstAttribute="top" secondItem="ydc-SY-1hP" secondAttribute="top" constant="60" id="kon-fa-com"/>
                         </constraints>
                     </view>
                     <connections>

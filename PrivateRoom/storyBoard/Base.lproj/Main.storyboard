@@ -158,17 +158,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQu-yq-Gaz" customClass="MakeFolder" customModule="PrivateRoom" customModuleProvider="target">
-                                <rect key="frame" x="60" y="100" width="255" height="467"/>
+                                <rect key="frame" x="60" y="121" width="255" height="425"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="cQu-yq-Gaz" secondAttribute="height" multiplier="3:5" id="GOd-8J-QHR"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="O0B-eP-GTN"/>
                         <color key="backgroundColor" red="0.92792880896366003" green="0.92792880896366003" blue="0.92792880896366003" alpha="0.81169087997335476" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="cQu-yq-Gaz" firstAttribute="leading" secondItem="O0B-eP-GTN" secondAttribute="leading" constant="60" id="4wJ-8d-uwL"/>
-                            <constraint firstItem="cQu-yq-Gaz" firstAttribute="top" secondItem="O0B-eP-GTN" secondAttribute="top" constant="100" id="YnR-fp-Ian"/>
+                            <constraint firstItem="cQu-yq-Gaz" firstAttribute="centerY" secondItem="1kY-To-ump" secondAttribute="centerY" id="YJ7-05-1y2"/>
                             <constraint firstItem="cQu-yq-Gaz" firstAttribute="centerX" secondItem="1kY-To-ump" secondAttribute="centerX" id="jTV-Jk-oYo"/>
-                            <constraint firstItem="cQu-yq-Gaz" firstAttribute="centerY" secondItem="1kY-To-ump" secondAttribute="centerY" id="l1Y-oA-Nkq"/>
                             <constraint firstItem="O0B-eP-GTN" firstAttribute="trailing" secondItem="cQu-yq-Gaz" secondAttribute="trailing" constant="60" id="rqI-Ze-69g"/>
                         </constraints>
                     </view>

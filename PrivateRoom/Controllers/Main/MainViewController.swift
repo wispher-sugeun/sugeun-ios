@@ -623,9 +623,7 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
             try checkingNameValidating()
             try validate()
             //to do server mk folder post
-            guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else {
-                print("can't find userID")
-            }
+            let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID)
             //create folder
             var type: String = ""
             
@@ -634,8 +632,6 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
             }else if(folderView.folderTypeButton.currentTitle! == "링크"){
                 type = "LINK"
             }
-            
-            print("type : \(type)")
             
             let folderInfo = CreateFolderRequest(folderName: folderView.folderNameTextField.text!, userId: userId, type: type, parentFolderId: parentFolderId, imageFile: (folderView.folderImage.image?.jpeg(.lowest))!)
             print(folderInfo)
@@ -689,7 +685,6 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
     
     
     func folderType() {
-        print("folder type show")
         print(makeFolderAlertView.type_dropDown.dataSource)
 
         makeFolderAlertView.type_dropDown.anchorView = folderView.folderTypeButton

@@ -35,7 +35,7 @@ class FolderService {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
 
-        AF.request(request).responseJSON(completionHandler: { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseJSON(completionHandler: { (response) in
             switch response.result {
                 case .success(let obj):
                     do {
@@ -77,10 +77,12 @@ class FolderService {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         print("[FolderService] PHRASE 폴더 조회하기")
-        AF.request(request).responseJSON { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
-                    //print("success : \(obj)")
+//                    print(o)
+//                    print(type(of: obj))
+                    
                     let responses = obj as! [NSDictionary]
                     do {
                         //dictionary type to json object
@@ -93,6 +95,8 @@ class FolderService {
                     }
                     break
                 case .failure(let error):
+                    var statusCode = response.response?.statusCode
+                    print("status code is \(statusCode)")
                     print("AF : \(error.localizedDescription)")
             }
         }
@@ -109,10 +113,11 @@ class FolderService {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         print("[FolderService] LINK 폴더 조회하기")
-        AF.request(request).responseJSON { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
                     //print("success : \(obj)")
+                    
                     let responses = obj as! [NSDictionary]
                     do {
                         //dictionary type to json object
@@ -125,6 +130,8 @@ class FolderService {
                     }
                     break
                 case .failure(let error):
+                    var statusCode = response.response?.statusCode
+                    print("status code is \(statusCode)")
                     print("AF : \(error.localizedDescription)")
             }
         }
