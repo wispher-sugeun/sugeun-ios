@@ -29,6 +29,11 @@ class MakeLinkViewController: UIViewController {
             if(editMode == true){ //수정에서 넘어온 뷰
                 let updateLink = UpdateLinkRequest(userId: userId, linkId: link!.linkId, folderId: folderId, title: linkTitleTextField.text!, link: linkTextView.text, bookmark: (link?.bookmark)!)
                 LinkService.shared.updateLink(folderId: folderId, linkId: link!.linkId, link: updateLink)
+                self.alertViewController(title: "수정 완료", message: "링크가 수정되었습니다", completion: {(response) in
+                    if response == "OK" {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                })
                 
             }else { // 생성뷰
                 if(createValidating()){

@@ -492,7 +492,8 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
     }
     
     func bookMark(cell: TextCellTableViewCell) {
-        let index = cell.indexPath.row
+        let index = cell.indexPath.section
+        print("bookMark 수정 \(index)")
         let phraseId = filteredTextCell[index].phraseId
         PhraseService.shared.phraseBookMark(phraseId: phraseId)
     }
@@ -500,7 +501,7 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
     func textCellEdit(cell: TextCellTableViewCell){
         let editText = cell.labelText.text
         let writeVc = self.storyboard?.instantiateViewController(identifier: "writeText") as! WriteViewController
-        writeVc.phraseId = filteredTextCell[cell.indexPath.row].phraseId
+        writeVc.phraseId = filteredTextCell[cell.indexPath.section].phraseId
         writeVc.folderId = folderId
         writeVc.editText = editText!
         writeVc.editMode = true
@@ -514,7 +515,7 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
         
         frameTableView.reloadData()
         let phraseId = filteredTextCell[indexPath.row].phraseId
-        textCell.remove(at: indexPath.row)
+        textCell.remove(at: indexPath.section)
         filteredTextCell = textCell
         self.alertViewController(title: "삭제 완료", message: "삭제 완료하였습니다.", completion: { (response) in
             if( response == "OK"){
@@ -556,6 +557,7 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
                 let cell = tableView.dequeueReusableCell(withIdentifier: TextCellTableViewCell.identifier, for: indexPath) as! TextCellTableViewCell
                 cell.configure(model: filteredTextCell[indexPath.section])
                 cell.indexPath = indexPath
+                print(cell.indexPath)
                 cell.delegate = self
                 return cell
             }

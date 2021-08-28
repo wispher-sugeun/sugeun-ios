@@ -72,7 +72,7 @@ class LinkService {
             print(jsonString)
             request.httpBody = jsonData
             // and decode it back
-            let decoded = try JSONDecoder().decode(PutScheduleRequest.self, from: jsonData)
+            let decoded = try JSONDecoder().decode(UpdateLinkRequest.self, from: jsonData)
             print(decoded)
         } catch { print(error) }
         

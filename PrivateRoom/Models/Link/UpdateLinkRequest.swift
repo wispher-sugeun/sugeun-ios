@@ -1,15 +1,17 @@
 //
-//  CreateLinkRequest.swift
+//  UpdateLinkRequest.swift
 //  PrivateRoom
 //
-//  Created by JoSoJeong on 2021/08/16.
+//  Created by JoSoJeong on 2021/08/28.
 //
 
 import Foundation
 
-struct CreateLinkRequest: Codable {
+struct UpdateLinkRequest: Codable {
 
     var userId: Int
+    
+    var linkId: Int
 
     var folderId: Int
 

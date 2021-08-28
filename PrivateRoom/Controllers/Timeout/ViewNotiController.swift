@@ -14,6 +14,7 @@ class ViewNotiController: UIViewController {
     
     var tempImageName: UIImage?
     var imageData: Data?
+    var titleString: String = ""
     
     
     @IBAction func backButton(_ sender: Any) {
@@ -27,6 +28,7 @@ class ViewNotiController: UIViewController {
     
     func loadImageView(){
         imageView.image = tempImageName
+        title = titleString
         if(imageData != nil){
             imageView.image = UIImage(data: imageData!)
         }

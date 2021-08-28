@@ -64,7 +64,7 @@ class PhraseService {
         request.httpMethod = "PATCH"
         let parameter: Parameters = ["text" : text]
         
-        print("[PhraseService] 글귀 수정하기")
+        print("[PhraseService] \(phraseId) 글귀 수정하기")
         
         request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")

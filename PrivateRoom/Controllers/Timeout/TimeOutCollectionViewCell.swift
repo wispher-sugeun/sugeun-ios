@@ -36,12 +36,13 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    
         mainView.layer.borderColor = UIColor.darkGray.cgColor
         mainView.layer.borderWidth = 1.0
         inValidView.isHidden = true        
         //width 고정
         mainView.translatesAutoresizingMaskIntoConstraints = false
-        mainView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2 - 20).isActive = true
+        mainView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2 - 5).isActive = true
         // Initialization code
     }
     

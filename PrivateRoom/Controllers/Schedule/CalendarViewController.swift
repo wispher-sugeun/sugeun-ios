@@ -89,6 +89,8 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
         calendar.calendarWeekdayView.weekdayLabels[4].text = "목"
         calendar.calendarWeekdayView.weekdayLabels[5].text = "금"
         calendar.calendarWeekdayView.weekdayLabels[6].text = "토"
+        //calendar.appearance.eventDefaultColor = UIColor.yellow
+        calendar.appearance.eventSelectionColor = UIColor.yellow
 
     
     }
@@ -179,7 +181,7 @@ extension CalendarViewController: FSCalendarDataSource, FSCalendarDelegate {
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        let events = schedule.map{ DateUtil.parseDateTime($0.scheduleDate) }
+        let events = filtered.map{ DateUtil.parseDateTime($0.scheduleDate) }
         if events.contains(date) {
             return 1
         } else {

@@ -656,7 +656,10 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         if(collectionView == FrameCollectionView){
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LinkCollectionViewCell.identifier, for: indexPath) as! LinkCollectionViewCell
-            let urlString: String = filteredLinkCell[indexPath.row].link
+            var urlString: String = filteredLinkCell[indexPath.row].link
+            //공백 있을 시 공백 제거
+            urlString = urlString.replacingOccurrences(of: " ", with: "")
+
             let url = URL(string: urlString)
             cell.fetchURLPreview(url: url!)
             cell.linkLabel.text = urlString
@@ -665,22 +668,6 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 cell.bookMarkToggle( cell.bookMark)
             }
             
-//            func configure(model: Link){
-//                print("func configure called" )
-//                if(model.bookmark) {
-//                    bookMark.isSelected = true
-//                    bookMarkToggle(bookMark)
-//                }
-//
-//                let urlString = model.link
-//                let url = URL(string: urlString)!
-//                fetchURLPreview(url: url)
-//                linkLabel.text = urlString
-//
-//
-//            }
-//
-//            cell.configure(model: filteredLinkCell[indexPath.row])
             cell.delegate = self
             cell.configureHeight(with: oneLinkCellHeight)
             cell.indexPath = indexPath

@@ -226,7 +226,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = filteredtimeOut[indexPath.row]
         let viewNoti =  (self.storyboard?.instantiateViewController(identifier: "ViewNoti"))! as ViewNotiController
-        //viewNoti.tempImageName = cell.timeoutImage
+        viewNoti.titleString = cell!.title
         viewNoti.imageData = cell?.imageData
         self.navigationController?.pushViewController(viewNoti, animated: true)
        

@@ -27,7 +27,7 @@ class WriteViewController: UIViewController {
     @IBAction func doneButton(_ sender: Any) {
         let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID)
         
-        if(validate() == true){
+        if(validate()){
             //try validation
             if(editMode){ // 글 수정에서 넘어온 글
                 self.alertViewController(title: "수정 완료", message: "글 수정을 완료하였습니다", completion: {(response) in
