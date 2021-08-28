@@ -83,7 +83,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     func fetchData(){
         FolderService.shared.getPhraseFolder(completion: { (response) in
             self.textFolder = response
-            self.mainViewModel = self.textFolder.map( { FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData!, type: "PHRASE"))})
+            self.mainViewModel = self.textFolder.map( { FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "PHRASE"))})
             self.filteredTextFolder = self.mainViewModel
             self.collectionView.reloadData()
         }, errorHandler: { (error) in})

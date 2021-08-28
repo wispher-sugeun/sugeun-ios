@@ -138,11 +138,11 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         
         collectionViewSetting()
         setupLongGestureRecognizerOnCollection()
-       
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
+//
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
         
-        print("total is \(total)")
+//        print("total is \(total)")
         hideButton()
         fetchData()
 
@@ -167,7 +167,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
                 if(total?.folderResDTOList!.count == 1){
                     footerViewheight.constant = CGFloat(oneLinkCellHeight + 50)
                 }else{
-                    footerViewheight.constant = CGFloat(oneLinkCellHeight * ((total?.folderResDTOList!.count)! / 2) + 50)
+                    footerViewheight.constant = CGFloat(oneLinkCellHeight * (((total?.folderResDTOList!.count)! / 2) + 1) + 50)
                     
                 }
                 
@@ -196,7 +196,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
                     /// cell + 100(margin) + headerView height
                     linkCellHeight.constant = CGFloat(oneLinkCellHeight + 100 + 70)
                 }else{
-                    linkCellHeight.constant = CGFloat(oneLinkCellHeight * ((total?.linkResDTOList!.count)! / 2) + 100 + 70)
+                    linkCellHeight.constant = CGFloat(oneLinkCellHeight * (((total?.linkResDTOList!.count)! / 2) + 1) + 100 + 70)
                 }
                 
                 self.FrameCollectionView.reloadData()
@@ -208,6 +208,8 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
             }
         }
     }
+    
+    
     
     func tapGestureSetting(){
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MyTapMethod))
@@ -452,22 +454,22 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     }
     
     
-    @objc func folderImageChanged(_ notification: NSNotification){
-        //text ~~
-        print(notification.userInfo ?? "")
-        print("folderImageChanged")
-        if let dict = notification.userInfo as NSDictionary? {
-            if let folderImage = dict["image"] as? UIImage{
-//                filteredLinkFolder[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
-                    
-                DispatchQueue.main.async {
-                    self.folderCollectionView.reloadData()
-                }
-                
-                // do something with your image
-            }
-        }
-    }
+//    @objc func folderImageChanged(_ notification: NSNotification){
+//        //text ~~
+//        print(notification.userInfo ?? "")
+//        print("folderImageChanged")
+//        if let dict = notification.userInfo as NSDictionary? {
+//            if let folderImage = dict["image"] as? UIImage{
+////                filteredLinkFolder[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
+//
+//                DispatchQueue.main.async {
+//                    self.folderCollectionView.reloadData()
+//                }
+//
+//                // do something with your image
+//            }
+//        }
+//    }
     
     private func setupLongGestureRecognizerOnCollection() {
         let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
@@ -767,12 +769,6 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
     }
     
-    //todo - make with navigation
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let VC = self.storyboard?.instantiateViewController(identifier: "folderIn") else { return }
-//        VC.modalPresentationStyle = .fullScreen
-//        self.present(VC, animated: true, completion: nil)
-//    }
     
     //for cell info and sort
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -935,11 +931,20 @@ extension LinkInViewController: PHPickerViewControllerDelegate {
         if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                 if let image = image as? UIImage {
-                    NotificationCenter.default.post(name: .folderImageChanged, object: nil, userInfo: ["image" : image])
-
-
-                }
-        }
+                    let index = self.selectedCellIndexPath[1]
+                    let folderId = self.filteredLinkFolder[index].folderId
+                    
+                    FolderService.shared.changeFolderImage(folderId: folderId, changeImage: image.jpeg(.lowest)!, completion: { (response) in
+                                        if(response == true){
+                                            self.filteredLinkFolder[index].imageData = image.jpeg(.lowest)!
+                                            DispatchQueue.main.async {
+                                                self.folderCollectionView.reloadItems(at: [self.selectedCellIndexPath])
+                                            }
+                                            self.alertViewController(title: "이미지 변경", message: "이미지가 변경되었습니다", completion: { (response) in})
+                                        }
+                                    }, errorHandler: { (error) in})
+                                }
+                            }
             
         } else { // TODO: Handle empty results or item providernot being able load UIImage
             print("can't load image")

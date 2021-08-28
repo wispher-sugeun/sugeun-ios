@@ -130,7 +130,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         textFieldSetting(textfield: searchTextfield)
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
         
         flowSetting()
         
@@ -146,24 +146,24 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         
     }
 
-    //폴더 이미지 변경
-    @objc func folderImageChanged(_ notification: NSNotification){
-        //text ~~
-        print(notification.userInfo ?? "")
-        print("folderImageChanged")
-        if let dict = notification.userInfo as NSDictionary? {
-            if let folderImage = dict["image"] as? UIImage {
-                let folderId = filteredFolder[selectedCellIndexPath[1]].folderId
-                FolderService.shared.changeFolderImage(folderId: folderId, changeImage: folderImage.jpeg(.lowest)!, completion: { (response) in
-                    if(response == true){
-                        self.fetchData()
-                        self.alertViewController(title: "이미지 변경", message: "이미지가 변경되었습니다", completion: { (response) in})
-                    }
-                }, errorHandler: { (error) in})
-            }
-        }
-        
-    }
+//    //폴더 이미지 변경
+//    @objc func folderImageChanged(_ notification: NSNotification){
+//        //text ~~
+//        print(notification.userInfo ?? "")
+//        print("folderImageChanged")
+//        if let dict = notification.userInfo as NSDictionary? {
+//            if let folderImage = dict["image"] as? UIImage {
+//                let folderId = filteredFolder[selectedCellIndexPath[1]].folderId
+//                FolderService.shared.changeFolderImage(folderId: folderId, changeImage: folderImage.jpeg(.lowest)!, completion: { (response) in
+//                    if(response == true){
+//                        self.fetchData()
+//                        self.alertViewController(title: "이미지 변경", message: "이미지가 변경되었습니다", completion: { (response) in})
+//                    }
+//                }, errorHandler: { (error) in})
+//            }
+//        }
+//
+//    }
     
     func folderDelete(cell: FolderCollectionViewCell){
         let index = cell.indexPath.row
@@ -271,15 +271,18 @@ extension MainViewController: PHPickerViewControllerDelegate{
         picker.dismiss(animated: true, completion: nil)
         let itemProvider = results.first?.itemProvider
         if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+            itemProvider.loadObject(ofClass: UIImage.self) { [self] (image, error) in
                 if let image = image as? UIImage {
-                    NotificationCenter.default.post(name: .folderImageChanged, object: nil, userInfo: ["image" : image])
-
-
-                }
-        }
-            
-        } else { // TODO: Handle empty results or item providernot being able load UIImage
+                    let folderId = filteredFolder[selectedCellIndexPath[1]].folderId
+                    FolderService.shared.changeFolderImage(folderId: folderId, changeImage: image.jpeg(.lowest)!, completion: { (response) in
+                                        if(response == true){
+                                            self.fetchData()
+                                            self.alertViewController(title: "이미지 변경", message: "이미지가 변경되었습니다", completion: { (response) in})
+                                        }
+                                    }, errorHandler: { (error) in})
+                                }
+                            }
+                } else { // TODO: Handle empty results or item providernot being able load UIImage
             print("can't load image")
             
         }
@@ -298,11 +301,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCollectionViewCell.identifier, for: indexPath) as! FolderCollectionViewCell
-
-    
-        //custom cell connected
-//        cell.layer.shadowRadius = 2.0
-        
     
         //cell 크기 고정
         cell.viewLayout(width: view.fs_width/2 - 30, height: 170)

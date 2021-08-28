@@ -25,7 +25,7 @@ class WriteViewController: UIViewController {
     }
     
     @IBAction func doneButton(_ sender: Any) {
-        guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else { return }
+        let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID)
         
         if(validate() == true){
             //try validation

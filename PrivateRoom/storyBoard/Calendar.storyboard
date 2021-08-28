@@ -26,10 +26,10 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yUF-8t-Atk" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="186" width="414" height="310.5"/>
+                                <rect key="frame" x="0.0" y="186" width="414" height="248.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="yUF-8t-Atk" secondAttribute="height" multiplier="400:300" id="oJL-UV-ErM"/>
+                                    <constraint firstAttribute="width" secondItem="yUF-8t-Atk" secondAttribute="height" multiplier="5:3" id="oJL-UV-ErM"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pnN-WJ-RFi">
@@ -55,7 +55,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Iwo-1g-GKo">
-                                <rect key="frame" x="0.0" y="496.5" width="414" height="365.5"/>
+                                <rect key="frame" x="0.0" y="434.5" width="414" height="427.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>

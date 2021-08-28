@@ -29,7 +29,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vnn-RY-Oss">
-                        <rect key="frame" x="516" y="10" width="19" height="22"/>
+                        <rect key="frame" x="508" y="10" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="vnn-RY-Oss" secondAttribute="height" id="9sR-IC-Agl"/>
+                        </constraints>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" image="ellipsis" catalog="system"/>
                         <connections>
@@ -37,7 +40,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A0c-Xz-Zue">
-                        <rect key="frame" x="489.5" y="-8" width="22.5" height="30"/>
+                        <rect key="frame" x="481.5" y="0.0" width="22.5" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="A0c-Xz-Zue" secondAttribute="height" multiplier="30:40" identifier="1:2" id="SZb-JH-b05"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="cfG-6a-VDK"/>
@@ -54,12 +57,12 @@
                 <constraints>
                     <constraint firstItem="vnn-RY-Oss" firstAttribute="leading" secondItem="A0c-Xz-Zue" secondAttribute="trailing" constant="4" id="CcY-XC-sIs"/>
                     <constraint firstAttribute="trailing" secondItem="09G-jk-af9" secondAttribute="trailing" constant="10" id="DB4-vn-yDn"/>
-                    <constraint firstAttribute="trailing" secondItem="vnn-RY-Oss" secondAttribute="trailing" constant="10" id="DWF-eg-L4B"/>
+                    <constraint firstAttribute="trailing" secondItem="vnn-RY-Oss" secondAttribute="trailing" constant="15" id="DWF-eg-L4B"/>
                     <constraint firstItem="vnn-RY-Oss" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="HZQ-qL-vtv"/>
                     <constraint firstItem="A0c-Xz-Zue" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aqq-9o-9hf" secondAttribute="trailing" constant="20" id="VET-gq-RwX"/>
                     <constraint firstItem="aqq-9o-9hf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="ZBt-In-4wU"/>
                     <constraint firstItem="09G-jk-af9" firstAttribute="top" secondItem="aqq-9o-9hf" secondAttribute="bottom" constant="5" id="eud-e7-pgL"/>
-                    <constraint firstItem="A0c-Xz-Zue" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-8" id="gm0-Oj-eSX"/>
+                    <constraint firstItem="A0c-Xz-Zue" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="gm0-Oj-eSX"/>
                     <constraint firstItem="aqq-9o-9hf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="t9W-F7-P89"/>
                     <constraint firstItem="09G-jk-af9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="xdj-AA-4qB"/>
                     <constraint firstAttribute="bottom" secondItem="09G-jk-af9" secondAttribute="bottom" constant="10" id="z6O-jL-6Pm"/>

@@ -50,9 +50,9 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
             print("인덱스 : \(index)")
             
             if(index == 0){ // 이름 변경
-                editFolderName(completionHandler: {(response) in
-                    //TO DO -> update folder Name
+                editFolderName(folderId: folderId, completionHandler: {(response) in
                     cell.folderName.text = response
+                    self.alertViewController(title: "이름 변경 완료", message: "폴더 이름이 수정되었습니다", completion: { (response) in})
                 })
             }else if(index == 1){ // 이미지 변경
                 presentPicker()
@@ -77,7 +77,8 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     var filteredTextCell = [PhraseResDTO]()
     
     var textFolder = [GetByFolderResponse]()
-    var filteredTextFolder = [GetByFolderResponse]()
+    var filteredTextFolder = [FolderViewModel]()
+    var mainViewModel = [FolderViewModel]()
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var ButtonStackView: UIStackView!
@@ -138,14 +139,31 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     //var cellHeight: CGFloat = 0.0
     
     override func viewWillAppear(_ animated: Bool) {
-        
         isShowFloating = false
         hideButton()
-        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("here")
+        buttonSetting()
+        textFieldSetting(textField: searchTextField)
+        tapGestureSetting()
+        tableviewSetting()
+        collectionViewSetting()
+        sortingButtonSetting()
+
+        getData()
+
+ 
+    }
+    
+    func getData(){
         //total 값 folderdhk textCell에게 분기
         if((((total?.folderResDTOList!.isEmpty) != nil))) {
             textFolder = total.map { $0.folderResDTOList}!!
-            filteredTextFolder = textFolder
+            self.mainViewModel = textFolder.map { return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "PHRASE")) }
+            self.filteredTextFolder = self.mainViewModel
             self.collectionView.reloadData()
         }
         
@@ -154,43 +172,15 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
             filteredTextCell = textCell
             self.frameTableView.reloadData()
         }
-
-
-
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        dummy()
-        buttonSetting()
-        textFieldSetting(textField: searchTextField)
-        tapGestureSetting()
-        tableviewSetting()
-        collectionViewSetting()
-        sortingButtonSetting()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
-
- 
-    }
-    
-    
-    func dummy(){
-//        textCell.append(Phrase(userId: 0, folderId: 0, phraseId: 0, text: "test1\ntest1\ntest1", bookmark: true, date: "2021-07-05"))
-//        textCell.append(Phrase(userId: 1, folderId: 1, phraseId: 1, text: "text2\ntest1\ntest1\ntest1\ntext2\ntest1\ntest1\ntest1", bookmark: false, date: "2021-07-22"))
-//        textCell.append(Phrase(userId: 1, folderId: 1, phraseId: 1, text: "text2", bookmark: false, date: "2021-07-22"))
-//        filteredTextCell = textCell
-        
-//        textFolder.append(Folder(folderId: 0, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//        textFolder.append(Folder(folderId: 1, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//        textFolder.append(Folder(folderId: 2, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//
-//        textFolder.append(Folder(folderId: 3, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//        textFolder.append(Folder(folderId: 4, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//        textFolder.append(Folder(folderId: 5, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-        
-        filteredTextFolder = textFolder
-        
+    func fetchData(folderId: Int){
+        FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
+            self.textFolder = response.folderResDTOList!
+            self.mainViewModel = self.textFolder.map { return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "PHRASE")) }
+            self.filteredTextFolder = self.mainViewModel
+            self.collectionView.reloadData()
+        }, errorHandler: { (response) in})
     }
     
     func tapGestureSetting(){
@@ -310,6 +300,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         })
         floatingButton.circle()
         writeButton.addTarget(self, action: #selector(didTapWriteButton), for: .touchUpInside)
+        folderButton.addTarget(self, action: #selector(didTapMakeFolder), for: .touchUpInside)
     }
     
     @objc func MyTapMethod(){
@@ -322,8 +313,17 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     @objc func didTapWriteButton(){
         let writeVc = self.storyboard?.instantiateViewController(identifier: "writeText") as! WriteViewController
-        writeVc.folderId = folderId
+        writeVc.folderId = folderId // folderId 같이 전달
         self.navigationController?.pushViewController(writeVc, animated: true)
+    }
+    
+    @objc func didTapMakeFolder(){
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let makeFolderView = storyBoard.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
+        makeFolderAlertView.type_dropDown.dataSource = ["텍스트"]
+        makeFolderView.parentFolderId = folderId
+        makeFolderView.modalPresentationStyle = .overCurrentContext
+        self.present(makeFolderView, animated: true, completion: nil)
     }
     
     func textFieldSetting(textField: UITextField){
@@ -364,7 +364,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         }
     }
     
-    func editFolderName(completionHandler: @escaping ((String) -> Void)){
+    func editFolderName(folderId: Int, completionHandler: @escaping ((String) -> Void)){
         let alertVC = UIAlertController(title: "폴더 이름 수정", message: nil, preferredStyle: .alert)
        
         alertVC.addTextField(configurationHandler: { (textField) -> Void in
@@ -391,6 +391,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
                 self.present(alertVC, animated: true, completion: nil)
 
             }else {
+                FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput, errorHandler: { (error) in})
                 completionHandler(userInput)
             }
             
@@ -440,23 +441,23 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     }
     
     
-    @objc func folderImageChanged(_ notification: NSNotification){
-        //text ~~
-        print(notification.userInfo ?? "")
-        print("folderImageChanged")
-        if let dict = notification.userInfo as NSDictionary? {
-            if let folderImage = dict["image"] as? UIImage{
-//                filteredTextFolder[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
-                    
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-                
-                // do something with your image
-            }
-        }
-        
-    }
+//    @objc func folderImageChanged(_ notification: NSNotification){
+//        //text ~~
+//        print(notification.userInfo ?? "")
+//        print("folderImageChanged")
+//        if let dict = notification.userInfo as NSDictionary? {
+//            if let folderImage = dict["image"] as? UIImage{
+////                filteredTextFolder[selectedCellIndexPath[1]].folderImage = image( UIImage(systemName: "heart.fill")!, withSize: CGSize(width: 100, height: 80))
+//                    
+//                DispatchQueue.main.async {
+//                    self.collectionView.reloadData()
+//                }
+//                
+//                // do something with your image
+//            }
+//        }
+//        
+//    }
     
 
     
@@ -528,12 +529,11 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if(tableView == tblView){
+            print(sorting.count)
             return sorting.count
         }
         return 1
-        //return filteredTextCell.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -611,8 +611,8 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
         textCell = textCell.sorted {$0.text.localizedStandardCompare($1.text) == .orderedAscending}
         filteredTextCell = textCell
         
-        textFolder = textFolder.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
-        filteredTextFolder = textFolder
+        mainViewModel = mainViewModel.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
+        filteredTextFolder = mainViewModel
         frameTableView.reloadData()
         collectionView.reloadData()
     }
@@ -621,8 +621,8 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
         textCell = textCell.sorted { $0.phraseId < $1.phraseId }
         filteredTextCell = textCell
         
-        textFolder = textFolder.sorted { $0.folderId < $1.folderId }
-        filteredTextFolder = textFolder
+        mainViewModel = mainViewModel.sorted { $0.folderId < $1.folderId }
+        filteredTextFolder = mainViewModel
         
         frameTableView.reloadData()
         collectionView.reloadData()
@@ -632,8 +632,8 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
         textCell = textCell.sorted { $0.phraseId > $1.phraseId }
         filteredTextCell = textCell
         
-        textFolder = textFolder.sorted { $0.folderId > $1.folderId }
-        filteredTextFolder = textFolder
+        mainViewModel = mainViewModel.sorted { $0.folderId > $1.folderId }
+        filteredTextFolder = mainViewModel
         
         frameTableView.reloadData()
         collectionView.reloadData()
@@ -649,16 +649,19 @@ extension TextInViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCollectionViewCell.identifier, for: indexPath) as! FolderCollectionViewCell
-        //custom cell connected
-        cell.contentView.layer.cornerRadius = 10
-        cell.contentView.layer.masksToBounds = true
-        cell.layer.shadowRadius = 2.0
-        cell.layer.shadowOpacity = 1.0
-        cell.layer.masksToBounds = false
+        //cell 크기 고정
+        cell.viewLayout(width: view.fs_width/2 - 30, height: CGFloat(170))
         cell.cellDelegate = self
-        cell.configure(folder: filteredTextFolder[indexPath.row])
+        cell.view.layer.borderColor = UIColor.darkGray.cgColor
+        cell.view.layer.masksToBounds = true
+        cell.view.layer.cornerRadius = 5
+        cell.view.layer.borderWidth = 1
+        cell.view.layer.shadowOpacity = 1.0
+
+        let folderViewModel = filteredTextFolder[indexPath.row]
+        cell.folderViewModel = folderViewModel
+        //cell.configure(folder: filteredFolder[indexPath.row])
         cell.indexPath = indexPath
-        
         return cell
     }
     
@@ -677,11 +680,18 @@ extension TextInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return 0.2
     }
     
-    //todo - make with navigation
+    //go to text in self
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let VC = self.storyboard?.instantiateViewController(identifier: "folderIn") else { return }
-        VC.modalPresentationStyle = .fullScreen
-        self.present(VC, animated: true, completion: nil)
+        //push to same view controller
+        let index = filteredTextFolder[indexPath.row]
+      
+        guard let textVC = self.storyboard?.instantiateViewController(identifier: "textIn") as? TextInViewController else { return }
+        FolderService.shared.viewFolder(folderId: index.folderId, completion: { (response) in
+            textVC.total = response
+//            textVC.sorting =
+        }, errorHandler: { (error) in})
+        self.navigationController?.pushViewController(textVC, animated: true)
+ 
     }
     
     
@@ -696,7 +706,7 @@ extension TextInViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let searchText = textField.text! + string
         if searchText.count >= 2{
-            filteredTextFolder = textFolder.filter({ (result) -> Bool in
+            filteredTextFolder = mainViewModel.filter({ (result) -> Bool in
                 result.folderName.range(of: searchText, options: .caseInsensitive) != nil
             })
             
@@ -704,7 +714,7 @@ extension TextInViewController: UITextFieldDelegate {
                 result.text.range(of: searchText, options: .caseInsensitive) != nil
             })
         }else {
-            filteredTextFolder = textFolder
+            filteredTextFolder = mainViewModel
             filteredTextCell = textCell
         }
         
@@ -722,7 +732,7 @@ extension TextInViewController: UITextFieldDelegate {
         for str in textCell {
             filteredTextCell.append(str)
         }
-        for str in textFolder {
+        for str in mainViewModel {
             filteredTextFolder.append(str)
         }
         
@@ -737,7 +747,7 @@ extension TextInViewController: UITextFieldDelegate {
             self.filteredTextFolder.removeAll()
             self.filteredTextCell.removeAll()
             
-            for str in textFolder {
+            for str in mainViewModel {
                 let name = str.folderName.lowercased()
                 let range = name.range(of: textField.text!, options: .caseInsensitive, range: nil, locale: nil)
                 if range != nil {
@@ -770,16 +780,25 @@ extension TextInViewController: PHPickerViewControllerDelegate {
         if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) {(image, error) in
                 if let image = image as? UIImage {
-                    NotificationCenter.default.post(name: .folderImageChanged, object: nil, userInfo: ["image" : image])
-
-
-                }
+//                    NotificationCenter.default.post(name: .folderImageChanged, object: nil, userInfo: ["image" : image])
+                    let folderId = self.filteredTextFolder[self.selectedCellIndexPath[1]].folderId
+                    FolderService.shared.changeFolderImage(folderId: folderId, changeImage: image.jpeg(.lowest)!, completion: { (response) in
+                                        if(response == true){
+                                            self.filteredTextFolder[self.selectedCellIndexPath[1]].imageData = image.jpeg(.lowest)!
+                                            DispatchQueue.main.async {
+                                                self.collectionView.reloadItems(at: [self.selectedCellIndexPath])
+                                            }
+                                            
+                                            self.alertViewController(title: "이미지 변경", message: "이미지가 변경되었습니다", completion: { (response) in})
+                                        }
+                                    }, errorHandler: { (error) in})
+                                }
+                            }
         }
-            
-        } else { // TODO: Handle empty results or item providernot being able load UIImage
-            print("can't load image")
-            
-        }
+            else { // TODO: Handle empty results or item providernot being able load UIImage
+               print("can't load image")
+
+           }
 
     }
     
