@@ -20,7 +20,7 @@ struct DetailFolderResponse: Codable {
 //    private List<FolderResDTO> folderResDTOList = new ArrayList<>()
 }
 
-struct PhraseResDTO: Codable {
+struct PhraseResDTO: Codable, Equatable {
     
     var phraseId: Int
 
@@ -31,7 +31,7 @@ struct PhraseResDTO: Codable {
     var textDate: String
 }
 
-struct LinkResDTO: Codable {
+struct LinkResDTO: Codable, Equatable {
     var linkId: Int
 
     var title: String

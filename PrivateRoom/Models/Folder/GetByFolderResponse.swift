@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GetByFolderResponse: Codable {
+struct GetByFolderResponse: Codable, Equatable {
     var folderId: Int
 
     var folderName: String

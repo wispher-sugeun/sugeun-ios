@@ -114,7 +114,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
             self.filteredFolder = self.mainViewModels
             //print("get folders : \(self.filteredFolder)")
             self.folderCollectionView.reloadData()
-        })
+        }, errorHandler: { (error) in})
     }
     
     
@@ -159,7 +159,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
                         self.fetchData()
                         self.alertViewController(title: "이미지 변경", message: "이미지가 변경되었습니다", completion: { (response) in})
                     }
-                })
+                }, errorHandler: { (error) in})
             }
         }
         
@@ -168,7 +168,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     func folderDelete(cell: FolderCollectionViewCell){
         let index = cell.indexPath.row
         print("folderID : \(index)")
-        FolderService.shared.deleteFolder(folderId: filteredFolder[index].folderId)
+        FolderService.shared.deleteFolder(folderId: filteredFolder[index].folderId, errorHandler: { (error) in})
         filteredFolder.remove(at: index)
         self.alertViewController(title: "삭제 완료", message: "폴더를 삭제하였습니다", completion: { (response) in
             if(response == "OK"){
@@ -217,7 +217,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
                 self.present(alertVC, animated: true, completion: nil)
 
             }else {
-                FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput)
+                FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput, errorHandler: { (error) in})
                 completionHandler(userInput)
             }
             
@@ -371,7 +371,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let textVC = self.storyboard?.instantiateViewController(identifier: "textIn") as? TextInViewController else { return }
             FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
                 textVC.total = response
-            })
+            }, errorHandler: { (error) in})
             self.navigationController?.pushViewController(textVC, animated: true)
             
         }else if(folderType == "LINK"){
@@ -379,7 +379,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let linkVC = storyBoard.instantiateViewController(identifier: "linkFolderIn") as? LinkInViewController else { return }
             FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
                 linkVC.total = response
-            })
+            }, errorHandler: { (error) in})
             self.navigationController?.pushViewController(linkVC, animated: true)
         }
        
@@ -634,8 +634,8 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
             }
             
             let folderInfo = CreateFolderRequest(folderName: folderView.folderNameTextField.text!, userId: userId, type: type, parentFolderId: parentFolderId, imageFile: (folderView.folderImage.image?.jpeg(.lowest))!)
-            print(folderInfo)
-            FolderService.shared.createFolder(folder: folderInfo)
+            print("parentFolderID : \(folderInfo)")
+            FolderService.shared.createFolder(folder: folderInfo, errorHandler: { (error) in})
             self.dismiss(animated: true, completion: nil)
             
             

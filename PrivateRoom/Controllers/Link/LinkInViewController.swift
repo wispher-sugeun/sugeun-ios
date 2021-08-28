@@ -11,8 +11,6 @@ import PhotosUI
 
 class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, UIGestureRecognizerDelegate {
     
-    var folderId: Int = 0
-    
     func didTapMoreButton(cell: FolderCollectionViewCell) {
         more_dropDown.anchorView = cell.moreButton
         more_dropDown.show()
@@ -34,7 +32,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
                 self.alertWithNoViewController(title: "폴더 삭제", message: "폴더를 삭제하시겠습니까?", completion: {
                     (response) in
                     if(response == "OK"){
-                        folderDelete()
+                        folderDelete(cell: cell)
                     }
                 }
                 )
@@ -44,20 +42,20 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         more_dropDown.clearSelection()
     }
 
-  
-
-
-    @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
     
     let cellSpacingHeight: CGFloat = 10
-
     
-
     @IBOutlet weak var FrameCollectionView: UICollectionView!
     
-    @IBOutlet var folderCollectionView: UICollectionView!
+    @IBOutlet weak var folderCollectionView: UICollectionView!
     
-    @IBOutlet weak var footerView: UIView!
+    @IBOutlet weak var linkCellHeight: NSLayoutConstraint!
+    @IBOutlet weak var footerViewheight: NSLayoutConstraint!
+
+    @IBOutlet weak var stackViewHeight: NSLayoutConstraint!
+    
+    var oneFolderHeight = 170
+    var oneLinkCellHeight = 200
     
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -121,34 +119,19 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     var filteredLinkCell = [LinkResDTO]()
     
     var linkFolder = [GetByFolderResponse]()
-    var filteredLinkFolder = [GetByFolderResponse]()
+    var filteredLinkFolder = [FolderViewModel]()
+    var mainViewModel = [FolderViewModel]()
     
+    var folderId: Int = 0
     
     override func viewWillAppear(_ animated: Bool) {
         isShowFloating = false
-        print("total is \(total)")
-        hideButton()
-        linkCell = total.map { $0.linkResDTOList}!!
-        filteredLinkCell = linkCell
-        
-        linkFolder =  total.map { $0.folderResDTOList}!!
-        filteredLinkFolder = linkFolder
-        print("filteredLinkFolder is \(filteredLinkFolder)")
-        
-        if(!linkCell.isEmpty){
-            FrameCollectionView.reloadData()
-        }
-        
-//        if(!linkFolder.isEmpty){
-//            folderCollectionView.reloadData()
-//        }
-        
+        print("viewwillapear")
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //dummy()
+        print("viewDidLoad")
         buttonSetting()
         textFieldSetting(textField: searchTextField)
         tapGestureSetting()
@@ -158,27 +141,73 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
        
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
+        
+        print("total is \(total)")
+        hideButton()
+        fetchData()
+
 
     }
     
-   // func dummy(){
-//        linkCell.append(Link(userId: 0, folderId: 0, linkId: 0, link: "https://naver.com", title: "자주 가는 곳", bookmark: true, date: "2021-05-21"))
-//        linkCell.append(Link(userId: 1, folderId: 1, linkId: 1, link: "https://google.com",title: "자주 가는 곳", bookmark: true, date: "2021-05-22"))
-//        linkCell.append(Link(userId: 2, folderId: 2, linkId: 2, link: "https://jouureee.tistory.com",title: "자주 가는 곳", bookmark: true, date: "2021-05-23"))
-//
-//        filteredLinkCell = linkCell
+    func fetchData(){
+        if((((total?.folderResDTOList!) != nil))) {
+            //data load
+            print("here folderResDTOList")
+            linkFolder = total.map {$0.folderResDTOList}!!
+            self.mainViewModel = self.linkFolder.map{ return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "LINK"))}
+            self.filteredLinkFolder = self.mainViewModel
+ 
+            self.folderCollectionView.reloadData()
+            
+            //데이터 0 이상시 뷰 그리기
+            if(total?.folderResDTOList?.count != 0 ){
+                print("here folderCollectionView no Hidden")
+                folderCollectionView.isHidden = false
+                /// cell + 50(margin)
+                if(total?.folderResDTOList!.count == 1){
+                    footerViewheight.constant = CGFloat(oneLinkCellHeight + 50)
+                }else{
+                    footerViewheight.constant = CGFloat(oneLinkCellHeight * ((total?.folderResDTOList!.count)! / 2) + 50)
+                    
+                }
+                
+                self.folderCollectionView.reloadData()
+            }else{
+                print("here folderCollectionView isHidden")
+                folderCollectionView.isHidden = true
+            }
+        }
         
-//        linkFolder.append(Folder(folderId: 0, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//        linkFolder.append(Folder(folderId: 1, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//        linkFolder.append(Folder(folderId: 2, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-
-//        linkFolder.append(Folder(folderId: 3, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//        linkFolder.append(Folder(folderId: 4, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
-//        linkFolder.append(Folder(folderId: 5, folderName: "test name", folderImage: UIImage(systemName: "heart.fill"), isLike: true))
         
- //       filteredLinkFolder = linkFolder
-        
-//    }
+        if((((total?.linkResDTOList!) != nil))) {
+            linkCell = total.map { $0.linkResDTOList }!!
+            print("here linkResDTOList")
+            FrameCollectionView.isHidden = false
+            filteredLinkCell = linkCell
+            self.FrameCollectionView.reloadData()
+            
+            
+            //데이터 0 이상시 뷰 그리기
+            if(total?.linkResDTOList?.count != 0){
+                FrameCollectionView.isHidden = false
+                //cell 높이 다시 그리기
+                
+                if(total?.linkResDTOList!.count == 1){
+                    /// cell + 100(margin) + headerView height
+                    linkCellHeight.constant = CGFloat(oneLinkCellHeight + 100 + 70)
+                }else{
+                    linkCellHeight.constant = CGFloat(oneLinkCellHeight * ((total?.linkResDTOList!.count)! / 2) + 100 + 70)
+                }
+                
+                self.FrameCollectionView.reloadData()
+                
+                
+            }else{
+                print("here FrameCollectionView hidden")
+                FrameCollectionView.isHidden = true
+            }
+        }
+    }
     
     func tapGestureSetting(){
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MyTapMethod))
@@ -196,10 +225,11 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     func collectionViewSetting(){
         FrameCollectionView.delegate = self
         FrameCollectionView.dataSource = self
-        
+        folderCollectionView.dataSource = self
+        folderCollectionView.delegate = self
         //self.FrameCollectionView.translatesAutoresizingMaskIntoConstraints  = false
         FrameCollectionView.register(LinkCollectionViewCell.nib(), forCellWithReuseIdentifier: LinkCollectionViewCell.identifier)
-       
+        folderCollectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
         print(FrameCollectionView.fs_height)
        
     }
@@ -369,7 +399,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
                 self.present(alertVC, animated: true, completion: nil)
 
             }else {
-                FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput)
+                FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput, errorHandler: { (error) in})
                 completionHandler(userInput)
             }
             
@@ -394,8 +424,12 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     
 
         
-    func folderDelete(){
-        filteredLinkFolder.remove(at: selectedCellIndexPath[1])
+    func folderDelete(cell: FolderCollectionViewCell){
+        
+        let index = cell.indexPath.row
+        print("folderID : \(index)")
+        FolderService.shared.deleteFolder(folderId: filteredLinkFolder[index].folderId, errorHandler: { (error) in})
+        filteredLinkFolder.remove(at: index)
         self.alertViewController(title: "삭제 완료", message: "폴더를 삭제하였습니다", completion: { (response) in
             if(response == "OK"){
                 DispatchQueue.main.async {
@@ -403,6 +437,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
                 }
             }
         })
+
        
     }
 
@@ -453,6 +488,9 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
                 print("Long press at item: \(indexPath.row)")
             }
     }
+    
+    
+    
 
 }
 
@@ -513,8 +551,8 @@ extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
         linkCell = linkCell.sorted {$0.link.localizedStandardCompare($1.link) == .orderedAscending}
         filteredLinkCell = linkCell
         
-        linkFolder = linkFolder.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
-        filteredLinkFolder = linkFolder
+        mainViewModel = mainViewModel.sorted {$0.folderName.localizedStandardCompare($1.folderName) == .orderedAscending}
+        filteredLinkFolder = mainViewModel
         FrameCollectionView.reloadData()
         //folderCollectionView.reloadData()
        
@@ -524,8 +562,8 @@ extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
         linkCell = linkCell.sorted { $0.linkId < $1.linkId }
         filteredLinkCell = linkCell
         
-        linkFolder = linkFolder.sorted { $0.folderId < $1.folderId }
-        filteredLinkFolder = linkFolder
+        mainViewModel = mainViewModel.sorted { $0.folderId < $1.folderId }
+        filteredLinkFolder = mainViewModel
         
         FrameCollectionView.reloadData()
         //folderCollectionView.reloadData()
@@ -535,8 +573,8 @@ extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
         linkCell = linkCell.sorted { $0.linkId > $1.linkId }
         filteredLinkCell = linkCell
         
-        linkFolder = linkFolder.sorted { $0.folderId > $1.folderId }
-        filteredLinkFolder = linkFolder
+        mainViewModel = mainViewModel.sorted { $0.folderId > $1.folderId }
+        filteredLinkFolder = mainViewModel
         
         FrameCollectionView.reloadData()
         //folderCollectionView.reloadData()
@@ -642,25 +680,49 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
 //
 //            cell.configure(model: filteredLinkCell[indexPath.row])
             cell.delegate = self
-            cell.configureHeight(with: 200)
+            cell.configureHeight(with: oneLinkCellHeight)
             cell.indexPath = indexPath
             return cell
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCollectionViewCell.identifier, for: indexPath) as! FolderCollectionViewCell
-        //custom cell connected
-        cell.contentView.layer.cornerRadius = 10
-        cell.contentView.layer.masksToBounds = true
-        cell.layer.shadowRadius = 2.0
-        cell.layer.shadowOpacity = 1.0
-        cell.layer.masksToBounds = false
+        //cell 크기 고정
+        cell.viewLayout(width: view.fs_width/2 - 30, height: CGFloat(oneFolderHeight))
         cell.cellDelegate = self
-        cell.configure(folder: filteredLinkFolder[indexPath.row])
+        cell.view.layer.borderColor = UIColor.darkGray.cgColor
+        cell.view.layer.masksToBounds = true
+        cell.view.layer.cornerRadius = 5
+        cell.view.layer.borderWidth = 1
+        cell.view.layer.shadowOpacity = 1.0
+
+        let folderViewModel = filteredLinkFolder[indexPath.row]
+        cell.folderViewModel = folderViewModel
+        //cell.configure(folder: filteredFolder[indexPath.row])
         cell.indexPath = indexPath
-        
-       
-        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if(collectionView == folderCollectionView){ // folderCell
+            //push to same view controller
+            let index = filteredLinkFolder[indexPath.row]
+            guard let linkedIn = self.storyboard?.instantiateViewController(identifier: "linkFolderIn") as? LinkInViewController else { return }
+            DispatchQueue.global().async {
+                FolderService.shared.viewFolder(folderId: index.folderId, completion: { (response) in
+                    Thread.sleep(forTimeInterval: 2)
+                    linkedIn.folderId = index.folderId
+                    linkedIn.total = response
+                    print("total isss \(response)")
+                    linkedIn.fetchData()
+                }, errorHandler: { (error) in })
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(linkedIn, animated: true)
+                }
+                
+            }
+ 
+            
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -734,29 +796,29 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
             return headerView
             
-        case UICollectionView.elementKindSectionFooter:
-            print("footerView view loaded")
-            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerView", for: indexPath)
-            //if(!filteredLinkFolder.isEmpty) { //linkFolder가 빈 배열이 아닐때만 collection view 넣기
-                footerView.backgroundColor = .white
-                let layout = UICollectionViewFlowLayout()
-
-                print("UICollectionView.elementKindSectionFooter 1")
-                folderCollectionView = UICollectionView(frame: footerView.bounds, collectionViewLayout: layout)
-                folderCollectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
-                print("footerview height")
-                print(footerView.frame.height)
-                folderCollectionView.delegate = self
-                folderCollectionView.dataSource = self
-                folderCollectionView.prefetchDataSource = self
-         
-                let width: CGFloat = folderCollectionView.bounds.width
-                let height: CGFloat = folderCollectionView.bounds.height
-                print("width is \(width)")
-                print("height is \(height)")
-                footerView.addSubview(folderCollectionView)
-                
-                return footerView
+//        case UICollectionView.elementKindSectionFooter:
+//            print("footerView view loaded")
+//            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerView", for: indexPath)
+//            //if(!filteredLinkFolder.isEmpty) { //linkFolder가 빈 배열이 아닐때만 collection view 넣기
+//                footerView.backgroundColor = .white
+//                let layout = UICollectionViewFlowLayout()
+//
+//                print("UICollectionView.elementKindSectionFooter 1")
+//                folderCollectionView = UICollectionView(frame: footerView.bounds, collectionViewLayout: layout)
+//                folderCollectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
+//                print("footerview height")
+//                print(footerView.frame.height)
+//                folderCollectionView.delegate = self
+//                folderCollectionView.dataSource = self
+//                folderCollectionView.prefetchDataSource = self
+//
+//                let width: CGFloat = folderCollectionView.bounds.width
+//                let height: CGFloat = folderCollectionView.bounds.height
+//                print("width is \(width)")
+//                print("height is \(height)")
+//                footerView.addSubview(folderCollectionView)
+//
+//                return footerView
             
            
         default: assert(false, "nothing")
@@ -798,7 +860,7 @@ extension LinkInViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let searchText = textField.text! + string
         if searchText.count >= 2{
-            filteredLinkFolder = linkFolder.filter({ (result) -> Bool in
+            filteredLinkFolder = mainViewModel.filter({ (result) -> Bool in
                 result.folderName.range(of: searchText, options: .caseInsensitive) != nil
             })
             
@@ -806,7 +868,7 @@ extension LinkInViewController: UITextFieldDelegate {
                 result.link.range(of: searchText, options: .caseInsensitive) != nil
             })
         }else {
-            filteredLinkFolder = linkFolder
+            filteredLinkFolder = mainViewModel
             filteredLinkCell = linkCell
         }
         
@@ -825,7 +887,7 @@ extension LinkInViewController: UITextFieldDelegate {
         for str in linkCell {
             filteredLinkCell.append(str)
         }
-        for str in linkFolder {
+        for str in mainViewModel {
             filteredLinkFolder.append(str)
         }
         
@@ -841,7 +903,7 @@ extension LinkInViewController: UITextFieldDelegate {
             self.filteredLinkFolder.removeAll()
             self.filteredLinkCell.removeAll()
             
-            for str in linkFolder {
+            for str in mainViewModel {
                 let name = str.folderName.lowercased()
                 let range = name.range(of: textField.text!, options: .caseInsensitive, range: nil, locale: nil)
                 if range != nil {

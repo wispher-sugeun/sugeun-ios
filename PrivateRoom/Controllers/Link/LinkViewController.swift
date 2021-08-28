@@ -133,13 +133,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         textFieldSetting(textField: searchTextField)
         collectionViewSetting()
         floatingButtonSetting(button: floatingButton)
-        
-//        link.append(Folder(folderId: 1, folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-//        link.append(Folder(folderId: 2, folderName: "temp", folderImage: UIImage(systemName: "person.fill"), isLike: true))
-//        link.append(Link(userId: 1, folderId: 1, linkId: 1, link: "www.naver.com", bookmark: true, date: "2021-02-05"))
-//        link.append(Link(userId: 2, folderId: 2, linkId: 2, link: "www.google.com", bookmark: true, date: "2021-03-05"))
-//        link.append(Link(userId: 3, folderId: 3, linkId: 3, link: "www.daum.net", bookmark: false, date: "2021-03-05"))
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChangedInLink(_:)), name: .folderImageChangedInLink, object: nil)
         flowSetting()
     }
@@ -324,11 +318,20 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let linkVC = self.storyboard?.instantiateViewController(identifier: "linkFolderIn") as? LinkInViewController else { return }
         let folderId = filteredLink[indexPath.row].folderId
-        FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
-            linkVC.folderId = folderId
-            linkVC.total = response
-            self.navigationController?.pushViewController(linkVC, animated: true)
-        }, errorHandler: { (error) in })
+        DispatchQueue.global().async {
+            FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
+                Thread.sleep(forTimeInterval: 2)
+                linkVC.folderId = folderId
+                linkVC.total = response
+                print("total isss \(response)")
+                linkVC.fetchData()
+            }, errorHandler: { (error) in })
+            DispatchQueue.main.async {
+                self.navigationController?.pushViewController(linkVC, animated: true)
+            }
+            
+        }
+        
 
     }
     

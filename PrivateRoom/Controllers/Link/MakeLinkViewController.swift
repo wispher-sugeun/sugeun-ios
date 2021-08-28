@@ -33,6 +33,7 @@ class MakeLinkViewController: UIViewController {
             }else { // 생성뷰
                 if(createValidating()){
                     let linkRequest = CreateLinkRequest(userId: userId, folderId: folderId, title: linkTitleTextField.text!, link: linkTextView.text!, bookmark: false)
+                    print(linkRequest)
                     LinkService.shared.createLink(folderId: folderId, linkRequest: linkRequest)
                     self.alertViewController(title: "작성 완료", message: "링크가 생성되었습니다", completion: {(response) in
                         if response == "OK" {

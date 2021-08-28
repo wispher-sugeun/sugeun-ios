@@ -22,7 +22,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
 
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        super.viewDidAppear(true)
         //collectionviewHeight.constant = self.collectionView.contentSize.height
 //        print(self.collectionView.contentSize.height)
 //        collectionView.reloadData()
@@ -37,8 +37,6 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
             frameTableView.tableFooterView?.isHidden = false
             frameTableView.tableFooterView?.frame.size.height = collectionView.contentSize.height + 50
         }
-        
-        //print(frameTableView.tableFooterView?.frame.size.height )
         
     }
     func didTapMoreButton(cell: FolderCollectionViewCell) {
@@ -62,7 +60,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
                 self.alertWithNoViewController(title: "폴더 삭제", message: "폴더를 삭제하시겠습니까?", completion: {
                     (response) in
                     if(response == "OK"){
-                        folderDelete()
+                        folderDelete(cell: cell)
                     }
                 }
                 )
@@ -415,8 +413,12 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         self.present(picker, animated: true, completion: nil)
     }
     
-    func folderDelete(){
-        filteredTextFolder.remove(at: selectedCellIndexPath[1])
+    func folderDelete(cell: FolderCollectionViewCell){
+        
+        let index = cell.indexPath.row
+        print("folderID : \(index)")
+        FolderService.shared.deleteFolder(folderId: filteredTextFolder[index].folderId, errorHandler: { (error) in})
+        filteredTextFolder.remove(at: index)
         self.alertViewController(title: "삭제 완료", message: "폴더를 삭제하였습니다", completion: { (response) in
             if(response == "OK"){
                 DispatchQueue.main.async {

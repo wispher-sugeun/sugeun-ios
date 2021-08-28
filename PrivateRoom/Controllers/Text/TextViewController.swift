@@ -86,7 +86,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
             self.mainViewModel = self.textFolder.map( { FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData!, type: "PHRASE"))})
             self.filteredTextFolder = self.mainViewModel
             self.collectionView.reloadData()
-        })
+        }, errorHandler: { (error) in})
     }
     
     
@@ -137,7 +137,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
                         self.fetchData()
                         self.alertViewController(title: "이미지 변경", message: "이미지가 변경되었습니다", completion: { (response) in})
                     }
-                })
+                }, errorHandler: { (error) in})
             }
         }
         
@@ -147,7 +147,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         
         let index = cell.indexPath.row
         print("folderID : \(index)")
-        FolderService.shared.deleteFolder(folderId: filteredTextFolder[index].folderId)
+        FolderService.shared.deleteFolder(folderId: filteredTextFolder[index].folderId, errorHandler: { (error) in})
         filteredTextFolder.remove(at: index)
         self.alertViewController(title: "삭제 완료", message: "폴더를 삭제하였습니다", completion: { (response) in
             if(response == "OK"){
@@ -185,7 +185,7 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
                 self.present(alertVC, animated: true, completion: nil)
 
             }else {
-                FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput)
+                FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput, errorHandler: { (error) in})
                 completionHandler(userInput)
             }
             
@@ -529,7 +529,7 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
             textInVC.total = response
             textInVC.folderId = folderId
             self.navigationController?.pushViewController(textInVC, animated: true)
-        })
+        }, errorHandler: { (error) in})
         
     }
 
