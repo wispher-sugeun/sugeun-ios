@@ -114,7 +114,7 @@ class TimeoutService {
             switch response.result {
                 case .success(let obj):
                     do {
-                        print(obj)
+                        //print(obj)
                         let dataJSON = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
                         
                         let postData = try JSONDecoder().decode([GetTimeoutResponse?].self, from: dataJSON)

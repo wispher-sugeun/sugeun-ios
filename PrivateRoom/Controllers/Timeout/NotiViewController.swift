@@ -10,8 +10,8 @@ import DropDown
 import PhotosUI
 
 class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
-    
 
+    
     var timeOut = [GetTimeoutResponse?]()
     var filteredtimeOut = [GetTimeoutResponse?]()
     
@@ -52,21 +52,13 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
             self.timeOut = response
             self.filteredtimeOut = self.timeOut
             self.collectionView.reloadData()
+            let notiManager = LocalNotificationManager()
+            notiManager.listScheduledNotifications()
         })
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        var imageArray = [UIImage]()
-//        imageArray.append(UIImage(named: "alarm1")!)
-//        imageArray.append(UIImage(named: "alarm2")!)
-//        imageArray.append(UIImage(named: "alarm1")!)
-    
-        
-//        timeOut.append(Timeout(userId: 1, timeoutId: 1, title: "스타벅스 자허블", timeoutImage: imageArray[0], deadLine: "2021-08-07", selectedList: [1,3], isValid: true))
-//        timeOut.append(Timeout(userId: 2, timeoutId: 2, title: "이디야 아이스티", timeoutImage: imageArray[1], deadLine: "2021-07-30", selectedList: [1,3,7], isValid: false))
-//        timeOut.append(Timeout(userId: 3, timeoutId: 3, title: "투썸 아이스박스", timeoutImage: imageArray[2], deadLine: "2021-09-10", selectedList: [1, 7], isValid: true))
-//        filteredtimeOut = timeOut
         
         floatingButtonSetting(floatingButton)
         collectionViewSetting(collectionView: collectionView)
@@ -137,20 +129,30 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
                // if(self.timeOut[indexPath.row].isValid == false){ // isValid false인 경우에만 반응
                 self.alertWithNoViewController(title: "알림 삭제", message: "알림을 삭제 하시겠습니까?", completion: { [self] (response) in
                         if (response == "OK") {
-                            TimeoutService.shared.deleteTimeout(timeoutId: timeOut[indexPath.row]!.timeoutId)
+                            let deleteItem = filteredtimeOut[indexPath.row]
+                            TimeoutService.shared.deleteTimeout(timeoutId: deleteItem!.timeoutId)
                             timeOut.remove(at: indexPath.row)
                             filteredtimeOut = timeOut
                             DispatchQueue.main.async {
                                 collectionView.reloadData()
                             }
-                            self.alertViewController(title: "삭제 완료", message: "알림이 삭제 되었습니다.", completion: {(response) in })
+                            self.alertViewController(title: "삭제 완료", message: "알림이 삭제 되었습니다.", completion: {(response) in
+                                
+                                //TODO - delete noti
+                                let notiManager = LocalNotificationManager()
+                                let notiidentifier = deleteItem!.title + "_"
+                                let selectedArray: [Int] = deleteItem!.selected
+                                notiManager.deleteSchedule(notificationId: notiidentifier + "0")
+                                for i in selectedArray {
+                                    notiManager.deleteSchedule(notificationId: notiidentifier +
+                                       "\(i)")
+                                }
+                            })
+                           
                     }
                         
                     })
                 }
-            
-            
-           // }
 
     }
  
@@ -186,10 +188,11 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
                             self.alertViewController(title: "사용 완료", message: "쿠폰 사용 완료 되었습니다.", completion: {(response) in
                                 let timeoutId = filteredtimeOut[cell.indexPath!.row]!.timeoutId
                                 TimeoutService.shared.useTiemout(timeoutId: timeoutId)
-                                //TO DO 사용 완료 처리
-//                                DispatchQueue.main.async {
-//                                    (at: cell.)
-//                                }
+                                
+                                //TO DO delete that identifier
+                                let notiManager = LocalNotificationManager()
+                                let notiidentifier = filteredtimeOut[cell.indexPath!.row]?.title
+                                notiManager.deleteSchedule(notificationId: notiidentifier! + "_")
                                 
                             })
                         }
@@ -495,7 +498,9 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
             let intArray = alarmIntArray()
             print(intArray)
             let date = DateUtil.serverSendDateTimeFormat(makeNotiFolderView.datePicker.date)
-            guard let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID) as? Int else { return }
+            
+            let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID)
+            
             if(editMode == true){ // 알림 수정에서 넘어온 데이터
               
                 let updateTimeout = UpdateTimeoutRequest(timeoutId: timeOut!.timeoutId, userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: true, selected: intArray)
@@ -503,9 +508,41 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
                 print("timeoutID \(timeOut!.timeoutId)")
                 TimeoutService.shared.updateTimeoutInfo(timeoutId: timeOut!.timeoutId, timeoutRequest: updateTimeout)
                 TimeoutService.shared.updateTimeoutImage(timeoutId: timeOut!.timeoutId, imageFile: (makeNotiFolderView.imageView.image?.jpeg(.lowest))!)
+                let notiManager = LocalNotificationManager()
+                ////delete first
+                let notiidentifier = "\(makeNotiFolderView.nameTextField.text!)_"
+                notiManager.deleteSchedule(notificationId: notiidentifier)
+                
+                ////set renew
+                
+                let dateComponents = DateComponents(year: makeNotiFolderView.datePicker.date.year, month: makeNotiFolderView.datePicker.date.month, day: makeNotiFolderView.datePicker.date.day, hour: 12, minute: 0, second: 0)
+                notiManager.notifications = [ Notifications(id: notiidentifier + "0", title: makeNotiFolderView.nameTextField.text!, datetime: dateComponents)]
+                print("create date : \(dateComponents)")
+                
+                for i in intArray {
+                    let dateComponents =  DateComponents(year: makeNotiFolderView.datePicker.date.year, month: makeNotiFolderView.datePicker.date.month, day: makeNotiFolderView.datePicker.date.day - i, hour: 12, minute: 0, second: 0)
+                    notiManager.notifications.append(Notifications(id: notiidentifier + "\(i)", title: makeNotiFolderView.nameTextField.text!, datetime: dateComponents))
+                }
+                notiManager.schedule()
+                
             }else {
                 let createTimoutRequest = CreateTimeoutRequest(userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: true, selected: intArray, imageFile: (makeNotiFolderView.imageView.image?.jpeg(.lowest))!)
                 TimeoutService.shared.createTimeout(createTimoutRequest: createTimoutRequest)
+                
+                //TO DO create noti
+                let notiManager = LocalNotificationManager()
+                let dateComponents = DateComponents(year: makeNotiFolderView.datePicker.date.year, month: makeNotiFolderView.datePicker.date.month, day: makeNotiFolderView.datePicker.date.day, hour: 12, minute: 0, second: 0)
+                let notiidentifier = "\(makeNotiFolderView.nameTextField.text!)_"
+                notiManager.notifications = [ Notifications(id: notiidentifier + "0", title: makeNotiFolderView.nameTextField.text!, datetime: dateComponents)]
+                print("create date : \(dateComponents)")
+                
+                //선택한 날짜에 대해 알림
+                for i in intArray {
+                    let dateComponents =  DateComponents(year: makeNotiFolderView.datePicker.date.year, month: makeNotiFolderView.datePicker.date.month, day: makeNotiFolderView.datePicker.date.day - i, hour: 12, minute: 0, second: 0)
+                    notiManager.notifications.append(Notifications(id: notiidentifier + "\(i)", title: makeNotiFolderView.nameTextField.text!, datetime: dateComponents))
+                }
+                notiManager.schedule()
+                
             }
            
             

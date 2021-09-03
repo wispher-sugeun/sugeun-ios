@@ -219,7 +219,11 @@ extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
                     ScheduleService.shared.deleteSchedule(scheduleID: scheduleId)
                     self.filtered.remove(at: indexPath.row)
                     tableView.reloadData()
-                    self.alertViewController(title: "일정 삭제 완료", message: "일정이 삭제 되었습니다", completion: { (response) in })
+                    self.alertViewController(title: "일정 삭제 완료", message: "일정이 삭제 되었습니다", completion: { (response) in
+                        //TO DO noti delete
+                        let notiInfo = LocalNotificationManager()
+                        notiInfo.deleteSchedule(notificationId: "\(self.filtered[indexPath.row].title)_")
+                    })
                     completion(true)
                 }else{
                     completion(false)

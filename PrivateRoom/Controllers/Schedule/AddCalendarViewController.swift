@@ -65,6 +65,25 @@ class AddCalendarViewController: UIViewController {
                         let putSchedule = PutScheduleRequest(scheduleId: selectedScheduled!.scheduleId, userId: selectedScheduled!.userId, title: titleTextField.text!, selected: selectedIndex, scheduleDate: postScheduleFormat(date: datePicker.date))
                         print("post edit Schedule : \(putSchedule)")
                         ScheduleService.shared.editSchedule(schedule: putSchedule)
+                        
+                        
+                        let notiManager = LocalNotificationManager()
+                        //noti delete
+                        notiManager.deleteSchedule(notificationId: "\(titleTextField.text!)_)")
+                        
+                        //schedule noti create
+                         
+                         let dateComponents = DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day, hour: 12, minute: 0, second: 0)
+                         let notiidentifier = "\(titleTextField.text!)_)"
+                        
+                         notiManager.notifications = [ Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents), Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents)]
+                         
+                         //선택한 날짜에 대해 알림
+                         for i in selectedIndex {
+                             let dateComponents =  DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day - i, hour: 12, minute: 0, second: 0)
+                             notiManager.notifications.append(Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents))
+                         }
+                         notiManager.schedule()
                     })
                 }
                 
@@ -79,6 +98,20 @@ class AddCalendarViewController: UIViewController {
                             print("postSchedule : \(postSchedule)")
                             
                             ScheduleService.shared.createSchedule(schedule: postSchedule)
+                            
+                           //schedule noti create
+                            let notiManager = LocalNotificationManager()
+                            let dateComponents = DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day, hour: 12, minute: 0, second: 0)
+                            let notiidentifier = "\(titleTextField.text!)_)"
+                           
+                            notiManager.notifications = [ Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents), Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents)]
+                            
+                            //선택한 날짜에 대해 알림
+                            for i in selectedIndex {
+                                let dateComponents =  DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day - i, hour: 12, minute: 0, second: 0)
+                                notiManager.notifications.append(Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents))
+                            }
+                            notiManager.schedule()
                             
                         })
                     } else {

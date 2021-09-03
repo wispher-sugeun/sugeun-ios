@@ -83,7 +83,7 @@ class LocalNotificationManager {
             let trigger = UNCalendarNotificationTrigger(dateMatching: notification.datetime, repeats: false)
 
             let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
-
+            print("set schedule \(request)")
             UNUserNotificationCenter.current().add(request) { error in
 
                 guard error == nil else { return }
@@ -95,7 +95,15 @@ class LocalNotificationManager {
     }
     
     private func deleteNotificaion(notificationId: String){
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationId])
+        print("here")
+//        for notification in notifications
+//        {
+//            if(notification.id == notificationId){
+                print("notificationId \(notificationId) removed")
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationId])
+                listScheduledNotifications()
+//            }
+//        }
     }
     
     
