@@ -11,18 +11,18 @@ import Alamofire
 class ScheduleService {
     static var shared = ScheduleService()
     
-    private let deviceToken: String
+    private let jwtToken: String
     private let userId: Int
     
     init(){
         userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
-        deviceToken = UserDefaults.standard.string(forKey: UserDefaultKey.deviceToken)!
+        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
     }
     
     //스케쥴 조회 o
     func getSchedule(completion: @escaping (([GetScheduleResponse]) -> Void)){
         let url = Config.base_url + "/users/\(userId)/schedules"
-        let headers: HTTPHeaders = ["Authorization" : deviceToken,
+        let headers: HTTPHeaders = ["Authorization" : jwtToken,
                                     "userId" : "\(userId)",
                                     "Content-Type" : "application/json" ]
         
@@ -55,7 +55,7 @@ class ScheduleService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
 
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -82,23 +82,6 @@ class ScheduleService {
                     print(error)
             }
         }
-        
-//        let formDataString = (schedule.dictionary.compactMap({(key, value) -> String in
-//            return "\(key)=\(value)" }) as Array).joined(separator: "&")
-//        let formEncodedData = formDataString.data(using: .utf8)
-//
-//        let headers: HTTPHeaders = ["Authorization" : deviceToken]
-//        request.httpBody = formEncodedData
-//        AF.request(url, method: .post, parameters: parameter, encoding: URLEncoding.httpBody, headers: headers).responseJSON { (response) in
-//            switch response.result {
-//                case .success(let obj):
-//                    let responses = obj as! String
-//                   print(responses) //스케쥴 생성 완료
-//                    break
-//                case .failure(let error):
-//                    print(error)
-//            }
-//        }
     }
     
     
@@ -109,7 +92,7 @@ class ScheduleService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PUT"
 
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -139,7 +122,7 @@ class ScheduleService {
     
     func deleteSchedule(scheduleID: Int){
         let url =  Config.base_url + "/users/\(userId)/schedules/\(scheduleID)"
-        let headers: HTTPHeaders = ["Authorization" : deviceToken,
+        let headers: HTTPHeaders = ["Authorization" : jwtToken,
                                     "userId" : "\(userId)",
                                     "Content-Type" : "application/json" ]
         

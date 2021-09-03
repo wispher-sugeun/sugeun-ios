@@ -11,26 +11,26 @@ import Alamofire
 class FolderService {
     static var shared = FolderService()
     
-    private let deviceToken: String
+    private let jwtToken: String
     private let userId: Int
     
     init(){
         userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
-        deviceToken = UserDefaults.standard.string(forKey: UserDefaultKey.deviceToken)!
+        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
     }
     
     
     //폴더 목록
     func getFolder(completion: @escaping ([GetFolderResponse]) -> (Void), errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/users/\(userId)/folders"
-        
+        print(url)
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
         
         
         print("[FolderService] 폴더 조회하기")
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -43,7 +43,7 @@ class FolderService {
                         let dataJSON = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
                         
                         let postData = try JSONDecoder().decode([GetFolderResponse].self, from: dataJSON)
-                        print(postData)
+                        //print(postData)
                         
                         completion(postData)
                     }catch let DecodingError.dataCorrupted(context) {
@@ -86,7 +86,7 @@ class FolderService {
         
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -133,7 +133,7 @@ class FolderService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -179,7 +179,7 @@ class FolderService {
         
         let headers: HTTPHeaders = [
             "userId" : "\(userId)",
-            "Authorization" : deviceToken
+            "Authorization" : jwtToken
         ]
         
         let parameter: Parameters
@@ -249,7 +249,7 @@ class FolderService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -262,7 +262,7 @@ class FolderService {
                     let responses = obj as! NSDictionary
                     do {
                         //dictionary type to json object
-                        print(responses)
+                        //print(responses)
             
                         let json = try JSONSerialization.data(withJSONObject: responses)
                         let response = try JSONDecoder().decode(DetailFolderResponse.self, from: json)
@@ -300,7 +300,7 @@ class FolderService {
         
         let headers: HTTPHeaders = [
             "userId" : "\(userId)",
-            "Authorization" : deviceToken,
+            "Authorization" :jwtToken,
             
         ]
         
@@ -360,19 +360,12 @@ class FolderService {
         
         let headers: HTTPHeaders = [
             "userId" : "\(userId)",
-            "Authorization" : deviceToken
+            "Authorization" :jwtToken
         ]
         
         let parameters: Parameters = ["folderName": changeName]
         print(parameters)
-//        let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
-//
-//        request.httpBody = jsonData
-//
-//
-//        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
-//        request.addValue("\(userId)", forHTTPHeaderField: "userId")
-//        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+
         
         AF.upload(multipartFormData: { multipartFormData in
             print("[FolderService] 폴더 정보 변경하기")
@@ -434,7 +427,7 @@ class FolderService {
         request.httpMethod = "DELETE"
     
 
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         

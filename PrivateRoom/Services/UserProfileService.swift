@@ -10,14 +10,14 @@ import Alamofire
 
 class UserProfileService {
     static var shared = UserProfileService()
-    private let deviceToken: String
+    private let jwtToken: String
     private let userId: Int
     
     init(){
-        deviceToken = UserDefaults.standard.string(forKey: UserDefaultKey.deviceToken)!
+        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
         
-        print("[UserProfileService] deviceToken : \(deviceToken)")
+        print("[UserProfileService] jwtToken : \(jwtToken)")
         print("[UserProfileService] userId : \(userId)")
     }
     
@@ -27,7 +27,7 @@ class UserProfileService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -66,7 +66,7 @@ class UserProfileService {
         
         let headers: HTTPHeaders = [
             "userId" : "\(userId)",
-            "Authorization" : deviceToken
+            "Authorization" : jwtToken
         ]
         
         
@@ -104,7 +104,7 @@ class UserProfileService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PATCH"
 
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -145,7 +145,7 @@ class UserProfileService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
 
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -187,7 +187,7 @@ class UserProfileService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PATCH"
 
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -226,14 +226,11 @@ class UserProfileService {
         //post
         print("[UserLoginServices] 회원 탈퇴 하기")
 
-        let header : HTTPHeaders = ["Authorization" : deviceToken,
+        let header : HTTPHeaders = ["Authorization" : jwtToken,
                                     "userId" :"\(userId)",
                                     "Content-Type" :"application/json"
         ]
-        
-//        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
-//        request.addValue("\(userId)", forHTTPHeaderField: "userId")
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
         
 
         AF.request(url, method: .delete, headers: header).validate(statusCode: 200..<300).responseJSON { (response) in
@@ -264,7 +261,7 @@ class UserProfileService {
         //post
         print("[UserProfileService] 알림 허용하기")
 
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -296,7 +293,7 @@ class UserProfileService {
         print("[UserProfileService] 북마크 조회 하기")
 
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         

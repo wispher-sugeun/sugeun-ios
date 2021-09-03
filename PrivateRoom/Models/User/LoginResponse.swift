@@ -7,22 +7,8 @@
 
 import ObjectMapper
 
-//ListFolderResDTO
 
-struct LoginResponse: Mappable {
-    var folderId: Int?
-    var folderName: String?
-    var userId: String?
-    var imageData: String?
-    
-    init?(map: Map) {
-        
-    }
-    
-    mutating func mapping(map: Map) {
-        folderId <- map["folderId"]
-        folderName <- map["folderName"]
-        userId <- map["userId"]
-        imageData <- map["imageData"]
-    }
+struct LoginResponse: Codable {
+    var userId: Int
+    var jwtToken: String
 }

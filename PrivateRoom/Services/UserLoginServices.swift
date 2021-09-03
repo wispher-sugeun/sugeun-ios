@@ -10,11 +10,11 @@ import Alamofire
 
 class UserLoginServices {
     
-    private let deviceToken: String
+    private let jwtToken: String
     private let userId: Int
     
     init() {
-        deviceToken = UserDefaults.standard.string(forKey: UserDefaultKey.deviceToken)!
+        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID)
     }
     
@@ -241,26 +241,30 @@ class UserLoginServices {
 //            let decoded = try JSONDecoder().decode(LoginRequest.self, from: jsonData)
 //            print(decoded)
         } catch { print(error) }
-        
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        print("deviceToken : \(deviceToken)")
 
         AF.request(request).validate(statusCode: 200..<300).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
-//                    let responses = obj as! LoginResponse
-                    //loginResDTO
-                    UserDefaults.standard.setValue("1", forKey: UserDefaultKey.isNewUser)
-                    UserDefaults.standard.setValue(loginUserInfo.nickname, forKey: UserDefaultKey.userNickName)
-                    UserDefaults.standard.setValue(3, forKey: UserDefaultKey.userID)
-                    //completion(responses)
+                    do {
+                        print(obj)
+                        let dataJSON = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
+                        let userData = try JSONDecoder().decode(LoginResponse.self, from: dataJSON)
+                        UserDefaults.standard.setValue("1", forKey: UserDefaultKey.isNewUser)
+                        UserDefaults.standard.setValue(loginUserInfo.nickname, forKey: UserDefaultKey.userNickName)
+                        UserDefaults.standard.setValue(userData.userId, forKey: UserDefaultKey.userID)
+                        UserDefaults.standard.setValue(userData.jwtToken, forKey: UserDefaultKey.jwtToken)
+                    }catch {
+                        print(error)
+                    }
                     break
                 case .failure(let error):
+                    print("login error \(error)")
                     //let statusCode = response.response?.statusCode
                     if let httpStatusCode = response.response?.statusCode {
                           switch(httpStatusCode) {
+                          case 401:
+                            errorHandler(401)
                           case 403:
                             errorHandler(403)
                             break

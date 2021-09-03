@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
        let tokenParts = deviceToken.map {
            data in String(format: "%02.2hhx", data) }
        let deviceToken = tokenParts.joined()
-        UserDefaults.standard.setValue(deviceToken, forKey: UserDefaultKey.deviceToken)
+        //UserDefaults.standard.setValue(deviceToken, forKey: UserDefaultKey.jwtToken)
        print("Device Token: \(deviceToken)")
 
    }

@@ -323,7 +323,7 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 Thread.sleep(forTimeInterval: 2)
                 linkVC.folderId = folderId
                 linkVC.total = response
-                print("total isss \(response)")
+                //print("total isss \(response)")
                 linkVC.fetchData()
             }, errorHandler: { (error) in })
             DispatchQueue.main.async {

@@ -12,12 +12,12 @@ class LinkService {
     
     static var shared = LinkService()
     
-    private let deviceToken: String
+    private let jwtToken: String
     private let userId: Int
     
     init(){
         userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
-        deviceToken = UserDefaults.standard.string(forKey: UserDefaultKey.deviceToken)!
+        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
     }
     
     func createLink(folderId: Int, linkRequest: CreateLinkRequest){
@@ -29,7 +29,7 @@ class LinkService {
         
         print("[LinkService] 링크 생성하기")
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -62,7 +62,7 @@ class LinkService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PUT"
 
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -93,7 +93,7 @@ class LinkService {
     //링크 삭제
     func deleteLink(folderId: Int, linkId: Int){
         let url =  Config.base_url + "/users/\(userId)/folders/\(folderId)/links/\(linkId)"
-        let headers: HTTPHeaders = ["Authorization" : deviceToken,
+        let headers: HTTPHeaders = ["Authorization" : jwtToken,
                                     "userId" : "\(userId)",
                                     "Content-Type" : "application/json" ]
         
@@ -123,7 +123,7 @@ class LinkService {
         
         print("[LinkService] \(linkId) 링크 북마크 수정하기")
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         

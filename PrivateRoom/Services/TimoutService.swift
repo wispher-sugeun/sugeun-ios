@@ -11,12 +11,12 @@ import Alamofire
 class TimeoutService {
     static var shared = TimeoutService()
     
-    private let deviceToken: String
+    private let jwtToken: String
     private let userId: Int
     
     init(){
         userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
-        deviceToken = UserDefaults.standard.string(forKey: UserDefaultKey.deviceToken)!
+        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
     }
     
     
@@ -27,7 +27,7 @@ class TimeoutService {
     
         let headers: HTTPHeaders = [
             "userId" : "\(userId)",
-            "Authorization" : deviceToken
+            "Authorization" : jwtToken
         ]
         
         let parameter: Parameters = [ "userId" : createTimoutRequest.userId,
@@ -107,7 +107,7 @@ class TimeoutService {
         
         print("[TimeoutService] 타임아웃 조회하기")
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -152,7 +152,7 @@ class TimeoutService {
         
         print("[TimeoutService] \(timeoutId) 타임아웃 사용시키기")
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -174,7 +174,7 @@ class TimeoutService {
         
         let headers: HTTPHeaders = [
             "userId" : "\(userId)",
-            "Authorization" : deviceToken
+            "Authorization" : jwtToken
         ]
 
         AF.upload(multipartFormData: { multipartFormData in
@@ -203,7 +203,7 @@ class TimeoutService {
 
         let headers: HTTPHeaders = [
             "userId" : "\(userId)",
-            "Authorization" : deviceToken
+            "Authorization" : jwtToken
         ]
         let parameter: Parameters = timeoutRequest.dictionary
 //
@@ -276,7 +276,7 @@ class TimeoutService {
         
         print("[PhraseService] \(timeoutId) 타임아웃 삭제하기")
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         

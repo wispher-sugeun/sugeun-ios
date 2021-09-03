@@ -39,10 +39,26 @@ class LoginViewController: UIViewController {
         
     }
     
+    func time() {
+        
+        let calendar = Calendar.current
+        let timeDate = calendar.date(byAdding: .hour, value: 9, to: Date())
+        print("time date : \(timeDate)")
+        
+        print(TimeZone.current.identifier)
+        let date = DateFormatter()
+        date.locale = Locale(identifier: Locale.current.identifier)
+        date.timeZone = TimeZone(identifier: TimeZone.current.identifier)
+        date.dateFormat = "HH:mm"
+        print(date.string(from: Date()))
+    }
+    
     private func sendLocalNotification(){
         let content = UNMutableNotificationContent()
         content.title = "test"
         content.body = "푸시 알림 테스트 내용"
+        time()
+        print("now Date \(Date())")
 //        let date = Date().addingTimeInterval(32460)
 //        print(date)
 //        let dateComponents = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)

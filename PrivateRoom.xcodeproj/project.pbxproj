@@ -64,6 +64,7 @@
 		8E782ADA2647D3A400D93D89 /* PrivateRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8E782AD82647D3A400D93D89 /* PrivateRoom.xcdatamodeld */; };
 		8E782ADC2647D3AC00D93D89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E782ADB2647D3AC00D93D89 /* Assets.xcassets */; };
 		8E782ADF2647D3AC00D93D89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E782ADD2647D3AC00D93D89 /* LaunchScreen.storyboard */; };
+		8E7D6E2226E2117C00764CFF /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7D6E2126E2117C00764CFF /* LocalNotificationManager.swift */; };
 		8EA90B7C26C2541800469964 /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA90B7B26C2541800469964 /* Calendar.storyboard */; };
 		8EA90B7E26C2A3CF00469964 /* ScheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B7D26C2A3CF00469964 /* ScheduleService.swift */; };
 		8EA90B8126C2A57D00469964 /* GetScheduleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA90B8026C2A57D00469964 /* GetScheduleResponse.swift */; };
@@ -197,6 +198,7 @@
 		8E782ADB2647D3AC00D93D89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E782ADE2647D3AC00D93D89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E782AE02647D3AC00D93D89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E7D6E2126E2117C00764CFF /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
 		8EA90B7B26C2541800469964 /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		8EA90B7D26C2A3CF00469964 /* ScheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleService.swift; sourceTree = "<group>"; };
 		8EA90B8026C2A57D00469964 /* GetScheduleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetScheduleResponse.swift; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 				8EB54A7526CA73EF009C7F7C /* LinkService.swift */,
 				8EB54A7C26CCD073009C7F7C /* TimoutService.swift */,
 				8EB54A6B26C649BA009C7F7C /* Config.swift */,
+				8E7D6E2126E2117C00764CFF /* LocalNotificationManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -768,6 +771,7 @@
 				8E2B836126AFDF5600AC2570 /* MakeLinkViewController.swift in Sources */,
 				8EF00F1326539C0100AA1EEA /* FolderInViewController.swift in Sources */,
 				8EA90B8326C2A6E600469964 /* PostScheduleRequest.swift in Sources */,
+				8E7D6E2226E2117C00764CFF /* LocalNotificationManager.swift in Sources */,
 				8EB54A7426CA4D40009C7F7C /* CreatePhraseRequest.swift in Sources */,
 				8EF3BFA8268F627400415150 /* FolderViewModel.swift in Sources */,
 				8E782AD42647D3A400D93D89 /* ViewController.swift in Sources */,

@@ -11,12 +11,12 @@ import Alamofire
 class PhraseService {
     static var shared = PhraseService()
     
-    private let deviceToken: String
+    private let jwtToken: String
     private let userId: Int
     
     init(){
         userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
-        deviceToken = UserDefaults.standard.string(forKey: UserDefaultKey.deviceToken)!
+        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
     }
     
     func createPhrase(folderId: Int, createRequest: CreatePhraseRequest){
@@ -29,7 +29,7 @@ class PhraseService {
         
         print("[PhraseService] \(folderId) 글귀 생성하기")
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -56,7 +56,6 @@ class PhraseService {
         
     }
     
-    //테스트 x
     func updatePhrase(folderId: Int, phraseId: Int, text: String){
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)/phrases/\(phraseId)"
         
@@ -66,7 +65,7 @@ class PhraseService {
         
         print("[PhraseService] \(phraseId) 글귀 수정하기")
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -100,7 +99,7 @@ class PhraseService {
         
         print("[PhraseService] \(phraseId) 글귀 삭제하기")
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -126,7 +125,7 @@ class PhraseService {
         
         print("[PhraseService] \(phraseId) 글귀 북마크 수정하기")
         
-        request.addValue(deviceToken, forHTTPHeaderField: "Authorization")
+        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
         request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         

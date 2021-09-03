@@ -504,7 +504,7 @@ extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(indexPath.row)
+        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         let defaultCell = tableView.dequeueReusableCell(withIdentifier: "cell")
         if(tableView == tblView){
@@ -701,7 +701,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
                     Thread.sleep(forTimeInterval: 2)
                     linkedIn.folderId = index.folderId
                     linkedIn.total = response
-                    print("total isss \(response)")
+                    //print("total isss \(response)")
                     linkedIn.fetchData()
                 }, errorHandler: { (error) in })
                 DispatchQueue.main.async {
