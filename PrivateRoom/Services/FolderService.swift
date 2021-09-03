@@ -31,7 +31,6 @@ class FolderService {
         print("[FolderService] 폴더 조회하기")
         
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
 
@@ -87,7 +86,6 @@ class FolderService {
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         print("[FolderService] PHRASE 폴더 조회하기")
@@ -134,7 +132,6 @@ class FolderService {
         request.httpMethod = "GET"
         
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         print("[FolderService] LINK 폴더 조회하기")
@@ -178,7 +175,6 @@ class FolderService {
         let url = Config.base_url + "/users/\(userId)/folders"
         
         let headers: HTTPHeaders = [
-            "userId" : "\(userId)",
             "Authorization" : jwtToken
         ]
         
@@ -250,7 +246,6 @@ class FolderService {
         request.httpMethod = "GET"
         
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         print("[FolderService] 폴더 id \(folderId)로 조회하기")
@@ -299,7 +294,6 @@ class FolderService {
         print("[UserProfileService] 폴더 \(folderId) 이미지 변경하기")
         
         let headers: HTTPHeaders = [
-            "userId" : "\(userId)",
             "Authorization" :jwtToken,
             
         ]
@@ -359,7 +353,6 @@ class FolderService {
 //        request.httpMethod = "PATCH"
         
         let headers: HTTPHeaders = [
-            "userId" : "\(userId)",
             "Authorization" :jwtToken
         ]
         
@@ -428,7 +421,6 @@ class FolderService {
     
 
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
 

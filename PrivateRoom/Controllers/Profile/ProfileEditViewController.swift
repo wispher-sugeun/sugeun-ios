@@ -32,7 +32,7 @@ class ProfileEditViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         UserProfileService.shared.getUserProfile(completion:  { [self] response in
-            if(!(response?.imageData!.isEmpty)!){
+            if(response?.imageData != nil){
                 profileImage.image = UIImage(data: (response?.imageData)!)
             }
         })

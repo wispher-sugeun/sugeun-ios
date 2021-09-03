@@ -104,7 +104,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        //fetchData()
+        fetchData()
     }
     
     func fetchData(){

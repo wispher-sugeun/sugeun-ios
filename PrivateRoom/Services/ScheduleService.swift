@@ -23,11 +23,9 @@ class ScheduleService {
     func getSchedule(completion: @escaping (([GetScheduleResponse]) -> Void)){
         let url = Config.base_url + "/users/\(userId)/schedules"
         let headers: HTTPHeaders = ["Authorization" : jwtToken,
-                                    "userId" : "\(userId)",
                                     "Content-Type" : "application/json" ]
         
         
-        print(userId)
         AF.request(url, method: .get, headers: headers).validate(statusCode: 200..<300).responseJSON {
             (response) in
             print("[ScheduleService] 스케줄 조회하기")
@@ -56,7 +54,6 @@ class ScheduleService {
         request.httpMethod = "POST"
 
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do {
@@ -82,6 +79,7 @@ class ScheduleService {
                     print(error)
             }
         }
+
     }
     
     
@@ -93,7 +91,6 @@ class ScheduleService {
         request.httpMethod = "PUT"
 
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do {
@@ -123,7 +120,6 @@ class ScheduleService {
     func deleteSchedule(scheduleID: Int){
         let url =  Config.base_url + "/users/\(userId)/schedules/\(scheduleID)"
         let headers: HTTPHeaders = ["Authorization" : jwtToken,
-                                    "userId" : "\(userId)",
                                     "Content-Type" : "application/json" ]
         
         var request = URLRequest(url: URL(string: url)!)

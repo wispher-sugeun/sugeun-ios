@@ -10,14 +10,6 @@ import Alamofire
 
 class UserLoginServices {
     
-    private let jwtToken: String
-    private let userId: Int
-    
-    init() {
-        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
-        userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID)
-    }
-    
     //user에 대한 데이터 받아 올 것
     static var shared = UserLoginServices()
     
@@ -223,7 +215,7 @@ class UserLoginServices {
     }
     
     //로그인 0
-    func login(loginUserInfo : LoginRequest, errorHandler: @escaping (Int) -> (Void)){
+    func login(loginUserInfo : LoginRequest, completion: @escaping (Bool) -> Void, errorHandler: @escaping (Int) -> (Void)){
 //        completion: @escaping ((LoginResponse) -> Void)
         let url = Config.base_url + "/api/login"
         var request = URLRequest(url: URL(string: url)!)
@@ -254,6 +246,7 @@ class UserLoginServices {
                         UserDefaults.standard.setValue(loginUserInfo.nickname, forKey: UserDefaultKey.userNickName)
                         UserDefaults.standard.setValue(userData.userId, forKey: UserDefaultKey.userID)
                         UserDefaults.standard.setValue(userData.jwtToken, forKey: UserDefaultKey.jwtToken)
+                        completion(true)
                     }catch {
                         print(error)
                     }
@@ -287,9 +280,9 @@ class UserLoginServices {
     func logout(){
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.phoneNumber)
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.userID)
-        UserDefaults.standard.removeObject(forKey: UserDefaultKey.userEmail)
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.userNickName)
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.isNewUser)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.jwtToken)
         //로그인 화면으로 이동
         let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
         guard let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {

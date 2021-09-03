@@ -14,28 +14,36 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var IDTextfield: UITextField!
     
     @IBOutlet weak var PasswordTextfield: UITextField!
-    let unc = UNUserNotificationCenter.current()
+    //let unc = UNUserNotificationCenter.current()
     
     let spinner = JGProgressHUD()
     
     @IBAction func loginButton(_ sender: Any) {
-        let options = UNAuthorizationOptions(arrayLiteral: [.badge, .sound, .alert])
-        unc.requestAuthorization(options: options, completionHandler: { [weak self] success, error in
-            if success {
-                self!.sendLocalNotification()
-            }else {
-                print(error?.localizedDescription ?? "nil")
-            }
-        })
+//        let options = UNAuthorizationOptions(arrayLiteral: [.badge, .sound, .alert])
+//        unc.requestAuthorization(options: options, completionHandler: { [weak self] success, error in
+//            if success {
+//                self!.sendLocalNotification()
+//            }else {
+//                print(error?.localizedDescription ?? "nil")
+//            }
+//        })
 
         //로그인 성공시
         let loginRequest = LoginRequest(nickname: IDTextfield.text!, password: PasswordTextfield.text!)
-        UserLoginServices.shared.login(loginUserInfo: loginRequest, errorHandler:  { (error) in})
-        let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "VC")
-        let rootNC = UINavigationController(rootViewController: mainVC)
-        
-        UIApplication.shared.windows.first?.rootViewController = rootNC
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
+        UserLoginServices.shared.login(loginUserInfo: loginRequest, completion: { (response) in
+            if(response){
+                let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "VC")
+                let rootNC = UINavigationController(rootViewController: mainVC)
+                
+                UIApplication.shared.windows.first?.rootViewController = rootNC
+                UIApplication.shared.windows.first?.makeKeyAndVisible()
+            }
+        }, errorHandler:  { (error) in
+            if(error == 401) { // 존재하지 않는 아이디
+                self.alertViewController(title: "로그인 실패", message: "존재하지 않는 사용자입니다. 다시 입력해주세요", completion: { (response) in})
+                return
+            }
+        })
         
     }
     
@@ -67,10 +75,10 @@ class LoginViewController: UIViewController {
         let uuidString = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
         
-        unc.add(request) {
-            (error) in
-            print("error occured")
-        }
+//        unc.add(request) {
+//            (error) in
+//            print("error occured")
+//        }
 
         
     }

@@ -225,29 +225,28 @@ class UserProfileService {
         
         //post
         print("[UserLoginServices] 회원 탈퇴 하기")
-
+        print("jwtToken \(jwtToken)")
         let header : HTTPHeaders = ["Authorization" : jwtToken,
-                                    "userId" :"\(userId)",
-                                    "Content-Type" :"application/json"
-        ]
+                                    "Content-Type" :"application/json"]
 
         
 
-        AF.request(url, method: .delete, headers: header).validate(statusCode: 200..<300).responseJSON { (response) in
-            switch response.result {
-                case .success(let obj):
-                    print("success : \(obj)")
-                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.phoneNumber)
-                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.userID)
-                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.userEmail)
-                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.userNickName)
-                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.isNewUser)
-                    
-                    completion(true)
-                    break
-                case .failure(let error):
-                    print("AF : \(error.localizedDescription)")
-            }
+        AF.request(url, method: .delete, headers: header).validate(statusCode: 200..<300).responseString {
+            (response) in
+                switch response.result {
+                    case .success(let obj):
+                        print("success : \(obj)")
+                        UserDefaults.standard.removeObject(forKey: UserDefaultKey.phoneNumber)
+                        UserDefaults.standard.removeObject(forKey: UserDefaultKey.userID)
+                        UserDefaults.standard.removeObject(forKey: UserDefaultKey.userNickName)
+                        UserDefaults.standard.removeObject(forKey: UserDefaultKey.isNewUser)
+                        UserDefaults.standard.removeObject(forKey: UserDefaultKey.jwtToken)
+                        
+                        completion(true)
+                        break
+                    case .failure(let error):
+                        print("AF : \(error.localizedDescription)")
+                }
         }
     }
     

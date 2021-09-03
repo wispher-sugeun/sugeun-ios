@@ -26,7 +26,6 @@ class TimeoutService {
         
     
         let headers: HTTPHeaders = [
-            "userId" : "\(userId)",
             "Authorization" : jwtToken
         ]
         
@@ -108,7 +107,6 @@ class TimeoutService {
         print("[TimeoutService] 타임아웃 조회하기")
         
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
 
@@ -153,7 +151,6 @@ class TimeoutService {
         print("[TimeoutService] \(timeoutId) 타임아웃 사용시키기")
         
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
@@ -173,7 +170,6 @@ class TimeoutService {
         let url = Config.base_url + "/users/\(userId)/timeouts/\(timeoutId)"
         
         let headers: HTTPHeaders = [
-            "userId" : "\(userId)",
             "Authorization" : jwtToken
         ]
 
@@ -202,7 +198,6 @@ class TimeoutService {
         let url = Config.base_url + "/users/\(userId)/timeouts/\(timeoutId)"
 
         let headers: HTTPHeaders = [
-            "userId" : "\(userId)",
             "Authorization" : jwtToken
         ]
         let parameter: Parameters = timeoutRequest.dictionary
@@ -277,7 +272,6 @@ class TimeoutService {
         print("[PhraseService] \(timeoutId) 타임아웃 삭제하기")
         
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         AF.request(request).validate(statusCode: 200..<300).responseString { (response) in

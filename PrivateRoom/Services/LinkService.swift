@@ -63,7 +63,6 @@ class LinkService {
         request.httpMethod = "PUT"
 
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do {
@@ -124,7 +123,6 @@ class LinkService {
         print("[LinkService] \(linkId) 링크 북마크 수정하기")
         
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         AF.request(request).validate(statusCode: 200..<300).responseString { (response) in

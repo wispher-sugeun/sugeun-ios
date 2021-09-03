@@ -12,13 +12,10 @@ import Foundation
 struct UserDefaultKey {
     
     static let switchIsOn: String = "switchIsOn"
-    static let accessToken: String = "accessToken"
     static let userID: String = "userID"
     static let userEmail: String = "userEmail"
     static let userNickName: String = "userNickName"
     static let isNewUser: String = "isNewUser"
     static let phoneNumber: String = "phoneNumber"
     static let jwtToken: String = "jwtToken"
-    static let notiState: String = "notiState"
-    
 }

@@ -30,7 +30,6 @@ class PhraseService {
         print("[PhraseService] \(folderId) 글귀 생성하기")
         
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do {
@@ -66,7 +65,6 @@ class PhraseService {
         print("[PhraseService] \(phraseId) 글귀 수정하기")
         
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do {
@@ -100,7 +98,6 @@ class PhraseService {
         print("[PhraseService] \(phraseId) 글귀 삭제하기")
         
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
@@ -126,7 +123,6 @@ class PhraseService {
         print("[PhraseService] \(phraseId) 글귀 북마크 수정하기")
         
         request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
