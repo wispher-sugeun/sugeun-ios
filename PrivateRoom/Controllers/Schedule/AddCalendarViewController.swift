@@ -68,20 +68,23 @@ class AddCalendarViewController: UIViewController {
                         
                         
                         let notiManager = LocalNotificationManager()
+                        let notiidentifier = "s_\(selectedScheduled!.scheduleId)_"
                         //noti delete
-                        notiManager.deleteSchedule(notificationId: "\(titleTextField.text!)_)")
+                        notiManager.deleteSchedule(notificationId: notiidentifier+"0")
+                        let selectedIndex: [Int] = (selectedScheduled?.selected)!
+                        for i in selectedIndex{
+                            notiManager.deleteSchedule(notificationId: notiidentifier+"\(i)")
+                        }
                         
                         //schedule noti create
-                         
                          let dateComponents = DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day, hour: 12, minute: 0, second: 0)
-                         let notiidentifier = "\(titleTextField.text!)_)"
                         
-                         notiManager.notifications = [ Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents), Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents)]
+                         notiManager.notifications = [ Notifications(id: notiidentifier + "0", title: titleTextField.text!, datetime: dateComponents), Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents)]
                          
                          //선택한 날짜에 대해 알림
                          for i in selectedIndex {
                              let dateComponents =  DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day - i, hour: 12, minute: 0, second: 0)
-                             notiManager.notifications.append(Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents))
+                             notiManager.notifications.append(Notifications(id: notiidentifier + "\(i)", title: titleTextField.text!, datetime: dateComponents))
                          }
                          notiManager.schedule()
                     })
@@ -97,21 +100,23 @@ class AddCalendarViewController: UIViewController {
                             let postSchedule = PostScheduleRequest(userId: userId, title: titleTextField.text!, selected: selectedIndex, scheduleDate: scheduleDateString)
                             print("postSchedule : \(postSchedule)")
                             
-                            ScheduleService.shared.createSchedule(schedule: postSchedule)
+                            ScheduleService.shared.createSchedule(schedule: postSchedule, completion: { (response) in
+                                //schedule noti create TO DO
+                                 let notiManager = LocalNotificationManager()
+                                 let dateComponents = DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day, hour: 12, minute: 0, second: 0)
+                                 let notiidentifier = "s_\(response)_"
+                                
+                                 notiManager.notifications = [ Notifications(id: notiidentifier + "0", title: titleTextField.text!, datetime: dateComponents), Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents)]
+                                 
+                                 //선택한 날짜에 대해 알림
+                                 for i in selectedIndex {
+                                     let dateComponents =  DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day - i, hour: 12, minute: 0, second: 0)
+                                     notiManager.notifications.append(Notifications(id: notiidentifier + "\(i)", title: titleTextField.text!, datetime: dateComponents))
+                                 }
+                                 notiManager.schedule()
+                            })
                             
-                           //schedule noti create
-                            let notiManager = LocalNotificationManager()
-                            let dateComponents = DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day, hour: 12, minute: 0, second: 0)
-                            let notiidentifier = "\(titleTextField.text!)_)"
-                           
-                            notiManager.notifications = [ Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents), Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents)]
-                            
-                            //선택한 날짜에 대해 알림
-                            for i in selectedIndex {
-                                let dateComponents =  DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day - i, hour: 12, minute: 0, second: 0)
-                                notiManager.notifications.append(Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents))
-                            }
-                            notiManager.schedule()
+                
                             
                         })
                     } else {

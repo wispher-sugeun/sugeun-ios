@@ -48,7 +48,7 @@ class ScheduleService {
     
     
     //스케쥴 생성 o
-    func createSchedule(schedule: PostScheduleRequest){
+    func createSchedule(schedule: PostScheduleRequest, completion: @escaping (Int)-> (Void)){
         let url = Config.base_url + "/users/\(userId)/schedules"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
@@ -68,12 +68,13 @@ class ScheduleService {
         
         
         
-        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
+        AF.request(request).validate(statusCode: 200..<300).responseJSON { (response) in
             print("[ScheduleService] 스케줄 생성")
             switch response.result {
                 case .success(let obj):
-                    print(obj) //스케줄 생성 완료
-                
+                    print(obj)
+                    let responseID = obj as! Int
+                    completion(responseID)
                     break
                 case .failure(let error):
                     print(error)

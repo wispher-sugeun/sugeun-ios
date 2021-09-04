@@ -41,21 +41,19 @@ class TimeOutCollectionViewCell: UICollectionViewCell {
         mainView.layer.borderWidth = 1.0
         inValidView.isHidden = true        
         //width 고정
-        mainView.translatesAutoresizingMaskIntoConstraints = false
-        mainView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2 - 5).isActive = true
+//        mainView.translatesAutoresizingMaskIntoConstraints = false
+//        mainView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2 - 5).isActive = true
         // Initialization code
     }
     
     func configureHeight(with height: Int){
         alarmImageView.heightAnchor.constraint(equalToConstant: CGFloat(height)).isActive = true
-        
+        mainView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2 - 5).isActive = true
     }
     
     static func nib() -> UINib {
-           return UINib(nibName: "TimeOutCollectionViewCell", bundle: nil)
+        return UINib(nibName: "TimeOutCollectionViewCell", bundle: nil)
     }
-    
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

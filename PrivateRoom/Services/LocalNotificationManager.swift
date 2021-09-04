@@ -55,6 +55,21 @@ class LocalNotificationManager {
         }
     }
     
+    func timeout()
+    {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+
+            switch settings.authorizationStatus {
+            case .notDetermined:
+                self.requestAuthorization()
+            case .authorized, .provisional:
+                self.timeoutNotifications()
+            default:
+                break // Do nothing
+            }
+        }
+    }
+    
     
     
     func deleteSchedule(notificationId: String){
@@ -77,7 +92,33 @@ class LocalNotificationManager {
         for notification in notifications
         {
             let content      = UNMutableNotificationContent()
-            content.title    = notification.title
+            content.title    = "(일정) 기간이 얼마 남지 않았습니다"
+            content.subtitle = notification.title
+            content.body = "\(notification.datetime.day!)전 입니다"
+            content.sound    = .default
+
+            let trigger = UNCalendarNotificationTrigger(dateMatching: notification.datetime, repeats: false)
+
+            let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
+            print("set schedule \(request)")
+            UNUserNotificationCenter.current().add(request) { error in
+
+                guard error == nil else { return }
+
+                print("Notification scheduled! --- ID = \(notification.id)")
+            }
+            
+        }
+    }
+    
+    private func timeoutNotifications()
+    {
+        for notification in notifications
+        {
+            let content      = UNMutableNotificationContent()
+            content.title    = "(기프티콘) 기간이 얼마 남지 않았습니다"
+            content.subtitle = notification.title
+            content.body = "유효기간까지 \(notification.datetime.day!) 남았습니다"
             content.sound    = .default
 
             let trigger = UNCalendarNotificationTrigger(dateMatching: notification.datetime, repeats: false)
@@ -96,14 +137,11 @@ class LocalNotificationManager {
     
     private func deleteNotificaion(notificationId: String){
         print("here")
-//        for notification in notifications
-//        {
-//            if(notification.id == notificationId){
-                print("notificationId \(notificationId) removed")
-                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationId])
-                listScheduledNotifications()
-//            }
-//        }
+
+        print("notificationId \(notificationId) removed")
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationId])
+        listScheduledNotifications()
+
     }
     
     

@@ -21,7 +21,7 @@ class TimeoutService {
     
     
     //타임 아웃 생성
-    func createTimeout(createTimoutRequest: CreateTimeoutRequest){
+    func createTimeout(createTimoutRequest: CreateTimeoutRequest, completion: @escaping (Int) -> (Void)){
         let url =  Config.base_url + "/users/\(userId)/timeouts"
         
     
@@ -86,6 +86,9 @@ class TimeoutService {
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
+                    print(type(of: obj))
+                    let responseID = obj as! String
+                    completion(Int(responseID)!)
                     break
                 case .failure(let error):
                     print("AF : \(error.localizedDescription)")
@@ -95,7 +98,7 @@ class TimeoutService {
 
     }
     
-    //타임아웃 조화
+    //타임아웃 조회
     func getTimeout(completion: @escaping (([GetTimeoutResponse?]) -> (Void))) {
         let url = Config.base_url + "/users/\(userId)/timeouts"
         

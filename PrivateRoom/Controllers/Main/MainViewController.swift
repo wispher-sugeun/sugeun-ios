@@ -17,6 +17,8 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     var folders = [GetFolderResponse]()
     var filteredFolder = [FolderViewModel]()
     
+    let refreshControl = UIRefreshControl()
+    
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout! {
         didSet {
             collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
