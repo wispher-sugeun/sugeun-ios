@@ -18,6 +18,9 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     var screenSize: CGRect!
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
+    
+    let refreshControl = UIRefreshControl()
+    
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout! {
         didSet {
             collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
@@ -48,13 +51,7 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        TimeoutService.shared.getTimeout(completion: { (response) in
-            self.timeOut = response
-            self.filteredtimeOut = self.timeOut
-            self.collectionView.reloadData()
-            let notiManager = LocalNotificationManager()
-            notiManager.listScheduledNotifications()
-        })
+        fetchData()
     }
     
     override func viewDidLoad() {
@@ -69,6 +66,31 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
         flowSetting()
         notUsedSorting()
         collectionView.reloadData()
+        refreshing()
+    }
+    
+    func fetchData(){
+        TimeoutService.shared.getTimeout(completion: { (response) in
+            self.timeOut = response
+            self.filteredtimeOut = self.timeOut
+            self.collectionView.reloadData()
+            let notiManager = LocalNotificationManager()
+            notiManager.listScheduledNotifications()
+        })
+    }
+    
+    func refreshing(){
+        print("here")
+        //refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        refreshControl.beginRefreshing()
+        collectionView.addSubview(refreshControl)
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        print("refresh")
+        fetchData()
+        refreshControl.endRefreshing()
     }
     
     func flowSetting(){

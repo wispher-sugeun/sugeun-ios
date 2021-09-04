@@ -42,7 +42,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         more_dropDown.clearSelection()
     }
 
-    
+    let refreshControl = UIRefreshControl()
     let cellSpacingHeight: CGFloat = 10
     
     @IBOutlet weak var FrameCollectionView: UICollectionView!
@@ -126,7 +126,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         isShowFloating = false
-        print("viewwillapear")
+        getData()
     }
     
     override func viewDidLoad() {
@@ -138,18 +138,14 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         
         collectionViewSetting()
         setupLongGestureRecognizerOnCollection()
-//
-//
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
-        
-//        print("total is \(total)")
+
         hideButton()
-        fetchData()
+        refreshing()
 
 
     }
     
-    func fetchData(){
+    func getData(){
         if((((total?.folderResDTOList!) != nil))) {
             //data load
             print("here folderResDTOList")
@@ -209,6 +205,29 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         }
     }
     
+    func fetchData(folderId: Int){
+        FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
+            self.total = response
+            self.linkCell = response.linkResDTOList!
+            self.mainViewModel = self.linkFolder.map{ return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "LINK"))}
+            self.filteredLinkFolder = self.mainViewModel
+            self.filteredLinkCell = self.linkCell
+        }, errorHandler: { (response) in})
+    }
+    
+    func refreshing(){
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        refreshControl.beginRefreshing()
+        folderCollectionView.addSubview(refreshControl)
+        FrameCollectionView.addSubview(refreshControl)
+        
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        fetchData(folderId: folderId)
+        refreshControl.endRefreshing()
+    }
+    
     
     
     func tapGestureSetting(){
@@ -229,7 +248,6 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         FrameCollectionView.dataSource = self
         folderCollectionView.dataSource = self
         folderCollectionView.delegate = self
-        //self.FrameCollectionView.translatesAutoresizingMaskIntoConstraints  = false
         FrameCollectionView.register(LinkCollectionViewCell.nib(), forCellWithReuseIdentifier: LinkCollectionViewCell.identifier)
         folderCollectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
         print(FrameCollectionView.fs_height)
@@ -497,7 +515,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
 }
 
 extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sorting.count
 
@@ -702,7 +720,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
                     linkedIn.folderId = index.folderId
                     linkedIn.total = response
                     //print("total isss \(response)")
-                    linkedIn.fetchData()
+                    linkedIn.getData()
                 }, errorHandler: { (error) in })
                 DispatchQueue.main.async {
                     self.navigationController?.pushViewController(linkedIn, animated: true)

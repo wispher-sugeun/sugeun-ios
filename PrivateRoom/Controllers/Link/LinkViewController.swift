@@ -95,6 +95,8 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         return textfield
     }()
     
+    let refreshControl = UIRefreshControl()
+    
     var screenSize: CGRect!
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
@@ -102,9 +104,6 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         fetchData()
-        
-
-        
     }
     
     func fetchData(){
@@ -114,7 +113,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
             self.filteredLink = self.mainViewModels
             self.collectionView.reloadData()
         }, errorHandler: {(errorMessage) in
-            if(errorMessage != 0){
+            if(errorMessage == 403){
                 self.alertViewController(title: "로그인 실패", message: "로그인 화면으로 이동합니다.", completion: { (response) in
                     if(response == "OK"){
                         UserDefaults.standard.setValue("0", forKey: UserDefaultKey.isNewUser)
@@ -136,6 +135,19 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChangedInLink(_:)), name: .folderImageChangedInLink, object: nil)
         flowSetting()
+        refreshing()
+    }
+    
+    func refreshing(){
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        refreshControl.beginRefreshing()
+        collectionView.addSubview(refreshControl)
+        
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        fetchData()
+        refreshControl.endRefreshing()
     }
     
     func flowSetting(){
@@ -324,7 +336,7 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 linkVC.folderId = folderId
                 linkVC.total = response
                 //print("total isss \(response)")
-                linkVC.fetchData()
+                linkVC.getData()
             }, errorHandler: { (error) in })
             DispatchQueue.main.async {
                 self.navigationController?.pushViewController(linkVC, animated: true)

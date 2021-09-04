@@ -31,7 +31,10 @@ class MakeLinkViewController: UIViewController {
                 LinkService.shared.updateLink(folderId: folderId, linkId: link!.linkId, link: updateLink)
                 self.alertViewController(title: "수정 완료", message: "링크가 수정되었습니다", completion: {(response) in
                     if response == "OK" {
-                        self.dismiss(animated: true, completion: nil)
+                        self.navigationController?.popViewController(animated: true)
+                        let previous = self.navigationController?.viewControllers.last as? LinkInViewController
+                        previous?.fetchData(folderId: self.folderId)
+                        //self.dismiss(animated: true, completion: nil)
                     }
                 })
                 
@@ -42,7 +45,10 @@ class MakeLinkViewController: UIViewController {
                     LinkService.shared.createLink(folderId: folderId, linkRequest: linkRequest)
                     self.alertViewController(title: "작성 완료", message: "링크가 생성되었습니다", completion: {(response) in
                         if response == "OK" {
-                            self.dismiss(animated: true, completion: nil)
+                            self.navigationController?.popViewController(animated: true)
+                            let previous = self.navigationController?.viewControllers.last as? LinkInViewController
+                            previous?.fetchData(folderId: self.folderId)
+//                            self.dismiss(animated: true, completion: nil)
                         }
                     })
                     

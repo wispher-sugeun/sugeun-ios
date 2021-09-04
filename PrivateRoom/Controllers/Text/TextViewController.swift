@@ -22,6 +22,8 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
     
+    let refreshControl = UIRefreshControl()
+    
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true, completion: nil)
         let itemProvider = results.first?.itemProvider
@@ -101,8 +103,22 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         screenHeight = screenSize.height
         
         flowSetting()
-        
+        refreshing()
       
+    }
+    
+    func refreshing(){
+        print("here")
+        //refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        refreshControl.beginRefreshing()
+        collectionView.addSubview(refreshControl)
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        print("refresh")
+        fetchData()
+        refreshControl.endRefreshing()
     }
     
     func flowSetting(){

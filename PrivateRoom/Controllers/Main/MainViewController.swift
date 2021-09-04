@@ -130,12 +130,24 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         
         floatingButtonSetting(button: floatingButton)
         textFieldSetting(textfield: searchTextfield)
+        refreshing()
         
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
         
         flowSetting()
         
+    }
+    
+    func refreshing(){
+        //refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        folderCollectionView.addSubview(refreshControl) // not required when using UITableViewController
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        fetchData()
+        refreshControl.endRefreshing()
     }
     
     func flowSetting(){
@@ -755,21 +767,21 @@ extension makeFolderAlertView: PHPickerViewControllerDelegate {
 
     }
 }
-
-extension UICollectionView {
-    func getCellSize(numberOFItemsRowAt: Int, cellRatio: CGFloat) -> CGSize {
-        var screenWidth = UIScreen.main.bounds.width
-        if #available(iOS 11.0, *) {
-            let window = UIApplication.shared.keyWindow
-            let leftPadding = window?.safeAreaInsets.left ?? 0
-            let rightPadding = window?.safeAreaInsets.right ?? 0
-            screenWidth -= (leftPadding + rightPadding)
-        }
-        let cellWidth =  screenWidth / CGFloat(numberOFItemsRowAt)
-        let cellHeight = cellWidth * cellRatio
-        return CGSize(width: cellWidth, height: cellHeight)
-    }
-}
+//
+//extension UICollectionView {
+//    func getCellSize(numberOFItemsRowAt: Int, cellRatio: CGFloat) -> CGSize {
+//        var screenWidth = UIScreen.main.bounds.width
+//        if #available(iOS 11.0, *) {
+//            let window = UIApplication.shared.keyWindow
+//            let leftPadding = window?.safeAreaInsets.left ?? 0
+//            let rightPadding = window?.safeAreaInsets.right ?? 0
+//            screenWidth -= (leftPadding + rightPadding)
+//        }
+//        let cellWidth =  screenWidth / CGFloat(numberOFItemsRowAt)
+//        let cellHeight = cellWidth * cellRatio
+//        return CGSize(width: cellWidth, height: cellHeight)
+//    }
+//}
 
 
 

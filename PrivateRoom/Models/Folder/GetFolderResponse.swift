@@ -22,7 +22,7 @@ struct GetFolderResponse: Codable {
         self.folderId = folderId
         self.folderName = folderName
         self.userId = userId
-        self.imageData = imageData ?? Data()
+        self.imageData = imageData 
         self.type = type
     }
 }

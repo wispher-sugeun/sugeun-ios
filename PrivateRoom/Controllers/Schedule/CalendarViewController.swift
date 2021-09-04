@@ -16,7 +16,7 @@ protocol calendarViewDelegate: NSObject {
 
 class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
 
-
+    let refreshControl = UIRefreshControl()
     @IBOutlet weak var calendar: FSCalendar!
     
     @IBOutlet weak var searchTextField: UITextField!
@@ -42,6 +42,10 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        fetchData()
+    }
+    
+    func fetchData(){
         ScheduleService.shared.getSchedule(completion: { (response) in
             self.schedule = response
             self.filtered = self.schedule
@@ -54,16 +58,23 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
         calenderSetting()
         tableviewSetting()
         
-//        schedule.append(Schedule(scheduleId: 1, userId: 1, title: "test1", scheduleDate: "2021/07/04", selectedList: [1,2,3]))
-//
-//        schedule.append( Schedule(scheduleId: 2, userId: 2, title: "test2", scheduleDate: "2021/07/14", selectedList: [1,2]))
-//
-//        schedule.append(Schedule(scheduleId: 3, userId: 3, title: "test3", scheduleDate: "2021/07/15", selectedList: [1,2,7]))
         textfieldSetting()
        
         handleSwipeDelete()
-
+        refreshing()
     }
+    
+    func refreshing(){
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        refreshControl.beginRefreshing()
+        tableView.addSubview(refreshControl)
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        fetchData()
+        refreshControl.endRefreshing()
+    }
+    
     
     func textfieldSetting(){
         searchTextField.delegate = self

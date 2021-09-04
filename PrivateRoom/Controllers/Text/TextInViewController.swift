@@ -19,6 +19,8 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     var selectedCellIndexPath = IndexPath()
     
     let cellSpacingHeight: CGFloat = 20
+    
+    let refreshControl = UIRefreshControl()
 
     
     override func viewDidAppear(_ animated: Bool) {
@@ -32,9 +34,11 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         frameTableView.reloadData()
         
         if(textFolder.isEmpty){ // data가 없을때 footerview 없애기
+            print("data no")
             frameTableView.tableFooterView = nil
         }else {
             frameTableView.tableFooterView?.isHidden = false
+            frameTableView.tableFooterView?.backgroundColor = .white
             frameTableView.tableFooterView?.frame.size.height = collectionView.contentSize.height + 50
         }
         
@@ -154,8 +158,19 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         sortingButtonSetting()
 
         getData()
-
+        refreshing()
  
+    }
+    
+    func refreshing(){
+        //refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        collectionView.addSubview(refreshControl) // not required when using UITableViewController
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        getData()
+        refreshControl.endRefreshing()
     }
     
     func getData(){
@@ -177,8 +192,10 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     func fetchData(folderId: Int){
         FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
             self.textFolder = response.folderResDTOList!
+            self.textCell = response.phraseResDTOList!
             self.mainViewModel = self.textFolder.map { return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "PHRASE")) }
             self.filteredTextFolder = self.mainViewModel
+            self.filteredTextCell = self.textCell
             self.collectionView.reloadData()
         }, errorHandler: { (response) in})
     }
@@ -205,8 +222,9 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         frameTableView.tableFooterView?.isHidden = true
         frameTableView.register(TextCellTableViewCell.nib(), forCellReuseIdentifier: TextCellTableViewCell.identifier)
         self.frameTableView.translatesAutoresizingMaskIntoConstraints = false
-        frameTableView.backgroundColor = .clear
+        frameTableView.backgroundView = UIView()
         self.frameTableView.estimatedRowHeight = 80
+//        self.frameTableView.contentInset = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: -15)
         self.frameTableView.rowHeight = UITableView.automaticDimension
 
 
@@ -525,15 +543,20 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return filteredTextCell.count
+        if(tableView == frameTableView){
+            //print("filteredTextCell.count \(filteredTextCell.count)")
+            return filteredTextCell.count
+        }else if(tableView == tblView){
+            //print("sorting.count \(sorting.count)")
+            return sorting.count
+        }
+        return 1
+        
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(tableView == tblView){
-            print(sorting.count)
-            return sorting.count
-        }
+       
         return 1
     }
     
@@ -545,7 +568,7 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
             let nsHeaderTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.light),
                                           NSAttributedString.Key.foregroundColor: UIColor.black]
             
-            let nsSortingText = NSAttributedString(string: sorting[indexPath.row], attributes: nsHeaderTextAttributes)
+            let nsSortingText = NSAttributedString(string: sorting[indexPath.section], attributes: nsHeaderTextAttributes)
             
             cell.textLabel?.attributedText = nsSortingText
             return cell
