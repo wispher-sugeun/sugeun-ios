@@ -129,30 +129,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vog-kU-eYW">
-                                <rect key="frame" x="0.0" y="188" width="414" height="520"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="608"/>
                             </imageView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cm2-Vh-B91">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <items>
-                                    <navigationItem id="lVd-nR-rfC">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" image="chevron.backward" catalog="system" id="EAY-xm-v4T">
-                                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <connections>
-                                                <action selector="backButton:" destination="ZAA-ck-Xgb" id="NAA-LR-imR"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GSw-4u-jX5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vog-kU-eYW" firstAttribute="top" secondItem="cm2-Vh-B91" secondAttribute="bottom" constant="100" id="3VP-SP-69k"/>
-                            <constraint firstItem="cm2-Vh-B91" firstAttribute="leading" secondItem="GSw-4u-jX5" secondAttribute="leading" id="AL4-TV-cfs"/>
-                            <constraint firstItem="cm2-Vh-B91" firstAttribute="top" secondItem="GSw-4u-jX5" secondAttribute="top" id="Ox2-XS-GKg"/>
                             <constraint firstItem="vog-kU-eYW" firstAttribute="centerX" secondItem="Pvv-46-j6R" secondAttribute="centerX" id="PFv-7Q-Mrg"/>
-                            <constraint firstItem="cm2-Vh-B91" firstAttribute="trailing" secondItem="GSw-4u-jX5" secondAttribute="trailing" id="Xkh-Kw-9s7"/>
+                            <constraint firstItem="vog-kU-eYW" firstAttribute="top" secondItem="GSw-4u-jX5" secondAttribute="top" constant="100" id="Vqh-pD-SXp"/>
                             <constraint firstItem="vog-kU-eYW" firstAttribute="trailing" secondItem="GSw-4u-jX5" secondAttribute="trailing" id="dKu-52-hEe"/>
                             <constraint firstItem="vog-kU-eYW" firstAttribute="centerY" secondItem="Pvv-46-j6R" secondAttribute="centerY" id="nKB-5b-dVj"/>
                             <constraint firstItem="vog-kU-eYW" firstAttribute="leading" secondItem="GSw-4u-jX5" secondAttribute="leading" id="tpa-6w-kpD"/>
@@ -168,7 +152,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -252,8 +252,8 @@ class FolderService {
         AF.request(request).validate(statusCode: 200..<300).responseJSON { (response) in
             switch response.result {
                 case .success(let obj):
-                    print("success : \(obj)")
-                    print(type(of: obj))
+                    //print("success : \(obj)")
+                    //print(type(of: obj))
                     let responses = obj as! NSDictionary
                     do {
                         //dictionary type to json object

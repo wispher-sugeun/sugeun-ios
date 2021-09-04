@@ -36,6 +36,12 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         if(textFolder.isEmpty){ // data가 없을때 footerview 없애기
             print("data no")
             frameTableView.tableFooterView = nil
+            let noDataLabel: UILabel  = UILabel(frame: CGRect(x: 0, y: 0, width:frameTableView.bounds.size.width, height: frameTableView.bounds.size.height))
+            noDataLabel.text          = "폴더 안에 데이터가 아직 존재하지 않습니다"
+            noDataLabel.textColor     = UIColor.systemGray2
+            noDataLabel.textAlignment = .center
+            frameTableView.backgroundView  = noDataLabel
+            frameTableView.separatorStyle  = .none
         }else {
             frameTableView.tableFooterView?.isHidden = false
             frameTableView.tableFooterView?.backgroundColor = .white
@@ -233,6 +239,10 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     func collectionViewSetting(){
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.collectionViewLayout = CollectionViewLeftAlignFlowLayout()
+        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+                    flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+                  }
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
     }
@@ -551,6 +561,7 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
             return sorting.count
         }
         return 1
+        
         
         
     }

@@ -19,7 +19,8 @@ class MakeLinkViewController: UIViewController {
     
     var folderId: Int = 0
     @IBAction func dismissButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func doneButton(_ sender: Any) {
@@ -69,9 +70,10 @@ class MakeLinkViewController: UIViewController {
     }
     
     func createValidating() -> Bool {
-        if(linkTitleTextField.text == "" && linkTextView.text == "") {
+        if(linkTitleTextField.text == "" || linkTextView.text == "" || linkTextView.text == "링크 입력") {
             return false
         }
+        
         if(folderId == 0){
             return false
         }
@@ -125,7 +127,7 @@ extension MakeLinkViewController: UITextViewDelegate {
     func textViewSetup(){
         if linkTextView.text == "링크 입력" {
             linkTextView.text = ""
-            linkTextView.textColor = .white
+            linkTextView.textColor = .gray
         }else if(linkTextView.text == ""){
             linkTextView.text = "링크 입력"
             linkTextView.textColor = .gray

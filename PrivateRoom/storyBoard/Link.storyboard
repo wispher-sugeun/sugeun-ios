@@ -111,7 +111,7 @@
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FQp-kp-42h">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="300" id="iaC-Tc-4jk"/>
                                                 </constraints>
@@ -138,7 +138,7 @@
                                             </collectionView>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hcb-Bj-6WC">
                                                 <rect key="frame" x="0.0" y="300" width="414" height="500"/>
-                                                <color key="backgroundColor" red="0.4549019608" green="0.58010101319999996" blue="0.8823886514" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="500" id="Zdg-r9-5MA"/>
                                                 </constraints>
@@ -282,7 +282,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uRV-FK-rLD">
-                                <rect key="frame" x="50" y="194" width="314" height="508"/>
+                                <rect key="frame" x="50" y="281" width="314" height="334.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCj-jf-H0S">
                                         <rect key="frame" x="254" y="20.5" width="30" height="29"/>
@@ -303,14 +303,17 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="링크 입력" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cTx-nG-IkW">
-                                        <rect key="frame" x="30" y="174.5" width="254" height="273.5"/>
+                                        <rect key="frame" x="30" y="174.5" width="254" height="100"/>
                                         <color key="backgroundColor" red="0.90631502870000002" green="0.91306352619999998" blue="0.94510310890000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="JQw-wy-O3V"/>
+                                        </constraints>
                                         <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODh-wP-RRb">
-                                        <rect key="frame" x="80" y="458" width="154" height="30"/>
+                                        <rect key="frame" x="80" y="284.5" width="154" height="30"/>
                                         <color key="backgroundColor" red="0.16399294140000001" green="0.19996729490000001" blue="0.34119242430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="완료">
                                             <color key="titleColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -327,6 +330,7 @@
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3md-a7-Sgm">
                                         <rect key="frame" x="40" y="99" width="234" height="26.5"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -368,7 +372,6 @@
                         <constraints>
                             <constraint firstItem="LyF-Xs-KYi" firstAttribute="trailing" secondItem="uRV-FK-rLD" secondAttribute="trailing" constant="50" id="8ST-Z2-fZN"/>
                             <constraint firstItem="uRV-FK-rLD" firstAttribute="leading" secondItem="LyF-Xs-KYi" secondAttribute="leading" constant="50" id="E9L-6F-rPN"/>
-                            <constraint firstItem="uRV-FK-rLD" firstAttribute="top" secondItem="LyF-Xs-KYi" secondAttribute="top" constant="150" id="Hc2-jV-POM"/>
                             <constraint firstItem="uRV-FK-rLD" firstAttribute="centerY" secondItem="pXs-fN-JLg" secondAttribute="centerY" id="wF0-5s-VGW"/>
                             <constraint firstItem="uRV-FK-rLD" firstAttribute="centerX" secondItem="pXs-fN-JLg" secondAttribute="centerX" id="yPy-Lx-WE1"/>
                         </constraints>

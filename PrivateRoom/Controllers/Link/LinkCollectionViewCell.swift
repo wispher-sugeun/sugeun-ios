@@ -28,6 +28,7 @@ class LinkCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var clipBoard: UIButton!
     
+    @IBOutlet weak var title: UILabel!
     @IBAction func clipAction(_ sender: Any) {
         delegate?.clipAction(cell: self)
     }
@@ -69,6 +70,11 @@ class LinkCollectionViewCell: UICollectionViewCell {
     }
     
     func configureHeight(with height: Int){
+        //width 고정
+        mainView.translatesAutoresizingMaskIntoConstraints = false
+        //print("link collection cell width size")
+        print(UIScreen.main.bounds.size.width)
+        mainView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2 - 15).isActive = true
         richView.heightAnchor.constraint(equalToConstant: CGFloat(height)).isActive = true
     }
     
@@ -107,14 +113,6 @@ class LinkCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        //width 고정
-        mainView.translatesAutoresizingMaskIntoConstraints = false
-        print("link collection cell width size")
-        print(UIScreen.main.bounds.size.width)
-        mainView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2 - 5).isActive = true
-        
-        // Initialization code
     }
     
     static func nib() -> UINib {

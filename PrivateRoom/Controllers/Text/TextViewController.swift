@@ -224,10 +224,14 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     
     @objc func didTapFloatingButton(){
         let makeFolderView = self.storyboard?.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
-        makeFolderView.modalPresentationStyle = .overCurrentContext
+        
         
         makeFolderAlertView.type_dropDown.dataSource = ["텍스트"]
-        self.present(makeFolderView, animated: true, completion: nil)
+        
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.pushViewController(makeFolderView, animated: true)
+//        makeFolderView.modalPresentationStyle = .overCurrentContext
+//        self.present(makeFolderView, animated: true, completion: nil)
     }
     
     func textFieldSetting(textField: UITextField){

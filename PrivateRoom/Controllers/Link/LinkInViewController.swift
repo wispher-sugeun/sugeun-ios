@@ -41,6 +41,10 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         }
         more_dropDown.clearSelection()
     }
+    
+    var screenSize: CGRect!
+    var screenWidth: CGFloat!
+    var screenHeight: CGFloat!
 
     let refreshControl = UIRefreshControl()
     let cellSpacingHeight: CGFloat = 10
@@ -124,6 +128,17 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     
     var folderId: Int = 0
     
+    var emptyView: UIView {
+        let emptyView = UIView(frame: self.view.bounds)
+        //emptyView.backgroundColor = .red
+        let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width:view.bounds.size.width, height: linkCellHeight.constant))
+        noDataLabel.text = "폴더 안에 데이터가 아직 존재하지 않습니다"
+        noDataLabel.textColor = UIColor.systemGray2
+        noDataLabel.textAlignment = .center
+        emptyView.addSubview(noDataLabel)
+        return emptyView
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         isShowFloating = false
         getData()
@@ -132,6 +147,10 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
+        
+        screenSize = UIScreen.main.bounds
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
         buttonSetting()
         textFieldSetting(textField: searchTextField)
         tapGestureSetting()
@@ -159,11 +178,12 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
             if(total?.folderResDTOList?.count != 0 ){
                 print("here folderCollectionView no Hidden")
                 folderCollectionView.isHidden = false
-                /// cell + 50(margin)
-                if(total?.folderResDTOList!.count == 1){
-                    footerViewheight.constant = CGFloat(oneLinkCellHeight + 50)
+                /// cell + 70(margin)
+                if((total?.folderResDTOList!.count)! <= 2){
+                    footerViewheight.constant = CGFloat(oneLinkCellHeight + 50 + 20)
                 }else{
-                    footerViewheight.constant = CGFloat(oneLinkCellHeight * (((total?.folderResDTOList!.count)! / 2) + 1) + 50)
+                    let count = ((total?.folderResDTOList!.count)! / 2) + 1
+                    footerViewheight.constant = CGFloat((oneLinkCellHeight * count) + 50 + 20)
                     
                 }
                 
@@ -188,11 +208,12 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
                 FrameCollectionView.isHidden = false
                 //cell 높이 다시 그리기
                 
-                if(total?.linkResDTOList!.count == 1){
-                    /// cell + 100(margin) + headerView height
+                if((total?.linkResDTOList!.count)! <= 2){
+                    /// cell + 100(margin) + headerView height -> 한줄
                     linkCellHeight.constant = CGFloat(oneLinkCellHeight + 100 + 70)
                 }else{
-                    linkCellHeight.constant = CGFloat(oneLinkCellHeight * (((total?.linkResDTOList!.count)! / 2) + 1) + 100 + 70)
+                    let count = ((total?.linkResDTOList!.count)! / 2) + 1
+                    linkCellHeight.constant = CGFloat((oneLinkCellHeight * count) + 100 + 70 + 40) ////<- top margin
                 }
                 
                 self.FrameCollectionView.reloadData()
@@ -200,18 +221,33 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
                 
             }else{
                 print("here FrameCollectionView hidden")
-                FrameCollectionView.isHidden = true
+                //FrameCollectionView.isHidden = true
+                
+                if(FrameCollectionView.isHidden == false && folderCollectionView.isHidden == true){
+                    print("here")
+                    linkCellHeight.constant = self.view.frame.height - 200
+                    FrameCollectionView.addSubview(emptyView)
+                }else {
+                    emptyView.removeFromSuperview()
+                }
             }
+            
+            
         }
     }
     
     func fetchData(folderId: Int){
         FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
             self.total = response
-            self.linkCell = response.linkResDTOList!
-            self.mainViewModel = self.linkFolder.map{ return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "LINK"))}
-            self.filteredLinkFolder = self.mainViewModel
-            self.filteredLinkCell = self.linkCell
+            self.getData()
+//            self.linkCell = response.linkResDTOList!
+//            self.mainViewModel = self.linkFolder.map{ return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "LINK"))}
+//            self.filteredLinkFolder = self.mainViewModel
+//            self.filteredLinkCell = self.linkCell
+//
+//            DispatchQueue.main.async {
+//                FrameCollectionView.reloadData()
+//            }
         }, errorHandler: { (response) in})
     }
     
@@ -246,11 +282,31 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     func collectionViewSetting(){
         FrameCollectionView.delegate = self
         FrameCollectionView.dataSource = self
+        
+        FrameCollectionView.collectionViewLayout = CollectionViewLeftAlignFlowLayout()
+        if let flowLayout = FrameCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+                    flowLayout.itemSize = CGSize(width: screenWidth / 2, height: screenWidth / 2)
+                    flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+                    flowLayout.minimumInteritemSpacing = 0
+                    flowLayout.minimumLineSpacing = 0
+                  }
+
         folderCollectionView.dataSource = self
         folderCollectionView.delegate = self
+        
+        folderCollectionView.collectionViewLayout = CollectionViewLeftAlignFlowLayout()
+        if let flowLayout = folderCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+                    flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+            flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 10)
+            flowLayout.minimumInteritemSpacing = 0
+            flowLayout.minimumLineSpacing = 0
+                  }
+        
+      
+        
         FrameCollectionView.register(LinkCollectionViewCell.nib(), forCellWithReuseIdentifier: LinkCollectionViewCell.identifier)
         folderCollectionView.register(FolderCollectionViewCell.nib(), forCellWithReuseIdentifier: FolderCollectionViewCell.identifier)
-        print(FrameCollectionView.fs_height)
+        
        
     }
  
@@ -340,8 +396,10 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     @objc func didTapWriteButton(){
         let wirteVc = self.storyboard?.instantiateViewController(identifier: "makeLinkCell") as! MakeLinkViewController
         wirteVc.folderId = folderId
-        wirteVc.modalPresentationStyle = .fullScreen
-        self.present(wirteVc, animated: true, completion: nil)
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.pushViewController(wirteVc, animated: true)
+//        wirteVc.modalPresentationStyle = .fullScreen
+//        self.present(wirteVc, animated: true, completion: nil)
 
     }
     
@@ -350,8 +408,10 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         let makeFolderView = storyBoard.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
         makeFolderAlertView.type_dropDown.dataSource = ["링크"]
         makeFolderView.parentFolderId = folderId
-        makeFolderView.modalPresentationStyle = .overCurrentContext
-        self.present(makeFolderView, animated: true, completion: nil)
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.pushViewController(makeFolderView, animated: true)
+//        makeFolderView.modalPresentationStyle = .overCurrentContext
+//        self.present(makeFolderView, animated: true, completion: nil)
     }
     
     func textFieldSetting(textField: UITextField){
@@ -461,16 +521,6 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
        
     }
 
-    
-    func image( _ image:UIImage, withSize newSize:CGSize) -> UIImage {
-
-        UIGraphicsBeginImageContext(newSize)
-        image.draw(in: CGRect(x: 0,y: 0,width: newSize.width,height: newSize.height))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!.withRenderingMode(.automatic)
-    }
-    
     
 //    @objc func folderImageChanged(_ notification: NSNotification){
 //        //text ~~
@@ -602,7 +652,7 @@ extension LinkInViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LinkCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching {
+extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, LinkCollectionViewCellDelegate {
    
     func bookmark(cell: LinkCollectionViewCell) {
         LinkService.shared.linkBookMark(linkId: linkCell[cell.indexPath!.row].linkId)
@@ -632,8 +682,11 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 wirteVc.folderId = folderId
                 wirteVc.editMode = true
                 wirteVc.link = linkCell[cell.indexPath!.row]
-                wirteVc.modalPresentationStyle = .fullScreen
-                self.present(wirteVc, animated: true, completion: nil)
+                self.navigationController?.isNavigationBarHidden = true
+                self.navigationController?.pushViewController(wirteVc, animated: true)
+                
+//                wirteVc.modalPresentationStyle = .fullScreen
+//                self.present(wirteVc, animated: true, completion: nil)
                 
             }else if(index == 1) { // 링크 삭제
                 self.alertWithNoViewController(title: "링크 삭제", message: "링크를 삭제 하시겠습니까?", completion: { (response) in
@@ -656,10 +709,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             }
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        
-    }
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(collectionView == FrameCollectionView) {
@@ -679,6 +729,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             urlString = urlString.replacingOccurrences(of: " ", with: "")
 
             let url = URL(string: urlString)
+            cell.title.text = filteredLinkCell[indexPath.row].title
             cell.fetchURLPreview(url: url!)
             cell.linkLabel.text = urlString
             if(filteredLinkCell[indexPath.row].bookmark) {
@@ -732,45 +783,42 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if(collectionView == folderCollectionView) {
-            let frameSize = collectionView.frame.size
-            let size = (frameSize.width - 64.0) / 2.0
-            // 27 px on both side, and within, there is 10 px gap.
-            return CGSize(width: size, height: size)
-//            let width  = (view.frame.width-20)/3
-//            print("folderCollectionView width \(width)")
-//            return CGSize(width: width, height: width)
-            
-        }else if(collectionView == FrameCollectionView){
-            let width = FrameCollectionView.bounds.width
-            let height = FrameCollectionView.bounds.height
-            print("width : \(FrameCollectionView.bounds.width / 2)")
-            print("height : \(FrameCollectionView.bounds.height / 2)")
-            return CGSize(width: (width / 2) - 100, height: height)
-        }
-        
-        return CGSize(width: 0, height: 0)
-         
-       
-    }
-
-    //위 아래 라인 간격
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        if(collectionView == folderCollectionView) {
+//            let frameSize = collectionView.frame.size
+//            let size = (frameSize.width - 64.0) / 2.0
+//            // 27 px on both side, and within, there is 10 px gap.
+//            return CGSize(width: size, height: size)
+//
+//        }else if(collectionView == FrameCollectionView){
+//            let width = FrameCollectionView.bounds.width
+//            let height = FrameCollectionView.bounds.height
+//            print("width : \(FrameCollectionView.bounds.width / 2)")
+//            print("height : \(FrameCollectionView.bounds.height / 2)")
+//            return CGSize(width: (width / 2) - 5, height: height)
+//        }
+//
+//        return CGSize(width: 0, height: 0)
+//
+//
+//    }
+//
+//    //위 아래 라인 간격
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return 10
+//    }
     
-    //옆 라인 간격
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
-        
-    }
+//    //옆 라인 간격
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 10
+//
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if(collectionView == folderCollectionView){
             return UIEdgeInsets(top: 27, left: 0, bottom: 27, right: 0)
         }
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 10)
 
     }
     

@@ -63,7 +63,7 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
-        flowSetting()
+        //flowSetting()
         notUsedSorting()
         collectionView.reloadData()
         refreshing()
@@ -93,15 +93,15 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
         refreshControl.endRefreshing()
     }
     
-    func flowSetting(){
-        collectionView.collectionViewLayout = collectionViewLayout
-        collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
- 
-        collectionViewLayout.itemSize = CGSize(width: screenWidth / 2, height: screenWidth / 2)
-        collectionViewLayout.minimumInteritemSpacing = 0
-        collectionViewLayout.minimumLineSpacing = 0
-        
-    }
+//    func flowSetting(){
+//        collectionView.collectionViewLayout = collectionViewLayout
+//        collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+//
+//        collectionViewLayout.itemSize = CGSize(width: screenWidth / 2, height: screenWidth / 2)
+//        collectionViewLayout.minimumInteritemSpacing = 0
+//        collectionViewLayout.minimumLineSpacing = 0
+//
+//    }
     
     func floatingButtonSetting(_: UIButton){
         floatingButton.circle()
@@ -129,9 +129,15 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
         collectionView.allowsSelection = true
         collectionView.isUserInteractionEnabled = true
         
-        if let collectionViewLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        }
+        collectionView.collectionViewLayout = CollectionViewLeftAlignFlowLayout()
+        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                    flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+            flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 10)
+            flowLayout.minimumInteritemSpacing = 0
+            flowLayout.minimumLineSpacing = 0
+            flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+//            flowLayout.itemSize = CGSize(width: screenWidth / 2, height: screenWidth / 2)
+                  }
     }
     
     @objc func makeFolder(){
@@ -257,9 +263,10 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = filteredtimeOut[indexPath.row]
-        let viewNoti =  (self.storyboard?.instantiateViewController(identifier: "ViewNoti"))! as ViewNotiController
+        let viewNoti =  self.storyboard?.instantiateViewController(identifier: "ViewNoti") as! ViewNotiController
         viewNoti.titleString = cell!.title
         viewNoti.imageData = cell?.imageData
+        self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.pushViewController(viewNoti, animated: true)
 
     }
@@ -275,18 +282,18 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
 //    }
     
     //위 아래 라인 간격
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 50
-    }
-    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return 50
+//    }
+//
 //    //옆 라인 간격
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 //        return 1
 //    }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-           return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//           return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+//        }
     
     //for cell info and sort
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -347,8 +354,6 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 70))
         let headerLabel = UILabel(frame: CGRect(x: 20, y: 10, width: 300, height: 50))
 
-  
-        
         let nsHeaderTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold),
                                       NSAttributedString.Key.foregroundColor: UIColor.black]
         

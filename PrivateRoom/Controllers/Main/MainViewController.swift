@@ -19,7 +19,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     let refreshControl = UIRefreshControl()
     
-    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout! {
+    @IBOutlet weak var collectionViewLayout: CollectionViewLeftAlignFlowLayout! {
         didSet {
             collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         }
@@ -380,19 +380,29 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let folderType = folders[indexPath.row].type
         let folderId = folders[indexPath.row].folderId
         if(folderType == "PHRASE"){
-            guard let textVC = self.storyboard?.instantiateViewController(identifier: "textIn") as? TextInViewController else { return }
+            guard let textInVC = self.storyboard?.instantiateViewController(identifier: "textIn") as? TextInViewController else { return }
             FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
-                textVC.total = response
+                textInVC.total = response
+                textInVC.folderId = folderId
+                self.navigationController?.pushViewController(textInVC, animated: true)
             }, errorHandler: { (error) in})
-            self.navigationController?.pushViewController(textVC, animated: true)
             
         }else if(folderType == "LINK"){
             let storyBoard = UIStoryboard(name: "Link", bundle: nil)
             guard let linkVC = storyBoard.instantiateViewController(identifier: "linkFolderIn") as? LinkInViewController else { return }
-            FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
-                linkVC.total = response
-            }, errorHandler: { (error) in})
-            self.navigationController?.pushViewController(linkVC, animated: true)
+            DispatchQueue.global().async {
+                FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
+                    Thread.sleep(forTimeInterval: 2)
+                    linkVC.folderId = folderId
+                    linkVC.total = response
+                    //print("total isss \(response)")
+                    linkVC.getData()
+                }, errorHandler: { (error) in })
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(linkVC, animated: true)
+                }
+                
+            }
         }
        
     }
@@ -627,7 +637,8 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
     var parentFolderId: Int = 0
     
     func dissMiss() {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+        //self.dismiss(animated: true, completion: nil)
     }
     
     func done() {
@@ -648,7 +659,8 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
             let folderInfo = CreateFolderRequest(folderName: folderView.folderNameTextField.text!, userId: userId, type: type, parentFolderId: parentFolderId, imageFile: (folderView.folderImage.image?.jpeg(.lowest))!)
             print("parentFolderID : \(folderInfo)")
             FolderService.shared.createFolder(folder: folderInfo, errorHandler: { (error) in})
-            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
+            //self.dismiss(animated: true, completion: nil)
             
             
         } catch {
@@ -728,8 +740,8 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
         folderView.delegate = self
         type_dropDownSetting()
         makeFolderAlertView.type_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            print("선택한 아이템 : \(item)")
-            print("인덱스 : \(index)")
+//            print("선택한 아이템 : \(item)")
+//            print("인덱스 : \(index)")
             folderView.folderTypeButton.setTitle("\(item)", for: .normal)
             folderView.folderTypeButton.setTitleColor(UIColor.black, for: .normal)
             folderView.folderTypeButton.layer.borderWidth = 1
@@ -767,21 +779,29 @@ extension makeFolderAlertView: PHPickerViewControllerDelegate {
 
     }
 }
-//
-//extension UICollectionView {
-//    func getCellSize(numberOFItemsRowAt: Int, cellRatio: CGFloat) -> CGSize {
-//        var screenWidth = UIScreen.main.bounds.width
-//        if #available(iOS 11.0, *) {
-//            let window = UIApplication.shared.keyWindow
-//            let leftPadding = window?.safeAreaInsets.left ?? 0
-//            let rightPadding = window?.safeAreaInsets.right ?? 0
-//            screenWidth -= (leftPadding + rightPadding)
-//        }
-//        let cellWidth =  screenWidth / CGFloat(numberOFItemsRowAt)
-//        let cellHeight = cellWidth * cellRatio
-//        return CGSize(width: cellWidth, height: cellHeight)
-//    }
-//}
+
+
+class CollectionViewLeftAlignFlowLayout: UICollectionViewFlowLayout {
+    let cellSpacing: CGFloat = 10
+ 
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        self.minimumLineSpacing = 10.0
+        self.sectionInset = UIEdgeInsets(top: 12.0, left: 16.0, bottom: 0.0, right: 16.0)
+        let attributes = super.layoutAttributesForElements(in: rect)
+ 
+        var leftMargin = sectionInset.left
+        var maxY: CGFloat = -1.0
+        attributes?.forEach { layoutAttribute in
+            if layoutAttribute.frame.origin.y >= maxY {
+                leftMargin = sectionInset.left
+            }
+            layoutAttribute.frame.origin.x = leftMargin
+            leftMargin += layoutAttribute.frame.width + cellSpacing
+            maxY = max(layoutAttribute.frame.maxY, maxY)
+        }
+        return attributes
+    }
+}
 
 
 
