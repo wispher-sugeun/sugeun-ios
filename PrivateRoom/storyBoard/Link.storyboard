@@ -262,6 +262,7 @@
                         <outlet property="folderCollectionView" destination="hcb-Bj-6WC" id="vrN-pd-J0K"/>
                         <outlet property="footerViewheight" destination="Zdg-r9-5MA" id="Kp6-c1-rPa"/>
                         <outlet property="linkCellHeight" destination="iaC-Tc-4jk" id="DJo-BZ-gxW"/>
+                        <outlet property="navItem" destination="8um-uI-fG9" id="Ak8-E9-vDE"/>
                         <outlet property="scrollView" destination="x0Z-oJ-mVe" id="CwE-mh-2cK"/>
                         <outlet property="searchTextField" destination="h34-K9-qxn" id="gv6-bf-shs"/>
                         <outlet property="stackView" destination="dkZ-JH-H9S" id="tVf-mt-ayw"/>
@@ -328,7 +329,7 @@
                                         <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3md-a7-Sgm">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="5글자 이내로 입력해주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3md-a7-Sgm">
                                         <rect key="frame" x="40" y="99" width="234" height="26.5"/>
                                         <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>

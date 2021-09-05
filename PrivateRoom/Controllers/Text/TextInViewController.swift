@@ -14,6 +14,8 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     var folderId: Int = 0;
     
+    var folderName: String = ""
+    @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
     var selectedCellIndexPath = IndexPath()
@@ -33,7 +35,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
      
         frameTableView.reloadData()
         
-        if(textFolder.isEmpty){ // data가 없을때 footerview 없애기
+        if(textFolder.isEmpty && textCell.isEmpty){ // data가 없을때 footerview 없애기
             print("data no")
             frameTableView.tableFooterView = nil
             let noDataLabel: UILabel  = UILabel(frame: CGRect(x: 0, y: 0, width:frameTableView.bounds.size.width, height: frameTableView.bounds.size.height))
@@ -155,7 +157,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("here")
+        navItem.title = folderName
         buttonSetting()
         textFieldSetting(textField: searchTextField)
         tapGestureSetting()
@@ -350,8 +352,9 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         let makeFolderView = storyBoard.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
         makeFolderAlertView.type_dropDown.dataSource = ["텍스트"]
         makeFolderView.parentFolderId = folderId
-        makeFolderView.modalPresentationStyle = .overCurrentContext
-        self.present(makeFolderView, animated: true, completion: nil)
+        self.navigationController?.pushViewController(makeFolderView, animated: true)
+//        makeFolderView.modalPresentationStyle = .overCurrentContext
+//        self.present(makeFolderView, animated: true, completion: nil)
     }
     
     func textFieldSetting(textField: UITextField){

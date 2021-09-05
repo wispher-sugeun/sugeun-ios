@@ -433,6 +433,7 @@
                         <outlet property="footer" destination="NPp-CW-qBx" id="TSH-iR-Oaf"/>
                         <outlet property="frameTableView" destination="DoE-VD-nPG" id="t8o-iS-aqQ"/>
                         <outlet property="header" destination="ttR-b1-uU4" id="1KC-XA-s3n"/>
+                        <outlet property="navItem" destination="Yp9-uS-LHf" id="TVW-gX-J4Z"/>
                         <outlet property="scrollView" destination="UAu-Rx-kQQ" id="KAy-2Z-2hI"/>
                         <outlet property="searchTextField" destination="MJJ-RQ-Z33" id="WSv-gY-IVI"/>
                         <outlet property="tableViewHeight" destination="GEs-1Y-fxL" id="ofV-Zt-wn7"/>

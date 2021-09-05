@@ -274,8 +274,6 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         makeFolderAlertView.type_dropDown.dataSource = ["링크"]
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.pushViewController(makeFolderView, animated: true)
-//        makeFolderView.modalPresentationStyle = .overCurrentContext
-//        self.present(makeFolderView, animated: true, completion: nil)
     }
     
 
@@ -337,7 +335,7 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 Thread.sleep(forTimeInterval: 2)
                 linkVC.folderId = folderId
                 linkVC.total = response
-                //print("total isss \(response)")
+                linkVC.folderName = self.filteredLink[indexPath.row].folderName
                 linkVC.getData()
             }, errorHandler: { (error) in })
             DispatchQueue.main.async {

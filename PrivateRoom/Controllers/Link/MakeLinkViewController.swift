@@ -7,6 +7,12 @@
 
 import UIKit
 
+enum MakeLinkError: Error {
+    case nolinkTitle
+    case nolink
+    case linkTitleName
+}
+
 class MakeLinkViewController: UIViewController {
 
     @IBOutlet weak var linkMainView: UIView!
@@ -24,9 +30,10 @@ class MakeLinkViewController: UIViewController {
     }
     
     @IBAction func doneButton(_ sender: Any) {
-        let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID)
         
-        if(validateing()){
+        let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID)
+        do {
+            try validate()
             if(editMode == true){ //수정에서 넘어온 뷰
                 let updateLink = UpdateLinkRequest(userId: userId, linkId: link!.linkId, folderId: folderId, title: linkTitleTextField.text!, link: linkTextView.text, bookmark: (link?.bookmark)!)
                 LinkService.shared.updateLink(folderId: folderId, linkId: link!.linkId, link: updateLink)
@@ -40,7 +47,6 @@ class MakeLinkViewController: UIViewController {
                 })
                 
             }else { // 생성뷰
-                if(createValidating()){
                     let linkRequest = CreateLinkRequest(userId: userId, folderId: folderId, title: linkTitleTextField.text!, link: linkTextView.text!, bookmark: false)
                     print(linkRequest)
                     LinkService.shared.createLink(folderId: folderId, linkRequest: linkRequest)
@@ -53,32 +59,46 @@ class MakeLinkViewController: UIViewController {
                         }
                     })
                     
-                } else {
-                    self.alertViewController(title: "생성 실패", message: "빈칸을 채워주세요", completion: { (response) in
-                        }
-                    )
                 }
+
+        }catch {
+            var errorMessage: String = ""
+            switch error as! MakeLinkError {
+                case .nolinkTitle:
+                    errorMessage = "링크 이름을 입력해주세요"
+                case .nolink:
+                    errorMessage = "링크를 입력해주세요"
+                case .linkTitleName:
+                    errorMessage = "5글자 이내로 링크 이름을 지어주세요"
             }
+            
+            self.alertViewController(title: "생성 실패", message: errorMessage, completion: { (response) in
+                
+            })
         }
     }
+        
+        
+       
     
-    func validateing() -> Bool {
-        if(folderId == 0){
-            return false
-        }
-        return true
-    }
-    
-    func createValidating() -> Bool {
-        if(linkTitleTextField.text == "" || linkTextView.text == "" || linkTextView.text == "링크 입력") {
-            return false
+    func validate() throws {
+        
+        guard (linkTitleTextField.text!.count < 5) else {
+            throw MakeLinkError.linkTitleName
         }
         
-        if(folderId == 0){
-            return false
+        guard (linkTitleTextField.text!) != "" else {
+            throw MakeLinkError.nolinkTitle
         }
-        return true
+        
+        guard ((linkTextView.text!) != "" && linkTextView.text != "링크 입력") else {
+            throw MakeLinkError.nolink
+        }
+
+        
+
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

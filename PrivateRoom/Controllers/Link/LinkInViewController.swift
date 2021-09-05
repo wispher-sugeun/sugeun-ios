@@ -46,6 +46,9 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     var screenWidth: CGFloat!
     var screenHeight: CGFloat!
 
+    
+    var folderName: String = ""
+    
     let refreshControl = UIRefreshControl()
     let cellSpacingHeight: CGFloat = 10
     
@@ -88,6 +91,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     
     var isShowFloating: Bool = false
     
+    @IBOutlet weak var navItem: UINavigationItem!
     
     let linkCell_dropDown: DropDown = {
         let dropDown = DropDown()
@@ -141,13 +145,12 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         isShowFloating = false
+        
         getData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("viewDidLoad")
-        
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
@@ -234,6 +237,9 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
             
             
         }
+        
+        navItem.title = folderName
+        print("title : \(navItem.title)")
     }
     
     func fetchData(folderId: Int){
@@ -410,8 +416,6 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         makeFolderView.parentFolderId = folderId
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.pushViewController(makeFolderView, animated: true)
-//        makeFolderView.modalPresentationStyle = .overCurrentContext
-//        self.present(makeFolderView, animated: true, completion: nil)
     }
     
     func textFieldSetting(textField: UITextField){

@@ -61,6 +61,8 @@
 		8E76239626E4B9C700AE76D5 /* TextBookMarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E76239426E4B9C700AE76D5 /* TextBookMarkTableViewCell.xib */; };
 		8E76239926E4B9F900AE76D5 /* LinkBookMarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76239726E4B9F800AE76D5 /* LinkBookMarkTableViewCell.swift */; };
 		8E76239A26E4B9F900AE76D5 /* LinkBookMarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E76239826E4B9F900AE76D5 /* LinkBookMarkTableViewCell.xib */; };
+		8E76239C26E4D43B00AE76D5 /* Phrase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E76239B26E4D43B00AE76D5 /* Phrase.storyboard */; };
+		8E76239E26E4D7B000AE76D5 /* makeFolderAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76239D26E4D7B000AE76D5 /* makeFolderAlertView.swift */; };
 		8E782AD02647D3A400D93D89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E782ACF2647D3A400D93D89 /* AppDelegate.swift */; };
 		8E782AD22647D3A400D93D89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E782AD12647D3A400D93D89 /* SceneDelegate.swift */; };
 		8E782AD42647D3A400D93D89 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E782AD32647D3A400D93D89 /* ViewController.swift */; };
@@ -197,6 +199,8 @@
 		8E76239426E4B9C700AE76D5 /* TextBookMarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextBookMarkTableViewCell.xib; sourceTree = "<group>"; };
 		8E76239726E4B9F800AE76D5 /* LinkBookMarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkBookMarkTableViewCell.swift; sourceTree = "<group>"; };
 		8E76239826E4B9F900AE76D5 /* LinkBookMarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LinkBookMarkTableViewCell.xib; sourceTree = "<group>"; };
+		8E76239B26E4D43B00AE76D5 /* Phrase.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Phrase.storyboard; sourceTree = "<group>"; };
+		8E76239D26E4D7B000AE76D5 /* makeFolderAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = makeFolderAlertView.swift; sourceTree = "<group>"; };
 		8E782ACC2647D3A400D93D89 /* PrivateRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrivateRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E782ACF2647D3A400D93D89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E782AD12647D3A400D93D89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -319,6 +323,7 @@
 				8ED94266269D844900B860BF /* MakeFolder.xib */,
 				8ED94268269D85C700B860BF /* MakeFolder.swift */,
 				8EE69D6326484B4F00ED19B9 /* MainViewController.swift */,
+				8E76239D26E4D7B000AE76D5 /* makeFolderAlertView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -507,6 +512,7 @@
 				8EA90B7B26C2541800469964 /* Calendar.storyboard */,
 				8E1496C026C39584002090CA /* Timeout.storyboard */,
 				8EB54A7A26CA7592009C7F7C /* Link.storyboard */,
+				8E76239B26E4D43B00AE76D5 /* Phrase.storyboard */,
 			);
 			path = storyBoard;
 			sourceTree = "<group>";
@@ -704,6 +710,7 @@
 				8E2B834926A42DB200AC2570 /* TimeOutCollectionViewCell.xib in Resources */,
 				8E2B834526A41FFA00AC2570 /* MakeNotiFolderView.xib in Resources */,
 				8EB54A7B26CA7592009C7F7C /* Link.storyboard in Resources */,
+				8E76239C26E4D43B00AE76D5 /* Phrase.storyboard in Resources */,
 				8E003BD8264FB92700CB5802 /* FolderCollectionViewCell.xib in Resources */,
 				8EF3BFAF268F678D00415150 /* Login.storyboard in Resources */,
 				8E2B835926AD2C9000AC2570 /* TextCellTableViewCell.xib in Resources */,
@@ -781,6 +788,7 @@
 				8E70C1C4269199A6006F1D2C /* ProfileEditViewController.swift in Sources */,
 				8EE69D6A26484B9900ED19B9 /* LinkViewController.swift in Sources */,
 				8E76239526E4B9C700AE76D5 /* TextBookMarkTableViewCell.swift in Sources */,
+				8E76239E26E4D7B000AE76D5 /* makeFolderAlertView.swift in Sources */,
 				8E0A5BEA26DA575200B14118 /* UpdateLinkRequest.swift in Sources */,
 				8E76239926E4B9F900AE76D5 /* LinkBookMarkTableViewCell.swift in Sources */,
 				8E782ADA2647D3A400D93D89 /* PrivateRoom.xcdatamodeld in Sources */,
