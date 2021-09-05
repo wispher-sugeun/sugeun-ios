@@ -125,10 +125,10 @@
                                 <action selector="doneButton:" destination="-1" eventType="touchUpInside" id="02w-zc-hsm"/>
                             </connections>
                         </button>
-                        <datePicker contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="P3G-aC-HMC">
+                        <datePicker contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="P3G-aC-HMC">
                             <rect key="frame" x="0.0" y="548" width="400" height="60"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="P3G-aC-HMC" secondAttribute="height" multiplier="10:1.5" id="bDB-tg-uPz"/>
+                                <constraint firstAttribute="height" constant="60" id="12p-vE-HSQ"/>
                             </constraints>
                         </datePicker>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기간 :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N6R-Di-VAq">

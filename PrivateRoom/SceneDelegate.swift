@@ -17,7 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         self.window = UIWindow(windowScene: windowScene)
-        if(UserDefaults.standard.string(forKey: UserDefaultKey.isNewUser) == "1") {
+        if(UserDefaults.standard.string(forKey: UserDefaultKey.isNewUser) == "1" && UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken) != nil) {
+            print("자동 로그인 성공 -> 메인 화면으로 이동")
             //자동 로그인 성공 -> 메인 화면으로 이동
             guard let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "VC") as? ViewController else {
                 print("can not find mainVC")
@@ -32,6 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window!.makeKeyAndVisible()
             
         }else {
+            print("jwtToken과 isNewUser 정보가 없어 로그인 뷰로 이동")
             let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
             guard let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {
                 print("can not find loginNavC")

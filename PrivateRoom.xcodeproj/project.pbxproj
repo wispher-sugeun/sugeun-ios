@@ -57,6 +57,10 @@
 		8E70C1C4269199A6006F1D2C /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E70C1C3269199A6006F1D2C /* ProfileEditViewController.swift */; };
 		8E70C1C82691A581006F1D2C /* IDInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E70C1C62691A581006F1D2C /* IDInputTableViewCell.swift */; };
 		8E70C1C92691A581006F1D2C /* IDInputTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E70C1C72691A581006F1D2C /* IDInputTableViewCell.xib */; };
+		8E76239526E4B9C700AE76D5 /* TextBookMarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76239326E4B9C700AE76D5 /* TextBookMarkTableViewCell.swift */; };
+		8E76239626E4B9C700AE76D5 /* TextBookMarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E76239426E4B9C700AE76D5 /* TextBookMarkTableViewCell.xib */; };
+		8E76239926E4B9F900AE76D5 /* LinkBookMarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76239726E4B9F800AE76D5 /* LinkBookMarkTableViewCell.swift */; };
+		8E76239A26E4B9F900AE76D5 /* LinkBookMarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E76239826E4B9F900AE76D5 /* LinkBookMarkTableViewCell.xib */; };
 		8E782AD02647D3A400D93D89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E782ACF2647D3A400D93D89 /* AppDelegate.swift */; };
 		8E782AD22647D3A400D93D89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E782AD12647D3A400D93D89 /* SceneDelegate.swift */; };
 		8E782AD42647D3A400D93D89 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E782AD32647D3A400D93D89 /* ViewController.swift */; };
@@ -189,6 +193,10 @@
 		8E70C1C3269199A6006F1D2C /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		8E70C1C62691A581006F1D2C /* IDInputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDInputTableViewCell.swift; sourceTree = "<group>"; };
 		8E70C1C72691A581006F1D2C /* IDInputTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IDInputTableViewCell.xib; sourceTree = "<group>"; };
+		8E76239326E4B9C700AE76D5 /* TextBookMarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBookMarkTableViewCell.swift; sourceTree = "<group>"; };
+		8E76239426E4B9C700AE76D5 /* TextBookMarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextBookMarkTableViewCell.xib; sourceTree = "<group>"; };
+		8E76239726E4B9F800AE76D5 /* LinkBookMarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkBookMarkTableViewCell.swift; sourceTree = "<group>"; };
+		8E76239826E4B9F900AE76D5 /* LinkBookMarkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LinkBookMarkTableViewCell.xib; sourceTree = "<group>"; };
 		8E782ACC2647D3A400D93D89 /* PrivateRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrivateRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E782ACF2647D3A400D93D89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E782AD12647D3A400D93D89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -399,6 +407,17 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		8E76239226E4B9A600AE76D5 /* BookMark */ = {
+			isa = PBXGroup;
+			children = (
+				8E76239326E4B9C700AE76D5 /* TextBookMarkTableViewCell.swift */,
+				8E76239426E4B9C700AE76D5 /* TextBookMarkTableViewCell.xib */,
+				8E76239726E4B9F800AE76D5 /* LinkBookMarkTableViewCell.swift */,
+				8E76239826E4B9F900AE76D5 /* LinkBookMarkTableViewCell.xib */,
+			);
+			path = BookMark;
+			sourceTree = "<group>";
+		};
 		8E782AC32647D3A400D93D89 = {
 			isa = PBXGroup;
 			children = (
@@ -527,6 +546,7 @@
 		8EF3BFA2268F5FC300415150 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				8E76239226E4B9A600AE76D5 /* BookMark */,
 				8E003BD6264FB92700CB5802 /* FolderCollectionViewCell.xib */,
 				8E003BD5264FB92700CB5802 /* FolderCollectionViewCell.swift */,
 				8E70C1C72691A581006F1D2C /* IDInputTableViewCell.xib */,
@@ -679,6 +699,7 @@
 				8E66D21D269F45EE00F48C26 /* DateAddTableViewCell.xib in Resources */,
 				8E66D221269F460000F48C26 /* DateTimeTableViewCell.xib in Resources */,
 				8E66D20F269EE55500F48C26 /* CalendarTableViewCell.xib in Resources */,
+				8E76239A26E4B9F900AE76D5 /* LinkBookMarkTableViewCell.xib in Resources */,
 				8ED94267269D844900B860BF /* MakeFolder.xib in Resources */,
 				8E2B834926A42DB200AC2570 /* TimeOutCollectionViewCell.xib in Resources */,
 				8E2B834526A41FFA00AC2570 /* MakeNotiFolderView.xib in Resources */,
@@ -691,6 +712,7 @@
 				8E782ADC2647D3AC00D93D89 /* Assets.xcassets in Resources */,
 				8E70C1C92691A581006F1D2C /* IDInputTableViewCell.xib in Resources */,
 				8E1496C126C39584002090CA /* Timeout.storyboard in Resources */,
+				8E76239626E4B9C700AE76D5 /* TextBookMarkTableViewCell.xib in Resources */,
 				8EA90B7C26C2541800469964 /* Calendar.storyboard in Resources */,
 				8E66D219269F45D300F48C26 /* TitleAddTableViewCell.xib in Resources */,
 				8E782AD72647D3A400D93D89 /* Main.storyboard in Resources */,
@@ -758,7 +780,9 @@
 				8EF3BFAA268F641300415150 /* CalendarViewController.swift in Sources */,
 				8E70C1C4269199A6006F1D2C /* ProfileEditViewController.swift in Sources */,
 				8EE69D6A26484B9900ED19B9 /* LinkViewController.swift in Sources */,
+				8E76239526E4B9C700AE76D5 /* TextBookMarkTableViewCell.swift in Sources */,
 				8E0A5BEA26DA575200B14118 /* UpdateLinkRequest.swift in Sources */,
+				8E76239926E4B9F900AE76D5 /* LinkBookMarkTableViewCell.swift in Sources */,
 				8E782ADA2647D3A400D93D89 /* PrivateRoom.xcdatamodeld in Sources */,
 				8E2B835126A7E9D800AC2570 /* LinkCollectionViewCell.swift in Sources */,
 				8E1496C326C39616002090CA /* ViewNotiController.swift in Sources */,

@@ -171,7 +171,7 @@ class FolderService {
     }
     
     //폴더 생성 o
-    func createFolder(folder: CreateFolderRequest, errorHandler: @escaping (Int) -> (Void)){
+    func createFolder(folder: CreateFolderRequest, completion: @escaping (Bool) -> (Void), errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/users/\(userId)/folders"
         
         let headers: HTTPHeaders = [
@@ -216,6 +216,7 @@ class FolderService {
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)")
+                    completion(true)
                     break
                 case .failure(let error):
                     if let httpStatusCode = response.response?.statusCode {

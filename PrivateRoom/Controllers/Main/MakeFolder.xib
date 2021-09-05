@@ -54,9 +54,10 @@
                             </userDefinedRuntimeAttributes>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4NV-AM-3zC">
-                            <rect key="frame" x="182" y="20.5" width="20" height="19"/>
+                            <rect key="frame" x="172" y="20.5" width="30" height="29"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="4NV-AM-3zC" secondAttribute="height" multiplier="1:1" id="zQU-yg-Kt0"/>
+                                <constraint firstAttribute="width" constant="30" id="HVt-zA-2Fj"/>
+                                <constraint firstAttribute="height" constant="30" id="VCW-1W-5TI"/>
                             </constraints>
                             <color key="tintColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" backgroundImage="xmark.circle.fill" catalog="system"/>

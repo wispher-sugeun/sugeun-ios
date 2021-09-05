@@ -85,14 +85,14 @@ class TextCellTableViewCell: UITableViewCell {
         let year = date.year
         let month = date.month
         let day = date.day
-        let weekDay: String = getWeekDay(atYear: year, atMonth: month, atDay: day)
+        let weekDay: String = TextCellTableViewCell.getWeekDay(atYear: year, atMonth: month, atDay: day)
         
         labelText.text =  model.text
         dateLabel.text = "\(year)년 \(month)월 \(day)일 (\(weekDay))"
     }
     
     
-    func checkLeap(year: Int) -> Bool {
+    static func checkLeap(year: Int) -> Bool {
         var checkValue: Bool = false
         if year % 4 == 0 && (year % 100 != 0 || year % 400 == 0){
             checkValue = true
@@ -102,7 +102,7 @@ class TextCellTableViewCell: UITableViewCell {
         return checkValue
     }
     
-    func getWeekDay(atYear:Int, atMonth:Int, atDay:Int) -> String {
+    static func getWeekDay(atYear:Int, atMonth:Int, atDay:Int) -> String {
         
         let dayDay:[String] = ["일", "월", "화", "수", "목", "금", "토"]
         var returnValue: String = ""
@@ -124,7 +124,7 @@ class TextCellTableViewCell: UITableViewCell {
         return returnValue
     }
     
-    func endDayOfMonth(year: Int, month: Int) -> Int {
+    static func endDayOfMonth(year: Int, month: Int) -> Int {
         
         var endDay: Int = 0
         let inputMonth: Int = month

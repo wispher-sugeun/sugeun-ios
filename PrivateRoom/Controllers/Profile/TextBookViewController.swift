@@ -23,10 +23,18 @@ class TextBookViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableviewSetting()
+        // Do any additional setup after loading the view.
+    }
+    
+    func tableviewSetting(){
         textTableView.delegate = self
         textTableView.dataSource = self
-        textTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        // Do any additional setup after loading the view.
+        textTableView.register(TextBookMarkTableViewCell.nib(), forCellReuseIdentifier: TextBookMarkTableViewCell.identifier)
+
+        textTableView.rowHeight = UITableView.automaticDimension
+        textTableView.estimatedRowHeight = UITableView.automaticDimension
+        textTableView.allowsSelection = false
     }
     
 
@@ -34,21 +42,22 @@ class TextBookViewController: UIViewController {
 
 extension TextBookViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(bookmark.count)
         return bookmark.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-     
-        cell?.textLabel?.text = bookmark[indexPath.row].text
-        cell?.accessoryType = .disclosureIndicator
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: TextBookMarkTableViewCell.identifier) as! TextBookMarkTableViewCell
+        cell.configure(model: bookmark[indexPath.row])
+        return cell
     }
     
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(150)
+        return UITableView.automaticDimension
+
     }
+
     
     
 }

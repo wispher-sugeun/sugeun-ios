@@ -256,10 +256,10 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     @objc func makeFolder(){
         let makeFolderView = self.storyboard?.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
-        makeFolderAlertView.type_dropDown.dataSource = ["텍스트", "알림"]
-        //self.navigationController?.pushViewController(makeFolderView, animated: true)
-        makeFolderView.modalPresentationStyle = .overCurrentContext
-        self.present(makeFolderView, animated: true, completion: nil)
+        makeFolderAlertView.type_dropDown.dataSource = ["텍스트", "링크"]
+        self.navigationController?.pushViewController(makeFolderView, animated: true)
+//        makeFolderView.modalPresentationStyle = .overCurrentContext
+//        self.present(makeFolderView, animated: true, completion: nil)
     }
     
     func textFieldSetting(textfield: UITextField){
@@ -658,8 +658,16 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
             
             let folderInfo = CreateFolderRequest(folderName: folderView.folderNameTextField.text!, userId: userId, type: type, parentFolderId: parentFolderId, imageFile: (folderView.folderImage.image?.jpeg(.lowest))!)
             print("parentFolderID : \(folderInfo)")
-            FolderService.shared.createFolder(folder: folderInfo, errorHandler: { (error) in})
-            self.navigationController?.popViewController(animated: true)
+            FolderService.shared.createFolder(folder: folderInfo, completion: { (response) in
+                if(response == true){
+                    self.alertViewController(title: "폴더 생성 완료", message: "폴더가 생성되었습니다.", completion: { response in
+                        if(response == "OK"){
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    } )
+                }
+            }, errorHandler: { (error) in})
+           
             //self.dismiss(animated: true, completion: nil)
             
             

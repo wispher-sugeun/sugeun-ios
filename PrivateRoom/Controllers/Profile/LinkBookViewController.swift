@@ -22,10 +22,16 @@ class LinkBookViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableviewSetting()
+       
+    }
+    
+    func tableviewSetting(){
         linkTableView.delegate = self
         linkTableView.dataSource = self
-        linkTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-       
+        linkTableView.register(LinkBookMarkTableViewCell.nib(), forCellReuseIdentifier: LinkBookMarkTableViewCell.identifier)
+        linkTableView.rowHeight = UITableView.automaticDimension
+        linkTableView.estimatedRowHeight = UITableView.automaticDimension
     }
     
 
@@ -38,14 +44,30 @@ extension LinkBookViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        cell?.textLabel?.text = linkBookmark[indexPath.row].link
-        cell?.accessoryType = .disclosureIndicator
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: LinkBookMarkTableViewCell.identifier) as! LinkBookMarkTableViewCell
+        cell.configure(model: linkBookmark[indexPath.row])
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(150)
+        if(tableView == linkTableView){
+            return UITableView.automaticDimension
+        }
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var link = linkBookmark[indexPath.row].link
+        link = link.replacingOccurrences(of: " ", with: "")
+        print(link)
+        if let url = URL(string: link), UIApplication.shared.canOpenURL(url) {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     

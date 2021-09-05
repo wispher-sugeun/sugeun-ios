@@ -51,6 +51,7 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        self.navigationController?.isNavigationBarHidden = true
         fetchData()
     }
     
@@ -142,8 +143,9 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     
     @objc func makeFolder(){
         let makeNotiFolderView = self.storyboard?.instantiateViewController(identifier: "MakeNotiFolderViewController") as! MakeNotiFolderViewController
-        makeNotiFolderView.modalPresentationStyle = .overCurrentContext
-        self.present(makeNotiFolderView, animated: true, completion: nil)
+        self.navigationController?.pushViewController(makeNotiFolderView, animated: true)
+//        makeNotiFolderView.modalPresentationStyle = .overCurrentContext
+//        self.present(makeNotiFolderView, animated: true, completion: nil)
     }
     
     @objc func handleLongPress(gestureRecognizer : UILongPressGestureRecognizer){
@@ -205,8 +207,9 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 makeNotiFolderView.editMode = true
                 let editTimeoutCell = (cell.indexPath?[1])!
                 makeNotiFolderView.timeOut = timeOut[editTimeoutCell]
-                makeNotiFolderView.modalPresentationStyle = .overCurrentContext
-                self.present(makeNotiFolderView, animated: true, completion: nil)
+                self.navigationController?.pushViewController(makeNotiFolderView, animated: true)
+//                makeNotiFolderView.modalPresentationStyle = .overCurrentContext
+//                self.present(makeNotiFolderView, animated: true, completion: nil)
 
             }else if(index == 1){ // 사용 완료
                 if(cell.inValidView.isHidden == true){
@@ -518,7 +521,8 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
     var timeOut: GetTimeoutResponse?
     
     func dissMiss() {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+        //self.dismiss(animated: true, completion: nil)
     }
     
     func done() {
@@ -564,6 +568,13 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
                 }
                 notiManager.timeout()
                 
+                self.alertViewController(title: "수정 완료", message: "알림이 수정되었습니다", completion: { (response) in
+                    if(response == "OK"){
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    
+                })
+                
             }else {
                 let createTimoutRequest = CreateTimeoutRequest(userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: true, selected: intArray, imageFile: (makeNotiFolderView.imageView.image?.jpeg(.lowest))!)
                 
@@ -582,10 +593,15 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
                     }
                     notiManager.timeout()
                 })
+                self.alertViewController(title: "생성 완료", message: "알림이 생성되었습니다", completion: { (response) in
+                    if(response == "OK"){
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                })
             }
            
             
-            self.dismiss(animated: true, completion: nil)
+            
         }else {
             //alert to do
         }

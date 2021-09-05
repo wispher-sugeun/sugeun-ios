@@ -10,14 +10,14 @@ import Foundation
 
 class DateUtil {
     
-    static func parseDate(_ dateString: String) -> Date {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
-        formatter.calendar = Calendar(identifier: .iso8601)
-        formatter.locale = Locale(identifier: "ko_KR")
-
-        return formatter.date(from: dateString)!
-    }
+//    static func parseDate(_ dateString: String) -> Date {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy-MM-dd"
+//        formatter.calendar = Calendar(identifier: .iso8601)
+//        formatter.locale = Locale(identifier: "ko_KR")
+//
+//        return formatter.date(from: dateString)!
+//    }
     
     static func parseDateTime(_ dateString: String) -> Date {
         let formatter = DateFormatter()

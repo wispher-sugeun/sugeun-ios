@@ -169,7 +169,6 @@ class ViewController: UIViewController {
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
            
             if segue.identifier == "pageViewController" {
-                print("Connected")
                 
                 guard let vc = segue.destination as? PageViewController else {
                     print("return")

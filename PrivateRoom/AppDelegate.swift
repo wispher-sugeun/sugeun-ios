@@ -46,7 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
    //foreground에서 알림이 온 상태
    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
        // 푸시가 오면 alert, badge, sound표시를 하라는 의미
-    print("willPresent")
     completionHandler([.list, .sound, .badge, .banner])
    }
     
