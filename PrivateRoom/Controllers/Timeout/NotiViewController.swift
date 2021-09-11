@@ -9,6 +9,12 @@ import UIKit
 import DropDown
 import PhotosUI
 
+enum MakeTimeoutError: Error {
+    case noTimeoutTitle
+    case noTimeoutImage
+    case TimeoutTitleName
+}
+
 class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
 
     
@@ -526,8 +532,10 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
     }
     
     func done() {
-        
-        if(validate()){
+        do {
+            
+        try validate()
+ 
             print(makeNotiFolderView.nameTextField.text!)
  
             print(makeNotiFolderView.datePicker.date)
@@ -602,8 +610,20 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
            
             
             
-        }else {
-            //alert to do
+        }catch {
+            var errorMessage: String = ""
+            switch error as! MakeTimeoutError {
+            case .TimeoutTitleName:
+                errorMessage = "9글자 이내로 이름을 지어주세요"
+            case .noTimeoutImage:
+                errorMessage = "이미지를 선택해주세요"
+            case .noTimeoutTitle:
+                errorMessage = "폴더 이름을 입력해주세요"
+            }
+            
+            self.alertViewController(title: "생성 실패", message: errorMessage, completion: { (response) in
+                
+            })
         }
     }
     
@@ -629,11 +649,18 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
         self.present(picker, animated: true, completion: nil)
     }
     
-    func validate() -> Bool{
-        if makeNotiFolderView.nameTextField.text != "" {
-            return true
+    func validate() throws {
+        guard (makeNotiFolderView.nameTextField.text!.count < 9) else {
+            throw MakeTimeoutError.TimeoutTitleName
         }
-        return false
+        
+        guard (makeNotiFolderView.nameTextField.text != "") else {
+            throw MakeTimeoutError.noTimeoutTitle
+        }
+        
+        guard (makeNotiFolderView.imageView.image != nil) else {
+            throw MakeTimeoutError.noTimeoutImage
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

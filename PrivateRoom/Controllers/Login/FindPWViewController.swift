@@ -48,6 +48,8 @@ class FindPWViewController: UIViewController {
             UserLoginServices.shared.checkPhoneNumber(userId: userID, phoneNumber: phoneNumberTextField.text!, completed: { (response) in
                 if(response != 0){
                     self.authenCode = response
+                    let message = LocalNotificationManager()
+                    message.autheMessage(authenCode: self.authenCode)
                 }
             
             }, errorHandler: { (error ) in})

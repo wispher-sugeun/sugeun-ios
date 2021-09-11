@@ -75,6 +75,8 @@ class SignInViewController: UIViewController {
         let number = phoneNumberTextField.text?.phoneMake() // dash delete string
         UserLoginServices.shared.sendMessage(number: number!, completion: { (response) in
             self.autheCode = response
+            let messageNoti = LocalNotificationManager()
+            messageNoti.autheMessage(authenCode: self.autheCode)
         }, errorHandler:  { (error) in})
         //문자 보내기 성공시
         phoneNumberGuideText.isHidden = false

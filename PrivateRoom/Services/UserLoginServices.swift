@@ -124,7 +124,8 @@ class UserLoginServices {
                     print(type(of: obj))
                     completion(obj)
                     break
-            case .failure(_):
+            case .failure(let error):
+                print(error.localizedDescription)
                     errorHandler(500)
             }
         }

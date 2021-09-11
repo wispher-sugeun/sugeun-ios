@@ -40,6 +40,23 @@ class LocalNotificationManager {
         }
     }
     
+    func autheMessage(authenCode: Int){
+        let content      = UNMutableNotificationContent()
+        content.title    = "수근수근 인증번호"
+        content.subtitle = "인증번호는 \(authenCode)입니다."
+        content.sound    = .default
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        let request = UNNotificationRequest(identifier: "authenMessage", content: content, trigger: trigger)
+        print("set schedule \(request)")
+        UNUserNotificationCenter.current().add(request) { error in
+
+            guard error == nil else { return }
+
+            print("authenMessage = \(authenCode)")
+        }
+    }
+    
     func schedule()
     {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
@@ -92,9 +109,9 @@ class LocalNotificationManager {
         for notification in notifications
         {
             let content      = UNMutableNotificationContent()
-            content.title    = "(일정) 기간이 얼마 남지 않았습니다"
+            content.title    = "(일정📝) 기간이 얼마 남지 않았습니다"
             content.subtitle = notification.title
-            content.body = "\(notification.datetime.day!)전 입니다"
+            content.body = "\(notification.datetime.day!)일전 입니다"
             content.sound    = .default
 
             let trigger = UNCalendarNotificationTrigger(dateMatching: notification.datetime, repeats: false)
@@ -116,7 +133,7 @@ class LocalNotificationManager {
         for notification in notifications
         {
             let content      = UNMutableNotificationContent()
-            content.title    = "(기프티콘) 기간이 얼마 남지 않았습니다"
+            content.title    = "(기프티콘🎁) 기간이 얼마 남지 않았습니다"
             content.subtitle = notification.title
             content.body = "유효기간까지 \(notification.datetime.day!) 남았습니다"
             content.sound    = .default

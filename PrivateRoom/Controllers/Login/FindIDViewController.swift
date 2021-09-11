@@ -31,6 +31,8 @@ class FindIDViewController: UIViewController {
             sendMessageText.isHidden = false
             UserLoginServices.shared.sendMessage(number: number, completion: { (response) in
                 self.authenCode = response
+                let message = LocalNotificationManager()
+                message.autheMessage(authenCode: self.authenCode)
             }, errorHandler: { (error) in })
             
         }else{
