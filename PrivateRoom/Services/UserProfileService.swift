@@ -46,7 +46,7 @@ class UserProfileService {
                         let json = try JSONSerialization.data(withJSONObject: responses)
 
                         let response = try JSONDecoder().decode(GetProfileResponse?.self, from: json)
-                        print(response)
+                        print(response ?? "")
                         completion(response)  // userResDTO
                     }catch {
                         print(error)
@@ -178,7 +178,7 @@ class UserProfileService {
     
     
     //비밀번호 변경하기
-    func updateProfilePassword(password: String){
+    func updateProfilePassword(password: String, completion: @escaping (Bool) -> (Void)){
         let url = Config.base_url + "/users/\(userId)"
         
         
@@ -209,7 +209,7 @@ class UserProfileService {
                 case .success(let obj):
                     //let responses = obj as! String
                    print("success \(obj)") //비밀번호 변경 완료
-                    break
+                    completion(true)
                 case .failure(let error):
                     print(error)
             }

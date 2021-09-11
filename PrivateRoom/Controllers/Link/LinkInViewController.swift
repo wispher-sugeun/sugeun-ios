@@ -239,7 +239,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         }
         
         navItem.title = folderName
-        print("title : \(navItem.title)")
+        print("title : \(String(describing: navItem.title))")
     }
     
     func fetchData(folderId: Int){
@@ -879,7 +879,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
         
         
-       // return UICollectionReusableView()
+    return UICollectionReusableView()
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {

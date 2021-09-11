@@ -18,7 +18,7 @@ enum MakeFolderError: Error {
 
 class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFolderdelegate {
     var parentFolderId: Int = 0
-    
+    var defaultImage = UIImage(systemName: "questionmark.square")
     func dissMiss() {
         self.navigationController?.popViewController(animated: true)
         //self.dismiss(animated: true, completion: nil)
@@ -86,7 +86,7 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
         guard (folderView.folderNameTextField.text!) != "" else {
             throw MakeFolderError.folderName
         }
-        guard (folderView.folderImage.image != nil) else {
+        guard (folderView.folderImage.image != defaultImage) else {
             throw MakeFolderError.folderImage
         }
         

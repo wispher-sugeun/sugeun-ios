@@ -87,7 +87,7 @@ class TimeoutService {
                 case .success(let obj):
                     print("success : \(obj)")
                     print(type(of: obj))
-                    let responseID = obj as! String
+                    let responseID = obj 
                     completion(Int(responseID)!)
                     break
                 case .failure(let error):

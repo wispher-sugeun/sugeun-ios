@@ -45,7 +45,8 @@ class WriteViewController: UIViewController {
                         
                         let createPhrase = CreatePhraseRequest(userId: userId, folderId: self.folderId, text: self.textView.text!, bookmark: false, textDate: dateString)
                         PhraseService.shared.createPhrase(folderId: self.folderId, createRequest: createPhrase)
-                        self.navigationController?.popViewController(animated: true)
+                        self.navigationController?.popToRootViewController(animated: true)
+                        //self.navigationController?.popViewController(animated: true)
                     }
                                                 })
             }

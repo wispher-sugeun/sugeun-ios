@@ -40,9 +40,10 @@ class TextBookMarkTableViewCell: UITableViewCell {
         let year = date.year
         let month = date.month
         let day = date.day
-        let weekDay: String = TextCellTableViewCell.getWeekDay(atYear: year, atMonth: month, atDay: day)
-        
-        dateLabel.text = "\(year)년 \(month)월 \(day)일 (\(weekDay))"
+      
+        let week: [String] = ["일", "월", "화", "수", "목", "금", "토"]
+        let weekDay = Calendar.current.component(.weekday, from: date) - 1
+        dateLabel.text = "\(year)년 \(month)월 \(day)일 (\(week[weekDay]))"
         textView.text = model.text
         textView.isEditable = false
 

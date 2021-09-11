@@ -84,7 +84,7 @@ class SignInViewController: UIViewController {
     
     
     @IBAction func authenButton(_ sender: Any) {
-        print(" authenTextField.text \(authenTextField.text)")
+        print(" authenTextField.text \(String(describing: authenTextField.text))")
         print("authen Code \(autheCode)")
         
         if authenTextField.text == String(autheCode) {

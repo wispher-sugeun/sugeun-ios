@@ -55,8 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
    //push 온 경우 (보내는 쪽)
    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         print("receive")
-       //post
-       NotificationCenter.default.post(name: .alarm, object: nil)
+
     }
 
     // MARK: UISceneSession Lifecycle

@@ -17,7 +17,7 @@ enum MakeTimeoutError: Error {
 
 class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
 
-    
+    var defaultImage = UIImage(systemName: "questionmark.square")
     var timeOut = [GetTimeoutResponse?]()
     var filteredtimeOut = [GetTimeoutResponse?]()
     
@@ -522,7 +522,7 @@ extension NotiViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate {
-    
+    var defaultImage = UIImage(systemName: "questionmark.square")
     var editMode: Bool = false
     var timeOut: GetTimeoutResponse?
     
@@ -658,7 +658,7 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
             throw MakeTimeoutError.noTimeoutTitle
         }
         
-        guard (makeNotiFolderView.imageView.image != nil) else {
+        guard (makeNotiFolderView.imageView.image == defaultImage ) else {
             throw MakeTimeoutError.noTimeoutImage
         }
     }

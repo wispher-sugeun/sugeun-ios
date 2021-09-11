@@ -113,7 +113,10 @@ extension ProfileViewController : UITableViewDataSource, UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: true)
         }
         else if(indexPath.section == 1 && indexPath.row == 0){ // 알림 허용
-            performSegue(withIdentifier: "alarmSetting", sender: nil)
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url)
+            }
+            //performSegue(withIdentifier: "alarmSetting", sender: nil)
             tableView.deselectRow(at: indexPath, animated: true)
         }else if(indexPath.section == 1 && indexPath.row == 2){ // 로그아웃
             self.alertWithNoViewController(title: "로그아웃", message: "로그아웃 하시겠습니까?", completion: { (response) in

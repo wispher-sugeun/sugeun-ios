@@ -7,7 +7,7 @@
 
 import UIKit
 import JGProgressHUD
-import UserNotifications
+//import UserNotifications
 
 class LoginViewController: UIViewController {
 
@@ -51,7 +51,7 @@ class LoginViewController: UIViewController {
         
         let calendar = Calendar.current
         let timeDate = calendar.date(byAdding: .hour, value: 9, to: Date())
-        print("time date : \(timeDate)")
+        print("time date : \(String(describing: timeDate))")
         
         print(TimeZone.current.identifier)
         let date = DateFormatter()
@@ -61,27 +61,27 @@ class LoginViewController: UIViewController {
         print(date.string(from: Date()))
     }
     
-    private func sendLocalNotification(){
-        let content = UNMutableNotificationContent()
-        content.title = "test"
-        content.body = "푸시 알림 테스트 내용"
-        time()
-        print("now Date \(Date())")
-//        let date = Date().addingTimeInterval(32460)
-//        print(date)
-//        let dateComponents = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
-        let uuidString = UUID().uuidString
-        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-        
-//        unc.add(request) {
-//            (error) in
-//            print("error occured")
-//        }
-
-        
-    }
+//    private func sendLocalNotification(){
+//        let content = UNMutableNotificationContent()
+//        content.title = "test"
+//        content.body = "푸시 알림 테스트 내용"
+//        time()
+//        print("now Date \(Date())")
+////        let date = Date().addingTimeInterval(32460)
+////        print(date)
+////        let dateComponents = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)
+////        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+//        let uuidString = UUID().uuidString
+//        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+//
+////        unc.add(request) {
+////            (error) in
+////            print("error occured")
+////        }
+//
+//
+//    }
     
     @IBAction func signInButton(_ sender: Any) {
         performSegue(withIdentifier: "signin", sender: nil)

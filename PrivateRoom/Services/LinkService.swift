@@ -103,7 +103,7 @@ class LinkService {
             print("[LinkService] 링크 삭제하기")
             switch response.result {
                 case .success(let obj):
-                    let responses = obj as! String
+                    let responses = obj 
                    print(responses) //링크 삭제 완료
                     break
                 case .failure(let error):

@@ -268,15 +268,15 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
 
                 }else {
                     //비밀번호 반영
-                    alertDone(title: "변경 완료", message: "비밀번호가 정상적으로 변경 되었습니다. ", completionHandler: { response in
-                        if(response == "OK"){
-                            //UserService
-                            //update password with userInput
-                            UserProfileService.shared.updateProfilePassword(password: userInput)
+                    UserProfileService.shared.updateProfilePassword(password: userInput, completion: { (response) in
+                        if(response) {
                             print("비밀번호 \(userInput)으로 수정")
-                            
-                        }
-                    })
+                            alertDone(title: "변경 완료", message: "비밀번호가 정상적으로 변경 되었습니다. ", completionHandler: { response in
+                                }
+                            )}
+                    
+                        })
+                  
                 }
                 
             }
