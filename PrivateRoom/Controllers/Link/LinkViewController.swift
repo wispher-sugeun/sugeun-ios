@@ -8,6 +8,7 @@
 import UIKit
 import DropDown
 import PhotosUI
+import NVActivityIndicatorView
 
 class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
 
@@ -20,6 +21,10 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     private var mainViewModels = [FolderViewModel]()
 
+    let indicator = NVActivityIndicatorView(frame: CGRect(x: 162, y: 100, width: 50, height: 50),
+                                            type: .circleStrokeSpin,
+                                            color: .black,
+                                            padding: 0)
     
     var link = [GetByFolderResponse]()
     var filteredLink = [FolderViewModel]()
@@ -107,6 +112,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     }
     
     func fetchData(){
+        indicator.startAnimating()
         FolderService.shared.getLinkFolder(completion: { (response) in
             self.link = response
             self.mainViewModels = self.link.map ({ return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "LINK"))})
@@ -122,6 +128,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
                 })
             }
         })
+        indicator.stopAnimating()
     }
     
     override func viewDidLoad() {
@@ -129,6 +136,8 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
+        indicator.frame = CGRect(x: screenWidth/2, y: screenHeight/2, width: 50, height: 50)
+        view.addSubview(indicator)
         textFieldSetting(textField: searchTextField)
         collectionViewSetting()
         floatingButtonSetting(button: floatingButton)

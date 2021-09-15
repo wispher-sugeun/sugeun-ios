@@ -7,8 +7,7 @@
 
 import UIKit
 import FSCalendar
-
-//TO DO - edit
+import NVActivityIndicatorView
 
 protocol calendarViewDelegate: NSObject {
     func editButton()
@@ -17,6 +16,16 @@ protocol calendarViewDelegate: NSObject {
 class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
 
     let refreshControl = UIRefreshControl()
+    
+    var screenSize: CGRect!
+    var screenWidth: CGFloat!
+    var screenHeight: CGFloat!
+    
+    let indicator = NVActivityIndicatorView(frame: CGRect(x: 162, y: 100, width: 50, height: 50),
+                                            type: .circleStrokeSpin,
+                                            color: .black,
+                                            padding: 0)
+    
     @IBOutlet weak var calendar: FSCalendar!
     
     @IBOutlet weak var searchTextField: UITextField!
@@ -39,6 +48,7 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
     public var delegate: calendarViewDelegate?
     var schedule = [GetScheduleResponse]()
     var filtered = [GetScheduleResponse]()
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -46,15 +56,24 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func fetchData(){
+        indicator.startAnimating()
         ScheduleService.shared.getSchedule(completion: { (response) in
             self.schedule = response
             self.filtered = self.schedule
             self.tableView.reloadData()
         })
+        indicator.stopAnimating()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        screenSize = UIScreen.main.bounds
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
+        indicator.frame = CGRect(x: screenWidth/2, y: screenHeight/2, width: 50, height: 50)
+        view.addSubview(indicator)
+        
         calenderSetting()
         tableviewSetting()
         

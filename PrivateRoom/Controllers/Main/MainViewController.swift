@@ -8,6 +8,7 @@
 import UIKit
 import DropDown
 import PhotosUI
+import NVActivityIndicatorView
 
 class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
@@ -18,6 +19,11 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     var filteredFolder = [FolderViewModel]()
     
     let refreshControl = UIRefreshControl()
+    
+    let indicator = NVActivityIndicatorView(frame: CGRect(x: 162, y: 100, width: 50, height: 50),
+                                            type: .circleStrokeSpin,
+                                            color: .black,
+                                            padding: 0)
     
     @IBOutlet weak var collectionViewLayout: CollectionViewLeftAlignFlowLayout! {
         didSet {
@@ -110,6 +116,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     }
     
     func fetchData(){
+        indicator.startAnimating()
         FolderService.shared.getFolder(completion: { (response) in
             self.folders = response
             self.mainViewModels = self.folders.map({ return FolderViewModel(allFolder: $0)})
@@ -117,6 +124,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
             //print("get folders : \(self.filteredFolder)")
             self.folderCollectionView.reloadData()
         }, errorHandler: { (error) in})
+        indicator.stopAnimating()
     }
     
     
@@ -125,6 +133,8 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
+        indicator.frame = CGRect(x: screenWidth/2, y: screenHeight/2, width: 50, height: 50)
+        view.addSubview(indicator)
         
         collectionViewSetting(collectionView: folderCollectionView)
         

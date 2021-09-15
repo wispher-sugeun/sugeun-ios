@@ -8,7 +8,7 @@
 import UIKit
 import DropDown
 import PhotosUI
-
+import NVActivityIndicatorView
 
 class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     
@@ -23,6 +23,11 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     var screenHeight: CGFloat!
     
     let refreshControl = UIRefreshControl()
+    
+    let indicator = NVActivityIndicatorView(frame: CGRect(x: 162, y: 100, width: 50, height: 50),
+                                            type: .circleStrokeSpin,
+                                            color: .black,
+                                            padding: 0)
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true, completion: nil)
@@ -83,17 +88,21 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     }
     
     func fetchData(){
+        indicator.startAnimating()
         FolderService.shared.getPhraseFolder(completion: { (response) in
             self.textFolder = response
             self.mainViewModel = self.textFolder.map( { FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "PHRASE"))})
             self.filteredTextFolder = self.mainViewModel
             self.collectionView.reloadData()
         }, errorHandler: { (error) in})
+        indicator.stopAnimating()
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        indicator.frame = CGRect(x: screenWidth/2, y: screenHeight/2, width: 50, height: 50)
+        view.addSubview(indicator)
         buttonSetting(button: floatingButton)
         textFieldSetting(textField: searchTextField)
         collectionViewSetting()

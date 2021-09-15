@@ -8,6 +8,7 @@
 import UIKit
 import DropDown
 import PhotosUI
+import NVActivityIndicatorView
 
 enum MakeTimeoutError: Error {
     case noTimeoutTitle
@@ -33,6 +34,10 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
         }
     }
     
+    let indicator = NVActivityIndicatorView(frame: CGRect(x: 162, y: 100, width: 50, height: 50),
+                                            type: .circleStrokeSpin,
+                                            color: .black,
+                                            padding: 0)
     
     @IBOutlet weak var floatingButton: UIButton!
     
@@ -63,7 +68,8 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        indicator.frame = CGRect(x: screenWidth/2, y: screenHeight/2, width: 50, height: 50)
+        view.addSubview(indicator)
         floatingButtonSetting(floatingButton)
         collectionViewSetting(collectionView: collectionView)
         textFieldSetting(textfield: searchTextField)
@@ -77,6 +83,7 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     }
     
     func fetchData(){
+        indicator.startAnimating()
         TimeoutService.shared.getTimeout(completion: { (response) in
             self.timeOut = response
             self.filteredtimeOut = self.timeOut
@@ -84,6 +91,7 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
             let notiManager = LocalNotificationManager()
             notiManager.listScheduledNotifications()
         })
+        indicator.stopAnimating()
     }
     
     func refreshing(){

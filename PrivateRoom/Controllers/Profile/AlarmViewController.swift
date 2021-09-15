@@ -18,8 +18,6 @@ class AlarmViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-
-   
     }
   
 
@@ -33,7 +31,7 @@ extension AlarmViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
         cell.textLabel?.text = "알림 설정"
         let lightSwitch = UISwitch(frame: .zero) as UISwitch
-        lightSwitch.isOn = false
+        lightSwitch.isOn = UserDefaults.standard.bool(forKey: UserDefaultKey.switchIsOn)
         lightSwitch.addTarget(self, action: #selector(switchTriggered), for: .valueChanged)
         lightSwitch.tag = indexPath.row
         cell.accessoryType = .disclosureIndicator

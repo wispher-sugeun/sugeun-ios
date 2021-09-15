@@ -6,28 +6,25 @@
 //
 
 import UIKit
-import JGProgressHUD
-//import UserNotifications
+import NVActivityIndicatorView
 
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var IDTextfield: UITextField!
     
     @IBOutlet weak var PasswordTextfield: UITextField!
-    //let unc = UNUserNotificationCenter.current()
     
-    let spinner = JGProgressHUD()
+    let indicator = NVActivityIndicatorView(frame: CGRect(x: 162, y: 100, width: 50, height: 50),
+                                            type: .circleStrokeSpin,
+                                            color: .black,
+                                            padding: 0)
+    
+    var screenSize: CGRect!
+    var screenWidth: CGFloat!
+    var screenHeight: CGFloat!
     
     @IBAction func loginButton(_ sender: Any) {
-//        let options = UNAuthorizationOptions(arrayLiteral: [.badge, .sound, .alert])
-//        unc.requestAuthorization(options: options, completionHandler: { [weak self] success, error in
-//            if success {
-//                self!.sendLocalNotification()
-//            }else {
-//                print(error?.localizedDescription ?? "nil")
-//            }
-//        })
-
+        self.indicator.startAnimating()
         //로그인 성공시
         let loginRequest = LoginRequest(nickname: IDTextfield.text!, password: PasswordTextfield.text!)
         UserLoginServices.shared.login(loginUserInfo: loginRequest, completion: { (response) in
@@ -38,8 +35,10 @@ class LoginViewController: UIViewController {
                 UIApplication.shared.windows.first?.rootViewController = rootNC
                 UIApplication.shared.windows.first?.makeKeyAndVisible()
             }
+            self.indicator.stopAnimating()
         }, errorHandler:  { (error) in
             if(error == 401) { // 존재하지 않는 아이디
+                self.indicator.stopAnimating()
                 self.alertViewController(title: "로그인 실패", message: "존재하지 않는 사용자입니다. 다시 입력해주세요", completion: { (response) in})
                 return
             }
@@ -48,7 +47,6 @@ class LoginViewController: UIViewController {
     }
     
     func time() {
-        
         let calendar = Calendar.current
         let timeDate = calendar.date(byAdding: .hour, value: 9, to: Date())
         print("time date : \(String(describing: timeDate))")
@@ -60,28 +58,7 @@ class LoginViewController: UIViewController {
         date.dateFormat = "HH:mm"
         print(date.string(from: Date()))
     }
-    
-//    private func sendLocalNotification(){
-//        let content = UNMutableNotificationContent()
-//        content.title = "test"
-//        content.body = "푸시 알림 테스트 내용"
-//        time()
-//        print("now Date \(Date())")
-////        let date = Date().addingTimeInterval(32460)
-////        print(date)
-////        let dateComponents = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)
-////        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
-//        let uuidString = UUID().uuidString
-//        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-//
-////        unc.add(request) {
-////            (error) in
-////            print("error occured")
-////        }
-//
-//
-//    }
+
     
     @IBAction func signInButton(_ sender: Any) {
         performSegue(withIdentifier: "signin", sender: nil)
@@ -97,12 +74,15 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(indicator)
+        screenSize = UIScreen.main.bounds
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
+        indicator.frame = CGRect(x: screenWidth/2, y: screenHeight/2, width: 50, height: 50)
         IDTextfield.delegate = self
         PasswordTextfield.delegate = self
      
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-
-
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -121,7 +101,7 @@ class LoginViewController: UIViewController {
 
          self.view.endEditing(true)
 
-   }
+        }
 
 
 
@@ -148,9 +128,6 @@ extension LoginViewController: UISearchTextFieldDelegate {
             let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VC")
             UIApplication.shared.windows.first?.rootViewController = mainVC
             UIApplication.shared.windows.first?.makeKeyAndVisible()
-            
-            // 맞지 않다면
-//            alertViewController(title: "로그인 에러", message: "로그인 정보가 맞지 않습니다. 다시 입력해주세요")
         }
         textField.resignFirstResponder()
         return true
