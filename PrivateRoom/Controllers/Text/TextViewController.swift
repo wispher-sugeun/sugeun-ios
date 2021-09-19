@@ -101,15 +101,14 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        indicator.frame = CGRect(x: screenWidth/2, y: screenHeight/2, width: 50, height: 50)
+        screenSize = UIScreen.main.bounds
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
+        indicator.frame = CGRect(x: screenWidth / 2, y: screenHeight / 2, width: 50, height: 50)
         view.addSubview(indicator)
         buttonSetting(button: floatingButton)
         textFieldSetting(textField: searchTextField)
         collectionViewSetting()
-       
-        screenSize = UIScreen.main.bounds
-        screenWidth = screenSize.width
-        screenHeight = screenSize.height
         
         flowSetting()
         refreshing()
@@ -117,8 +116,6 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     }
     
     func refreshing(){
-        print("here")
-        //refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         refreshControl.beginRefreshing()
         collectionView.addSubview(refreshControl)

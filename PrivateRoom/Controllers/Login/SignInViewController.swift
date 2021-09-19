@@ -71,15 +71,20 @@ class SignInViewController: UIViewController {
     var autheCode: Int = 0
     
     @IBAction func sendMessage(_ sender: Any) {
-        //print("send message button click \(phoneNumberTextField.text?.phoneMake())")
-        let number = phoneNumberTextField.text?.phoneMake() // dash delete string
-        UserLoginServices.shared.sendMessage(number: number!, completion: { (response) in
-            self.autheCode = response
+        if(phoneNumberTextField.text!.isValid()){
+            let number = phoneNumberTextField.text?.phoneMake() // dash delete string
+            UserLoginServices.shared.sendMessage(number: number!, completion: { (response) in
+                self.autheCode = response
+                let messageNoti = LocalNotificationManager()
+                messageNoti.autheMessage(authenCode: self.autheCode)
+            }, errorHandler:  { (error) in})
             let messageNoti = LocalNotificationManager()
-            messageNoti.autheMessage(authenCode: self.autheCode)
-        }, errorHandler:  { (error) in})
-        //문자 보내기 성공시
-        phoneNumberGuideText.isHidden = false
+            messageNoti.autheMessage(authenCode: 5555)
+            //문자 보내기 성공시
+            phoneNumberGuideText.isHidden = false
+        }else {
+            self.alertViewController(title: "전송 실패", message: "전화번호를 입력해주세요", completion: { (response) in })
+        }
     }
     
     

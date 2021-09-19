@@ -11,5 +11,4 @@ extension Notification.Name {
     static let folderImageChanged = Notification.Name("folderImageChanged")
     static let folderImageChangedInPhrase = Notification.Name("folderImageChangedInPhrase")
     static let folderImageChangedInLink = Notification.Name("folderImageChangedInLink")
-    
 }

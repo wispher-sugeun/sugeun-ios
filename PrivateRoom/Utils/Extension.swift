@@ -91,7 +91,6 @@ extension String {
     }
     
     func phoneMake() -> String {
-    
         var string = self
         string.remove(at: string.index(string.startIndex, offsetBy: 3))
         string.remove(at: string.index(string.startIndex, offsetBy: 7))
@@ -100,15 +99,18 @@ extension String {
     
     func isValid() -> Bool {
         var string = self
+        if(self == ""){
+            return false
+        }
+        if(string.count != 13){
+            print("not 11 count")
+            return false
+        }
+        
         string = string.phoneMake()
         let start = string.index(string.startIndex, offsetBy: 0)
         let end = string.index(string.startIndex, offsetBy: 3)
         let range = start ..< end
-        print(string)
-        if(string.count != 11){
-            print("not 11 count")
-            return false
-        }
         if(string[range] != "010"){
             print("not 010")
             return false
@@ -224,9 +226,6 @@ extension UIImage {
         case highest = 1
     }
 
-    /// Returns the data for the specified image in JPEG format.
-    /// If the image object’s underlying image data has been purged, calling this function forces that data to be reloaded into memory.
-    /// - returns: A data object containing the JPEG data, or nil if there was a problem generating the data. This function may return nil if the image has no data or if the underlying CGImageRef contains data in an unsupported bitmap format.
     func jpeg(_ jpegQuality: JPEGQuality) -> Data? {
         return jpegData(compressionQuality: jpegQuality.rawValue)
     }

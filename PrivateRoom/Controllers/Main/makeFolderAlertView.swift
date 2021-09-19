@@ -100,8 +100,6 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
     
     
     func folderType() {
-        print(makeFolderAlertView.type_dropDown.dataSource)
-
         makeFolderAlertView.type_dropDown.anchorView = folderView.folderTypeButton
         makeFolderAlertView.type_dropDown.show()
     }
@@ -138,6 +136,7 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
             folderView.folderTypeButton.layer.borderWidth = 1
             folderView.folderTypeButton.layer.borderColor = UIColor.black.cgColor
             folderView.folderTypeButton.backgroundColor = UIColor.clear
+            folderView.folderTypeButton.setTitleColor(.white, for: .normal)
             makeFolderAlertView.type_dropDown.clearSelection()
         }
     }

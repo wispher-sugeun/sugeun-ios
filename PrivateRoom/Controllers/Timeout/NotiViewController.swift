@@ -68,14 +68,14 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        screenSize = UIScreen.main.bounds
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
         indicator.frame = CGRect(x: screenWidth/2, y: screenHeight/2, width: 50, height: 50)
         view.addSubview(indicator)
         floatingButtonSetting(floatingButton)
         collectionViewSetting(collectionView: collectionView)
         textFieldSetting(textfield: searchTextField)
-        screenSize = UIScreen.main.bounds
-        screenWidth = screenSize.width
-        screenHeight = screenSize.height
         //flowSetting()
         notUsedSorting()
         collectionView.reloadData()

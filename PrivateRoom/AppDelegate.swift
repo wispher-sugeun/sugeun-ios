@@ -54,7 +54,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
    //TODO
    //push 온 경우 (보내는 쪽)
    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("receive")
+        print(response.notification.request.identifier)
+    //parsing && 화면 분기
+    if(response.notification.request.identifier == "authenMessage"){
+        //nothing
+    
+    }else if(response.notification.request.identifier.contains("t_")){ // timeout
+        let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "VC") as! ViewController
+        mainVC.currentIndex = 3
+        let rootNC = UINavigationController(rootViewController: mainVC)
+        
+        UIApplication.shared.windows.first?.rootViewController = rootNC
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
+        
+        //let notiVC = UIStoryboard.init(name: "Timeout", bundle: nil).instantiateViewController(identifier: "noti") as NotiViewController
+    }else if(response.notification.request.identifier.contains("s_")){ // schedule
+        let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "VC") as! ViewController
+        mainVC.currentIndex = 3
+        let rootNC = UINavigationController(rootViewController: mainVC)
+        
+        UIApplication.shared.windows.first?.rootViewController = rootNC
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
+        //let calendarVC = UIStoryboard.init(name: "Calendar", bundle: nil).instantiateViewController(identifier: "calendar") as CalendarViewController
+    }
+    
+    print("\(response.notification.request.content)")
+    completionHandler()
 
     }
 

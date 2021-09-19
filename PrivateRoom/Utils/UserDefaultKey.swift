@@ -10,7 +10,6 @@ import Foundation
 
 
 struct UserDefaultKey {
-    
     static let switchIsOn: String = "switchIsOn"
     static let userID: String = "userID"
     static let userEmail: String = "userEmail"
