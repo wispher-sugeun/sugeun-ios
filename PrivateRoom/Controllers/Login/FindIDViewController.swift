@@ -23,9 +23,9 @@ class FindIDViewController: UIViewController {
     @IBAction func sendMessageButton(_ sender: Any) {
         
         if(phoneNumberTextField.text! == ""){
-            alertViewController(title: "전화번호 입력", message: "전화번호를 입력해주세요", completion: {response in print(response)})
+            alertViewController(title: "전화번호 입력", message: "전화번호를 입력해주세요", completion: {response in })
         }
-        else if(!phoneNumberTextField.text!.isEmpty && phoneNumberTextField.text!.isNumeric() && phoneNumberTextField.text!.isValid()){ // 숫자인지 확인
+        else if(phoneNumberTextField.text!.isValid()){ // 숫자인지 확인
             //send message
             guard let number = phoneNumberTextField.text?.phoneMake() else { return }
             sendMessageText.isHidden = false
@@ -51,7 +51,11 @@ class FindIDViewController: UIViewController {
                 if(response != ""){
                     self.alertViewController(title: "아이디 찾기", message: response, completion: { (response) in })
                 }
-            }, errorHandler: { (error) in})
+            }, errorHandler: { (error) in
+                if(error == 500){
+                    self.alertViewController(title: "아이디 찾기 실패", message: "존재하지 않는 ID입니다", completion: { (response) in })
+                }
+            })
            
         }else {
             reAuthenText.isHidden = false

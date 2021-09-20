@@ -7,6 +7,7 @@
 
 import UIKit
 import PhotosUI
+import NVActivityIndicatorView
 
 class ProfileEditViewController: UIViewController {
 
@@ -29,10 +30,17 @@ class ProfileEditViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    let indicator = NVActivityIndicatorView(frame: CGRect(x: 162, y: 100, width: 50, height: 50),
+                                            type: .circleStrokeSpin,
+                                            color: #colorLiteral(red: 0.5568627451, green: 0.6392156863, blue: 0.8, alpha: 1),
+                                            padding: 0)
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         UserProfileService.shared.getUserProfile(completion:  { [self] response in
             if(response?.imageData != nil){
+    
                 profileImage.image = UIImage(data: (response?.imageData)!)
             }
         })
@@ -86,7 +94,10 @@ class ProfileEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UISetting()
-      
+    
+        indicator.center = self.view.center
+        view.addSubview(indicator)
+        
         configuration.filter = .any(of: [.images])
         
         tableView.delegate = self
@@ -163,9 +174,14 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
                     UserLoginServices.shared.checkIDValid(nickName: userInput, completion: { (response) in
                         if(response == true){ // 사용 가능
                             // Services
-                             UserProfileService.shared.updateProfileID(nickName: userInput)
-                             textfield.text = userInput
-                            UserDefaults.standard.setValue(userInput, forKey: UserDefaultKey.userNickName)
+                            UserProfileService.shared.updateProfileID(nickName: userInput, completion: { (response) in
+                                if(response == true){
+                                    textfield.text = userInput
+                                   UserDefaults.standard.setValue(userInput, forKey: UserDefaultKey.userNickName)
+                                    self.alertViewController(title: "변경 완료", message: "아이디가 변경되었습니다.", completion: { (response) in})
+                                }
+                            }, errorHandler: {(response) in } )
+                             
                         }else{
                             label.text = "이미 같은 이름을 가진 사용자가 있습니다"
                             label.isHidden = false
@@ -275,7 +291,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
                                 }
                             )}
                     
-                        })
+                    }, errorHandler: { (response) in })
                   
                 }
                 
@@ -337,12 +353,12 @@ extension ProfileEditViewController: PHPickerViewControllerDelegate {
             itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                 DispatchQueue.main.async {
                     let uploadImage = image as? UIImage
-                    
-                    self.profileImage.image = uploadImage
-                    
+                    self.indicator.startAnimating()
                     UserProfileService.shared.updateProfileImage(imgeFile: (uploadImage?.jpeg(.lowest))!, completed: { (response) in
-                        if( response == true){
+                        if(response == true){
+                            self.profileImage.image = uploadImage
                             self.alertViewController(title: "변경 완료", message: "프로필 이미지가 변경 되었습니다.", completion: { (response) in})
+                            self.indicator.stopAnimating()
                         }
                     })
                     

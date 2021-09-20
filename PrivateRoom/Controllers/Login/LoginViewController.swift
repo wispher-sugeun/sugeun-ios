@@ -8,6 +8,11 @@
 import UIKit
 import NVActivityIndicatorView
 
+enum LoginError: Error {
+    case idTextfield
+    case passwordTextfield
+}
+
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var IDTextfield: UITextField!
@@ -24,25 +29,43 @@ class LoginViewController: UIViewController {
     var screenHeight: CGFloat!
     
     @IBAction func loginButton(_ sender: Any) {
-        self.indicator.startAnimating()
-        //로그인 성공시
-        let loginRequest = LoginRequest(nickname: IDTextfield.text!, password: PasswordTextfield.text!)
-        UserLoginServices.shared.login(loginUserInfo: loginRequest, completion: { (response) in
-            if(response){
-                let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "VC")
-                let rootNC = UINavigationController(rootViewController: mainVC)
-                
-                UIApplication.shared.windows.first?.rootViewController = rootNC
-                UIApplication.shared.windows.first?.makeKeyAndVisible()
-            }
-            self.indicator.stopAnimating()
-        }, errorHandler:  { (error) in
-            if(error == 401) { // 존재하지 않는 아이디
+        do {
+            try validate()
+            //로그인 성공시
+            self.indicator.startAnimating()
+            let loginRequest = LoginRequest(nickname: IDTextfield.text!, password: PasswordTextfield.text!)
+            UserLoginServices.shared.login(loginUserInfo: loginRequest, completion: { (response) in
+                if(response){
+                    let mainVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "VC")
+                    let rootNC = UINavigationController(rootViewController: mainVC)
+                    
+                    UIApplication.shared.windows.first?.rootViewController = rootNC
+                    UIApplication.shared.windows.first?.makeKeyAndVisible()
+                }
                 self.indicator.stopAnimating()
-                self.alertViewController(title: "로그인 실패", message: "존재하지 않는 사용자입니다. 다시 입력해주세요", completion: { (response) in})
-                return
+            }, errorHandler:  { (error) in
+                if(error == 401) { // 존재하지 않는 아이디
+                    self.indicator.stopAnimating()
+                    self.alertViewController(title: "로그인 실패", message: "존재하지 않는 사용자입니다. 다시 입력해주세요", completion: { (response) in})
+                    return
+                }else {
+                    self.networkError()
+                }
+            })
+        }
+        catch {
+            var errorMessage: String = ""
+            switch error as! LoginError {
+                case .idTextfield:
+                    errorMessage = "아이디를 입력해주세요"
+                case .passwordTextfield:
+                    errorMessage = "비밀번호를 입력해주세요"
             }
-        })
+            
+            self.alertViewController(title: "로그인 실패", message: errorMessage, completion: { (response) in
+                
+            })
+        }
         
     }
     
@@ -57,6 +80,19 @@ class LoginViewController: UIViewController {
         date.timeZone = TimeZone(identifier: TimeZone.current.identifier)
         date.dateFormat = "HH:mm"
         print(date.string(from: Date()))
+    }
+    
+    func validate() throws {
+        if(IDTextfield.text == ""){
+            throw LoginError.idTextfield
+        }
+        if(PasswordTextfield.text == ""){
+            throw LoginError.passwordTextfield
+        }
+    }
+    
+    func networkError(){
+        self.alertViewController(title: "네트워크 에러", message: "네트워크가 불안정합니다. 네트워크 상태를 확인해주세요", completion: { (response) in})
     }
 
     

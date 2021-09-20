@@ -65,7 +65,6 @@ class UserProfileService {
         let url = Config.base_url + "/users/\(userId)"
         
         let headers: HTTPHeaders = [
-            "userId" : "\(userId)",
             "Authorization" : jwtToken
         ]
         
@@ -96,41 +95,50 @@ class UserProfileService {
 
     
     //아이디 업데이트
-    func updateProfileID(nickName: String){
+    func updateProfileID(nickName: String, completion: @escaping (Bool) -> (Void), errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/users/\(userId)"
+        
+        let headers: HTTPHeaders = [
+            "Authorization" : jwtToken
+        ]
         
         let parameter: Parameters = ["updateNickname": nickName]
         
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "PATCH"
-
-        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: parameter)
-            let jsonString = String(data: jsonData, encoding: .utf8)!
-            print(jsonString)
-            request.httpBody = jsonData
-        }catch {
-            print(error)
-        }
-        
-        
-
-        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
+        AF.upload(multipartFormData: { multipartFormData in
             print("[UserProfileService] 아이디 변경 하기")
-            print(url)
+            for (key, value) in parameter {
+                if let temp = value as? Int {
+                    multipartFormData.append("\(temp)".data(using: .utf8)!, withName: key)
+                    print(temp)
+                }
 
+                if let temp = value as? String {
+                    multipartFormData.append(temp.data(using: .utf8)!, withName: key)
+                    print(temp)
+               }
+
+            }
+        
+        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate(statusCode: 200..<500).responseString { (response) in
             switch response.result {
-            
                 case .success(let obj):
-                    //let responses = obj as! String
-                   print("success \(obj)") //아이디 변경 완료
+                    print("success : \(obj)")
+                    completion(true)
                     break
                 case .failure(let error):
-                    print(error)
+                    if let httpStatusCode = response.response?.statusCode {
+                          switch(httpStatusCode) {
+                          case 403:
+                            errorHandler(403)
+                            break
+                          default:
+                            break
+                          }
+                       }
+                    else {
+                        errorHandler(500)
+                        print("AF : \(error.localizedDescription)")
+                       }
             }
         }
     }
@@ -178,42 +186,55 @@ class UserProfileService {
     
     
     //비밀번호 변경하기
-    func updateProfilePassword(password: String, completion: @escaping (Bool) -> (Void)){
+    func updateProfilePassword(password: String, completion: @escaping (Bool) -> (Void), errorHandler: @escaping (Int) -> (Void)){
         let url = Config.base_url + "/users/\(userId)"
         
+        let headers: HTTPHeaders = [
+            "Authorization" : jwtToken
+        ]
         
         let parameter: Parameters = ["updatePassword": password]
         
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "PATCH"
-
-        request.addValue(jwtToken, forHTTPHeaderField: "Authorization")
-        request.addValue("\(userId)", forHTTPHeaderField: "userId")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: parameter)
-            let jsonString = String(data: jsonData, encoding: .utf8)!
-            print(jsonString)
-            request.httpBody = jsonData
-        }catch {
-            print(error)
-        }
-        
-
-        AF.request(request).validate(statusCode: 200..<300).responseString { (response) in
+        AF.upload(multipartFormData: { multipartFormData in
             print("[UserProfileService] 비밀번호 변경 하기")
+            for (key, value) in parameter {
+                if let temp = value as? Int {
+                    multipartFormData.append("\(temp)".data(using: .utf8)!, withName: key)
+                    print(temp)
+                }
 
+                if let temp = value as? String {
+                    multipartFormData.append(temp.data(using: .utf8)!, withName: key)
+                    print(temp)
+               }
+
+            }
+        
+        }, to: url, usingThreshold: UInt64.init(), method: .patch, headers: headers).validate(statusCode: 200..<500).responseString { (response) in
             switch response.result {
-            
                 case .success(let obj):
-                    //let responses = obj as! String
-                   print("success \(obj)") //비밀번호 변경 완료
+                    print("success : \(obj)")
                     completion(true)
+                    break
                 case .failure(let error):
-                    print(error)
+                    if let httpStatusCode = response.response?.statusCode {
+                          switch(httpStatusCode) {
+                          case 403:
+                            errorHandler(403)
+                            break
+                          default:
+                            break
+                          }
+                       }
+                    else {
+                        errorHandler(500)
+                        print("AF : \(error.localizedDescription)")
+                       }
             }
         }
+        
+        
+       
     
     }
     

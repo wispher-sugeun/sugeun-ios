@@ -7,6 +7,17 @@
 
 import UIKit
 
+enum SignInError: Error {
+    case idTextfield
+    case idValid
+    case password
+    case passwordValid
+    case passwordCorrect
+    case phoneNumber
+    case phoneNumberValid
+    case authenCode
+    case authenCodeValid
+}
 class SignInViewController: UIViewController {
 
     @IBOutlet weak var IDTextField: UITextField!
@@ -17,23 +28,25 @@ class SignInViewController: UIViewController {
     
     @IBOutlet weak var authenOKButton: UIButton!
     
+    //id 중복 확인
     @IBAction func SameIDCheck(_ sender: Any) {
         //api 호출
         if(IDTextField.text! == ""){
             self.alertViewController(title: "아이디 입력", message: "아이디를 입력해주세요", completion: { (response) in })
+        }else {
+            
+            UserLoginServices.shared.checkIDValid(nickName: IDTextField.text!, completion: { (response) in
+                if(response) {
+                    self.IDSameText.isHidden = true
+                    self.IDValidText.isHidden = false
+                }
+                else {
+                    self.IDValidText.isHidden = true
+                    self.IDSameText.isHidden = false
+           
+                }
+            }, errorHandler: { (error) in})
         }
-        
-        UserLoginServices.shared.checkIDValid(nickName: IDTextField.text!, completion: { (response) in
-            if(response) {
-                self.IDSameText.isHidden = true
-                self.IDValidText.isHidden = false
-            }
-            else {
-                self.IDValidText.isHidden = true
-                self.IDSameText.isHidden = false
-       
-            }
-        }, errorHandler: { (error) in})
       
     }
     
@@ -79,7 +92,7 @@ class SignInViewController: UIViewController {
                 messageNoti.autheMessage(authenCode: self.autheCode)
             }, errorHandler:  { (error) in})
             let messageNoti = LocalNotificationManager()
-            messageNoti.autheMessage(authenCode: 5555)
+            messageNoti.autheMessage(authenCode: autheCode)
             //문자 보내기 성공시
             phoneNumberGuideText.isHidden = false
         }else {
@@ -91,7 +104,7 @@ class SignInViewController: UIViewController {
     @IBAction func authenButton(_ sender: Any) {
         print(" authenTextField.text \(String(describing: authenTextField.text))")
         print("authen Code \(autheCode)")
-        
+       
         if authenTextField.text == String(autheCode) {
             print("same authen")
             authenValidText.isHidden = false
@@ -107,30 +120,80 @@ class SignInViewController: UIViewController {
     @IBAction func signInButton(_ sender: Any) {
         
         //check
-        if(signInValidCheck()){
-            //post 성공시
-            let signInRequest = SignUpRequest(nickname: IDTextField.text!, password: PasswordTextfield.text!, phone: phoneNumberTextField.text!)
-            UserLoginServices.shared.signup(signUpRequest: signInRequest, errorHandler:  { (error) in})
-                
-            self.alertViewController(title: "회원가입 완료", message: "회원 가입을 완료하였습니다. 로그인으로 이동합니다", completion: { response in
-                if(response == "OK"){
-                    self.navigationController?.popToRootViewController(animated: true)
-                }
-            })
-        
-        }else {  //else 빈칸이 있으면 입력해주쇼
-            self.alertViewController(title: "회원가입 실패", message: "빈칸을 입력해주세요", completion: { (response) in })
+        do {
+            try signInValidCheck()
+                //post 성공시
+                let signInRequest = SignUpRequest(nickname: IDTextField.text!, password: PasswordTextfield.text!, phone: phoneNumberTextField.text!)
+                UserLoginServices.shared.signup(signUpRequest: signInRequest, errorHandler:  { (error) in})
+                    
+                self.alertViewController(title: "회원가입 완료", message: "회원 가입을 완료하였습니다. 로그인으로 이동합니다", completion: { response in
+                    if(response == "OK"){
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                })
+        } catch {
+            var errorMessage: String = ""
+            switch error as! SignInError {
+                case .idTextfield:
+                    errorMessage = "아이디를 입력해주세요"
+                case .idValid:
+                    errorMessage = "아이디 중복 확인해주세요"
+                case .password:
+                    errorMessage = "비밀번호를 입력해주세요"
+                case .passwordValid:
+                    errorMessage = "비밀번호를 형식에 맞게 입력해주세요"
+                case .passwordCorrect:
+                    errorMessage = "비밀번호가 일치하지 않습니다. 다시 입력해주세요"
+                case .authenCode :
+                    errorMessage = "인증 확인해주세요"
+                case .authenCodeValid:
+                    errorMessage = "인증번호가 일치하지 않습니다."
+                case .phoneNumberValid:
+                    errorMessage = "전화번호는 숫자만 입력해주세요"
+                case .phoneNumber:
+                    errorMessage = "전화번호를 입력해주세요"
+            
+            }
+            self.alertViewController(title: "회원가입 실패", message: errorMessage, completion: { (response) in })
         }
+        
        
     
     }
     
-    func signInValidCheck() -> Bool{
-        if(IDValidText.isHidden == false && PasswordInValidText.isHidden == true && validpassword(mypassword: PasswordTextfield.text!) == true ){
-            //&& authenValidText.isHidden == false
-            return true
+    func signInValidCheck() throws {
+        if(IDTextField.text == ""){
+            throw SignInError.idTextfield
         }
-        return false
+        
+        if(IDValidText.isHidden == true){
+            throw SignInError.idValid
+        }
+        
+        if(PasswordTextfield.text == ""){
+            throw SignInError.password
+        }
+        
+        if(PasswordInValidText.isHidden == false){
+            throw SignInError.passwordCorrect
+        }
+        
+        if(validpassword(mypassword: PasswordTextfield.text!) == false){
+            throw SignInError.passwordValid
+        }
+        
+        if(phoneNumberGuideText.isHidden == true){
+            throw SignInError.phoneNumber
+        }
+        
+        if(phoneNumberTextField.text?.isValid() == false){
+            throw SignInError.phoneNumberValid
+        }
+        
+        if(authenValidText.isHidden == true){
+            throw SignInError.authenCode
+        }
+        
     }
     
    // let disposeBag = DisposeBag()
@@ -261,7 +324,12 @@ extension SignInViewController: UITextFieldDelegate {
         }else if(textField == PasswordTextfield){
             rePasswordTextfield.becomeFirstResponder()
         }else if(textField == rePasswordTextfield){
-            phoneNumberTextField.becomeFirstResponder()
+            if(passwordValidCheck() == false) {
+                PasswordInValidText.isHidden = false
+            }else{
+                PasswordInValidText.isHidden = true
+                phoneNumberTextField.becomeFirstResponder()
+            }
         }else if(textField == phoneNumberTextField){
             authenTextField.becomeFirstResponder()
         }

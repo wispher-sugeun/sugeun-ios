@@ -41,7 +41,7 @@ class FindPWViewController: UIViewController {
         if(phoneNumberTextField.text! == ""){
             alertViewController(title: "전화번호 입력", message: "전화번호를 입력해주세요", completion: {response in print(response)})
         }
-        else if(!phoneNumberTextField.text!.isEmpty && phoneNumberTextField.text!.isNumeric() && phoneNumberTextField.text!.isValid()){ // 숫자인지 확인
+        else if(phoneNumberTextField.text!.isValid()){ // 숫자인지 확인
             //send message
 //            guard let number = phoneNumberTextField.text?.phoneMake() else { return }
             sendTextLabel.isHidden = false
@@ -52,7 +52,9 @@ class FindPWViewController: UIViewController {
                     message.autheMessage(authenCode: self.authenCode)
                 }
             
-            }, errorHandler: { (error ) in})
+            }, errorHandler: { (error ) in
+                self.alertViewController(title: "문자 발송 실패", message: "다시 문자 발송 해주세요", completion: { (response) in})
+            })
             
         }else{
             alertViewController(title: "전화번호 입력", message: "전화번호 형식이 맞지 않습니다. 다시 입력해주세요", completion: {response in print(response)})
@@ -153,7 +155,7 @@ class FindPWViewController: UIViewController {
 
                 }else {
                     //비밀번호 반영
-                    self.alertViewController(title: "변경 완료", message: "비밀번호가 정상적으로 변경되었습니다. 로그인 뷰로 이동합니다.", completion: { (response) in
+                    self.alertViewController(title: "변경 완료", message: "비밀번호가 정상적으로 변경되었습니다. 로그인 화면으로 이동합니다.", completion: { (response) in
                         if(response == "OK") {
                             UserLoginServices.shared.checkingNewPassword(userId: userID, password: userInput, errorHandler: { (error ) in})
                             self.navigationController?.popToRootViewController(animated: true)
