@@ -52,11 +52,8 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         more_dropDown.anchorView = cell.moreButton
         more_dropDown.show()
         selectedCellIndexPath = cell.indexPath
-        print(selectedCellIndexPath)
         more_dropDown.backgroundColor = UIColor.white
         more_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            print("선택한 아이템 : \(item)")
-            print("인덱스 : \(index)")
             
             if(index == 0){ // 이름 변경
                 editFolderName(folderId: folderId, completionHandler: {(response) in
@@ -120,7 +117,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     var sorting = ["이름 순", "생성 순", "최신 순"]
     var sortingText = "이름 순"
-    lazy var buttons: [UIButton] = [self.folderButton, self.writeButton]
+    var buttons: [UIButton] = []
     
     
     var isShowFloating: Bool = false
@@ -196,13 +193,12 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     func fetchData(folderId: Int){
         FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
-            print(response)
+            //print(response)
             self.textFolder = response.folderResDTOList!
             self.textCell = response.phraseResDTOList!
             self.mainViewModel = self.textFolder.map { return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "PHRASE")) }
             self.filteredTextFolder = self.mainViewModel
             self.filteredTextCell = self.textCell
-            self.collectionView.reloadData()
         }, errorHandler: { (response) in})
     }
     
@@ -321,7 +317,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     
     func buttonSetting(){
-        // initial button circle setting
+        buttons = [folderButton, writeButton]
         buttons.forEach({ button
             in
             button.circle()
@@ -334,14 +330,14 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     @objc func MyTapMethod(){
         self.view.endEditing(true)
         if(isShowFloating){
-            isShowFloating = false
             hideButton()
+            isShowFloating = false
         }
     }
     
     @objc func didTapWriteButton(){
         let writeVc = self.storyboard?.instantiateViewController(identifier: "writeText") as! WriteViewController
-        print("write folderId \(folderId)")
+        //print("write folderId \(folderId)")
         writeVc.folderId = folderId // folderId 같이 전달
         self.navigationController?.pushViewController(writeVc, animated: true)
     }
@@ -350,7 +346,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let makeFolderView = storyBoard.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
         makeFolderAlertView.type_dropDown.dataSource = ["텍스트"]
-        print("makefolder folderId \(folderId)")
+        //print("makefolder folderId \(folderId)")
         makeFolderView.parentFolderId = folderId
         self.navigationController?.pushViewController(makeFolderView, animated: true)
 //        makeFolderView.modalPresentationStyle = .overCurrentContext
@@ -366,11 +362,12 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     @IBAction func floatingButtonAction(_ sender: UIButton) {
             sender.circle()
             if isShowFloating {
+                //print("hide")
                 hideButton()
             } else {
+                //print("showButton")
                showButton()
             }
-
             isShowFloating = !isShowFloating
     }
     
@@ -378,19 +375,19 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         buttons.reversed().forEach { button in
             UIView.animate(withDuration: 0.3) {
                 button.isHidden = true
-                self.view.layoutIfNeeded()
             }
         }
     }
     
     func showButton(){
-        buttons.forEach { [weak self] button in
-            button.isHidden = false
+        buttons.forEach { button in
+            
             button.alpha = 0
-
             UIView.animate(withDuration: 0.3) {
+                self.writeButton.isHidden = false
+                self.folderButton.isHidden = false
                 button.alpha = 1
-                self?.view.layoutIfNeeded()
+                //print(button)
             }
         }
     }
@@ -727,6 +724,7 @@ extension TextInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             textVC.total = response
             textVC.folderId = index.folderId
             textVC.fetchData(folderId: index.folderId)
+            self.hideButton()
         }, errorHandler: { (error) in})
         self.navigationController?.pushViewController(textVC, animated: true)
  

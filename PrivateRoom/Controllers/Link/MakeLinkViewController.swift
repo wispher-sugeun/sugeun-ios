@@ -10,6 +10,7 @@ import UIKit
 enum MakeLinkError: Error {
     case nolinkTitle
     case nolink
+    case httpsLink
     case linkTitleName
 }
 
@@ -45,7 +46,7 @@ class MakeLinkViewController: UIViewController {
                         //self.dismiss(animated: true, completion: nil)
                     }
                 })
-                
+
             }else { // 생성뷰
                     let linkRequest = CreateLinkRequest(userId: userId, folderId: folderId, title: linkTitleTextField.text!, link: linkTextView.text!, bookmark: false)
                     print(linkRequest)
@@ -57,7 +58,7 @@ class MakeLinkViewController: UIViewController {
                             previous?.fetchData(folderId: self.folderId)
                         }
                     })
-                    
+
                 }
 
         }catch {
@@ -65,6 +66,8 @@ class MakeLinkViewController: UIViewController {
             switch error as! MakeLinkError {
                 case .nolinkTitle:
                     errorMessage = "링크 이름을 입력해주세요"
+                case .httpsLink:
+                    errorMessage = "https 링크 형식에 맞지 않습니다"
                 case .nolink:
                     errorMessage = "링크를 입력해주세요"
                 case .linkTitleName:
@@ -89,6 +92,16 @@ class MakeLinkViewController: UIViewController {
         guard (linkTitleTextField.text!) != "" else {
             throw MakeLinkError.nolinkTitle
         }
+        
+        
+        if let urlString = linkTitleTextField.text {
+                if let url = NSURL(string: urlString) {
+                    if(!UIApplication.shared.canOpenURL(url as URL)){
+                        throw MakeLinkError.httpsLink
+                    }
+                }
+                throw MakeLinkError.httpsLink
+            }
         
         guard ((linkTextView.text!) != "" && linkTextView.text != "링크 입력") else {
             throw MakeLinkError.nolink

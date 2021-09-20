@@ -787,6 +787,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 FolderService.shared.viewFolder(folderId: index.folderId, completion: { (response) in
                     Thread.sleep(forTimeInterval: 2)
                     linkedIn.folderId = index.folderId
+                    linkedIn.title = index.folderName
                     linkedIn.total = response
                     //print("total isss \(response)")
                     linkedIn.getData()
@@ -800,37 +801,6 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
         }
     }
-
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        if(collectionView == folderCollectionView) {
-//            let frameSize = collectionView.frame.size
-//            let size = (frameSize.width - 64.0) / 2.0
-//            // 27 px on both side, and within, there is 10 px gap.
-//            return CGSize(width: size, height: size)
-//
-//        }else if(collectionView == FrameCollectionView){
-//            let width = FrameCollectionView.bounds.width
-//            let height = FrameCollectionView.bounds.height
-//            print("width : \(FrameCollectionView.bounds.width / 2)")
-//            print("height : \(FrameCollectionView.bounds.height / 2)")
-//            return CGSize(width: (width / 2) - 5, height: height)
-//        }
-//
-//        return CGSize(width: 0, height: 0)
-//
-//
-//    }
-//
-//    //위 아래 라인 간격
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 10
-//    }
-    
-//    //옆 라인 간격
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 10
-//
-//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if(collectionView == folderCollectionView){
