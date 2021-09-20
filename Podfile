@@ -11,7 +11,6 @@ target 'PrivateRoom' do
 pod 'RxSwift', '6.2.0'
 pod 'RxCocoa', '6.2.0'
 pod 'AnyFormatKit', '~> 2.5.1'
-pod 'JGProgressHUD'
 pod 'DropDown'
 pod 'Tabman', '~> 2.11'
 pod 'FSCalendar'
