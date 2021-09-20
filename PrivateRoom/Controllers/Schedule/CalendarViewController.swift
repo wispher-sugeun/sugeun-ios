@@ -23,7 +23,7 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let indicator = NVActivityIndicatorView(frame: CGRect(x: 162, y: 100, width: 50, height: 50),
                                             type: .circleStrokeSpin,
-                                            color: .black,
+                                            color: #colorLiteral(red: 0.5568627451, green: 0.6392156863, blue: 0.8, alpha: 1),
                                             padding: 0)
     
     @IBOutlet weak var calendar: FSCalendar!
@@ -72,6 +72,7 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
         screenWidth = screenSize.width
         screenHeight = screenSize.height
         indicator.frame = CGRect(x: screenWidth/2, y: screenHeight/2, width: 50, height: 50)
+        indicator.center = self.view.center
         view.addSubview(indicator)
         
         calenderSetting()
