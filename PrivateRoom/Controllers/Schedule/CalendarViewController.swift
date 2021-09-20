@@ -130,6 +130,7 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        tableView.tableFooterView = UIView(frame: .zero)
         tableView.register(CalendarTableViewCell.nib(), forCellReuseIdentifier: CalendarTableViewCell.identifider)
     }
     

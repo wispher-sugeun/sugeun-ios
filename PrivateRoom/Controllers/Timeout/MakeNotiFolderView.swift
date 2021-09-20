@@ -66,7 +66,6 @@ class MakeNotiFolderView: UIView {
     var delegate: MakeNotiFolderViewdelegate?
     
     @IBAction func doneButton(_ sender: Any) {
-        print("doneButton")
         delegate?.done()
     }
     override init(frame: CGRect) {

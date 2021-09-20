@@ -8,6 +8,7 @@
 import UIKit
 import DropDown
 import PhotosUI
+import NVActivityIndicatorView
 
 enum MakeFolderError: Error {
     case folderNameCount
@@ -18,7 +19,14 @@ enum MakeFolderError: Error {
 
 class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFolderdelegate {
     var parentFolderId: Int = 0
+    
     var defaultImage = UIImage(systemName: "questionmark.square")
+    
+    let indicator = NVActivityIndicatorView(frame: CGRect(x: 162, y: 100, width: 50, height: 50),
+                                            type: .circleStrokeSpin,
+                                            color: #colorLiteral(red: 0.5568627451, green: 0.6392156863, blue: 0.8, alpha: 1),
+                                            padding: 0)
+    
     func dissMiss() {
         self.navigationController?.popViewController(animated: true)
         //self.dismiss(animated: true, completion: nil)
@@ -41,6 +49,8 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
             
             let folderInfo = CreateFolderRequest(folderName: folderView.folderNameTextField.text!, userId: userId, type: type, parentFolderId: parentFolderId, imageFile: (folderView.folderImage.image?.jpeg(.lowest))!)
             print("parentFolderID : \(folderInfo)")
+            
+            indicator.startAnimating()
             FolderService.shared.createFolder(folder: folderInfo, completion: { (response) in
                 if(response == true){
                     self.alertViewController(title: "폴더 생성 완료", message: "폴더가 생성되었습니다.", completion: { response in
@@ -50,9 +60,7 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
                     } )
                 }
             }, errorHandler: { (error) in})
-           
-            //self.dismiss(animated: true, completion: nil)
-            
+            indicator.stopAnimating()            
             
         } catch {
             var errorMessage: String = ""
@@ -128,6 +136,9 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
         super.viewDidLoad()
         folderView.delegate = self
         type_dropDownSetting()
+        indicator.center = self.view.center
+        view.addSubview(indicator)
+        
         makeFolderAlertView.type_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
 //            print("선택한 아이템 : \(item)")
 //            print("인덱스 : \(index)")

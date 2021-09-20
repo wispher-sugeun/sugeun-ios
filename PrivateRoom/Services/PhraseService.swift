@@ -19,7 +19,7 @@ class PhraseService {
         jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
     }
     
-    func createPhrase(folderId: Int, createRequest: CreatePhraseRequest){
+    func createPhrase(folderId: Int, createRequest: CreatePhraseRequest, completion: @escaping (Bool) ->(Void)){
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)/phrases"
         
         
@@ -46,7 +46,7 @@ class PhraseService {
             switch response.result {
                 case .success(let obj):
                     print("success : \(obj)") //글귀 생성 완료
-
+                    completion(true)
                     break
                 case .failure(let error):
                     print("AF : \(error.localizedDescription)")

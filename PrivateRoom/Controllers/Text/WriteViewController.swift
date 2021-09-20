@@ -37,18 +37,20 @@ class WriteViewController: UIViewController {
                     }
                 })
             } else {
-                self.alertViewController(title: "작성 완료", message: "글 작성을 완료하였습니다", completion: {(response) in
-                    if response == "OK" {
-                        //test
-                        
-                       let dateString =  DateUtil.serverSendDateFormat(Date())
-                        
-                        let createPhrase = CreatePhraseRequest(userId: userId, folderId: self.folderId, text: self.textView.text!, bookmark: false, textDate: dateString)
-                        PhraseService.shared.createPhrase(folderId: self.folderId, createRequest: createPhrase)
-                        self.navigationController?.popToRootViewController(animated: true)
-                        //self.navigationController?.popViewController(animated: true)
+                let dateString =  DateUtil.serverSendDateFormat(Date())
+                 
+                 let createPhrase = CreatePhraseRequest(userId: userId, folderId: self.folderId, text: self.textView.text!, bookmark: false, textDate: dateString)
+                print(createPhrase)
+                PhraseService.shared.createPhrase(folderId: self.folderId, createRequest: createPhrase, completion: { (response) in
+                    if(response == true){
+                        self.alertViewController(title: "작성 완료", message: "글 작성을 완료하였습니다", completion: {(response) in
+                            if response == "OK" {
+                                self.navigationController?.popToRootViewController(animated: true)
+                                }
+                          })
                     }
-                                                })
+                })
+                
             }
            
             

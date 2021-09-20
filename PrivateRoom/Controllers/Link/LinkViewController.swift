@@ -108,6 +108,9 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        indicator.frame = CGRect(x: screenWidth/2, y: screenHeight/2, width: 50, height: 50)
+        indicator.center = self.view.center
+        view.addSubview(indicator)
         fetchData()
     }
     
@@ -136,9 +139,6 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
-        indicator.frame = CGRect(x: screenWidth/2, y: screenHeight/2, width: 50, height: 50)
-        indicator.center = self.view.center
-        view.addSubview(indicator)
         textFieldSetting(textField: searchTextField)
         collectionViewSetting()
         floatingButtonSetting(button: floatingButton)

@@ -8,8 +8,14 @@
 import UIKit
 import DropDown
 import PhotosUI
+import NVActivityIndicatorView
 
 class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, UIGestureRecognizerDelegate {
+    
+    let indicator = NVActivityIndicatorView(frame: CGRect(x: 162, y: 100, width: 50, height: 50),
+                                            type: .circleStrokeSpin,
+                                            color: #colorLiteral(red: 0.5568627451, green: 0.6392156863, blue: 0.8, alpha: 1),
+                                            padding: 0)
     
     func didTapMoreButton(cell: FolderCollectionViewCell) {
         more_dropDown.anchorView = cell.moreButton
@@ -145,18 +151,20 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         isShowFloating = false
-        
         getData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        screenSize = UIScreen.main.bounds
-        screenWidth = screenSize.width
-        screenHeight = screenSize.height
         buttonSetting()
         textFieldSetting(textField: searchTextField)
         tapGestureSetting()
+        screenSize = UIScreen.main.bounds
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
+        indicator.frame = CGRect(x: screenWidth/2, y: screenHeight/2, width: 50, height: 50)
+        indicator.center = self.view.center
+        view.addSubview(indicator)
         
         collectionViewSetting()
         setupLongGestureRecognizerOnCollection()
@@ -168,6 +176,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     }
     
     func getData(){
+        indicator.startAnimating()
         if((((total?.folderResDTOList!) != nil))) {
             //data load
             print("here folderResDTOList")
@@ -223,9 +232,6 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
                 
                 
             }else{
-                print("here FrameCollectionView hidden")
-                //FrameCollectionView.isHidden = true
-                
                 if(FrameCollectionView.isHidden == false && folderCollectionView.isHidden == true){
                     print("here")
                     linkCellHeight.constant = self.view.frame.height - 200
@@ -240,6 +246,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         
         navItem.title = folderName
         print("title : \(String(describing: navItem.title))")
+        indicator.stopAnimating()
     }
     
     func fetchData(folderId: Int){
@@ -704,8 +711,15 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
                             
                         }
                         
-                        LinkService.shared.deleteLink(folderId: folderId, linkId: linkCell[cell.indexPath!.row].linkId)
-                        alertViewController(title: "삭제 완료", message: "알림이 삭제 되었습니다.", completion: {(response) in })
+                        LinkService.shared.deleteLink(folderId: folderId, linkId: linkCell[cell.indexPath!.row].linkId, completion: { (response) in
+                            alertViewController(title: "삭제 완료", message: "알림이 삭제 되었습니다.", completion: {(response) in
+                                if(response == "OK") {
+                                    self.fetchData(folderId: folderId)
+                                }
+                                
+                            })
+                        })
+                        
                 }
                     
                 })

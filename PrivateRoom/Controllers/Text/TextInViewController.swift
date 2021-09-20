@@ -27,9 +27,6 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        //collectionviewHeight.constant = self.collectionView.contentSize.height
-//        print(self.collectionView.contentSize.height)
-//        collectionView.reloadData()
         
         tableViewHeight.constant = self.frameTableView.contentSize.height + 100
      
@@ -47,7 +44,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         }else {
             frameTableView.tableFooterView?.isHidden = false
             frameTableView.tableFooterView?.backgroundColor = .white
-            frameTableView.tableFooterView?.frame.size.height = collectionView.contentSize.height + 50
+            frameTableView.tableFooterView?.frame.size.height = collectionView.contentSize.height + 80
         }
         
     }
@@ -199,6 +196,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     func fetchData(folderId: Int){
         FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
+            print(response)
             self.textFolder = response.folderResDTOList!
             self.textCell = response.phraseResDTOList!
             self.mainViewModel = self.textFolder.map { return FolderViewModel(allFolder: GetFolderResponse(folderId: $0.folderId, folderName: $0.folderName, userId: $0.userId, imageData: $0.imageData ?? Data(), type: "PHRASE")) }
@@ -343,6 +341,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     @objc func didTapWriteButton(){
         let writeVc = self.storyboard?.instantiateViewController(identifier: "writeText") as! WriteViewController
+        print("write folderId \(folderId)")
         writeVc.folderId = folderId // folderId 같이 전달
         self.navigationController?.pushViewController(writeVc, animated: true)
     }
@@ -351,6 +350,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let makeFolderView = storyBoard.instantiateViewController(identifier: "makeFolderAlertView") as! makeFolderAlertView
         makeFolderAlertView.type_dropDown.dataSource = ["텍스트"]
+        print("makefolder folderId \(folderId)")
         makeFolderView.parentFolderId = folderId
         self.navigationController?.pushViewController(makeFolderView, animated: true)
 //        makeFolderView.modalPresentationStyle = .overCurrentContext
@@ -542,25 +542,23 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
     }
     
     func textCellDelete(indexPath: IndexPath){
-        print(indexPath.row)
-        
-        frameTableView.reloadData()
         let phraseId = filteredTextCell[indexPath.row].phraseId
         textCell.remove(at: indexPath.section)
+        print(indexPath.section)
         filteredTextCell = textCell
         self.alertViewController(title: "삭제 완료", message: "삭제 완료하였습니다.", completion: { (response) in
             if( response == "OK"){
                 PhraseService.shared.deletePhrase(folderId: self.folderId, phraseId: phraseId)
+                self.frameTableView.reloadData()
             }
         })
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if(tableView == frameTableView){
-            //print("filteredTextCell.count \(filteredTextCell.count)")
+            print("filteredTextCell.count \(filteredTextCell.count)")
             return filteredTextCell.count
         }else if(tableView == tblView){
-            //print("sorting.count \(sorting.count)")
             return sorting.count
         }
         return 1
@@ -727,7 +725,8 @@ extension TextInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let textVC = self.storyboard?.instantiateViewController(identifier: "textIn") as? TextInViewController else { return }
         FolderService.shared.viewFolder(folderId: index.folderId, completion: { (response) in
             textVC.total = response
-//            textVC.sorting =
+            textVC.folderId = index.folderId
+            textVC.fetchData(folderId: index.folderId)
         }, errorHandler: { (error) in})
         self.navigationController?.pushViewController(textVC, animated: true)
  

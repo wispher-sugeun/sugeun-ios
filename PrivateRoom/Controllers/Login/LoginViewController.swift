@@ -50,6 +50,7 @@ class LoginViewController: UIViewController {
                     return
                 }else {
                     self.networkError()
+                    self.indicator.stopAnimating()
                 }
             })
         }

@@ -90,7 +90,7 @@ class LinkService {
     }
     
     //링크 삭제
-    func deleteLink(folderId: Int, linkId: Int){
+    func deleteLink(folderId: Int, linkId: Int, completion: @escaping (Bool)->(Void)){
         let url =  Config.base_url + "/users/\(userId)/folders/\(folderId)/links/\(linkId)"
         let headers: HTTPHeaders = ["Authorization" : jwtToken,
                                     "userId" : "\(userId)",
@@ -105,6 +105,7 @@ class LinkService {
                 case .success(let obj):
                     let responses = obj 
                    print(responses) //링크 삭제 완료
+                    completion(true)
                     break
                 case .failure(let error):
                     print(error)

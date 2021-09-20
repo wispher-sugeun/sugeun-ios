@@ -55,7 +55,6 @@ class MakeLinkViewController: UIViewController {
                             self.navigationController?.popViewController(animated: true)
                             let previous = self.navigationController?.viewControllers.last as? LinkInViewController
                             previous?.fetchData(folderId: self.folderId)
-//                            self.dismiss(animated: true, completion: nil)
                         }
                     })
                     

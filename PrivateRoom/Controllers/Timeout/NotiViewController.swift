@@ -667,7 +667,7 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
             throw MakeTimeoutError.noTimeoutTitle
         }
         
-        guard (makeNotiFolderView.imageView.image == defaultImage ) else {
+        if (makeNotiFolderView.imageView.image == defaultImage){
             throw MakeTimeoutError.noTimeoutImage
         }
     }

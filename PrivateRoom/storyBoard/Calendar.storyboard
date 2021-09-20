@@ -303,10 +303,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="34w-Ff-F75" userLabel="AlarmView">
-                                <rect key="frame" x="60" y="144" width="294" height="548"/>
+                                <rect key="frame" x="60" y="144" width="294" height="537"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="u3V-IW-Y4h">
-                                        <rect key="frame" x="0.0" y="50" width="294" height="498"/>
+                                        <rect key="frame" x="0.0" y="50" width="294" height="457"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableView>
@@ -346,15 +346,37 @@
                                             <constraint firstItem="6mQ-ve-3XZ" firstAttribute="top" secondItem="ZFN-da-OWj" secondAttribute="top" constant="10" id="xRJ-cZ-GHR"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="brD-im-sQT">
+                                        <rect key="frame" x="0.0" y="507" width="294" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오후 12시에 알림 메세지를 받으실 수 있습니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8O-Eq-vT8">
+                                                <rect key="frame" x="0.0" y="0.0" width="294" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" systemColor="systemGray2Color"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="1yr-Ns-jhV"/>
+                                            <constraint firstItem="v8O-Eq-vT8" firstAttribute="top" secondItem="brD-im-sQT" secondAttribute="top" id="Prt-ba-m3f"/>
+                                            <constraint firstItem="v8O-Eq-vT8" firstAttribute="leading" secondItem="brD-im-sQT" secondAttribute="leading" id="abk-HU-9p9"/>
+                                            <constraint firstAttribute="bottom" secondItem="v8O-Eq-vT8" secondAttribute="bottom" id="rsT-DR-iiz"/>
+                                            <constraint firstAttribute="trailing" secondItem="v8O-Eq-vT8" secondAttribute="trailing" id="skI-UX-9Al"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="u3V-IW-Y4h" firstAttribute="top" secondItem="ZFN-da-OWj" secondAttribute="bottom" id="1Yt-oW-3cT"/>
                                     <constraint firstItem="u3V-IW-Y4h" firstAttribute="leading" secondItem="34w-Ff-F75" secondAttribute="leading" id="1g0-M7-Rev"/>
-                                    <constraint firstAttribute="bottom" secondItem="u3V-IW-Y4h" secondAttribute="bottom" id="2EE-Sh-fli"/>
-                                    <constraint firstAttribute="width" secondItem="34w-Ff-F75" secondAttribute="height" multiplier="147:274" id="6Ar-9E-Cn5"/>
+                                    <constraint firstAttribute="width" secondItem="34w-Ff-F75" secondAttribute="height" multiplier="150:274" id="6Ar-9E-Cn5"/>
                                     <constraint firstItem="ZFN-da-OWj" firstAttribute="leading" secondItem="34w-Ff-F75" secondAttribute="leading" id="B1O-xQ-UkS"/>
+                                    <constraint firstAttribute="bottom" secondItem="brD-im-sQT" secondAttribute="bottom" id="DqC-TC-Gpy"/>
+                                    <constraint firstItem="brD-im-sQT" firstAttribute="leading" secondItem="34w-Ff-F75" secondAttribute="leading" id="GbG-rh-95f"/>
+                                    <constraint firstItem="brD-im-sQT" firstAttribute="top" secondItem="u3V-IW-Y4h" secondAttribute="bottom" id="PGK-u8-nLO"/>
                                     <constraint firstItem="ZFN-da-OWj" firstAttribute="top" secondItem="34w-Ff-F75" secondAttribute="top" id="aoK-Pj-7GA"/>
+                                    <constraint firstAttribute="trailing" secondItem="brD-im-sQT" secondAttribute="trailing" id="aqy-C2-dpV"/>
                                     <constraint firstAttribute="trailing" secondItem="u3V-IW-Y4h" secondAttribute="trailing" id="brK-FI-DY3"/>
                                     <constraint firstAttribute="trailing" secondItem="ZFN-da-OWj" secondAttribute="trailing" id="nd9-v5-gO8"/>
                                 </constraints>
@@ -382,6 +404,9 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -84,6 +84,7 @@ class MakeAlarmViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.allowsMultipleSelection = true
+        tableView.tableFooterView = UIView(frame: .zero)
     }
 }
 

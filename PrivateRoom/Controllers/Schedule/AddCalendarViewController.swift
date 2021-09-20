@@ -32,7 +32,7 @@ class AddCalendarViewController: UIViewController {
     var selectedString: String?
     
     lazy var leftButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "<", style: .plain, target: self, action: #selector(buttonPressed(_:)))
+        let button = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(buttonPressed(_:)))
         button.tintColor = .black
         button.tag = 1
         return button
