@@ -45,7 +45,7 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        //fetchData()
+        fetchData()
     }
     
     func fetchData(){
@@ -207,7 +207,9 @@ extension CalendarViewController: FSCalendarDataSource, FSCalendarDelegate {
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         let events = filtered.map{ DateUtil.parseDateTime($0.scheduleDate) }
+        print("events day dot \(events)")
         if events.contains(date) {
+            print(events)
             return 1
         } else {
             return 0

@@ -61,7 +61,7 @@ class AddCalendarViewController: UIViewController {
                 if(naviTitle == "일정 수정"){
                     alertViewController(title: "스케줄 수정", message: "스케줄이 수정되었습니다", completion: { [self](string) in
                         self.navigationController?.popViewController(animated: true)
-                        
+                        self.navigationController?.setNavigationBarHidden(true, animated: true)
                         let putSchedule = PutScheduleRequest(scheduleId: selectedScheduled!.scheduleId, userId: selectedScheduled!.userId, title: titleTextField.text!, selected: selectedIndex, scheduleDate: postScheduleFormat(date: datePicker.date))
                         print("post edit Schedule : \(putSchedule)")
                         ScheduleService.shared.editSchedule(schedule: putSchedule)
@@ -76,17 +76,24 @@ class AddCalendarViewController: UIViewController {
                             notiManager.deleteSchedule(notificationId: notiidentifier+"\(i)")
                         }
                         
-                        //schedule noti create
-                         let dateComponents = DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day, hour: 12, minute: 0, second: 0)
+                        // and add
+                        if(selectedIndex == []){
+                            //선택하지 않음
+                            
+                        }else {
+                            //schedule noti create
+                             let dateComponents = DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day, hour: 12, minute: 0, second: 0)
+                            
+                             notiManager.notifications = [ Notifications(id: notiidentifier + "0", title: titleTextField.text!, datetime: dateComponents), Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents)]
+                             
+                             //선택한 날짜에 대해 알림
+                             for i in selectedIndex {
+                                 let dateComponents =  DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day - i, hour: 12, minute: 0, second: 0)
+                                 notiManager.notifications.append(Notifications(id: notiidentifier + "\(i)", title: titleTextField.text!, datetime: dateComponents))
+                             }
+                             notiManager.schedule()
+                        }
                         
-                         notiManager.notifications = [ Notifications(id: notiidentifier + "0", title: titleTextField.text!, datetime: dateComponents), Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents)]
-                         
-                         //선택한 날짜에 대해 알림
-                         for i in selectedIndex {
-                             let dateComponents =  DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day - i, hour: 12, minute: 0, second: 0)
-                             notiManager.notifications.append(Notifications(id: notiidentifier + "\(i)", title: titleTextField.text!, datetime: dateComponents))
-                         }
-                         notiManager.schedule()
                     })
                 }
                 
@@ -94,6 +101,7 @@ class AddCalendarViewController: UIViewController {
                     if(validCheck() == true){
                         alertViewController(title: "스케줄 생성", message: "스케줄이 생성되었습니다", completion: { [self](string) in
                             self.navigationController?.popViewController(animated: true)
+                            self.navigationController?.setNavigationBarHidden(true, animated: true)
                             let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
                             let scheduleDateString = postScheduleFormat(date: datePicker.date)
                             print(scheduleDateString)
@@ -102,18 +110,22 @@ class AddCalendarViewController: UIViewController {
                             
                             ScheduleService.shared.createSchedule(schedule: postSchedule, completion: { (response) in
                                 //schedule noti create TO DO
-                                 let notiManager = LocalNotificationManager()
-                                 let dateComponents = DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day, hour: 12, minute: 0, second: 0)
-                                 let notiidentifier = "s_\(response)_"
-                                
-                                 notiManager.notifications = [ Notifications(id: notiidentifier + "0", title: titleTextField.text!, datetime: dateComponents), Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents)]
-                                 
-                                 //선택한 날짜에 대해 알림
-                                 for i in selectedIndex {
-                                     let dateComponents =  DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day - i, hour: 12, minute: 0, second: 0)
-                                     notiManager.notifications.append(Notifications(id: notiidentifier + "\(i)", title: titleTextField.text!, datetime: dateComponents))
-                                 }
-                                 notiManager.schedule()
+                                if(selectedIndex == []){
+                                    //알림 생성하지 않음
+                                }else {
+                                    let notiManager = LocalNotificationManager()
+                                    let dateComponents = DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day, hour: 12, minute: 0, second: 0)
+                                    let notiidentifier = "s_\(response)_"
+                                   
+                                    notiManager.notifications = [ Notifications(id: notiidentifier + "0", title: titleTextField.text!, datetime: dateComponents), Notifications(id: notiidentifier, title: titleTextField.text!, datetime: dateComponents)]
+                                    
+                                    //선택한 날짜에 대해 알림
+                                    for i in selectedIndex {
+                                        let dateComponents =  DateComponents(year: datePicker.date.year, month: datePicker.date.month, day: datePicker.date.day - i, hour: 12, minute: 0, second: 0)
+                                        notiManager.notifications.append(Notifications(id: notiidentifier + "\(i)", title: titleTextField.text!, datetime: dateComponents))
+                                    }
+                                    notiManager.schedule()
+                                }
                             })
                             
                 
@@ -147,7 +159,7 @@ class AddCalendarViewController: UIViewController {
 
 
     func validCheck() -> Bool{
-        if let _ = titleTextField.text, let _ = timeTextField.text, (amButton.isSelected || pmButton.isSelected) != false, selectedIndex != [] {
+        if let _ = titleTextField.text, let _ = timeTextField.text, (amButton.isSelected || pmButton.isSelected) != false{
             return true
         }
         return false

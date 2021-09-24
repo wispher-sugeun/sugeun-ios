@@ -55,8 +55,10 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         more_dropDown.backgroundColor = UIColor.white
         more_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             
-            if(index == 0){ // 이름 변경
-                editFolderName(folderId: folderId, completionHandler: {(response) in
+            if(index == 0){ // 이름 변경 --> 상위 폴더 -> now folder 이름 변경
+                let index = cell.indexPath.row
+                let fId = filteredTextFolder[index].folderId
+                editFolderName(folderId: fId, completionHandler: {(response) in
                     cell.folderName.text = response
                     self.alertViewController(title: "이름 변경 완료", message: "폴더 이름이 수정되었습니다", completion: { (response) in})
                 })
