@@ -152,6 +152,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         navItem.title = folderName
+        print(folderName)
         buttonSetting()
         textFieldSetting(textField: searchTextField)
         tapGestureSetting()
@@ -716,17 +717,35 @@ extension TextInViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     //go to text in self
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //push to same view controller
-        let index = filteredTextFolder[indexPath.row]
-      
-        guard let textVC = self.storyboard?.instantiateViewController(identifier: "textIn") as? TextInViewController else { return }
-        FolderService.shared.viewFolder(folderId: index.folderId, completion: { (response) in
-            textVC.total = response
-            textVC.folderId = index.folderId
-            textVC.fetchData(folderId: index.folderId)
-            self.hideButton()
-        }, errorHandler: { (error) in})
-        self.navigationController?.pushViewController(textVC, animated: true)
+        
+        guard let textInVC = self.storyboard?.instantiateViewController(identifier: "textIn") as? TextInViewController else { return }
+        let folderId = filteredTextFolder[indexPath.row].folderId
+        DispatchQueue.global().async {
+            FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
+                //print("response \(response)")
+                textInVC.total = response
+                textInVC.folderName = self.filteredTextFolder[indexPath.row].folderName
+                textInVC.folderId = folderId
+                self.hideButton()
+                textInVC.getData()
+            }, errorHandler: { (error) in})
+            DispatchQueue.main.async {
+                self.navigationController?.pushViewController(textInVC, animated: true)
+            }
+        }
+        
+//  폴더 안 -> 폴더 안으로 연결 되지 못함
+//        let index = filteredTextFolder[indexPath.row]
+//
+//        guard let textVC = self.storyboard?.instantiateViewController(identifier: "textIn") as? TextInViewController else { return }
+//        FolderService.shared.viewFolder(folderId: index.folderId, completion: { (response) in
+//            print("response \(response)")
+//            textVC.total = response
+//            textVC.folderId = index.folderId
+//            textVC.fetchData(folderId: index.folderId)
+//            self.hideButton()
+//        }, errorHandler: { (error) in})
+//        self.navigationController?.pushViewController(textVC, animated: true)
  
     }
     

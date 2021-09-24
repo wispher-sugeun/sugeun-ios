@@ -530,10 +530,11 @@ extension LinkViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let searchText = textField.text! + string
-        if searchText.count >= 2{
+        if searchText.count >= 1{
             filteredLink = mainViewModels.filter({ (result) -> Bool in
                 result.folderName.range(of: searchText, options: .caseInsensitive) != nil
             })
+            
         }else {
             filteredLink = mainViewModels
         }

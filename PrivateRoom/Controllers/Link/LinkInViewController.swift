@@ -895,23 +895,29 @@ extension LinkInViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let searchText = textField.text! + string
-        if searchText.count >= 2{
-            filteredLinkFolder = mainViewModel.filter({ (result) -> Bool in
-                result.folderName.range(of: searchText, options: .caseInsensitive) != nil
-            })
+        if let text = textField.text, let textRange = Range(range, in: text) {
+            let updatedText = text.replacingCharacters(in: textRange, with: string)
+//            print("textRange \(textRange)")
+//            print("text \(text)")
+//            print("updatedText \(updatedText)")
             
-            filteredLinkCell = linkCell.filter({ (result) -> Bool in
-                result.link.range(of: searchText, options: .caseInsensitive) != nil
-            })
-        }else {
-            filteredLinkFolder = mainViewModel
-            filteredLinkCell = linkCell
-        }
+            if updatedText.count >= 2{
+                filteredLinkFolder = mainViewModel.filter({ (result) -> Bool in
+                    result.folderName.range(of: updatedText, options: .caseInsensitive) != nil
+                })
+                
+                filteredLinkCell = linkCell.filter({ (result) -> Bool in
+                    result.title.range(of: updatedText, options: .caseInsensitive) != nil
+                })
+            }else {
+                filteredLinkFolder = mainViewModel
+                filteredLinkCell = linkCell
+            }
         
-        FrameCollectionView.reloadData()
-//        collectionView.reloadData()
-        return true
+            FrameCollectionView.reloadData()
+            return true
+        }
+        return false
         
     }
     
@@ -929,7 +935,6 @@ extension LinkInViewController: UITextFieldDelegate {
         }
         
         FrameCollectionView.reloadData()
-//        collectionView.reloadData()
         return false
         
     }

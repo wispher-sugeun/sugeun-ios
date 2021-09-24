@@ -548,16 +548,26 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
         return UICollectionReusableView()
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let textInVC = self.storyboard?.instantiateViewController(identifier: "textIn") as? TextInViewController else { return }
         let folderId = filteredTextFolder[indexPath.row].folderId
-        self.navigationController?.pushViewController(textInVC, animated: false)
-        FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
-            textInVC.total = response
-            textInVC.folderName = self.filteredTextFolder[indexPath.row].folderName
-            textInVC.folderId = folderId
-        }, errorHandler: { (error) in})
+        DispatchQueue.global().async {
+            FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
+                print("response \(response)")
+                textInVC.total = response
+                textInVC.folderName = self.filteredTextFolder[indexPath.row].folderName
+                textInVC.folderId = folderId
+                
+                textInVC.getData()
+            }, errorHandler: { (error) in})
+            DispatchQueue.main.async {
+                self.navigationController?.pushViewController(textInVC, animated: true)
+            }
+        }
+        
         
     }
 

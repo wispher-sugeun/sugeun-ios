@@ -390,11 +390,13 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let folderType = folders[indexPath.row].type
         let folderId = folders[indexPath.row].folderId
+        let folderName = folders[indexPath.row].folderName
         if(folderType == "PHRASE"){
             guard let textInVC = self.storyboard?.instantiateViewController(identifier: "textIn") as? TextInViewController else { return }
             FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
                 textInVC.total = response
                 textInVC.folderId = folderId
+                textInVC.folderName = folderName!
                 self.navigationController?.pushViewController(textInVC, animated: true)
             }, errorHandler: { (error) in})
             
@@ -406,6 +408,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     Thread.sleep(forTimeInterval: 2)
                     linkVC.folderId = folderId
                     linkVC.total = response
+                    linkVC.folderName = folderName!
                     //print("total isss \(response)")
                     linkVC.getData()
                 }, errorHandler: { (error) in })

@@ -12,6 +12,12 @@ class FindPWViewController: UIViewController {
     @IBOutlet weak var IDTextField: UITextField!
     var userID: Int = 0
     var authenCode: Int = 0
+    
+    @IBAction func backButton(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
     //아이디 중복 체크
     @IBAction func IDCheckButton(_ sender: Any) {
         //DB id 있는지 체크

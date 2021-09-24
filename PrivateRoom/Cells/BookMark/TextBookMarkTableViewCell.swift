@@ -11,8 +11,7 @@ class TextBookMarkTableViewCell: UITableViewCell {
 
     @IBOutlet weak var dateLabel: UILabel!
 
-    
-    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var textview: UILabel!
     static let identifier = "TextBookMarkTableViewCell"
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,8 +43,7 @@ class TextBookMarkTableViewCell: UITableViewCell {
         let week: [String] = ["일", "월", "화", "수", "목", "금", "토"]
         let weekDay = Calendar.current.component(.weekday, from: date) - 1
         dateLabel.text = "\(year)년 \(month)월 \(day)일 (\(week[weekDay]))"
-        textView.text = model.text
-        textView.isEditable = false
+        textview.text = model.text
 
     }
         

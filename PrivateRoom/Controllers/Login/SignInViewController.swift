@@ -28,6 +28,9 @@ class SignInViewController: UIViewController {
     
     @IBOutlet weak var authenOKButton: UIButton!
     
+    @IBAction func backButton(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     //id 중복 확인
     @IBAction func SameIDCheck(_ sender: Any) {
         //api 호출

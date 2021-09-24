@@ -94,14 +94,16 @@ class MakeLinkViewController: UIViewController {
         }
         
         
-        if let urlString = linkTitleTextField.text {
-                if let url = NSURL(string: urlString) {
-                    if(!UIApplication.shared.canOpenURL(url as URL)){
-                        throw MakeLinkError.httpsLink
-                    }
+        if let urlString = linkTextView.text {
+    
+            if let url = NSURL(string: urlString) {
+                if(!UIApplication.shared.canOpenURL(url as URL)){
+                    throw MakeLinkError.httpsLink
                 }
+            }else {
                 throw MakeLinkError.httpsLink
             }
+        }
         
         guard ((linkTextView.text!) != "" && linkTextView.text != "링크 입력") else {
             throw MakeLinkError.nolink

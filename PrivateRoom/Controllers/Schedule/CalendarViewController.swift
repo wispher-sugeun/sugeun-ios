@@ -9,10 +9,6 @@ import UIKit
 import FSCalendar
 import NVActivityIndicatorView
 
-protocol calendarViewDelegate: NSObject {
-    func editButton()
-}
-
 class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
 
     let refreshControl = UIRefreshControl()
@@ -29,10 +25,10 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var calendar: FSCalendar!
     
     @IBOutlet weak var searchTextField: UITextField!
+    
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBAction func addScheButton(_ sender: Any) {
-    
+
+    @IBAction func addButton(_ sender: Any) {
         let addCalendarVC = self.storyboard?.instantiateViewController(identifier: "addCalendar") as! AddCalendarViewController
         if(calendar.selectedDate == nil){
             addCalendarVC.selectedDate = Date().addingTimeInterval(86400)
@@ -41,18 +37,15 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.pushViewController(addCalendarVC, animated: true)
-        
-       
     }
-
-    public var delegate: calendarViewDelegate?
+    //public var delegate: calendarViewDelegate?
     var schedule = [GetScheduleResponse]()
     var filtered = [GetScheduleResponse]()
 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        fetchData()
+        //fetchData()
     }
     
     func fetchData(){
@@ -67,19 +60,20 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("view did Load")
+
         screenSize = UIScreen.main.bounds
         screenWidth = screenSize.width
         screenHeight = screenSize.height
         indicator.frame = CGRect(x: screenWidth/2, y: screenHeight/2, width: 50, height: 50)
         indicator.center = self.view.center
         view.addSubview(indicator)
-        
+
         calenderSetting()
         tableviewSetting()
-        
+
         textfieldSetting()
-       
+
         handleSwipeDelete()
         refreshing()
     }
@@ -178,7 +172,6 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
 
         let translation = panGesture.translation(in: tableView)
         print(translation)
-        // In my case I have only trailing actions, so I used below condition.
         return translation.x < 0
     }
 

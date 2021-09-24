@@ -20,6 +20,10 @@ class FindIDViewController: UIViewController {
     @IBOutlet weak var reAuthenText: UILabel!
     var authenCode: Int = 0
     
+    @IBAction func backButton(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func sendMessageButton(_ sender: Any) {
         
         if(phoneNumberTextField.text! == ""){

@@ -181,7 +181,6 @@ class UserLoginServices {
                     case .failure(let error):
                         
                         errorHandler(500)
-                        print(error.responseCode)
                         print("AF : \(error.localizedDescription)")
                            
                 }

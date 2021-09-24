@@ -24,17 +24,16 @@ class TextBookViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableviewSetting()
-        // Do any additional setup after loading the view.
     }
     
     func tableviewSetting(){
         textTableView.delegate = self
         textTableView.dataSource = self
         textTableView.register(TextBookMarkTableViewCell.nib(), forCellReuseIdentifier: TextBookMarkTableViewCell.identifier)
-
+        textTableView.separatorInset.left = 0
+        textTableView.translatesAutoresizingMaskIntoConstraints = false
         textTableView.rowHeight = UITableView.automaticDimension
-        textTableView.estimatedRowHeight = UITableView.automaticDimension
-        textTableView.allowsSelection = false
+        textTableView.estimatedRowHeight = 44
     }
     
 
@@ -55,7 +54,6 @@ extension TextBookViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-
     }
 
     
