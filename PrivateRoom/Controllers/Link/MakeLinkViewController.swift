@@ -71,7 +71,7 @@ class MakeLinkViewController: UIViewController {
                 case .nolink:
                     errorMessage = "링크를 입력해주세요"
                 case .linkTitleName:
-                    errorMessage = "5글자 이내로 링크 이름을 지어주세요"
+                    errorMessage = "10글자 이내로 링크 이름을 지어주세요"
             }
             
             self.alertViewController(title: "생성 실패", message: errorMessage, completion: { (response) in
@@ -85,7 +85,7 @@ class MakeLinkViewController: UIViewController {
     
     func validate() throws {
         
-        guard (linkTitleTextField.text!.count < 5) else {
+        guard (linkTitleTextField.text!.count < 10) else {
             throw MakeLinkError.linkTitleName
         }
         

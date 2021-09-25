@@ -19,6 +19,11 @@ class MakeAlarmViewController: UIViewController {
     var alarmRange = ["선택하지 않음", "하루 전", "2일 전", "3일 전", "4일 전", "5일 전", "6일 전", "일주일 전" ]
     var selectedIndex:[Int] = []
     
+    @objc func didTapBack(){
+        print("here")
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func selectedAlarm(selectedIndex: [Int]) -> String {
         var s: String = ""
         for i in selectedIndex {
@@ -80,6 +85,14 @@ class MakeAlarmViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableviewSetting()
+        let image = UIImage(systemName: "chevron.backward")
+        let leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(didTapBack))
+        leftBarButtonItem.tintColor = #colorLiteral(red: 0.1647058824, green: 0.2, blue: 0.3411764706, alpha: 1)
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+    }
+    
+    func tableviewSetting(){
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")

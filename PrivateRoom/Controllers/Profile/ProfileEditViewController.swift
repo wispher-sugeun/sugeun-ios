@@ -46,19 +46,6 @@ class ProfileEditViewController: UIViewController {
         })
     }
     
-//    @IBAction func doneButton(_ sender: Any) {
-//        //UserService post
-//        alertDone(title: "수정 완료",message: "회원 정보가 정상적으로 수정되었습니다", completionHandler: { response in
-//            if response == "OK" {
-//                //UserService post
-//                
-//                self.dismiss(animated: true, completion: nil)
-//            }
-//        })
-//       
-//        
-//    }
-    
     @IBAction func quitApp(_ sender: Any) {
         //UserService
         alertDoneCancel(title: "회원 탈퇴", message: "회원 탈퇴하시겠습니까?", completionHandler: { action in
@@ -103,6 +90,7 @@ class ProfileEditViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.isScrollEnabled = false
+        tableView.tableFooterView = UIView(frame: .zero)
  
     }
     
@@ -158,14 +146,13 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource,
             if let userInput = self.nameTextField.text  {
                
                 label.isHidden = true
-                
                 label.textColor = .red
                 label.font = label.font.withSize(12)
                 label.textAlignment = .center
                 label.text = ""
                 alertVC.view.addSubview(label)
                 
-                if userInput == ""{
+                if userInput == "" {
                     label.text = "이름을 입력해주세요"
                     label.isHidden = false
                     self.present(alertVC, animated: true, completion: nil)

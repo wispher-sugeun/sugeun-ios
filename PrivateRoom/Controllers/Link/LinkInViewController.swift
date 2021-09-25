@@ -371,9 +371,24 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
         self.alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.setValue(alertVC, forKey: "contentViewController")
         
-        self.present(alertController, animated: true) { [self] in
-                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+        if UIDevice.current.userInterfaceIdiom == .pad { //디바이스 타입이 iPad일때
+            if let popoverController = alertController.popoverPresentationController {
+          
+                popoverController.sourceView = self.view
+                popoverController.sourceRect = CGRect(x: 0.0, y: view.frame.height, width: view.frame.width, height: 250.0)
+                popoverController.permittedArrowDirections = []
+                self.present(alertController, animated: true) { [self] in
+                        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+                    alertController.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+                }
+                
+            }
+            
+        } else {
+            self.present(alertController, animated: true) { [self] in
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
             alertController.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+            }
         }
         
 
@@ -428,6 +443,8 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     func textFieldSetting(textField: UITextField){
         textField.delegate = self
         textField.circle()
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 0));
+        textField.leftViewMode = .always
     }
     
     

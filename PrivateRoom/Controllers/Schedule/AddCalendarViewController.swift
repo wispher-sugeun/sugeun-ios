@@ -317,6 +317,9 @@ extension AddCalendarViewController: UITableViewDelegate, UITableViewDataSource,
             }else if(indexPath.row == 1){
                 let cell = tableView.dequeueReusableCell(withIdentifier: DateAddTableViewCell.identifier) as! DateAddTableViewCell
                 self.datePicker = cell.datePicker
+                if(selectedDate != nil){
+                    self.datePicker.date = selectedDate!
+                }
                 return cell
             }else if(indexPath.row == 2){
                 let cell = tableView.dequeueReusableCell(withIdentifier: DateTimeTableViewCell.identifier) as! DateTimeTableViewCell

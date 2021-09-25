@@ -167,7 +167,7 @@
                             <constraint firstItem="IHc-Qz-d6n" firstAttribute="top" secondItem="mzs-Qv-6ww" secondAttribute="bottom" constant="15" id="qa2-QZ-z15"/>
                             <constraint firstItem="8c6-ic-FgL" firstAttribute="top" secondItem="mNP-R2-vz7" secondAttribute="bottom" constant="5" id="riG-Wo-HmY"/>
                             <constraint firstItem="Pdd-Pb-Bwo" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="tKD-hD-yLn"/>
-                            <constraint firstItem="mzs-Qv-6ww" firstAttribute="top" relation="greaterThanOrEqual" secondItem="8c6-ic-FgL" secondAttribute="bottom" constant="30" id="txn-oy-EXq"/>
+                            <constraint firstItem="mzs-Qv-6ww" firstAttribute="top" relation="greaterThanOrEqual" secondItem="8c6-ic-FgL" secondAttribute="bottom" constant="10" id="txn-oy-EXq"/>
                             <constraint firstItem="hqI-94-R6T" firstAttribute="top" secondItem="Coa-b3-mKo" secondAttribute="bottom" constant="25" id="u3j-9F-T4m"/>
                             <constraint firstItem="mNP-R2-vz7" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="v9e-oR-gRc"/>
                             <constraint firstItem="hqI-94-R6T" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="yHT-pN-Hvt"/>
@@ -500,7 +500,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ohF-Qv-aTl">
                         <barButtonItem key="leftBarButtonItem" image="chevron.backward" catalog="system" id="59Z-XY-PLx">
-                            <color key="tintColor" systemColor="labelColor"/>
+                            <color key="tintColor" red="0.1647058824" green="0.20000000000000001" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="backButton:" destination="Q1r-Vu-5z4" id="pgQ-m0-6iI"/>
                             </connections>
@@ -717,7 +717,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="qmW-mk-dWO">
                         <barButtonItem key="leftBarButtonItem" image="chevron.left" catalog="system" id="GEN-cJ-Fce">
-                            <color key="tintColor" systemColor="labelColor"/>
+                            <color key="tintColor" red="0.1647058824" green="0.20000000000000001" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="backButton:" destination="C9h-xf-d0Y" id="gIA-Zx-wlG"/>
                             </connections>
@@ -971,7 +971,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="W7h-OK-ULN">
                         <barButtonItem key="leftBarButtonItem" image="chevron.left" catalog="system" id="TwB-4i-yEc">
-                            <color key="tintColor" systemColor="labelColor"/>
+                            <color key="tintColor" red="0.16470588235294117" green="0.20000000000000001" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="backButton:" destination="mou-6c-fCz" id="N2n-9a-fKA"/>
                             </connections>
@@ -993,15 +993,12 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="twg-Xs-W6e"/>
+        <segue reference="wGn-eu-S3z"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="gift.fill" catalog="system" width="128" height="124"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -127,6 +127,8 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     func textFieldSetting(textfield: UITextField){
         textfield.delegate = self
         textfield.circle()
+        textfield.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 0))
+        textfield.leftViewMode = .always
     }
     
     func collectionViewSetting(collectionView: UICollectionView){
@@ -145,15 +147,16 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
         collectionView.allowsSelection = true
         collectionView.isUserInteractionEnabled = true
         
-        collectionView.collectionViewLayout = CollectionViewLeftAlignFlowLayout()
-        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-                    flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-            flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 10)
-            flowLayout.minimumInteritemSpacing = 0
-            flowLayout.minimumLineSpacing = 0
-            flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
-//            flowLayout.itemSize = CGSize(width: screenWidth / 2, height: screenWidth / 2)
-                  }
+//        collectionView.collectionViewLayout = CollectionViewLeftAlignFlowLayout()
+//        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+//                    flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+//            flowLayout.minimumInteritemSpacing = 0
+//            flowLayout.minimumLineSpacing = 0
+//            flowLayout.sectionHeadersPinToVisibleBounds = true
+//
+//            flowLayout.headerReferenceSize = CGSize(width: 0, height: 50)
+//            flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+//                  }
     }
     
     @objc func makeFolder(){
@@ -273,7 +276,6 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeOutCollectionViewCell.identifier, for: indexPath) as? TimeOutCollectionViewCell
         cell?.delegate = self
         cell?.configure(model: filteredtimeOut[indexPath.row]!)
-        cell?.backgroundColor = .red
         cell?.configureHeight(with: 160)
         cell?.indexPath = indexPath
         return cell!
@@ -318,6 +320,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath)
+            print("headerView \(headerView)")
             //뷰에 있는 ui label들 지우고 다시 그리기
             let allLabels = headerView.get(all: UILabel.self)
               for sub in allLabels {
@@ -328,7 +331,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
             folderCount.textColor = UIColor.darkGray
             headerView.addSubview(folderCount)
             folderCount.frame = CGRect(x: 10, y: 10, width: 100, height: 30)
-            
+
             let sortingButton = UIButton()
             let sortingButtonTextAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.green, NSAttributedString.Key.kern: 10]
             let sortingButtonText = NSMutableAttributedString(string: "\(sortingText)", attributes: sortingButtonTextAttributes)
@@ -336,9 +339,9 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
             sortingButton.setTitleColor(UIColor.gray, for: .normal)
             headerView.addSubview(sortingButton)
             sortingButton.frame = CGRect(x: headerView.frame.maxX - 100, y: 10, width: 100, height: 30)
-            
+
             sortingButton.addTarget(self, action: #selector(didTapSortingButton), for: .touchUpInside)
-            
+
             return headerView
         default: assert(false, "nothing")
             
@@ -394,9 +397,24 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         self.alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.setValue(alertVC, forKey: "contentViewController")
         
-        self.present(alertController, animated: true) { [self] in
-                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+        if UIDevice.current.userInterfaceIdiom == .pad { //디바이스 타입이 iPad일때
+            if let popoverController = alertController.popoverPresentationController {
+          
+                popoverController.sourceView = self.view
+                popoverController.sourceRect = CGRect(x: 0.0, y: view.frame.height, width: view.frame.width, height: 250.0)
+                popoverController.permittedArrowDirections = []
+                self.present(alertController, animated: true) { [self] in
+                        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+                    alertController.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+                }
+                
+            }
+            
+        } else {
+            self.present(alertController, animated: true) { [self] in
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
             alertController.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+            }
         }
         
 
@@ -501,7 +519,7 @@ extension NotiViewController: UITableViewDelegate, UITableViewDataSource {
         sortingText = sorting[indexPath.row]
         self.dismissAlertController()
         collectionView.reloadData() // for 글자 업데이트
-        collectionView.collectionViewLayout.invalidateLayout()
+        //collectionView.collectionViewLayout.invalidateLayout()
     }
     
     //sorting
@@ -623,7 +641,7 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
             var errorMessage: String = ""
             switch error as! MakeTimeoutError {
             case .TimeoutTitleName:
-                errorMessage = "9글자 이내로 이름을 지어주세요"
+                errorMessage = "15글자 이내로 이름을 지어주세요"
             case .noTimeoutImage:
                 errorMessage = "이미지를 선택해주세요"
             case .noTimeoutTitle:
@@ -659,7 +677,7 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
     }
     
     func validate() throws {
-        guard (makeNotiFolderView.nameTextField.text!.count < 9) else {
+        guard (makeNotiFolderView.nameTextField.text!.count < 15) else {
             throw MakeTimeoutError.TimeoutTitleName
         }
         

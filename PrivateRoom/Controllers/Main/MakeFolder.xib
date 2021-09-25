@@ -40,7 +40,7 @@
                                 <constraint firstAttribute="width" secondItem="q7y-Nm-hNb" secondAttribute="height" multiplier="3:2" id="G2Q-Hh-d9s"/>
                             </constraints>
                         </imageView>
-                        <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder=" 7글자 이내로 입력해주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8U9-kK-wlS">
+                        <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="10글자 이내로 입력해주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8U9-kK-wlS">
                             <rect key="frame" x="20" y="229.5" width="172" height="25.5"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="8U9-kK-wlS" secondAttribute="height" multiplier="27:4" id="hYw-1z-UmP"/>

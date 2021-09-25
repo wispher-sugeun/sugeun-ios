@@ -66,7 +66,7 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
             var errorMessage: String = ""
             switch error as! MakeFolderError {
             case .folderNameCount:
-                errorMessage = "7글자 이내로 폴더 이름을 지어주세요"
+                errorMessage = "10글자 이내로 폴더 이름을 입력해주세요"
             case .folderImage:
                 errorMessage = "이미지를 선택해주세요"
             case .folderName:
@@ -84,7 +84,7 @@ class makeFolderAlertView: UIViewController, UIGestureRecognizerDelegate, MakeFo
     }
     
     func checkingNameValidating() throws {
-        guard (folderView.folderNameTextField.text!.count < 7) else {
+        guard (folderView.folderNameTextField.text!.count < 10) else {
             throw MakeFolderError.folderNameCount
         }
     }

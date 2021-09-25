@@ -1,6 +1,6 @@
 
-/* Class = "UITextField"; placeholder = "     보관함에서 검색하세요"; ObjectID = "0AM-j7-gcS"; */
-"0AM-j7-gcS.placeholder" = "     보관함에서 검색하세요";
+/* Class = "UITextField"; placeholder = "보관함에서 검색하세요"; ObjectID = "0AM-j7-gcS"; */
+"0AM-j7-gcS.placeholder" = "보관함에서 검색하세요";
 
 /* Class = "UITextView"; text = "글쓰기"; ObjectID = "6Xh-aY-qv5"; */
 "6Xh-aY-qv5.text" = "글쓰기";
@@ -11,8 +11,8 @@
 /* Class = "UINavigationItem"; title = "글쓰기"; ObjectID = "Lng-cZ-4R8"; */
 "Lng-cZ-4R8.title" = "글쓰기";
 
-/* Class = "UITextField"; placeholder = "     보관함에서 검색하세요"; ObjectID = "MJJ-RQ-Z33"; */
-"MJJ-RQ-Z33.placeholder" = "     보관함에서 검색하세요";
+/* Class = "UITextField"; placeholder = "보관함에서 검색하세요"; ObjectID = "MJJ-RQ-Z33"; */
+"MJJ-RQ-Z33.placeholder" = "보관함에서 검색하세요";
 
 /* Class = "UIButton"; normalTitle = "링크"; ObjectID = "NPB-ou-FOD"; */
 "NPB-ou-FOD.normalTitle" = "링크";
@@ -29,5 +29,5 @@
 /* Class = "UIButton"; normalTitle = "선물"; ObjectID = "cB6-cK-Ktm"; */
 "cB6-cK-Ktm.normalTitle" = "선물";
 
-/* Class = "UITextField"; placeholder = "     보관함에서 검색하세요"; ObjectID = "pAT-dy-6i6"; */
-"pAT-dy-6i6.placeholder" = "     보관함에서 검색하세요";
+/* Class = "UITextField"; placeholder = "보관함에서 검색하세요"; ObjectID = "pAT-dy-6i6"; */
+"pAT-dy-6i6.placeholder" = "보관함에서 검색하세요";

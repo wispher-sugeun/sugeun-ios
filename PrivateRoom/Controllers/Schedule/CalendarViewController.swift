@@ -31,9 +31,9 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func addButton(_ sender: Any) {
         let addCalendarVC = self.storyboard?.instantiateViewController(identifier: "addCalendar") as! AddCalendarViewController
         if(calendar.selectedDate == nil){
-            addCalendarVC.selectedDate = Date().addingTimeInterval(86400)
+            addCalendarVC.selectedDate = calendar.today // 오늘 날로 datepicker 설정
         }else {
-            addCalendarVC.selectedDate = calendar.selectedDate?.addingTimeInterval(86400) // adding one day
+            addCalendarVC.selectedDate = calendar.selectedDate // 선택한 날로 datepicker 설정
         }
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.pushViewController(addCalendarVC, animated: true)
@@ -53,6 +53,7 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
         ScheduleService.shared.getSchedule(completion: { (response) in
             self.schedule = response
             self.filtered = self.schedule
+            self.calendar.reloadData()
             self.tableView.reloadData()
         })
         indicator.stopAnimating()
@@ -93,12 +94,16 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
     func textfieldSetting(){
         searchTextField.delegate = self
         searchTextField.circle()
+        searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 0));
+        searchTextField.leftViewMode = .always
     }
     
     func calenderSetting(){
         calendar.delegate = self
         calendar.dataSource = self
         calendar.scope = .month
+        calendar.appearance.todayColor = #colorLiteral(red: 0.8247025609, green: 0.8317034245, blue: 0.9540250897, alpha: 1)
+        calendar.appearance.selectionColor = #colorLiteral(red: 0.5568627451, green: 0.6392156863, blue: 0.8, alpha: 1)
         calendar.scrollDirection = .vertical
         calendar.allowsMultipleSelection = false
         calendar.locale = Locale(identifier: "ko_KR")
@@ -114,8 +119,6 @@ class CalendarViewController: UIViewController, UIGestureRecognizerDelegate {
         calendar.calendarWeekdayView.weekdayLabels[4].text = "목"
         calendar.calendarWeekdayView.weekdayLabels[5].text = "금"
         calendar.calendarWeekdayView.weekdayLabels[6].text = "토"
-        //calendar.appearance.eventDefaultColor = UIColor.yellow
-        calendar.appearance.eventSelectionColor = UIColor.yellow
 
     
     }
@@ -205,16 +208,16 @@ extension CalendarViewController: FSCalendarDataSource, FSCalendarDelegate {
         
     }
     
+    //event dot
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         let events = filtered.map{ DateUtil.parseDateTime($0.scheduleDate) }
-        print("events day dot \(events)")
-        if events.contains(date) {
-            print(events)
-            return 1
-        } else {
-            return 0
-        }
 
+        for i in events {
+            if(i.day == date.day){
+                return 1
+            }
+        }
+        return 0
         
     }
     

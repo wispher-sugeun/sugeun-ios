@@ -87,7 +87,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="     보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="pAT-dy-6i6">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="pAT-dy-6i6">
                                 <rect key="frame" x="20" y="20" width="335" height="60"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
@@ -190,7 +190,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="     보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="0AM-j7-gcS">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="0AM-j7-gcS">
                                 <rect key="frame" x="20" y="20" width="335" height="60"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
@@ -258,7 +258,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="     보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="MJJ-RQ-Z33">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="MJJ-RQ-Z33">
                                 <rect key="frame" x="20" y="100" width="335" height="60"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
@@ -507,9 +507,9 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4gj-6i-fnB">
                                         <rect key="frame" x="296" y="1.5" width="39" height="67"/>
-                                        <color key="tintColor" red="0.099970199169999996" green="0.11900150029999999" blue="0.21177518370000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" red="0.1647058824" green="0.20000000000000001" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal">
-                                            <color key="titleColor" red="0.099970199169999996" green="0.11900150029999999" blue="0.21177518370000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="titleColor" red="0.1647058824" green="0.20000000000000001" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <imageReference key="backgroundImage" image="person.fill" catalog="system" renderingMode="original"/>
                                         </state>
                                         <connections>
@@ -578,6 +578,147 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a7L-bA-fu3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1474" y="71"/>
+        </scene>
+        <!--Noti View Controller-->
+        <scene sceneID="bPr-fO-zOw">
+            <objects>
+                <viewController storyboardIdentifier="noti" id="9YF-Ua-veB" customClass="NotiViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vmj-Nh-aQc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="보관함에서 검색하세요" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="o9E-Wh-YmM">
+                                <rect key="frame" x="20" y="20" width="335" height="60"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="fgw-hm-LEF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mho-9J-JZW">
+                                <rect key="frame" x="0.0" y="90" width="375" height="577"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Toq-AB-ZGg">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" id="aTW-sV-UyY">
+                                        <rect key="frame" x="0.0" y="50" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="oZR-4Y-pU3">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="headerView" id="Eux-0E-eNs">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
+                                </collectionReusableView>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KMj-Ca-aNZ">
+                                <rect key="frame" x="275" y="547.5" width="60" height="59"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="mTw-SE-2ek"/>
+                                    <constraint firstAttribute="width" constant="60" id="rSq-Hi-Ovh"/>
+                                </constraints>
+                                <color key="tintColor" red="0.34372755890000001" green="0.37692308429999999" blue="0.51766455170000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" backgroundImage="plus.circle.fill" catalog="system"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Xib-nZ-pvu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Xib-nZ-pvu" firstAttribute="trailing" secondItem="KMj-Ca-aNZ" secondAttribute="trailing" constant="40" id="68P-iA-UeO"/>
+                            <constraint firstItem="o9E-Wh-YmM" firstAttribute="top" secondItem="Xib-nZ-pvu" secondAttribute="top" constant="20" id="C2g-PA-Vqx"/>
+                            <constraint firstItem="Xib-nZ-pvu" firstAttribute="trailing" secondItem="Mho-9J-JZW" secondAttribute="trailing" id="QJs-VT-hNM"/>
+                            <constraint firstItem="Mho-9J-JZW" firstAttribute="leading" secondItem="Xib-nZ-pvu" secondAttribute="leading" id="RJU-bh-KZ6"/>
+                            <constraint firstItem="Xib-nZ-pvu" firstAttribute="bottom" secondItem="KMj-Ca-aNZ" secondAttribute="bottom" constant="60" id="WrP-Wb-poJ"/>
+                            <constraint firstItem="Xib-nZ-pvu" firstAttribute="bottom" secondItem="Mho-9J-JZW" secondAttribute="bottom" id="Xo7-KR-4pE"/>
+                            <constraint firstItem="Mho-9J-JZW" firstAttribute="top" secondItem="o9E-Wh-YmM" secondAttribute="bottom" constant="10" id="aK4-q3-nat"/>
+                            <constraint firstItem="Xib-nZ-pvu" firstAttribute="trailing" secondItem="o9E-Wh-YmM" secondAttribute="trailing" constant="20" id="dRI-Ty-Krm"/>
+                            <constraint firstItem="o9E-Wh-YmM" firstAttribute="leading" secondItem="Xib-nZ-pvu" secondAttribute="leading" constant="20" id="ja9-oi-Gbe"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="Mho-9J-JZW" id="M5H-m5-Wln"/>
+                        <outlet property="collectionViewLayout" destination="Toq-AB-ZGg" id="8sa-TY-Fwc"/>
+                        <outlet property="floatingButton" destination="KMj-Ca-aNZ" id="JNl-eD-JTu"/>
+                        <outlet property="searchTextField" destination="o9E-Wh-YmM" id="iuG-iR-Dbl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tKu-4Q-8nr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4784" y="71"/>
+        </scene>
+        <!--Make Noti Folder View Controller-->
+        <scene sceneID="h1j-7V-KWK">
+            <objects>
+                <viewController storyboardIdentifier="MakeNotiFolderViewController" id="OA7-aZ-rH1" customClass="MakeNotiFolderViewController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="A6H-7r-qsK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbI-ll-X0J" customClass="MakeNotiFolderView" customModule="PrivateRoom" customModuleProvider="target">
+                                <rect key="frame" x="55" y="55.5" width="265" height="556.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="lbI-ll-X0J" secondAttribute="height" multiplier="1:2.1" id="I7r-hN-MMe"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="TG2-5S-DO3"/>
+                        <color key="backgroundColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="0.81000000000000005" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="lbI-ll-X0J" firstAttribute="centerY" secondItem="A6H-7r-qsK" secondAttribute="centerY" id="INK-XB-aDx"/>
+                            <constraint firstItem="lbI-ll-X0J" firstAttribute="leading" secondItem="TG2-5S-DO3" secondAttribute="leading" constant="55" id="MCE-Gf-gzF"/>
+                            <constraint firstItem="TG2-5S-DO3" firstAttribute="trailing" secondItem="lbI-ll-X0J" secondAttribute="trailing" constant="55" id="UDd-pQ-S55"/>
+                            <constraint firstItem="lbI-ll-X0J" firstAttribute="centerX" secondItem="A6H-7r-qsK" secondAttribute="centerX" id="d5o-uj-5J4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="makeNotiFolderView" destination="lbI-ll-X0J" id="R4j-uB-B0d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KnT-qq-jOe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5494" y="71"/>
+        </scene>
+        <!--View Noti Controller-->
+        <scene sceneID="Zb6-aH-Tv5">
+            <objects>
+                <viewController storyboardIdentifier="ViewNoti" id="fRq-b8-feM" customClass="ViewNotiController" customModule="PrivateRoom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0Va-Ov-Nh1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pze-PR-v2M">
+                                <rect key="frame" x="0.0" y="100" width="375" height="467"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dM2-xG-FHW"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="pze-PR-v2M" firstAttribute="centerY" secondItem="0Va-Ov-Nh1" secondAttribute="centerY" id="0sq-Fa-D91"/>
+                            <constraint firstItem="pze-PR-v2M" firstAttribute="centerX" secondItem="0Va-Ov-Nh1" secondAttribute="centerX" id="SP7-Np-fds"/>
+                            <constraint firstItem="pze-PR-v2M" firstAttribute="top" secondItem="dM2-xG-FHW" secondAttribute="top" constant="100" id="e75-b3-Dhf"/>
+                            <constraint firstItem="pze-PR-v2M" firstAttribute="trailing" secondItem="dM2-xG-FHW" secondAttribute="trailing" id="fat-KU-hBz"/>
+                            <constraint firstItem="pze-PR-v2M" firstAttribute="leading" secondItem="dM2-xG-FHW" secondAttribute="leading" id="wWc-BC-Bso"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="pze-PR-v2M" id="Un5-Hf-Z2v"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VIO-rc-RW3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6246.376811594203" y="73.660714285714278"/>
         </scene>
     </scenes>
     <resources>

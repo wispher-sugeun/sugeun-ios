@@ -152,8 +152,8 @@ class ViewController: UIViewController {
             
             for (index, element) in btnLists.enumerated(){
                 
-                if index == currentIndex{
-                    element.setTitleColor(#colorLiteral(red: 0.2574591339, green: 0.3293752372, blue: 0.5517603755, alpha: 1), for: .normal)
+                if index == currentIndex {
+                    element.setTitleColor(#colorLiteral(red: 0.5568627451, green: 0.6392156863, blue: 0.8, alpha: 1), for: .normal)
                 }
                 else{
                     element.setTitleColor(#colorLiteral(red: 0.09519775957, green: 0.1197544411, blue: 0.2188102901, alpha: 1), for: .normal)

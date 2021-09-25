@@ -254,6 +254,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
             sub.removeFromSuperview()
          }
         let sortingButtonText = NSMutableAttributedString(string: "\(sortingText)", attributes: sortingButtonTextAttributes)
+        print(sortingText)
         sortingButton.setTitle(sortingButtonText.string, for: .normal)
         sortingButton.setTitleColor(UIColor.gray, for: .normal)
         header.addSubview(sortingButton)
@@ -281,6 +282,11 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 70))
         let headerLabel = UILabel(frame: CGRect(x: 20, y: 10, width: 300, height: 50))
+        //뷰에 있는 ui label들 지우고 다시 그리기
+        let allLabels = headerView.get(all: UILabel.self)
+          for sub in allLabels {
+            sub.removeFromSuperview()
+         }
         
         let nsHeaderTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold),
                                       NSAttributedString.Key.foregroundColor: UIColor.black]
@@ -304,9 +310,24 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         self.alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.setValue(alertVC, forKey: "contentViewController")
         
-        self.present(alertController, animated: true) { [self] in
-                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+        if UIDevice.current.userInterfaceIdiom == .pad { //디바이스 타입이 iPad일때
+            if let popoverController = alertController.popoverPresentationController {
+          
+                popoverController.sourceView = self.view
+                popoverController.sourceRect = CGRect(x: 0.0, y: view.frame.height, width: view.frame.width, height: 250.0)
+                popoverController.permittedArrowDirections = []
+                self.present(alertController, animated: true) { [self] in
+                        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+                    alertController.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+                }
+                
+            }
+            
+        } else {
+            self.present(alertController, animated: true) { [self] in
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
             alertController.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+            }
         }
         
 
@@ -359,6 +380,8 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     func textFieldSetting(textField: UITextField){
         textField.delegate = self
         textField.circle()
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 0));
+        textField.leftViewMode = .always
     }
     
     
@@ -631,7 +654,7 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
             }else if(indexPath.row == 2){
                 sortingLatest()
             }
-            sortingText = sorting[indexPath.row]
+            sortingText = sorting[indexPath.section]
             sortingButtonSetting()
             self.dismissAlertController()
             frameTableView.reloadData() // for 글자 업데이트
