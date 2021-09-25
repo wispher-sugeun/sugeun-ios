@@ -27,7 +27,7 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     @IBOutlet weak var collectionViewLayout: CollectionViewLeftAlignFlowLayout! {
         didSet {
-            collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+            //collectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         }
     }
     
@@ -138,16 +138,11 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         floatingButtonSetting(button: floatingButton)
         textFieldSetting(textfield: searchTextfield)
         refreshing()
-        
-        
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChanged(_:)), name: .folderImageChanged, object: nil)
-        
         flowSetting()
         
     }
     
     func refreshing(){
-        //refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         folderCollectionView.addSubview(refreshControl) // not required when using UITableViewController
     }
@@ -202,7 +197,6 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
     }
     
     func image( _ image:UIImage, withSize newSize:CGSize) -> UIImage {
-
         UIGraphicsBeginImageContext(newSize)
         image.draw(in: CGRect(x: 0,y: 0,width: newSize.width,height: newSize.height))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -256,7 +250,6 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
 
     
     func floatingButtonSetting(button: UIButton){
-        // TO DO make circle
         floatingButton.addTarget(self, action: #selector(makeFolder), for: .touchUpInside)
         floatingButton.circle()
     }
@@ -323,7 +316,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCollectionViewCell.identifier, for: indexPath) as! FolderCollectionViewCell
     
         //cell 크기 고정
-        cell.viewLayout(width: view.fs_width/2 - 30, height: 170)
+        cell.viewLayout(width: view.fs_width/2 - 30, height: view.fs_width/2 - 30)
         cell.cellDelegate = self
         cell.view.layer.borderColor = UIColor.darkGray.cgColor
         cell.view.layer.masksToBounds = true

@@ -111,7 +111,13 @@ class LocalNotificationManager {
             let content      = UNMutableNotificationContent()
             content.title    = "(일정📝) 기간이 얼마 남지 않았습니다"
             content.subtitle = notification.title
-            content.body = "\(notification.datetime.day!)일전 입니다"
+            let dDay = Date().day - notification.datetime.day!
+            if(dDay <= 0){
+                content.body = "오늘 \(notification.title)의 일정이 있습니다."
+            }else {
+                content.body = "\(dDay)일전 입니다."
+            }
+            
             content.sound    = .default
 
             let trigger = UNCalendarNotificationTrigger(dateMatching: notification.datetime, repeats: false)

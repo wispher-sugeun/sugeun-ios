@@ -11,29 +11,29 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="FolderCollectionViewCell" reuseIdentifier="FolderCollectionViewCell" id="gTV-IL-0wX" customClass="FolderCollectionViewCell" customModule="PrivateRoom" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="310" height="274"/>
+            <rect key="frame" x="0.0" y="0.0" width="299" height="244"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="310" height="274"/>
+                <rect key="frame" x="0.0" y="0.0" width="299" height="244"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lay-ba-g4M">
-                        <rect key="frame" x="0.0" y="0.0" width="310" height="274"/>
+                        <rect key="frame" x="0.0" y="0.0" width="299" height="244"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7JX-05-zNn">
-                                <rect key="frame" x="0.0" y="0.0" width="310" height="186"/>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="7JX-05-zNn">
+                                <rect key="frame" x="0.0" y="0.0" width="299" height="179.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="7JX-05-zNn" secondAttribute="height" multiplier="5:3" id="fqY-mc-Fsu"/>
+                                    <constraint firstAttribute="width" secondItem="7JX-05-zNn" secondAttribute="height" multiplier="5:3" id="Zk9-dS-A7n"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dtb-u3-ubR">
-                                <rect key="frame" x="20" y="196" width="270" height="31"/>
+                                <rect key="frame" x="20" y="189.5" width="259" height="10.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ssf-ko-sW0">
-                                <rect key="frame" x="268" y="237" width="22" height="22"/>
+                                <rect key="frame" x="260" y="210" width="19" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Ssf-ko-sW0" secondAttribute="height" multiplier="1:1" id="RPw-xs-u7r"/>
                                 </constraints>
@@ -44,8 +44,8 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOx-a1-gQ3" userLabel="type">
-                                <rect key="frame" x="15" y="237" width="37.5" height="22"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <rect key="frame" x="15" y="210" width="35.5" height="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -76,7 +76,7 @@
                 <constraint firstItem="lay-ba-g4M" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="z5R-wn-YAh"/>
                 <constraint firstItem="lay-ba-g4M" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="zUj-U9-BhK"/>
             </constraints>
-            <size key="customSize" width="310" height="274"/>
+            <size key="customSize" width="299" height="244"/>
             <connections>
                 <outlet property="folderImage" destination="7JX-05-zNn" id="VRC-eP-p9j"/>
                 <outlet property="folderName" destination="Dtb-u3-ubR" id="K3r-FG-CPT"/>
@@ -84,7 +84,7 @@
                 <outlet property="moreButton" destination="Ssf-ko-sW0" id="8S4-42-k4S"/>
                 <outlet property="view" destination="lay-ba-g4M" id="8sC-Gr-IE8"/>
             </connections>
-            <point key="canvasLocation" x="215.94202898550725" y="147.99107142857142"/>
+            <point key="canvasLocation" x="207.97101449275365" y="137.94642857142856"/>
         </collectionViewCell>
     </objects>
     <resources>

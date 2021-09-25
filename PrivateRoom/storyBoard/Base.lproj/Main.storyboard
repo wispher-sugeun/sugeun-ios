@@ -24,7 +24,7 @@
                                 <items>
                                     <navigationItem title="글쓰기" id="Lng-cZ-4R8">
                                         <barButtonItem key="leftBarButtonItem" image="chevron.backward" catalog="system" id="Dg8-VB-NXA">
-                                            <color key="tintColor" systemColor="labelColor"/>
+                                            <color key="tintColor" red="0.1647058824" green="0.20000000000000001" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
                                                 <action selector="backButton:" destination="8Mm-sX-D2i" id="hhg-jw-yjU"/>
                                             </connections>
@@ -158,17 +158,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQu-yq-Gaz" customClass="MakeFolder" customModule="PrivateRoom" customModuleProvider="target">
-                                <rect key="frame" x="60" y="121" width="255" height="425"/>
+                                <rect key="frame" x="60" y="120" width="255" height="427"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="cQu-yq-Gaz" secondAttribute="height" multiplier="3:5" id="GOd-8J-QHR"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="O0B-eP-GTN"/>
                         <color key="backgroundColor" red="0.92792880896366003" green="0.92792880896366003" blue="0.92792880896366003" alpha="0.81169087997335476" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="cQu-yq-Gaz" firstAttribute="leading" secondItem="O0B-eP-GTN" secondAttribute="leading" constant="60" id="4wJ-8d-uwL"/>
+                            <constraint firstItem="cQu-yq-Gaz" firstAttribute="top" secondItem="O0B-eP-GTN" secondAttribute="top" constant="120" id="6Hi-a3-jLH"/>
                             <constraint firstItem="cQu-yq-Gaz" firstAttribute="centerY" secondItem="1kY-To-ump" secondAttribute="centerY" id="YJ7-05-1y2"/>
                             <constraint firstItem="cQu-yq-Gaz" firstAttribute="centerX" secondItem="1kY-To-ump" secondAttribute="centerX" id="jTV-Jk-oYo"/>
                             <constraint firstItem="O0B-eP-GTN" firstAttribute="trailing" secondItem="cQu-yq-Gaz" secondAttribute="trailing" constant="60" id="rqI-Ze-69g"/>
@@ -666,17 +664,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbI-ll-X0J" customClass="MakeNotiFolderView" customModule="PrivateRoom" customModuleProvider="target">
-                                <rect key="frame" x="55" y="55.5" width="265" height="556.5"/>
+                                <rect key="frame" x="55" y="50" width="265" height="567"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="lbI-ll-X0J" secondAttribute="height" multiplier="1:2.1" id="I7r-hN-MMe"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="TG2-5S-DO3"/>
                         <color key="backgroundColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="0.81000000000000005" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="lbI-ll-X0J" firstAttribute="centerY" secondItem="A6H-7r-qsK" secondAttribute="centerY" id="INK-XB-aDx"/>
+                            <constraint firstItem="lbI-ll-X0J" firstAttribute="top" secondItem="TG2-5S-DO3" secondAttribute="top" constant="50" id="Ipq-IE-d63"/>
                             <constraint firstItem="lbI-ll-X0J" firstAttribute="leading" secondItem="TG2-5S-DO3" secondAttribute="leading" constant="55" id="MCE-Gf-gzF"/>
                             <constraint firstItem="TG2-5S-DO3" firstAttribute="trailing" secondItem="lbI-ll-X0J" secondAttribute="trailing" constant="55" id="UDd-pQ-S55"/>
                             <constraint firstItem="lbI-ll-X0J" firstAttribute="centerX" secondItem="A6H-7r-qsK" secondAttribute="centerX" id="d5o-uj-5J4"/>
@@ -727,9 +723,6 @@
         <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -44,7 +44,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         }else {
             frameTableView.tableFooterView?.isHidden = false
             frameTableView.tableFooterView?.backgroundColor = .white
-            frameTableView.tableFooterView?.frame.size.height = collectionView.contentSize.height + 80
+            frameTableView.tableFooterView?.frame.size.height = collectionView.contentSize.height + 150
         }
         
     }
@@ -258,7 +258,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         sortingButton.setTitle(sortingButtonText.string, for: .normal)
         sortingButton.setTitleColor(UIColor.gray, for: .normal)
         header.addSubview(sortingButton)
-        sortingButton.frame = CGRect(x: header.frame.maxX - 120, y: 10, width: 100, height: 30)
+        sortingButton.frame = CGRect(x: view.frame.maxX - 120, y: 10, width: 100, height: 30)
     
         
         sortingButton.addTarget(self, action: #selector(didTapSortingButton), for: .touchUpInside)
@@ -282,6 +282,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 70))
         let headerLabel = UILabel(frame: CGRect(x: 20, y: 10, width: 300, height: 50))
+
         //뷰에 있는 ui label들 지우고 다시 그리기
         let allLabels = headerView.get(all: UILabel.self)
           for sub in allLabels {
@@ -710,7 +711,7 @@ extension TextInViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCollectionViewCell.identifier, for: indexPath) as! FolderCollectionViewCell
         //cell 크기 고정
-        cell.viewLayout(width: view.fs_width/2 - 30, height: CGFloat(170))
+        cell.viewLayout(width: view.fs_width/2 - 30, height: view.fs_width/2 - 30)
         cell.cellDelegate = self
         cell.view.layer.borderColor = UIColor.darkGray.cgColor
         cell.view.layer.masksToBounds = true

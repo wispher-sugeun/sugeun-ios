@@ -96,10 +96,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dPU-Xm-NzS" customClass="MakeNotiFolderView" customModule="PrivateRoom" customModuleProvider="target">
-                                <rect key="frame" x="55" y="129" width="304" height="638"/>
+                                <rect key="frame" x="55" y="124" width="304" height="648"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="dPU-Xm-NzS" secondAttribute="height" multiplier="1:2.1" id="Isr-LK-PTo"/>
+                                    <constraint firstAttribute="width" secondItem="dPU-Xm-NzS" secondAttribute="height" multiplier="38:81" id="zTk-J8-hft"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -108,8 +108,9 @@
                         <constraints>
                             <constraint firstItem="dPU-Xm-NzS" firstAttribute="leading" secondItem="ydc-SY-1hP" secondAttribute="leading" constant="55" id="3Ig-yP-6hH"/>
                             <constraint firstItem="ydc-SY-1hP" firstAttribute="trailing" secondItem="dPU-Xm-NzS" secondAttribute="trailing" constant="55" id="UHD-zq-NIw"/>
-                            <constraint firstItem="dPU-Xm-NzS" firstAttribute="centerY" secondItem="e4u-Ro-moi" secondAttribute="centerY" id="cXm-dy-PfK"/>
                             <constraint firstItem="dPU-Xm-NzS" firstAttribute="centerX" secondItem="e4u-Ro-moi" secondAttribute="centerX" id="ccS-Fk-Oad"/>
+                            <constraint firstItem="dPU-Xm-NzS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ydc-SY-1hP" secondAttribute="top" constant="50" id="mnI-Si-84y"/>
+                            <constraint firstItem="dPU-Xm-NzS" firstAttribute="centerY" secondItem="e4u-Ro-moi" secondAttribute="centerY" id="x6d-cD-s95"/>
                         </constraints>
                     </view>
                     <connections>
@@ -128,7 +129,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vog-kU-eYW">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vog-kU-eYW">
                                 <rect key="frame" x="0.0" y="144" width="414" height="608"/>
                             </imageView>
                         </subviews>

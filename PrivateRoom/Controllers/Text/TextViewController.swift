@@ -496,7 +496,7 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCollectionViewCell.identifier, for: indexPath) as! FolderCollectionViewCell
         
             //cell 크기 고정
-            cell.viewLayout(width: view.fs_width/2 - 30, height: 170)
+            cell.viewLayout(width: view.fs_width/2 - 30, height: view.fs_width/2 - 30)
             cell.cellDelegate = self
             cell.view.layer.borderColor = UIColor.darkGray.cgColor
             cell.view.layer.masksToBounds = true

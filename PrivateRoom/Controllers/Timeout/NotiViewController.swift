@@ -146,10 +146,14 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
         collectionView.register(TimeOutCollectionViewCell.nib(), forCellWithReuseIdentifier: TimeOutCollectionViewCell.identifier)
         collectionView.allowsSelection = true
         collectionView.isUserInteractionEnabled = true
+        let flowLayout = UICollectionViewFlowLayout()
+        collectionView.collectionViewLayout = flowLayout
+        flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        flowLayout.headerReferenceSize = CGSize(width: 0, height: 50)
         
 //        collectionView.collectionViewLayout = CollectionViewLeftAlignFlowLayout()
 //        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-//                    flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+//            flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
 //            flowLayout.minimumInteritemSpacing = 0
 //            flowLayout.minimumLineSpacing = 0
 //            flowLayout.sectionHeadersPinToVisibleBounds = true
@@ -276,7 +280,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeOutCollectionViewCell.identifier, for: indexPath) as? TimeOutCollectionViewCell
         cell?.delegate = self
         cell?.configure(model: filteredtimeOut[indexPath.row]!)
-        cell?.configureHeight(with: 160)
+        cell?.configureHeight(with: Int(view.fs_width) * 5 / 3 )
         cell?.indexPath = indexPath
         return cell!
     }
@@ -338,7 +342,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
             sortingButton.setTitle(sortingButtonText.string, for: .normal)
             sortingButton.setTitleColor(UIColor.gray, for: .normal)
             headerView.addSubview(sortingButton)
-            sortingButton.frame = CGRect(x: headerView.frame.maxX - 100, y: 10, width: 100, height: 30)
+            sortingButton.frame = CGRect(x: view.frame.maxX - 120, y: 10, width: 100, height: 30)
 
             sortingButton.addTarget(self, action: #selector(didTapSortingButton), for: .touchUpInside)
 

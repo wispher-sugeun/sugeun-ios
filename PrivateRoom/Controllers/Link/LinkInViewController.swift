@@ -67,8 +67,7 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
 
     @IBOutlet weak var stackViewHeight: NSLayoutConstraint!
     
-    var oneFolderHeight = 170
-    var oneLinkCellHeight = 200
+    var oneLinkCellHeight = 0
     
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -156,6 +155,8 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        oneLinkCellHeight = Int(self.view.fs_width * 3 / 5)
+        print("one link cell \(oneLinkCellHeight)")
         buttonSetting()
         textFieldSetting(textField: searchTextField)
         tapGestureSetting()
@@ -185,18 +186,19 @@ class LinkInViewController: UIViewController, FolderCollectionViewCellDelegate, 
             self.filteredLinkFolder = self.mainViewModel
  
             self.folderCollectionView.reloadData()
-            
+            let folderHeight = view.fs_width / 2 - 30
             //데이터 0 이상시 뷰 그리기
+            
+            //link folder height constant
             if(total?.folderResDTOList?.count != 0 ){
                 print("here folderCollectionView no Hidden")
                 folderCollectionView.isHidden = false
-                /// cell + 70(margin)
+                /// folderHeight + 70(margin)
                 if((total?.folderResDTOList!.count)! <= 2){
-                    footerViewheight.constant = CGFloat(oneLinkCellHeight + 50 + 20)
+                    footerViewheight.constant = CGFloat(folderHeight + 50 + 20)
                 }else{
                     let count = ((total?.folderResDTOList!.count)! / 2) + 1
-                    footerViewheight.constant = CGFloat((oneLinkCellHeight * count) + 50 + 20)
-                    
+                    footerViewheight.constant = CGFloat(((Int(folderHeight)  * count) + 50 + 20))
                 }
                 
                 self.folderCollectionView.reloadData()
@@ -780,7 +782,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FolderCollectionViewCell.identifier, for: indexPath) as! FolderCollectionViewCell
         //cell 크기 고정
-        cell.viewLayout(width: view.fs_width/2 - 30, height: CGFloat(oneFolderHeight))
+        cell.viewLayout(width: view.fs_width/2 - 30, height: view.fs_width/2 - 30)
         cell.cellDelegate = self
         cell.view.layer.borderColor = UIColor.darkGray.cgColor
         cell.view.layer.masksToBounds = true

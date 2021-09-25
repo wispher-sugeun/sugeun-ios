@@ -312,10 +312,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="34w-Ff-F75" userLabel="AlarmView">
-                                <rect key="frame" x="60" y="144" width="294" height="537"/>
+                                <rect key="frame" x="60" y="144" width="294" height="608"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="u3V-IW-Y4h">
-                                        <rect key="frame" x="0.0" y="50" width="294" height="457"/>
+                                        <rect key="frame" x="0.0" y="50" width="294" height="528"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableView>
@@ -356,7 +356,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="brD-im-sQT">
-                                        <rect key="frame" x="0.0" y="507" width="294" height="30"/>
+                                        <rect key="frame" x="0.0" y="578" width="294" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오후 12시에 알림 메세지를 받으실 수 있습니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8O-Eq-vT8">
                                                 <rect key="frame" x="0.0" y="0.0" width="294" height="30"/>
@@ -379,7 +379,6 @@
                                 <constraints>
                                     <constraint firstItem="u3V-IW-Y4h" firstAttribute="top" secondItem="ZFN-da-OWj" secondAttribute="bottom" id="1Yt-oW-3cT"/>
                                     <constraint firstItem="u3V-IW-Y4h" firstAttribute="leading" secondItem="34w-Ff-F75" secondAttribute="leading" id="1g0-M7-Rev"/>
-                                    <constraint firstAttribute="width" secondItem="34w-Ff-F75" secondAttribute="height" multiplier="150:274" id="6Ar-9E-Cn5"/>
                                     <constraint firstItem="ZFN-da-OWj" firstAttribute="leading" secondItem="34w-Ff-F75" secondAttribute="leading" id="B1O-xQ-UkS"/>
                                     <constraint firstAttribute="bottom" secondItem="brD-im-sQT" secondAttribute="bottom" id="DqC-TC-Gpy"/>
                                     <constraint firstItem="brD-im-sQT" firstAttribute="leading" secondItem="34w-Ff-F75" secondAttribute="leading" id="GbG-rh-95f"/>
@@ -395,6 +394,7 @@
                         <color key="backgroundColor" white="1" alpha="0.81245068682740063" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="34w-Ff-F75" firstAttribute="leading" secondItem="aQU-Ys-ZFa" secondAttribute="leading" constant="60" id="F8l-jq-Ht0"/>
+                            <constraint firstItem="34w-Ff-F75" firstAttribute="centerY" secondItem="Iet-7h-7Ad" secondAttribute="centerY" id="Ymz-81-OOJ"/>
                             <constraint firstItem="34w-Ff-F75" firstAttribute="top" secondItem="aQU-Ys-ZFa" secondAttribute="top" constant="100" id="i3q-TM-fL6"/>
                             <constraint firstItem="34w-Ff-F75" firstAttribute="centerX" secondItem="Iet-7h-7Ad" secondAttribute="centerX" id="pWJ-11-Bon"/>
                             <constraint firstItem="aQU-Ys-ZFa" firstAttribute="trailing" secondItem="34w-Ff-F75" secondAttribute="trailing" constant="60" id="vDU-OW-ch1"/>
