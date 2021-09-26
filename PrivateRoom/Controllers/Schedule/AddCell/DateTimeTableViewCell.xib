@@ -102,6 +102,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="amButton" destination="E8X-kz-H8A" id="EEa-7H-Aho"/>
+                <outlet property="minuteTextField" destination="PrH-9a-0Uf" id="T58-BK-amw"/>
                 <outlet property="pmButton" destination="6T0-Jm-BQm" id="UMj-3H-qYu"/>
                 <outlet property="timeTextField" destination="cl5-Yy-29K" id="x21-SI-I9e"/>
             </connections>

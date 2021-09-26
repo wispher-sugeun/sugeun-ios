@@ -34,7 +34,6 @@ extension UITextField {
         self.clipsToBounds = true
     }
     
-    
     func updatePhoneNumber(_ replacementString: String?, _ textString: String?) -> Bool {
         guard let textCount = textString?.count else {return true}
         guard let currentString = self.text else {return true}
@@ -158,6 +157,10 @@ extension Date {
     
         public var hour: Int {
              return Calendar.current.component(.hour, from: self)
+        }
+    
+        public var minute: Int {
+            return Calendar.current.component(.minute, from: self)
         }
         
         public var monthName: String {

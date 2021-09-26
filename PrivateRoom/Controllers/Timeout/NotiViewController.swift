@@ -217,11 +217,8 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         more_dropDown.anchorView = cell.moreButton
         more_dropDown.show()
         selectedCellIndexPath = cell.indexPath!
-        print(selectedCellIndexPath)
         more_dropDown.backgroundColor = UIColor.white
         more_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            print("선택한 아이템 : \(item)")
-            print("인덱스 : \(index)")
             
             if(index == 0){ // 수정 view로 이동
                     //TO DO -> update folder Name
@@ -288,10 +285,13 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = filteredtimeOut[indexPath.row]
         let viewNoti =  self.storyboard?.instantiateViewController(identifier: "ViewNoti") as! ViewNotiController
-        viewNoti.titleString = cell!.title
-        viewNoti.imageData = cell?.imageData
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.pushViewController(viewNoti, animated: true)
+        if(cell?.isValid == true) { // 비활성화 x시
+            viewNoti.titleString = cell!.title
+            viewNoti.imageData = cell?.imageData
+            self.navigationController?.isNavigationBarHidden = false
+            self.navigationController?.pushViewController(viewNoti, animated: true)
+        }
+        
 
     }
     

@@ -24,6 +24,7 @@ class AddCalendarViewController: UIViewController {
 
     
     @IBOutlet weak var timeTextField: UITextField!
+    @IBOutlet weak var miniteTextField: UITextField!
     @IBOutlet weak var selectedAlarm: UILabel!
     
     var alarmRange = ["x", "하루 전", "2일 전", "3일 전", "4일 전", "5일 전", "6일 전", "일주일 전"]
@@ -147,15 +148,24 @@ class AddCalendarViewController: UIViewController {
     
     func postScheduleFormat(date: Date) -> String {
         var string = ""
+        var minites: String = ""
         string = DateUtil.serverSendDateFormat(date) + " "
         if(!amButton.isSelected){ // true이면
             if(timeTextField.text!.count == 1){
                 string += "0"
             }
-            string += timeTextField.text! + ":00"
+            if(miniteTextField.text!.count == 1){
+                minites += "0"
+            }
+            minites += miniteTextField.text!
+            string += timeTextField.text! + ":" + minites
         }else if (!pmButton.isSelected){
             guard let tempInt = Int(timeTextField.text!) else { return "" }
-            string += String(tempInt + 12) + ":00"
+            if(miniteTextField.text?.count == 1){
+                minites += "0"
+            }
+            minites += miniteTextField.text!
+            string += String(tempInt + 12) + ":" + minites
         }
         return string
     }
@@ -261,7 +271,7 @@ extension AddCalendarViewController: UITableViewDelegate, UITableViewDataSource,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
-        if(viewMode == true){
+        if(viewMode == true){ // 수정 모드
             if(indexPath.row == 0){
                 let cell = tableView.dequeueReusableCell(withIdentifier: TitleAddTableViewCell.identifier) as! TitleAddTableViewCell
                 self.titleTextField = cell.titleTextField
@@ -278,7 +288,11 @@ extension AddCalendarViewController: UITableViewDelegate, UITableViewDataSource,
                 self.amButton = cell.amButton
                 self.pmButton = cell.pmButton
                 self.timeTextField = cell.timeTextField
+                self.miniteTextField = cell.minuteTextField
                 let date = DateUtil.parseDateTime(selectedScheduled!.scheduleDate)
+                
+                self.miniteTextField.text = "\(date.minute)"
+                
                 if(date.hour > 12){
                     amButton.isSelected = true
                     self.timeTextField.text = "\(date.hour - 12)"
@@ -329,6 +343,7 @@ extension AddCalendarViewController: UITableViewDelegate, UITableViewDataSource,
                 self.amButton = cell.amButton
                 self.pmButton = cell.pmButton
                 self.timeTextField = cell.timeTextField
+                self.miniteTextField = cell.minuteTextField
                 return cell
             }else if(indexPath.row == 3){
                 let cell = tableView.dequeueReusableCell(withIdentifier: AlarmTableViewCell.identifier) as! AlarmTableViewCell

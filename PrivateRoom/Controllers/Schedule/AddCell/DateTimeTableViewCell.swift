@@ -35,6 +35,8 @@ class DateTimeTableViewCell: UITableViewCell {
     
     @IBOutlet weak var timeTextField: UITextField!
     
+    @IBOutlet weak var minuteTextField: UITextField!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
