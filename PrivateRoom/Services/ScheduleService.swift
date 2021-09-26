@@ -10,17 +10,11 @@ import Alamofire
 
 class ScheduleService {
     static var shared = ScheduleService()
-    
-    private let jwtToken: String
-    private let userId: Int
-    
-    init(){
-        userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
-        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
-    }
-    
+
     //스케쥴 조회 o
     func getSchedule(completion: @escaping (([GetScheduleResponse]) -> Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/schedules"
         let headers: HTTPHeaders = ["Authorization" : jwtToken,
                                     "Content-Type" : "application/json" ]
@@ -49,6 +43,8 @@ class ScheduleService {
     
     //스케쥴 생성 o
     func createSchedule(schedule: PostScheduleRequest, completion: @escaping (Int)-> (Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/schedules"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
@@ -86,6 +82,8 @@ class ScheduleService {
     
     //스케쥴 수정
     func editSchedule(schedule: PutScheduleRequest){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/schedules/\(schedule.scheduleId)"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -119,6 +117,9 @@ class ScheduleService {
     }
     
     func deleteSchedule(scheduleID: Int){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
+        
         let url =  Config.base_url + "/users/\(userId)/schedules/\(scheduleID)"
         let headers: HTTPHeaders = ["Authorization" : jwtToken,
                                     "Content-Type" : "application/json" ]

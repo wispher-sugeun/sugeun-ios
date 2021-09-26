@@ -20,7 +20,6 @@ class MakeAlarmViewController: UIViewController {
     var selectedIndex:[Int] = []
     
     @objc func didTapBack(){
-        print("here")
         self.navigationController?.popViewController(animated: true)
     }
     

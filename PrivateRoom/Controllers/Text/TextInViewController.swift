@@ -33,7 +33,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
         frameTableView.reloadData()
         
         if(textFolder.isEmpty && textCell.isEmpty){ // data가 없을때 footerview 없애기
-            print("data no")
+            //print("data no")
             frameTableView.tableFooterView = nil
             let noDataLabel: UILabel  = UILabel(frame: CGRect(x: 0, y: 0, width:frameTableView.bounds.size.width, height: frameTableView.bounds.size.height))
             noDataLabel.text          = "폴더 안에 데이터가 아직 존재하지 않습니다"
@@ -154,7 +154,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         navItem.title = folderName
-        print(folderName)
+        print("navItem.title \(folderName)")
         buttonSetting()
         textFieldSetting(textField: searchTextField)
         tapGestureSetting()
@@ -179,6 +179,7 @@ class TextInViewController: UIViewController, FolderCollectionViewCellDelegate {
     }
     
     func getData(){
+        navItem.title = folderName
         //total 값 folderdhk textCell에게 분기
         if((((total?.folderResDTOList!.isEmpty) != nil))) {
             textFolder = total.map { $0.folderResDTOList}!!
@@ -580,7 +581,7 @@ extension TextInViewController: UITableViewDelegate, UITableViewDataSource, Text
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if(tableView == frameTableView){
-            print("filteredTextCell.count \(filteredTextCell.count)")
+            //print("filteredTextCell.count \(filteredTextCell.count)")
             return filteredTextCell.count
         }else if(tableView == tblView){
             return sorting.count

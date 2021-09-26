@@ -574,10 +574,10 @@ extension TextViewController: UICollectionViewDataSource, UICollectionViewDelega
         let folderId = filteredTextFolder[indexPath.row].folderId
         DispatchQueue.global().async {
             FolderService.shared.viewFolder(folderId: folderId, completion: { (response) in
-                print("response \(response)")
                 textInVC.total = response
                 textInVC.folderName = self.filteredTextFolder[indexPath.row].folderName
                 textInVC.folderId = folderId
+                print("folder name \(textInVC.folderName)")
                 
                 textInVC.getData()
             }, errorHandler: { (error) in})

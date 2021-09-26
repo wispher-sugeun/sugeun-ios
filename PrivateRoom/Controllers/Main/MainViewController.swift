@@ -117,9 +117,17 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
             self.folders = response
             self.mainViewModels = self.folders.map({ return FolderViewModel(allFolder: $0)})
             self.filteredFolder = self.mainViewModels
-            //print("get folders : \(self.filteredFolder)")
+            print("get folders : \(self.filteredFolder)")
             self.folderCollectionView.reloadData()
-        }, errorHandler: { (error) in})
+        }, errorHandler: { (error) in
+            if(error == 500){
+                self.alertViewController(title: "로그인", message: "로그인 화면으로 이동합니다.", completion: { (response) in
+                    if(response == "OK"){
+                        UserLoginServices.shared.logout()
+                    }
+                })
+            }
+        })
         indicator.stopAnimating()
     }
     

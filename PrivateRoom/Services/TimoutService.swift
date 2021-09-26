@@ -11,17 +11,10 @@ import Alamofire
 class TimeoutService {
     static var shared = TimeoutService()
     
-    private let jwtToken: String
-    private let userId: Int
-    
-    init(){
-        userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
-        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
-    }
-    
-    
     //타임 아웃 생성
     func createTimeout(createTimoutRequest: CreateTimeoutRequest, completion: @escaping (Int) -> (Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url =  Config.base_url + "/users/\(userId)/timeouts"
         
     
@@ -100,6 +93,8 @@ class TimeoutService {
     
     //타임아웃 조회
     func getTimeout(completion: @escaping (([GetTimeoutResponse?]) -> (Void))) {
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/timeouts"
         
         
@@ -146,6 +141,8 @@ class TimeoutService {
     
     //타임아웃 사용
     func useTiemout(timeoutId: Int){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/timeouts/\(timeoutId)/valid"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -170,6 +167,9 @@ class TimeoutService {
     
     //타임 아웃 이미지 변경
     func updateTimeoutImage(timeoutId: Int, imageFile: Data){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
+        
         let url = Config.base_url + "/users/\(userId)/timeouts/\(timeoutId)"
         
         let headers: HTTPHeaders = [
@@ -198,6 +198,9 @@ class TimeoutService {
     
     //타임아웃 정보 업데이트
     func updateTimeoutInfo(timeoutId: Int, timeoutRequest: UpdateTimeoutRequest){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
+        
         let url = Config.base_url + "/users/\(userId)/timeouts/\(timeoutId)"
 
         let headers: HTTPHeaders = [
@@ -266,6 +269,8 @@ class TimeoutService {
     
     //타임아웃 삭제
     func deleteTimeout(timeoutId: Int){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/timeouts/\(timeoutId)"
         
         

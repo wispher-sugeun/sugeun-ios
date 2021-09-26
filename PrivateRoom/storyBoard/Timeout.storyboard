@@ -129,17 +129,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vog-kU-eYW">
-                                <rect key="frame" x="0.0" y="144" width="414" height="608"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vog-kU-eYW">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GSw-4u-jX5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vog-kU-eYW" firstAttribute="centerX" secondItem="Pvv-46-j6R" secondAttribute="centerX" id="PFv-7Q-Mrg"/>
-                            <constraint firstItem="vog-kU-eYW" firstAttribute="top" secondItem="GSw-4u-jX5" secondAttribute="top" constant="100" id="Vqh-pD-SXp"/>
+                            <constraint firstItem="GSw-4u-jX5" firstAttribute="bottom" secondItem="vog-kU-eYW" secondAttribute="bottom" id="2LO-eF-FPC"/>
                             <constraint firstItem="vog-kU-eYW" firstAttribute="trailing" secondItem="GSw-4u-jX5" secondAttribute="trailing" id="dKu-52-hEe"/>
-                            <constraint firstItem="vog-kU-eYW" firstAttribute="centerY" secondItem="Pvv-46-j6R" secondAttribute="centerY" id="nKB-5b-dVj"/>
+                            <constraint firstItem="vog-kU-eYW" firstAttribute="top" secondItem="GSw-4u-jX5" secondAttribute="top" id="oGX-28-B6p"/>
                             <constraint firstItem="vog-kU-eYW" firstAttribute="leading" secondItem="GSw-4u-jX5" secondAttribute="leading" id="tpa-6w-kpD"/>
                         </constraints>
                     </view>

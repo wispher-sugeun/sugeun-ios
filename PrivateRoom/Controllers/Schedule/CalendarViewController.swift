@@ -213,7 +213,7 @@ extension CalendarViewController: FSCalendarDataSource, FSCalendarDelegate {
         let events = filtered.map{ DateUtil.parseDateTime($0.scheduleDate) }
 
         for i in events {
-            if(i.day == date.day){
+            if(i.day == date.day && i.month == date.month){
                 return 1
             }
         }

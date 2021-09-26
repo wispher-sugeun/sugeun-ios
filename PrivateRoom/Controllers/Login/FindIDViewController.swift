@@ -34,9 +34,9 @@ class FindIDViewController: UIViewController {
             guard let number = phoneNumberTextField.text?.phoneMake() else { return }
             sendMessageText.isHidden = false
             UserLoginServices.shared.sendMessage(number: number, completion: { (response) in
-                self.authenCode = response
-                let message = LocalNotificationManager()
-                message.autheMessage(authenCode: self.authenCode)
+                self.authenCode = Int(response)!
+//                let message = LocalNotificationManager()
+//                message.autheMessage(authenCode: self.authenCode)
             }, errorHandler: { (error) in })
             
         }else{

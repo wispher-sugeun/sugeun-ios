@@ -11,18 +11,12 @@ import Alamofire
 class FolderService {
     static var shared = FolderService()
     
-    private let jwtToken: String
-    private let userId: Int
-    
-    init(){
-        userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
-        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
-    }
-    
-    
     //폴더 목록
     func getFolder(completion: @escaping ([GetFolderResponse]) -> (Void), errorHandler: @escaping (Int) -> (Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/folders"
+        print("login error \(userId)")
         print(url)
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
@@ -42,7 +36,7 @@ class FolderService {
                         let dataJSON = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
                         
                         let postData = try JSONDecoder().decode([GetFolderResponse].self, from: dataJSON)
-                        //print(postData)
+                        print(postData)
                         
                         completion(postData)
                     }catch let DecodingError.dataCorrupted(context) {
@@ -61,18 +55,16 @@ class FolderService {
                     }
                 case .failure(let error):
                     if let httpStatusCode = response.response?.statusCode {
-                          switch(httpStatusCode) {
-                          case 403:
+                        if(httpStatusCode == 403){
                             errorHandler(403)
-                            break
-
-                          default:
-                            break
-                          }
-                       }
-                    else {
-                        errorHandler(403)
+                        }else if(httpStatusCode == 500){
+                            errorHandler(500)
+                        }
+                        
+                    }else {
                         print("AF : \(error.localizedDescription)")
+                        errorHandler(500)
+                       
                        }
                     
             }
@@ -81,6 +73,9 @@ class FolderService {
     
     //타입 별 폴더 조회 PHRASE
     func getPhraseFolder(completion: @escaping ([GetByFolderResponse]) -> (Void),errorHandler: @escaping (Int) -> (Void) ){
+        
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/folders?type=PHRASE"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -127,6 +122,8 @@ class FolderService {
     
     //타입 별 폴더 조회 LINK
     func getLinkFolder(completion: @escaping ([GetByFolderResponse]) -> (Void), errorHandler: @escaping (Int) -> (Void)) {
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/folders?type=LINK"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
@@ -172,6 +169,8 @@ class FolderService {
     
     //폴더 생성 o
     func createFolder(folder: CreateFolderRequest, completion: @escaping (Bool) -> (Void), errorHandler: @escaping (Int) -> (Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/folders"
         
         let headers: HTTPHeaders = [
@@ -241,6 +240,8 @@ class FolderService {
     
     //폴더 id로 조회 o
     func viewFolder(folderId: Int, completion: @escaping ((DetailFolderResponse) -> Void), errorHandler: @escaping (Int) -> (Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -287,6 +288,8 @@ class FolderService {
     
     //폴더 이미지 변경
     func changeFolderImage(folderId: Int, changeImage: Data, completion: @escaping (Bool) -> (Void), errorHandler: @escaping (Int) -> (Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PATCH"
@@ -348,11 +351,10 @@ class FolderService {
     
     //폴더 이름 변경
     func changeFolderName(folderId: Int, changeName: String, errorHandler: @escaping (Int) -> (Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
-        
-//        var request = URLRequest(url: URL(string: url)!)
-//        request.httpMethod = "PATCH"
-        
+
         let headers: HTTPHeaders = [
             "Authorization" :jwtToken
         ]
@@ -415,6 +417,8 @@ class FolderService {
     
     //폴더 삭제
     func deleteFolder(folderId: Int, errorHandler: @escaping (Int) -> (Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)"
         
         var request = URLRequest(url: URL(string: url)!)

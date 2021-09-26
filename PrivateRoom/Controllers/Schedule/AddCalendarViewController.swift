@@ -149,7 +149,10 @@ class AddCalendarViewController: UIViewController {
         var string = ""
         string = DateUtil.serverSendDateFormat(date) + " "
         if(!amButton.isSelected){ // true이면
-            string += "0" + timeTextField.text! + ":00"
+            if(timeTextField.text!.count == 1){
+                string += "0"
+            }
+            string += timeTextField.text! + ":00"
         }else if (!pmButton.isSelected){
             guard let tempInt = Int(timeTextField.text!) else { return "" }
             string += String(tempInt + 12) + ":00"

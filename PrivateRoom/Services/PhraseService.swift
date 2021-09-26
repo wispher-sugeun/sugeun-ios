@@ -10,16 +10,12 @@ import Alamofire
 
 class PhraseService {
     static var shared = PhraseService()
-    
-    private let jwtToken: String
-    private let userId: Int
-    
-    init(){
-        userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
-        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
-    }
+
     
     func createPhrase(folderId: Int, createRequest: CreatePhraseRequest, completion: @escaping (Bool) ->(Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
+        
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)/phrases"
         
         
@@ -56,6 +52,8 @@ class PhraseService {
     }
     
     func updatePhrase(folderId: Int, phraseId: Int, text: String){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)/phrases/\(phraseId)"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -89,7 +87,8 @@ class PhraseService {
     }
     
     func deletePhrase(folderId: Int, phraseId: Int){
-        
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)/phrases/\(phraseId)"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -114,6 +113,8 @@ class PhraseService {
     
     //글귀 북마크 수정
     func phraseBookMark(phraseId: Int){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/phrases/\(phraseId)/bookmark"
         
         var request = URLRequest(url: URL(string: url)!)

@@ -765,9 +765,11 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
             //공백 있을 시 공백 제거
             urlString = urlString.replacingOccurrences(of: " ", with: "")
 
-            let url = URL(string: urlString)
             cell.title.text = filteredLinkCell[indexPath.row].title
-            cell.fetchURLPreview(url: url!)
+            if let url = URL(string: urlString) {
+                
+                cell.fetchURLPreview(url: url)
+            }
             cell.linkLabel.text = urlString
             if(filteredLinkCell[indexPath.row].bookmark) {
                 cell.bookMark.isSelected = true

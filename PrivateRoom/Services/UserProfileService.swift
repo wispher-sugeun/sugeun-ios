@@ -10,19 +10,12 @@ import Alamofire
 
 class UserProfileService {
     static var shared = UserProfileService()
-    private let jwtToken: String
-    private let userId: Int
-    
-    init(){
-        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
-        userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
-        
-        print("[UserProfileService] jwtToken : \(jwtToken)")
-        print("[UserProfileService] userId : \(userId)")
-    }
+
     
     //get 회원 프로필
     func getUserProfile(completion: @escaping ((GetProfileResponse?) -> Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
@@ -33,7 +26,7 @@ class UserProfileService {
         
 
         
-        AF.request(request).validate(statusCode: 200..<300).responseJSON { [self]
+        AF.request(request).validate(statusCode: 200..<300).responseJSON {
             (response) in
             print("[UserProfileService] get \(userId) 회원 프로필")
             switch response.result {
@@ -62,6 +55,8 @@ class UserProfileService {
     
     //이미지 업데이트
     func updateProfileImage(imgeFile: Data, completed: @escaping (Bool) -> (Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)"
         
         let headers: HTTPHeaders = [
@@ -96,6 +91,8 @@ class UserProfileService {
     
     //아이디 업데이트
     func updateProfileID(nickName: String, completion: @escaping (Bool) -> (Void), errorHandler: @escaping (Int) -> (Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)"
         
         let headers: HTTPHeaders = [
@@ -145,6 +142,8 @@ class UserProfileService {
     
     //기존 비밀번호 검증
     func verifyPassword(password: String, completion: @escaping (Bool) -> (Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/verify"
         
         
@@ -187,6 +186,8 @@ class UserProfileService {
     
     //비밀번호 변경하기
     func updateProfilePassword(password: String, completion: @escaping (Bool) -> (Void), errorHandler: @escaping (Int) -> (Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)"
         
         let headers: HTTPHeaders = [
@@ -240,6 +241,8 @@ class UserProfileService {
     
     //회원 탈퇴
     func quit(completion: @escaping ((Bool) -> (Void))){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)"
 //        var request = URLRequest(url: URL(string: url)!)
 //        request.httpMethod = "DELETE"
@@ -273,7 +276,8 @@ class UserProfileService {
     
     //알림 허용
     func updateAlarmValue(){
-        
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/alarm"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PATCH"
@@ -304,6 +308,8 @@ class UserProfileService {
     
     //북마크 조회
     func getMyBookMark(completion: @escaping (BookMarkProfileResponse) -> (Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/bookmark"
         
         var request = URLRequest(url: URL(string: url)!)

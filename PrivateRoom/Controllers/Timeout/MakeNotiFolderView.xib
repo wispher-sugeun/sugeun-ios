@@ -176,17 +176,14 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="P3G-aC-HMC">
-                                    <rect key="frame" x="10" y="60" width="340" height="50"/>
+                                    <rect key="frame" x="20" y="60" width="320" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="12p-vE-HSQ"/>
                                     </constraints>
                                 </datePicker>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="P3G-aC-HMC" secondAttribute="trailing" constant="10" id="0fu-5D-gf8"/>
-                                <constraint firstItem="N6R-Di-VAq" firstAttribute="leading" secondItem="e6E-eL-UR4" secondAttribute="leading" constant="10" id="G7h-Oi-wFX"/>
-                                <constraint firstAttribute="trailing" secondItem="N6R-Di-VAq" secondAttribute="trailing" constant="10" id="oJB-xI-Lom"/>
-                                <constraint firstItem="P3G-aC-HMC" firstAttribute="leading" secondItem="e6E-eL-UR4" secondAttribute="leading" constant="10" id="rnl-2V-yBA"/>
+                                <constraint firstItem="N6R-Di-VAq" firstAttribute="leading" secondItem="e6E-eL-UR4" secondAttribute="leading" constant="10" id="RA9-Q6-IGk"/>
                             </constraints>
                         </stackView>
                     </subviews>

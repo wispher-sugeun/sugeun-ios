@@ -9,8 +9,7 @@ import Foundation
 import Alamofire
 
 class UserLoginServices {
-    
-    //user에 대한 데이터 받아 올 것
+
     static var shared = UserLoginServices()
     
     //회원 가입 0
@@ -80,12 +79,12 @@ class UserLoginServices {
     }
     
     //휴대폰 인증 요청 0
-    func sendMessage(number: String, completion: @escaping ((Int) -> Void),errorHandler: @escaping (Int) -> (Void) ){
+    func sendMessage(number: String, completion: @escaping ((String) -> Void),errorHandler: @escaping (Int) -> (Void) ){
         print(number)
         let url = Config.base_url + "/api/send-sms"
         let parameters: [String: Any] = ["toNumber": number]
 
-        AF.request(url, method: .get, parameters: parameters).validate(statusCode: 200..<300).responseJSON { (response) in
+        AF.request(url, method: .get, parameters: parameters).validate(statusCode: 200..<300).responseString { (response) in
             print(response)
             print("[API] sms send")
             switch response.result {
@@ -93,7 +92,7 @@ class UserLoginServices {
                     print(obj)
                     print(type(of: obj))
                     
-                    let responses = obj as! Int
+                    let responses = obj
                     print(responses)
                     completion(responses)
                 case .failure(let error):
@@ -243,6 +242,7 @@ class UserLoginServices {
                         print(obj)
                         let dataJSON = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
                         let userData = try JSONDecoder().decode(LoginResponse.self, from: dataJSON)
+                        print("login error \(userData)")
                         UserDefaults.standard.setValue("1", forKey: UserDefaultKey.isNewUser)
                         UserDefaults.standard.setValue(loginUserInfo.nickname, forKey: UserDefaultKey.userNickName)
                         UserDefaults.standard.setValue(userData.userId, forKey: UserDefaultKey.userID)

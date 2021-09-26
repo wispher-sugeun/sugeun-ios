@@ -12,15 +12,9 @@ class LinkService {
     
     static var shared = LinkService()
     
-    private let jwtToken: String
-    private let userId: Int
-    
-    init(){
-        userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
-        jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
-    }
-    
     func createLink(folderId: Int, linkRequest: CreateLinkRequest){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)/links"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -57,6 +51,8 @@ class LinkService {
     
     //링크 수정
     func updateLink(folderId: Int, linkId: Int, link: UpdateLinkRequest){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/folders/\(folderId)/links/\(linkId)"
         
         var request = URLRequest(url: URL(string: url)!)
@@ -91,6 +87,9 @@ class LinkService {
     
     //링크 삭제
     func deleteLink(folderId: Int, linkId: Int, completion: @escaping (Bool)->(Void)){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
+        
         let url =  Config.base_url + "/users/\(userId)/folders/\(folderId)/links/\(linkId)"
         let headers: HTTPHeaders = ["Authorization" : jwtToken,
                                     "userId" : "\(userId)",
@@ -116,6 +115,8 @@ class LinkService {
     
     //링크 북마크 수정
     func linkBookMark(linkId: Int){
+        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/links/\(linkId)/bookmark"
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "PATCH"

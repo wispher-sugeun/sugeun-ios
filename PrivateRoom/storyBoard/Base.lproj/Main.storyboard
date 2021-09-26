@@ -160,13 +160,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQu-yq-Gaz" customClass="MakeFolder" customModule="PrivateRoom" customModuleProvider="target">
                                 <rect key="frame" x="60" y="120" width="255" height="427"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="cQu-yq-Gaz" secondAttribute="height" multiplier="255:427" id="NC8-lf-WWa"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="O0B-eP-GTN"/>
                         <color key="backgroundColor" red="0.92792880896366003" green="0.92792880896366003" blue="0.92792880896366003" alpha="0.81169087997335476" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="cQu-yq-Gaz" firstAttribute="leading" secondItem="O0B-eP-GTN" secondAttribute="leading" constant="60" id="4wJ-8d-uwL"/>
-                            <constraint firstItem="cQu-yq-Gaz" firstAttribute="top" secondItem="O0B-eP-GTN" secondAttribute="top" constant="120" id="6Hi-a3-jLH"/>
+                            <constraint firstItem="cQu-yq-Gaz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="O0B-eP-GTN" secondAttribute="top" constant="100" id="6Hi-a3-jLH"/>
                             <constraint firstItem="cQu-yq-Gaz" firstAttribute="centerY" secondItem="1kY-To-ump" secondAttribute="centerY" id="YJ7-05-1y2"/>
                             <constraint firstItem="cQu-yq-Gaz" firstAttribute="centerX" secondItem="1kY-To-ump" secondAttribute="centerX" id="jTV-Jk-oYo"/>
                             <constraint firstItem="O0B-eP-GTN" firstAttribute="trailing" secondItem="cQu-yq-Gaz" secondAttribute="trailing" constant="60" id="rqI-Ze-69g"/>

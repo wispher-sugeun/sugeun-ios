@@ -54,10 +54,9 @@ class FindPWViewController: UIViewController {
             UserLoginServices.shared.checkPhoneNumber(userId: userID, phoneNumber: phoneNumberTextField.text!, completed: { (response) in
                 if(response != 0){
                     self.authenCode = response
-                    let message = LocalNotificationManager()
-                    message.autheMessage(authenCode: self.authenCode)
+//                    let message = LocalNotificationManager()
+//                    message.autheMessage(authenCode: self.authenCode)
                 }
-            
             }, errorHandler: { (error ) in
                 self.alertViewController(title: "문자 발송 실패", message: "다시 문자 발송 해주세요", completion: { (response) in})
             })
