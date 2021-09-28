@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -333,7 +334,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="10글자 이내로 입력해주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3md-a7-Sgm">
-                                        <rect key="frame" x="40" y="99" width="234" height="26.5"/>
+                                        <rect key="frame" x="30" y="99" width="234" height="26.5"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -356,9 +357,9 @@
                                     <constraint firstAttribute="trailing" secondItem="eUv-b6-AX5" secondAttribute="trailing" constant="30" id="6Ay-3a-chA"/>
                                     <constraint firstItem="Uee-Gn-0xl" firstAttribute="leading" secondItem="uRV-FK-rLD" secondAttribute="leading" constant="20" id="74r-pl-Uwz"/>
                                     <constraint firstAttribute="trailing" secondItem="c5Z-Xg-5O7" secondAttribute="trailing" constant="10" id="7qk-TE-KWx"/>
+                                    <constraint firstAttribute="trailing" secondItem="3md-a7-Sgm" secondAttribute="trailing" constant="50" id="AC8-Ho-Pft"/>
                                     <constraint firstItem="eUv-b6-AX5" firstAttribute="leading" secondItem="uRV-FK-rLD" secondAttribute="leading" constant="30" id="EcT-7V-xen"/>
                                     <constraint firstItem="c5Z-Xg-5O7" firstAttribute="leading" secondItem="uRV-FK-rLD" secondAttribute="leading" constant="30" id="GfO-Nq-raz"/>
-                                    <constraint firstItem="3md-a7-Sgm" firstAttribute="centerX" secondItem="uRV-FK-rLD" secondAttribute="centerX" id="H42-8U-0gC"/>
                                     <constraint firstAttribute="bottom" secondItem="ODh-wP-RRb" secondAttribute="bottom" constant="20" id="Mjm-ZV-PhR"/>
                                     <constraint firstItem="zCj-jf-H0S" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Uee-Gn-0xl" secondAttribute="trailing" constant="8" symbolic="YES" id="Uld-fE-TEI"/>
                                     <constraint firstItem="ODh-wP-RRb" firstAttribute="centerX" secondItem="uRV-FK-rLD" secondAttribute="centerX" id="YDO-Im-yzN"/>
@@ -372,7 +373,7 @@
                                     <constraint firstItem="ODh-wP-RRb" firstAttribute="top" secondItem="cTx-nG-IkW" secondAttribute="bottom" constant="10" id="pRF-fd-vOP"/>
                                     <constraint firstItem="cTx-nG-IkW" firstAttribute="centerX" secondItem="uRV-FK-rLD" secondAttribute="centerX" id="qsb-PP-2Z3"/>
                                     <constraint firstItem="c5Z-Xg-5O7" firstAttribute="top" secondItem="zCj-jf-H0S" secondAttribute="bottom" constant="15" id="rms-my-PMN"/>
-                                    <constraint firstItem="3md-a7-Sgm" firstAttribute="leading" secondItem="uRV-FK-rLD" secondAttribute="leading" constant="40" id="ziW-3o-TZD"/>
+                                    <constraint firstItem="3md-a7-Sgm" firstAttribute="leading" secondItem="uRV-FK-rLD" secondAttribute="leading" constant="30" id="ziW-3o-TZD"/>
                                 </constraints>
                             </view>
                         </subviews>

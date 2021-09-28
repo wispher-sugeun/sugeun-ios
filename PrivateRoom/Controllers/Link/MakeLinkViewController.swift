@@ -122,6 +122,7 @@ class MakeLinkViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UISetting()
         linkTextViewSetting()
         if(editMode == true) {
             linkTitleTextField.text = link?.title
@@ -129,6 +130,15 @@ class MakeLinkViewController: UIViewController {
         }
 
  
+    }
+    
+    func UISetting(){
+        linkTitleTextField.borderStyle = .none
+        let border = CALayer()
+        border.frame = CGRect(x: 0, y: linkTitleTextField.frame.size.height - 1, width: linkTitleTextField.frame.width - 20, height: 1)
+        border.backgroundColor = UIColor.white.cgColor
+        linkTitleTextField.layer.addSublayer((border))
+        linkTitleTextField.textColor = UIColor.white
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

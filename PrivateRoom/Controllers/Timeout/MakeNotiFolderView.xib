@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -167,23 +168,23 @@
                             </connections>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="e6E-eL-UR4">
-                            <rect key="frame" x="20" y="477" width="360" height="110"/>
+                            <rect key="frame" x="0.0" y="477" width="400" height="110"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="기간 :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N6R-Di-VAq">
-                                    <rect key="frame" x="10" y="0.0" width="340" height="50"/>
+                                    <rect key="frame" x="20" y="0.0" width="360" height="50"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="P3G-aC-HMC">
-                                    <rect key="frame" x="20" y="60" width="320" height="50"/>
+                                    <rect key="frame" x="40" y="60" width="320" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="12p-vE-HSQ"/>
                                     </constraints>
                                 </datePicker>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="N6R-Di-VAq" firstAttribute="leading" secondItem="e6E-eL-UR4" secondAttribute="leading" constant="10" id="RA9-Q6-IGk"/>
+                                <constraint firstItem="N6R-Di-VAq" firstAttribute="leading" secondItem="e6E-eL-UR4" secondAttribute="leading" constant="20" id="RA9-Q6-IGk"/>
                             </constraints>
                         </stackView>
                     </subviews>
@@ -197,14 +198,14 @@
                         <constraint firstItem="e6E-eL-UR4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Fq0-qZ-ahM" secondAttribute="bottom" constant="10" id="GZP-im-58C"/>
                         <constraint firstAttribute="trailing" secondItem="aTc-K9-xW0" secondAttribute="trailing" constant="50" id="I5J-nJ-bhb"/>
                         <constraint firstItem="Fq0-qZ-ahM" firstAttribute="top" secondItem="FdQ-h7-ldX" secondAttribute="bottom" constant="20" id="J8s-hw-0wi"/>
-                        <constraint firstItem="e6E-eL-UR4" firstAttribute="leading" secondItem="UaZ-2D-lcj" secondAttribute="leading" constant="20" id="Kmd-jp-KtX"/>
+                        <constraint firstItem="e6E-eL-UR4" firstAttribute="leading" secondItem="UaZ-2D-lcj" secondAttribute="leading" id="Kmd-jp-KtX"/>
                         <constraint firstAttribute="bottom" secondItem="aTc-K9-xW0" secondAttribute="bottom" constant="20" id="SdT-Mf-LYM"/>
                         <constraint firstItem="aTc-K9-xW0" firstAttribute="leading" secondItem="UaZ-2D-lcj" secondAttribute="leading" constant="50" id="bLN-07-OlP"/>
                         <constraint firstItem="zb6-L5-vhk" firstAttribute="top" secondItem="e6E-eL-UR4" secondAttribute="bottom" constant="10" id="dAu-nR-rju"/>
                         <constraint firstAttribute="trailing" secondItem="deI-oV-rmG" secondAttribute="trailing" constant="15" id="gg1-hF-K44"/>
                         <constraint firstItem="aTc-K9-xW0" firstAttribute="top" secondItem="zb6-L5-vhk" secondAttribute="bottom" constant="10" id="nIO-7B-PjN"/>
                         <constraint firstItem="FdQ-h7-ldX" firstAttribute="top" secondItem="UaZ-2D-lcj" secondAttribute="top" constant="30" id="t7a-PO-gfE"/>
-                        <constraint firstAttribute="trailing" secondItem="e6E-eL-UR4" secondAttribute="trailing" constant="20" id="uGX-p6-cyf"/>
+                        <constraint firstAttribute="trailing" secondItem="e6E-eL-UR4" secondAttribute="trailing" id="uGX-p6-cyf"/>
                         <constraint firstItem="zb6-L5-vhk" firstAttribute="leading" secondItem="UaZ-2D-lcj" secondAttribute="leading" constant="10" id="uWG-t2-HXh"/>
                         <constraint firstItem="FdQ-h7-ldX" firstAttribute="leading" secondItem="UaZ-2D-lcj" secondAttribute="leading" constant="20" id="wEq-tv-eFT"/>
                     </constraints>

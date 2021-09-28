@@ -58,16 +58,12 @@ class MakeFolder: UIView {
         folderImage.contentMode = .scaleToFill
         
         folderTypeButton.addTarget(self, action: #selector(didTapFolderType), for: .touchUpInside)
-        
-//        folderNameTextField.borderStyle = .none
-//        let border = CALayer()
-//        border.frame = CGRect(x: 0, y: folderNameTextField.frame.size.height - 1, width: folderNameTextField.frame.width, height: folderNameTextField.frame.size.height)
-//        
-//        border.backgroundColor = UIColor.white.cgColor
-//        folderNameTextField.layer.addSublayer((border))
-//        folderNameTextField.layer.masksToBounds = true
-//        //folderNameTextField.textAlignment = .center
-//        folderNameTextField.textColor = UIColor.black
+        folderNameTextField.borderStyle = .none
+        let border = CALayer()
+        border.frame = CGRect(x: 0, y: folderNameTextField.frame.size.height - 1, width: folderNameTextField.frame.width, height: 1)
+        border.backgroundColor = UIColor.white.cgColor
+        folderNameTextField.layer.addSublayer((border))
+        folderNameTextField.textColor = UIColor.white
 
     }
     

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="552" height="748"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2QX-jy-DlS">
-                                        <rect key="frame" x="20" y="42.5" width="512" height="665.5"/>
+                                        <rect key="frame" x="20" y="47.5" width="512" height="660.5"/>
                                         <color key="backgroundColor" systemColor="systemGrayColor"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9AL-0V-i2E">
@@ -56,7 +57,7 @@
                                             <action selector="moreButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="vn3-gG-Id6"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUb-1W-q01" userLabel="bookMark">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUb-1W-q01" userLabel="bookMark">
                                         <rect key="frame" x="30" y="0.0" width="24.5" height="32.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="qUb-1W-q01" secondAttribute="height" multiplier="30:40" id="wG3-xS-Tdp"/>
@@ -68,8 +69,8 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRB-AO-t6Q">
-                                        <rect key="frame" x="64.5" y="5" width="42" height="32.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="64.5" y="5" width="37.5" height="37.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -87,9 +88,9 @@
                                     <constraint firstItem="2QX-jy-DlS" firstAttribute="centerX" secondItem="fXg-Is-upp" secondAttribute="centerX" id="O3i-Nj-F9O"/>
                                     <constraint firstAttribute="trailing" secondItem="dDC-n6-6Fm" secondAttribute="trailing" constant="20" id="UKg-hL-lM0"/>
                                     <constraint firstItem="dDC-n6-6Fm" firstAttribute="top" secondItem="fXg-Is-upp" secondAttribute="top" id="VJD-aw-dqT"/>
-                                    <constraint firstItem="2QX-jy-DlS" firstAttribute="top" secondItem="qUb-1W-q01" secondAttribute="bottom" constant="10" id="WTi-al-2JV"/>
+                                    <constraint firstItem="2QX-jy-DlS" firstAttribute="top" secondItem="qUb-1W-q01" secondAttribute="bottom" constant="15" id="WTi-al-2JV"/>
                                     <constraint firstItem="nPf-Qw-A0Q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9AL-0V-i2E" secondAttribute="trailing" constant="10" id="b19-2Q-KqX"/>
-                                    <constraint firstItem="2QX-jy-DlS" firstAttribute="top" secondItem="dDC-n6-6Fm" secondAttribute="bottom" constant="10" id="ev4-TV-SGZ"/>
+                                    <constraint firstItem="2QX-jy-DlS" firstAttribute="top" secondItem="dDC-n6-6Fm" secondAttribute="bottom" constant="15" id="ev4-TV-SGZ"/>
                                     <constraint firstAttribute="trailing" secondItem="2QX-jy-DlS" secondAttribute="trailing" constant="20" id="heP-bH-gdo"/>
                                     <constraint firstItem="9AL-0V-i2E" firstAttribute="leading" secondItem="fXg-Is-upp" secondAttribute="leading" constant="20" id="mIT-KY-L7y"/>
                                     <constraint firstItem="qUb-1W-q01" firstAttribute="top" secondItem="fXg-Is-upp" secondAttribute="top" id="p1H-Mi-OnM"/>

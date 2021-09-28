@@ -68,6 +68,7 @@ class MakeNotiFolderView: UIView {
     @IBAction func doneButton(_ sender: Any) {
         delegate?.done()
     }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadView()
@@ -97,8 +98,7 @@ class MakeNotiFolderView: UIView {
             
             nameTextField.borderStyle = .none
             let border = CALayer()
-            border.frame = CGRect(x: 0, y: nameTextField.frame.size.height - 1, width: nameTextField.frame.width/2, height: 1)
-            
+            border.frame = CGRect(x: 0, y: nameTextField.frame.size.height - 1, width: nameTextField.frame.width / 2 + 10, height: 1)
             border.backgroundColor = UIColor.white.cgColor
             nameTextField.layer.addSublayer((border))
             nameTextField.textColor = UIColor.white

@@ -115,7 +115,7 @@ class LinkService {
     
     //링크 북마크 수정
     func linkBookMark(linkId: Int){
-        let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
+        //let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
         let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/links/\(linkId)/bookmark"
         var request = URLRequest(url: URL(string: url)!)

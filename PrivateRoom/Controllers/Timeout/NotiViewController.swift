@@ -77,7 +77,7 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
         floatingButtonSetting(floatingButton)
         collectionViewSetting(collectionView: collectionView)
         textFieldSetting(textfield: searchTextField)
-        //flowSetting()
+        flowSetting()
         notUsedSorting()
         collectionView.reloadData()
         refreshing()
@@ -109,15 +109,14 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
         refreshControl.endRefreshing()
     }
     
-//    func flowSetting(){
-//        collectionView.collectionViewLayout = collectionViewLayout
-//        collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
-//
-//        collectionViewLayout.itemSize = CGSize(width: screenWidth / 2, height: screenWidth / 2)
-//        collectionViewLayout.minimumInteritemSpacing = 0
-//        collectionViewLayout.minimumLineSpacing = 0
-//
-//    }
+    func flowSetting(){
+        let collectionViewLayout = UICollectionViewFlowLayout()
+        collectionView.collectionViewLayout = collectionViewLayout
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+        collectionViewLayout.itemSize = CGSize(width: (screenWidth / 2) - 25, height: (screenWidth / 2) * (3.5 / 2) )
+        collectionViewLayout.minimumInteritemSpacing = 0
+        collectionViewLayout.minimumLineSpacing = 10
+    }
     
     func floatingButtonSetting(_: UIButton){
         floatingButton.circle()
@@ -277,7 +276,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeOutCollectionViewCell.identifier, for: indexPath) as? TimeOutCollectionViewCell
         cell?.delegate = self
         cell?.configure(model: filteredtimeOut[indexPath.row]!)
-        cell?.configureHeight(with: Int(view.fs_width) * 5 / 3 )
+        //cell?.configureHeight(width: screenSize.width, height: CGFloat(view.fs_width) * 5 / 3 )
         cell?.indexPath = indexPath
         return cell!
     }

@@ -16,7 +16,6 @@ class FolderService {
         let userId = UserDefaults.standard.integer(forKey:  UserDefaultKey.userID)
         let jwtToken = UserDefaults.standard.string(forKey: UserDefaultKey.jwtToken)!
         let url = Config.base_url + "/users/\(userId)/folders"
-        print("login error \(userId)")
         print(url)
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"

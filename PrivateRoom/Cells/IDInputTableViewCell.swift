@@ -24,8 +24,17 @@ class IDInputTableViewCell: UITableViewCell {
     static var identifier = "IDInputTableViewCell"
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        UISetting()
         // Initialization code
+    }
+    
+    func UISetting(){
+        textfield.borderStyle = .none
+        let border = CALayer()
+        border.frame = CGRect(x: 0, y: textfield.frame.size.height - 1, width: textfield.frame.width - 20, height: 1)
+        border.backgroundColor = UIColor.darkGray.cgColor
+        textfield.layer.addSublayer((border))
+        textfield.textColor = .black
     }
     
     @IBAction func IDChangeButton(_ sender: Any) {

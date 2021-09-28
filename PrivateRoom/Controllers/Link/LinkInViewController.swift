@@ -687,6 +687,7 @@ extension LinkInViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func bookmark(cell: LinkCollectionViewCell) {
         LinkService.shared.linkBookMark(linkId: linkCell[cell.indexPath!.row].linkId)
     }
+    
     func clipAction(cell: LinkCollectionViewCell) {
         print("click clip")
         let copyString = cell.linkLabel.text

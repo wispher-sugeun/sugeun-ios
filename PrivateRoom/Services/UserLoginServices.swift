@@ -242,7 +242,6 @@ class UserLoginServices {
                         print(obj)
                         let dataJSON = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
                         let userData = try JSONDecoder().decode(LoginResponse.self, from: dataJSON)
-                        print("login error \(userData)")
                         UserDefaults.standard.setValue("1", forKey: UserDefaultKey.isNewUser)
                         UserDefaults.standard.setValue(loginUserInfo.nickname, forKey: UserDefaultKey.userNickName)
                         UserDefaults.standard.setValue(userData.userId, forKey: UserDefaultKey.userID)
@@ -253,8 +252,6 @@ class UserLoginServices {
                     }
                     break
                 case .failure(let error):
-                    print("login error \(error)")
-                    //let statusCode = response.response?.statusCode
                     if let httpStatusCode = response.response?.statusCode {
                           switch(httpStatusCode) {
                           case 401:
