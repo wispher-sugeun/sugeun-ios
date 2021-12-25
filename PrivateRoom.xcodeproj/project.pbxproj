@@ -29,6 +29,7 @@
 		8E2B835D26AD724600AC2570 /* LayoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E2B835B26AD724400AC2570 /* LayoutTableViewCell.xib */; };
 		8E2B835F26ADD1DA00AC2570 /* LinkInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B835E26ADD1D800AC2570 /* LinkInViewController.swift */; };
 		8E2B836126AFDF5600AC2570 /* MakeLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B836026AFDF5500AC2570 /* MakeLinkViewController.swift */; };
+		8E5AFEC427778B4000459100 /* PrivateRoomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5AFEC327778B4000459100 /* PrivateRoomTests.swift */; };
 		8E5B805D26BD1EBD0030D4B9 /* UserProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B805C26BD1EBC0030D4B9 /* UserProfileService.swift */; };
 		8E5B806026BD20660030D4B9 /* GetProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B805F26BD20660030D4B9 /* GetProfileResponse.swift */; };
 		8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */; };
@@ -110,6 +111,16 @@
 		AAC47C21F15A770385ECE65C /* Pods_PrivateRoom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575ACDD701EBBB7F03E428A0 /* Pods_PrivateRoom.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8E5AFEC527778B4000459100 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E782AC42647D3A400D93D89 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E782ACB2647D3A400D93D89;
+			remoteInfo = PrivateRoom;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		8E1D607D26B92BCC00DF53FE /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -152,6 +163,8 @@
 		8E2B835B26AD724400AC2570 /* LayoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutTableViewCell.xib; sourceTree = "<group>"; };
 		8E2B835E26ADD1D800AC2570 /* LinkInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInViewController.swift; sourceTree = "<group>"; };
 		8E2B836026AFDF5500AC2570 /* MakeLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeLinkViewController.swift; sourceTree = "<group>"; };
+		8E5AFEC127778B4000459100 /* PrivateRoomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrivateRoomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E5AFEC327778B4000459100 /* PrivateRoomTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateRoomTests.swift; sourceTree = "<group>"; };
 		8E5B805C26BD1EBC0030D4B9 /* UserProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileService.swift; sourceTree = "<group>"; };
 		8E5B805F26BD20660030D4B9 /* GetProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProfileResponse.swift; sourceTree = "<group>"; };
 		8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
@@ -237,6 +250,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8E5AFEBE27778B4000459100 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8E782AC92647D3A400D93D89 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -316,6 +336,14 @@
 			path = Link;
 			sourceTree = "<group>";
 		};
+		8E5AFEC227778B4000459100 /* PrivateRoomTests */ = {
+			isa = PBXGroup;
+			children = (
+				8E5AFEC327778B4000459100 /* PrivateRoomTests.swift */,
+			);
+			path = PrivateRoomTests;
+			sourceTree = "<group>";
+		};
 		8E5B805E26BD20480030D4B9 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +419,7 @@
 			children = (
 				8EFB43FD26F88355007A6949 /* InfoPlist.strings */,
 				8E782ACE2647D3A400D93D89 /* PrivateRoom */,
+				8E5AFEC227778B4000459100 /* PrivateRoomTests */,
 				8E782ACD2647D3A400D93D89 /* Products */,
 				4DC061FE5DC5F6F65D3BB4E0 /* Pods */,
 				8826930ABBF759B20E82CA9E /* Frameworks */,
@@ -401,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				8E782ACC2647D3A400D93D89 /* PrivateRoom.app */,
+				8E5AFEC127778B4000459100 /* PrivateRoomTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -573,6 +603,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8E5AFEC027778B4000459100 /* PrivateRoomTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E5AFEC927778B4000459100 /* Build configuration list for PBXNativeTarget "PrivateRoomTests" */;
+			buildPhases = (
+				8E5AFEBD27778B4000459100 /* Sources */,
+				8E5AFEBE27778B4000459100 /* Frameworks */,
+				8E5AFEBF27778B4000459100 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8E5AFEC627778B4000459100 /* PBXTargetDependency */,
+			);
+			name = PrivateRoomTests;
+			productName = PrivateRoomTests;
+			productReference = 8E5AFEC127778B4000459100 /* PrivateRoomTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8E782ACB2647D3A400D93D89 /* PrivateRoom */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E782AE32647D3AC00D93D89 /* Build configuration list for PBXNativeTarget "PrivateRoom" */;
@@ -599,9 +647,13 @@
 		8E782AC42647D3A400D93D89 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					8E5AFEC027778B4000459100 = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 8E782ACB2647D3A400D93D89;
+					};
 					8E782ACB2647D3A400D93D89 = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -622,11 +674,19 @@
 			projectRoot = "";
 			targets = (
 				8E782ACB2647D3A400D93D89 /* PrivateRoom */,
+				8E5AFEC027778B4000459100 /* PrivateRoomTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8E5AFEBF27778B4000459100 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8E782ACA2647D3A400D93D89 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -704,6 +764,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8E5AFEBD27778B4000459100 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E5AFEC427778B4000459100 /* PrivateRoomTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8E782AC82647D3A400D93D89 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -788,6 +856,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		8E5AFEC627778B4000459100 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E782ACB2647D3A400D93D89 /* PrivateRoom */;
+			targetProxy = 8E5AFEC527778B4000459100 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		8E782AD52647D3A400D93D89 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -818,6 +894,56 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8E5AFEC727778B4000459100 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J2Z4ZN37P4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Develop.PrivateRoomTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrivateRoom.app/PrivateRoom";
+			};
+			name = Debug;
+		};
+		8E5AFEC827778B4000459100 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J2Z4ZN37P4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Develop.PrivateRoomTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrivateRoom.app/PrivateRoom";
+			};
+			name = Release;
+		};
 		8E782AE12647D3AC00D93D89 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1001,6 +1127,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8E5AFEC927778B4000459100 /* Build configuration list for PBXNativeTarget "PrivateRoomTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E5AFEC727778B4000459100 /* Debug */,
+				8E5AFEC827778B4000459100 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8E782AC72647D3A400D93D89 /* Build configuration list for PBXProject "PrivateRoom" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

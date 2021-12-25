@@ -9,6 +9,7 @@ import UIKit
 import DropDown
 import PhotosUI
 import NVActivityIndicatorView
+import Combine
 
 class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     
@@ -52,10 +53,9 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
     var configuration = PHPickerConfiguration()
     
     @IBOutlet weak var floatingButton: UIButton!
-    
     @IBOutlet weak var searchTextField: UITextField!
-
     @IBOutlet weak var collectionView: UICollectionView!
+    
     var mainViewModel = [FolderViewModel]()
     var textFolder = [GetByFolderResponse]()
     var filteredTextFolder = [FolderViewModel]()
@@ -79,6 +79,9 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         dropDown.dataSource = ["이름 변경", "이미지 변경", "폴더 삭제"] //TODO : how dataSource 2 make red?
         return dropDown
     }()
+    
+    let subject = PassthroughSubject<String, Never>()
+    var bag = Set<AnyCancellable>()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -113,7 +116,15 @@ class TextViewController: UIViewController, PHPickerViewControllerDelegate {
         
         flowSetting()
         refreshing()
+        
+        let dismissKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        dismissKeyboardGesture.cancelsTouchesInView = false
+        collectionView.addGestureRecognizer(dismissKeyboardGesture)
       
+    }
+    
+    @objc func hideKeyboard(){
+        self.view.endEditing(true)
     }
     
     func refreshing(){
@@ -405,16 +416,22 @@ extension TextViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let searchText = textField.text! + string
-        if searchText.count >= 2{
-            filteredTextFolder = mainViewModel.filter({ (result) -> Bool in
-                result.folderName.range(of: searchText, options: .caseInsensitive) != nil
-            })
-        }else {
-            filteredTextFolder = mainViewModel
-        }
-       
-        collectionView.reloadData()
+        
+        let subscribe = subject.sink(receiveValue: { value in
+            if(value.count >= 1){
+                self.filteredTextFolder = self.mainViewModel.filter({ (result) -> Bool in
+                    result.folderName.range(of: value, options: .caseInsensitive) != nil
+                })
+            }else {
+                self.filteredTextFolder = self.mainViewModel
+            }
+            self.collectionView.reloadData()
+        })
+
+        guard let text = textField.text as NSString? else {return false}
+        let searchText = text.replacingCharacters(in: range, with: string)
+
+        subject.send(searchText)
         return true
         
     }

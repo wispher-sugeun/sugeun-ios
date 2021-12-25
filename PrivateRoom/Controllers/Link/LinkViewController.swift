@@ -9,6 +9,7 @@ import UIKit
 import DropDown
 import PhotosUI
 import NVActivityIndicatorView
+import Combine
 
 class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
 
@@ -31,11 +32,14 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     var configuration = PHPickerConfiguration()
     
+    let subject = PassthroughSubject<String, Never>()
+    var bag = Set<AnyCancellable>()
+    
+    
     func didTapMoreButton(cell: FolderCollectionViewCell) {
         more_dropDown.anchorView = cell.moreButton
         more_dropDown.show()
         selectedCellIndexPath = cell.indexPath
-        print(selectedCellIndexPath)
         more_dropDown.backgroundColor = UIColor.white
         more_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("선택한 아이템 : \(item)")
@@ -91,7 +95,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     let more_dropDown: DropDown = {
         let dropDown = DropDown()
         dropDown.width = 100
-        dropDown.dataSource = ["이름 변경", "이미지 변경", "폴더 삭제"] //TODO : how dataSource 2 make red?
+        dropDown.dataSource = ["이름 변경", "이미지 변경", "폴더 삭제"]
         return dropDown
     }()
     
@@ -113,6 +117,7 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         view.addSubview(indicator)
         fetchData()
     }
+    
     
     func fetchData(){
         indicator.startAnimating()
@@ -146,6 +151,14 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.folderImageChangedInLink(_:)), name: .folderImageChangedInLink, object: nil)
         flowSetting()
         refreshing()
+        
+        let dismissKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        dismissKeyboardGesture.cancelsTouchesInView = false
+        collectionView.addGestureRecognizer(dismissKeyboardGesture)
+    }
+    
+    @objc func hideKeyboard(){
+        self.view.endEditing(true)
     }
     
     func refreshing(){
@@ -189,7 +202,6 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     
     
     func floatingButtonSetting(button: UIButton){
-        // TO DO make circle
         floatingButton.addTarget(self, action: #selector(makeFolder), for: .touchUpInside)
         floatingButton.circle()
     }
@@ -199,7 +211,6 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
         if let dict = notification.userInfo as NSDictionary? {
             if let folderImage = dict["image"] as? UIImage {
                 let folderId = filteredLink[selectedCellIndexPath[1]].folderId
-                print("folderId \(folderId)")
                 FolderService.shared.changeFolderImage(folderId: folderId, changeImage: folderImage.jpeg(.lowest)!, completion: { (response) in
                     if(response == true){
                         self.fetchData()
@@ -213,7 +224,6 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
     func folderDelete(cell: FolderCollectionViewCell){
         
         let index = cell.indexPath.row
-        print("folderID : \(index)")
         FolderService.shared.deleteFolder(folderId: filteredLink[index].folderId, errorHandler: { (error) in})
         filteredLink.remove(at: index)
         self.alertViewController(title: "삭제 완료", message: "폴더를 삭제하였습니다", completion: { (response) in
@@ -266,9 +276,6 @@ class LinkViewController: UIViewController, FolderCollectionViewCellDelegate {
                 FolderService.shared.changeFolderName(folderId: folderId, changeName: userInput, errorHandler: { (error) in})
                 completionHandler(userInput)
             }
-            
-            
-           
         })
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
@@ -315,13 +322,6 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        let width  = (view.frame.width-20)/3
-//        print("linkVC width \(width)")
-//        return CGSize(width: width, height: width)
-//    }
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         if let flowLayout = self.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.invalidateLayout()
@@ -333,12 +333,6 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return 20
     }
     
-//    //옆 라인 간격
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0.2
-//    }
-    
-    //todo - make with navigation
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let linkVC = self.storyboard?.instantiateViewController(identifier: "linkFolderIn") as? LinkInViewController else { return }
         let folderId = filteredLink[indexPath.row].folderId
@@ -408,8 +402,6 @@ extension LinkViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let alertVC = UIViewController.init()
         let rect = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: 250.0)
         alertVC.preferredContentSize = rect.size
-        
-        
         tblView = UITableView(frame: rect)
         tblView.delegate = self
         tblView.dataSource = self
@@ -542,22 +534,25 @@ extension LinkViewController: UITableViewDelegate, UITableViewDataSource {
 extension LinkViewController: UITextFieldDelegate {
    
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        guard let text = textField.text else {return}
-        print("text \(text)")
+        guard let text = textField.text else { return }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let searchText = textField.text! + string
-        if searchText.count >= 1{
-            filteredLink = mainViewModels.filter({ (result) -> Bool in
-                result.folderName.range(of: searchText, options: .caseInsensitive) != nil
-            })
-            
-        }else {
-            filteredLink = mainViewModels
-        }
-       
-        collectionView.reloadData()
+        let subscribe = subject.sink(receiveValue: { value in
+            if(value.count >= 1){
+                self.filteredLink = self.mainViewModels.filter({ (result) -> Bool in
+                    result.folderName.range(of: value, options: .caseInsensitive) != nil
+                })
+            }else {
+                self.filteredLink = self.mainViewModels
+            }
+            self.collectionView.reloadData()
+            print("sub \(value)")
+        })
+        guard let text = textField.text as NSString? else {return false}
+        let searchText = text.replacingCharacters(in: range, with: string)
+        
+        subject.send(searchText)
         return true
         
     }

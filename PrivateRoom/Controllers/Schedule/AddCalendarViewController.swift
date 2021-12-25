@@ -210,11 +210,6 @@ class AddCalendarViewController: UIViewController {
         dismissKeyboardGesture.cancelsTouchesInView = false
         tableView.addGestureRecognizer(dismissKeyboardGesture)
         
-//        if(selectedDate != nil){
-//            datePicker.setDate(selectedDate!, animated: true)
-//        }
-        
-        
     }
     
     

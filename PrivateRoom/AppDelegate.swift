@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 import UserNotifications
 import AppTrackingTransparency
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
@@ -40,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
        let deviceToken = tokenParts.joined()
         //UserDefaults.standard.setValue(deviceToken, forKey: UserDefaultKey.jwtToken)
        print("Device Token: \(deviceToken)")
-
    }
 
    //foreground에서 알림이 온 상태
