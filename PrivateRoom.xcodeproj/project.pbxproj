@@ -30,6 +30,7 @@
 		8E2B835F26ADD1DA00AC2570 /* LinkInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B835E26ADD1D800AC2570 /* LinkInViewController.swift */; };
 		8E2B836126AFDF5600AC2570 /* MakeLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2B836026AFDF5500AC2570 /* MakeLinkViewController.swift */; };
 		8E5AFEC427778B4000459100 /* PrivateRoomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5AFEC327778B4000459100 /* PrivateRoomTests.swift */; };
+		8E5AFECB277795FF00459100 /* TimeoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5AFECA277795FF00459100 /* TimeoutViewModel.swift */; };
 		8E5B805D26BD1EBD0030D4B9 /* UserProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B805C26BD1EBC0030D4B9 /* UserProfileService.swift */; };
 		8E5B806026BD20660030D4B9 /* GetProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B805F26BD20660030D4B9 /* GetProfileResponse.swift */; };
 		8E66D205269ED8DB00F48C26 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */; };
@@ -165,6 +166,7 @@
 		8E2B836026AFDF5500AC2570 /* MakeLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeLinkViewController.swift; sourceTree = "<group>"; };
 		8E5AFEC127778B4000459100 /* PrivateRoomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrivateRoomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5AFEC327778B4000459100 /* PrivateRoomTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateRoomTests.swift; sourceTree = "<group>"; };
+		8E5AFECA277795FF00459100 /* TimeoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeoutViewModel.swift; sourceTree = "<group>"; };
 		8E5B805C26BD1EBC0030D4B9 /* UserProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileService.swift; sourceTree = "<group>"; };
 		8E5B805F26BD20660030D4B9 /* GetProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProfileResponse.swift; sourceTree = "<group>"; };
 		8E66D204269ED8DA00F48C26 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
@@ -574,6 +576,7 @@
 			isa = PBXGroup;
 			children = (
 				8EF3BFA7268F627400415150 /* FolderViewModel.swift */,
+				8E5AFECA277795FF00459100 /* TimeoutViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -808,6 +811,7 @@
 				8EF00F1626539CB300AA1EEA /* Model.swift in Sources */,
 				8E782AD22647D3A400D93D89 /* SceneDelegate.swift in Sources */,
 				8ED94269269D85C700B860BF /* MakeFolder.swift in Sources */,
+				8E5AFECB277795FF00459100 /* TimeoutViewModel.swift in Sources */,
 				8EB54A6426C605FE009C7F7C /* FolderService.swift in Sources */,
 				8E66D209269EDC5800F48C26 /* TextBookViewController.swift in Sources */,
 				8E2B834E26A7E14600AC2570 /* WriteViewController.swift in Sources */,

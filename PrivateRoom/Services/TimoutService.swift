@@ -27,9 +27,6 @@ class TimeoutService {
                                         "deadline" : createTimoutRequest.deadline,
                                         "isValid" : createTimoutRequest.isValid,
                                         "selected" : createTimoutRequest.selected ]
-
-        
-        print("parameter : \(parameter)")
     
         
         AF.upload(multipartFormData: { multipartFormData in

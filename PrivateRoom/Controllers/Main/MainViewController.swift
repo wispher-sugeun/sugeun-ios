@@ -169,25 +169,6 @@ class MainViewController: UIViewController, FolderCollectionViewCellDelegate {
         collectionViewLayout.minimumLineSpacing = 0
         
     }
-
-//    //폴더 이미지 변경
-//    @objc func folderImageChanged(_ notification: NSNotification){
-//        //text ~~
-//        print(notification.userInfo ?? "")
-//        print("folderImageChanged")
-//        if let dict = notification.userInfo as NSDictionary? {
-//            if let folderImage = dict["image"] as? UIImage {
-//                let folderId = filteredFolder[selectedCellIndexPath[1]].folderId
-//                FolderService.shared.changeFolderImage(folderId: folderId, changeImage: folderImage.jpeg(.lowest)!, completion: { (response) in
-//                    if(response == true){
-//                        self.fetchData()
-//                        self.alertViewController(title: "이미지 변경", message: "이미지가 변경되었습니다", completion: { (response) in})
-//                    }
-//                }, errorHandler: { (error) in})
-//            }
-//        }
-//
-//    }
     
     func folderDelete(cell: FolderCollectionViewCell){
         let index = cell.indexPath.row

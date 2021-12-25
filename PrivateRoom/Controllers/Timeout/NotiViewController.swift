@@ -19,8 +19,8 @@ enum MakeTimeoutError: Error {
 class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
 
     var defaultImage = UIImage(systemName: "questionmark.square")
-    var timeOut = [GetTimeoutResponse?]()
-    var filteredtimeOut = [GetTimeoutResponse?]()
+//    var timeOut = [GetTimeoutResponse?]()
+//    var filteredtimeOut = [GetTimeoutResponse?]()
     
     var screenSize: CGRect!
     var screenWidth: CGFloat!
@@ -46,6 +46,8 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     @IBOutlet weak var collectionView: UICollectionView!
     
     private var tblView = UITableView()
+    
+    let timeoutViewModel = TimeoutViewModel()
     
     var selectedCellIndexPath = IndexPath()
     var sorting = ["이름 순", "생성 순", "최신 순", "유효기간 순"]
@@ -85,13 +87,16 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
     
     func fetchData(){
         indicator.startAnimating()
-        TimeoutService.shared.getTimeout(completion: { (response) in
-            self.timeOut = response
-            self.filteredtimeOut = self.timeOut
-            self.collectionView.reloadData()
-            let notiManager = LocalNotificationManager()
-            notiManager.listScheduledNotifications()
-        })
+        self.timeoutViewModel.timeoutVC = self
+        self.timeoutViewModel.getTimeoutInfo()
+        
+//        TimeoutService.shared.getTimeout(completion: { (response) in
+//            self.timeOut = response
+//            self.filteredtimeOut = self.timeOut
+//            self.collectionView.reloadData()
+//            let notiManager = LocalNotificationManager()
+//            notiManager.listScheduledNotifications()
+//        })
         indicator.stopAnimating()
     }
     
@@ -180,10 +185,10 @@ class NotiViewController: UIViewController, UIGestureRecognizerDelegate{
                // if(self.timeOut[indexPath.row].isValid == false){ // isValid false인 경우에만 반응
                 self.alertWithNoViewController(title: "알림 삭제", message: "알림을 삭제 하시겠습니까?", completion: { [self] (response) in
                         if (response == "OK") {
-                            let deleteItem = filteredtimeOut[indexPath.row]
+                            let deleteItem = timeoutViewModel.filteredtimeOut[indexPath.row]
                             TimeoutService.shared.deleteTimeout(timeoutId: deleteItem!.timeoutId)
-                            timeOut.remove(at: indexPath.row)
-                            filteredtimeOut = timeOut
+                            timeoutViewModel.timeOut.remove(at: indexPath.row)
+                            timeoutViewModel.filteredtimeOut = timeoutViewModel.timeOut
                             DispatchQueue.main.async {
                                 collectionView.reloadData()
                             }
@@ -220,11 +225,10 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         more_dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             
             if(index == 0){ // 수정 view로 이동
-                    //TO DO -> update folder Name
                 let makeNotiFolderView = self.storyboard?.instantiateViewController(identifier: "MakeNotiFolderViewController") as! MakeNotiFolderViewController
                 makeNotiFolderView.editMode = true
                 let editTimeoutCell = (cell.indexPath?[1])!
-                makeNotiFolderView.timeOut = timeOut[editTimeoutCell]
+                makeNotiFolderView.timeOut = timeoutViewModel.timeOut[editTimeoutCell]
                 self.navigationController?.pushViewController(makeNotiFolderView, animated: true)
 //                makeNotiFolderView.modalPresentationStyle = .overCurrentContext
 //                self.present(makeNotiFolderView, animated: true, completion: nil)
@@ -235,14 +239,14 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
                         if (response == "OK") {
                             cell.inValidView.isHidden = false
                             self.alertViewController(title: "사용 완료", message: "쿠폰 사용 완료 되었습니다.", completion: {(response) in
-                                let timeoutId = filteredtimeOut[cell.indexPath!.row]!.timeoutId
+                                let timeoutId = timeoutViewModel.filteredtimeOut[cell.indexPath!.row]!.timeoutId
                                 TimeoutService.shared.useTiemout(timeoutId: timeoutId)
                                 
                                 
                                 //TO DO delete that identifier
                                 let notiManager = LocalNotificationManager()
-                                let notiidentifier = "t_\(filteredtimeOut[cell.indexPath!.row]!.timeoutId)_"
-                                let selectedArray: [Int] = filteredtimeOut[cell.indexPath!.row]!.selected
+                                let notiidentifier = "t_\(timeoutViewModel.filteredtimeOut[cell.indexPath!.row]!.timeoutId)_"
+                                let selectedArray: [Int] = timeoutViewModel.filteredtimeOut[cell.indexPath!.row]!.selected
                                 notiManager.deleteSchedule(notificationId: notiidentifier + "0")
                                 for i in selectedArray {
                                     notiManager.deleteSchedule(notificationId: notiidentifier +
@@ -269,20 +273,20 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filteredtimeOut.count
+        return timeoutViewModel.filteredtimeOut.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeOutCollectionViewCell.identifier, for: indexPath) as? TimeOutCollectionViewCell
         cell?.delegate = self
-        cell?.configure(model: filteredtimeOut[indexPath.row]!)
+        cell?.configure(model: timeoutViewModel.filteredtimeOut[indexPath.row]!)
         //cell?.configureHeight(width: screenSize.width, height: CGFloat(view.fs_width) * 5 / 3 )
         cell?.indexPath = indexPath
         return cell!
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = filteredtimeOut[indexPath.row]
+        let cell = timeoutViewModel.filteredtimeOut[indexPath.row]
         let viewNoti =  self.storyboard?.instantiateViewController(identifier: "ViewNoti") as! ViewNotiController
         if(cell?.isValid == true) { // 비활성화 x시
             viewNoti.titleString = cell!.title
@@ -293,30 +297,6 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
 
     }
-    
-
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//            let width = collectionView.bounds.width
-//            let height = collectionView.bounds.height
-////        print("width : \(collectionView.bounds.width / 2.5)")
-////            print("height : \(collectionView.bounds.height / 2)")
-//        return CGSize(width: (width / 2) - 140, height: height)
-//    }
-    
-    //위 아래 라인 간격
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 50
-//    }
-//
-//    //옆 라인 간격
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 1
-//    }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//           return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//        }
     
     //for cell info and sort
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -330,7 +310,7 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 sub.removeFromSuperview()
              }
             let folderCount = UILabel()
-            folderCount.text = "\(filteredtimeOut.count)개의 알림"
+            folderCount.text = "\(timeoutViewModel.filteredtimeOut.count)개의 알림"
             folderCount.textColor = UIColor.darkGray
             headerView.addSubview(folderCount)
             folderCount.frame = CGRect(x: 10, y: 10, width: 100, height: 30)
@@ -355,8 +335,8 @@ extension NotiViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
     
     func notUsedSorting(){
-        timeOut = timeOut.sorted(by: { $0?.isValid == false && $1?.isValid == true})
-        filteredtimeOut = timeOut
+        timeoutViewModel.timeOut = timeoutViewModel.timeOut.sorted(by: { $0?.isValid == false && $1?.isValid == true})
+        timeoutViewModel.filteredtimeOut = timeoutViewModel.timeOut
     }
     
     @objc func didTapSortingButton(){
@@ -440,11 +420,11 @@ extension NotiViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let searchText = textField.text! + string
         if searchText.count >= 2{
-            filteredtimeOut = timeOut.filter({ (result) -> Bool in
+            timeoutViewModel.filteredtimeOut = timeoutViewModel.timeOut.filter({ (result) -> Bool in
                 result!.title.range(of: searchText, options: .caseInsensitive) != nil
             })
         }else {
-            filteredtimeOut = timeOut
+            timeoutViewModel.filteredtimeOut = timeoutViewModel.timeOut
         }
        
         collectionView.reloadData()
@@ -455,9 +435,9 @@ extension NotiViewController: UITextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         textField.text = ""
-        self.filteredtimeOut.removeAll()
-        for str in timeOut {
-            filteredtimeOut.append(str)
+        self.timeoutViewModel.filteredtimeOut.removeAll()
+        for str in timeoutViewModel.timeOut {
+            timeoutViewModel.filteredtimeOut.append(str)
         }
         collectionView.reloadData()
         return false
@@ -466,12 +446,12 @@ extension NotiViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text?.count != 0 {
-            self.filteredtimeOut.removeAll()
-            for str in timeOut {
+            self.timeoutViewModel.filteredtimeOut.removeAll()
+            for str in timeoutViewModel.timeOut {
                 let name = str?.title.lowercased()
                 let range = name!.range(of: textField.text!, options: .caseInsensitive, range: nil, locale: nil)
                 if range != nil {
-                    self.filteredtimeOut.append(str)
+                    self.timeoutViewModel.filteredtimeOut.append(str)
                 }
                 
             }
@@ -527,25 +507,25 @@ extension NotiViewController: UITableViewDelegate, UITableViewDataSource {
     
     //sorting
     func sortingAlpanumeric(){
-        timeOut = timeOut.sorted {$0!.title.localizedStandardCompare($1!.title) == .orderedAscending}
-        filteredtimeOut = timeOut
+        timeoutViewModel.timeOut = timeoutViewModel.timeOut.sorted {$0!.title.localizedStandardCompare($1!.title) == .orderedAscending}
+        timeoutViewModel.filteredtimeOut = timeoutViewModel.timeOut
     }
     
     func sortingOldest(){
-        timeOut = timeOut.sorted { $0!.timeoutId < $1!.timeoutId }
-        filteredtimeOut = timeOut
+        timeoutViewModel.timeOut = timeoutViewModel.timeOut.sorted { $0!.timeoutId < $1!.timeoutId }
+        timeoutViewModel.filteredtimeOut = timeoutViewModel.timeOut
 
     }
     
     func sortingLatest(){
-        timeOut = timeOut.sorted { $0!.timeoutId > $1!.timeoutId }
-        filteredtimeOut = timeOut
+        timeoutViewModel.timeOut = timeoutViewModel.timeOut.sorted { $0!.timeoutId > $1!.timeoutId }
+        timeoutViewModel.filteredtimeOut = timeoutViewModel.timeOut
 
     }
     
     func sortingValidity(){
-        timeOut = timeOut.sorted { DateUtil.toSecond($0!.deadline) < DateUtil.toSecond($1!.deadline)}
-        filteredtimeOut = timeOut
+        timeoutViewModel.timeOut = timeoutViewModel.timeOut.sorted { DateUtil.toSecond($0!.deadline) < DateUtil.toSecond($1!.deadline)}
+        timeoutViewModel.filteredtimeOut = timeoutViewModel.timeOut
     }
     
     
@@ -556,6 +536,18 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
     var editMode: Bool = false
     var timeOut: GetTimeoutResponse?
     
+    let timeoutViewModel = TimeoutViewModel()
+    @IBOutlet weak var makeNotiFolderView: MakeNotiFolderView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        makeNotiFolderView.delegate = self
+        timeoutViewModel.makeNotiFolderView = makeNotiFolderView
+        if(editMode){
+            self.makeNotiFolderView.configure(cell: timeOut!)
+        }
+    }
+    
     func dissMiss() {
         self.navigationController?.popViewController(animated: true)
         //self.dismiss(animated: true, completion: nil)
@@ -565,47 +557,16 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
         do {
             
         try validate()
- 
-            print(makeNotiFolderView.nameTextField.text!)
- 
-            print(makeNotiFolderView.datePicker.date)
-            let intArray = alarmIntArray()
-            print(intArray)
-            let date = DateUtil.serverSendDateTimeFormat(makeNotiFolderView.datePicker.date)
             
+            let date = DateUtil.serverSendDateTimeFormat(makeNotiFolderView.datePicker.date)
             let userId = UserDefaults.standard.integer(forKey: UserDefaultKey.userID)
             
             if(editMode == true){ // 알림 수정에서 넘어온 데이터
-              
-                let updateTimeout = UpdateTimeoutRequest(timeoutId: timeOut!.timeoutId, userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: true, selected: intArray)
-                print("updateTimeout \(updateTimeout)")
-                print("timeoutID \(timeOut!.timeoutId)")
-                TimeoutService.shared.updateTimeoutInfo(timeoutId: timeOut!.timeoutId, timeoutRequest: updateTimeout)
-                TimeoutService.shared.updateTimeoutImage(timeoutId: timeOut!.timeoutId, imageFile: (makeNotiFolderView.imageView.image?.jpeg(.lowest))!)
-                            
-                //TO DO delete that identifier t_id_0
-                ////delete first - t_id_0
-                let notiManager = LocalNotificationManager()
-                let notiidentifier = "t_\(timeOut!.timeoutId)_"
+                let timeoutId = timeOut!.timeoutId
+                let updateTimeout = UpdateTimeoutRequest(timeoutId: timeOut!.timeoutId, userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: true, selected: timeoutViewModel.alarmIntArray())
                 let selectedArray: [Int] = timeOut!.selected
-                notiManager.deleteSchedule(notificationId: notiidentifier + "0")
-                for i in selectedArray {
-                    notiManager.deleteSchedule(notificationId: notiidentifier +
-                       "\(i)")
-                }
-                
-                ////set renew
-                
-                let dateComponents = DateComponents(year: makeNotiFolderView.datePicker.date.year, month: makeNotiFolderView.datePicker.date.month, day: makeNotiFolderView.datePicker.date.day, hour: 12, minute: 0, second: 0)
-                notiManager.notifications = [ Notifications(id: notiidentifier + "0", title: makeNotiFolderView.nameTextField.text!, datetime: dateComponents)]
-                print("create date : \(dateComponents)")
-                
-                for i in intArray {
-                    let dateComponents =  DateComponents(year: makeNotiFolderView.datePicker.date.year, month: makeNotiFolderView.datePicker.date.month, day: makeNotiFolderView.datePicker.date.day - i, hour: 12, minute: 0, second: 0)
-                    notiManager.notifications.append(Notifications(id: notiidentifier + "\(i)", title: makeNotiFolderView.nameTextField.text!, datetime: dateComponents))
-                }
-                notiManager.timeout()
-                
+                timeoutViewModel.updateTimeoutInfo(updateTimeout: updateTimeout, timeoutId: timeoutId, image: makeNotiFolderView.imageView.image!.jpeg(.lowest)!, selectedArray: selectedArray)
+            
                 self.alertViewController(title: "수정 완료", message: "알림이 수정되었습니다", completion: { (response) in
                     if(response == "OK"){
                         self.navigationController?.popViewController(animated: true)
@@ -614,23 +575,8 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
                 })
                 
             }else {
-                let createTimoutRequest = CreateTimeoutRequest(userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: true, selected: intArray, imageFile: (makeNotiFolderView.imageView.image?.jpeg(.lowest))!)
-                
-                TimeoutService.shared.createTimeout(createTimoutRequest: createTimoutRequest, completion: { (response) in
-                    //TO DO create noti
-                    let notiManager = LocalNotificationManager()
-                    let dateComponents = DateComponents(year: self.makeNotiFolderView.datePicker.date.year, month: self.makeNotiFolderView.datePicker.date.month, day: self.makeNotiFolderView.datePicker.date.day, hour: 12, minute: 0, second: 0)
-                    let notiidentifier = "t_\(response)_"
-                    notiManager.notifications = [ Notifications(id: notiidentifier + "0", title: self.makeNotiFolderView.nameTextField.text!, datetime: dateComponents)]
-                    print("create date : \(dateComponents)")
-                    
-                    //선택한 날짜에 대해 알림
-                    for i in intArray {
-                        let dateComponents =  DateComponents(year: self.makeNotiFolderView.datePicker.date.year, month: self.makeNotiFolderView.datePicker.date.month, day: self.makeNotiFolderView.datePicker.date.day - i, hour: 12, minute: 0, second: 0)
-                        notiManager.notifications.append(Notifications(id: notiidentifier + "\(i)", title: self.makeNotiFolderView.nameTextField.text!, datetime: dateComponents))
-                    }
-                    notiManager.timeout()
-                })
+                let createTimoutRequest = CreateTimeoutRequest(userId: userId, title: makeNotiFolderView.nameTextField.text!, deadline: date, isValid: true, selected: timeoutViewModel.alarmIntArray(), imageFile: (makeNotiFolderView.imageView.image?.jpeg(.lowest))!)
+                timeoutViewModel.createTimeoutInfo(createTimoutRequest: createTimoutRequest)
                 self.alertViewController(title: "생성 완료", message: "알림이 생성되었습니다", completion: { (response) in
                     if(response == "OK"){
                         self.navigationController?.popViewController(animated: true)
@@ -638,8 +584,6 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
                 })
             }
            
-            
-            
         }catch {
             var errorMessage: String = ""
             switch error as! MakeTimeoutError {
@@ -657,19 +601,6 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
         }
     }
     
-    func alarmIntArray() -> [Int] {
-        var intArray = [Int]()
-        if(makeNotiFolderView.weekDayButton.isSelected){
-            intArray.append(7)
-        }
-        if(makeNotiFolderView.threeDayButton.isSelected){
-            intArray.append(3)
-        }
-        if(makeNotiFolderView.oneDayButton.isSelected){
-            intArray.append(1)
-        }
-        return intArray
-    }
     
     func tapImageView() {
         var configuration = PHPickerConfiguration()
@@ -695,19 +626,6 @@ class MakeNotiFolderViewController: UIViewController, MakeNotiFolderViewdelegate
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
-    }
-
-    
-    
-    @IBOutlet weak var makeNotiFolderView: MakeNotiFolderView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        makeNotiFolderView.delegate = self
-        if(editMode){
-            print("eidt timeout is \(timeOut!)")
-            self.makeNotiFolderView.configure(cell: timeOut!)
-        }
     }
     
     
